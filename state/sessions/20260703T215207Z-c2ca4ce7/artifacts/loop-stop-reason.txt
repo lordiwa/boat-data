@@ -1,0 +1,9 @@
+Loop stop: goal 14/15 done, TASK-015 in_review awaiting human-only step.
+Reason: Gate 1 (outward-facing publish) + interactive Google auth — firebase login,
+project creation/selection, and the live deploy cannot be performed by the agent.
+All automatable TASK-015 criteria are verified locally (config, script, SPA fallback,
+README). No tickets skipped. Tickets TASK-001..014: done (each developer->reviewer
+cycle green; 2 BLOCK verdicts resolved via fix loops: TASK-003 idempotency HIGH,
+TASK-004 entity-type corruption 2x HIGH).
+Resume: after the human deploys and confirms the README smoke-test checklist,
+transition TASK-015 -> done. v1 goal then fully satisfied.

@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-ts
+dist-ts-node
+.vite
+public/data/graph.json
+*.local
+npm-debug.log*

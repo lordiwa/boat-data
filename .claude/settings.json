@@ -1,0 +1,21 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "node \"C:\\Fun\\hivemind\\hivemind\\context-monitor\\statusline.mjs\""
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node \"C:\\Fun\\hivemind\\hivemind\\context-monitor\\stop-hook.mjs\""
+      }
+    ],
+    "SessionStart": [
+      {
+        "type": "command",
+        "matcher": "clear|compact",
+        "command": "node \"C:\\Fun\\hivemind\\hivemind\\context-monitor\\session-start.mjs\""
+      }
+    ]
+  }
+}

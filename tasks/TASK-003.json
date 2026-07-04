@@ -1,0 +1,30 @@
+{
+  "key": "TASK-003",
+  "title": "Yacht mapper + entity resolution (dedup)",
+  "description": "Map parsed yacht table rows into graph nodes and edges, with entity resolution to collapse cross-file duplicates. Yachts (Eclipse, Koru, Dilbar, Azzam...) recur across 5+ files, so dedup on a normalized key of `name + builder + LOA`. For each resolved yacht create a `Yacht` node (attrs: loa, beam, year, value, weekly_rate, guests, cabins, features, location, source_file); create/reuse `Builder` and `Person` (owner) nodes; create `BUILT_BY` (Yacht->Builder) and `OWNED_BY` (Yacht->Person) edges. Merge attributes when the same entity appears in multiple files (prefer non-empty, keep provenance list). Upsert into SQLite via the db helper.\n\nPart of Phase 1 (Ingestion). Entity resolution is the make-or-break of graph quality. Source files: 42, 20, 13, 15, 74.",
+  "acceptance_criteria": [
+    "Yacht rows are deduped on normalized name+builder+LOA so a yacht appearing in multiple source files yields exactly one Yacht node",
+    "Merging keeps a provenance list of every source file an entity came from and prefers non-empty attribute values",
+    "Builder and Person nodes are created once and reused; BUILT_BY and OWNED_BY edges connect correctly",
+    "Re-running ingestion produces the same node/edge counts (idempotent upserts, no duplicate edges)",
+    "Unit tests cover dedup (same yacht from two files -> one node) and attribute-merge behavior"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-1",
+    "ingestion",
+    "entity-resolution"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-002"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:04:35.919Z",
+  "updated_at": "2026-07-04T00:10:00.442Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

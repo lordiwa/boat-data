@@ -1,0 +1,31 @@
+{
+  "key": "TASK-011",
+  "title": "Guided no-SQL query builder",
+  "description": "The core of the goal: let a non-technical user ask questions without writing SQL/Cypher. A visual query builder — pick an entity type (e.g. Yachts), then add filters via dropdowns/sliders (Builder is X, LOA between A and B, Region is Y, Owner net worth over Z), optionally 'connected to' a related entity (Yachts whose Builder is in Region = Italy). Runs against the in-memory graph and renders results in the sortable table component. Show the plain-English restatement of the query above the results ('Showing yachts built by Feadship, over 80m, available in the Caribbean'). Saveable/shareable via URL query params.\n\nPart of Phase 3 (Query & Reports). This is the single most important ticket for the stated goal.",
+  "acceptance_criteria": [
+    "A user can select an entity type and add multiple attribute filters via UI controls (no text query language)",
+    "Filters support equality, range (numeric), and 'related-to' relationship constraints across one hop",
+    "Results render in the sortable/filterable table component with a live result count",
+    "A plain-English restatement of the current query is shown above the results",
+    "The query state is encoded in the URL so a query can be bookmarked/shared and reproduces the same results"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-3",
+    "ui",
+    "query-builder",
+    "goal"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-009"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:06:15.715Z",
+  "updated_at": "2026-07-04T12:56:04.874Z",
+  "jira_key": null,
+  "verification_tier": "tests-after"
+}

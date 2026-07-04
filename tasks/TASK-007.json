@@ -1,0 +1,36 @@
+{
+  "key": "TASK-007",
+  "title": "Vue 3 + Vite app scaffold + graph store",
+  "description": "Scaffold the front-end: Vue 3 + Vite + Vue Router + Pinia + TypeScript, in an `app/` (or `web/`) folder. Load the ingestion `graph.json` into a Pinia store on startup with typed accessors: nodesByType(type), nodeById(id), edgesFrom(id), edgesTo(id), neighbors(id, rel?). Add a basic app shell (header, nav, router-view) and a home page showing the ingestion summary stats (counts by type) so a non-technical user immediately sees the scope of the data. Keep it read-only. Design should be clean and approachable (this is a 'personal Wikipedia', not a dev tool).\n\nPart of Phase 2 (UI foundation). Stack: Vue 3 + Vite, deploy target Firebase.",
+  "acceptance_criteria": [
+    "`npm run dev` serves a Vue 3 app that loads graph.json and renders without console errors",
+    "Pinia store exposes typed accessors: nodesByType, nodeById, edgesFrom, edgesTo, neighbors",
+    "Home page displays live counts by node type read from the loaded graph",
+    "App shell has header + navigation + router-view; routing between at least two pages works",
+    "Build (`npm run build`) produces a static bundle suitable for Firebase Hosting"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-2",
+    "ui",
+    "scaffold"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-006"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T11:44:14.801Z",
+      "body": "UAT (delegated to Orchestrator per session loop_auth): all 5 steps PASS — verified by Orchestrator at the human's request. Evidence: (1) dev+preview served, headless-Chromium 0 console/page errors; (2) typed store accessors compile under vue-tsc; (3) home renders live counts matching meta.types exactly; (4) nav Home->Explore routing confirmed in browser; (5) npm run build green (vue-tsc + vite, 99.1kB js gzip 38.8), dist/data/graph.json present and traversable (koru->built_by->Oceanco verified on shipped artifact by orchestrator independently)."
+    }
+  ],
+  "created_at": "2026-07-03T22:05:28.991Z",
+  "updated_at": "2026-07-04T11:44:19.989Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

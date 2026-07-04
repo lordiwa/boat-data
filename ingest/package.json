@@ -1,0 +1,18 @@
+{
+  "name": "datayacht-ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Ingestion pipeline: parses the /knowledge markdown corpus into a SQLite nodes+edges graph.",
+  "scripts": {
+    "ingest": "node src/ingest.js",
+    "verify-export": "node src/exporters/verifyExport.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.9"
+  }
+}

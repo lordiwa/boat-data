@@ -1,0 +1,30 @@
+{
+  "key": "TASK-002",
+  "title": "Markdown table parser with header validation",
+  "description": "Build a deterministic parser that reads a knowledge/*.md file, locates every markdown pipe table (`| ... |` blocks with a `---` separator row), and returns each table as { headers: string[], rows: object[] } keyed by column. CRITICAL: validate/normalize headers and expose them to callers so downstream mappers can guard against filename-lies (e.g. 62_Yacht_Builders_Data_Extraction.md opens with salary tables, not builders). Normalize header aliases (LOA/Length/Length (m); Builder/Shipyard; Year/Year Built/Delivered). Handle multi-table files, escaped pipes, and blank cells. Pure functions, no DB writes.\n\nPart of Phase 1 (Ingestion). Deterministic-parser-first decision — no LLM. Best test fixtures: files 42 (gold-standard yacht schema) and 20 (10-col yacht/owner/builder table).",
+  "acceptance_criteria": [
+    "Given a markdown file with N pipe tables, the parser returns N table objects each with headers[] and rows[] (row keys = normalized headers)",
+    "Header normalization maps known aliases (e.g. 'Length (m)', 'LOA' -> 'loa'; 'Shipyard' -> 'builder') to canonical keys",
+    "A table whose headers do not match an expected schema can be identified/skipped by callers (headers are always exposed)",
+    "Escaped pipes, blank cells, and files with zero tables are handled without throwing",
+    "Unit tests cover files 42 and 20 and assert correct row counts and sample field values"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-1",
+    "ingestion",
+    "parser"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-001"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:04:25.192Z",
+  "updated_at": "2026-07-03T22:31:23.439Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

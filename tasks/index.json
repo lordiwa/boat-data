@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-07-04T17:31:44.421Z",
+  "tasks": [
+    {
+      "key": "TASK-001",
+      "title": "Project scaffold + SQLite graph schema",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-002",
+      "title": "Markdown table parser with header validation",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-003",
+      "title": "Yacht mapper + entity resolution (dedup)",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-004",
+      "title": "Wave-A mappers: clubs, marinas, brokers, regions, engines",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-005",
+      "title": "Prose data-sheet extractor (Wave B)",
+      "status": "done",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-006",
+      "title": "graph.json exporter + ingestion summary report",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-007",
+      "title": "Vue 3 + Vite app scaffold + graph store",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-008",
+      "title": "Global search box across all entities",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-009",
+      "title": "Entity list views with sortable, filterable tables",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-010",
+      "title": "Entity detail page with cross-linked relationships",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-011",
+      "title": "Guided no-SQL query builder",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-012",
+      "title": "One-click relationship queries from any entity",
+      "status": "done",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-013",
+      "title": "Pre-built reports & dashboard with charts",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-014",
+      "title": "Export & print-friendly results",
+      "status": "done",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-015",
+      "title": "Firebase Hosting deployment",
+      "status": "in_review",
+      "priority": "medium"
+    }
+  ]
+}

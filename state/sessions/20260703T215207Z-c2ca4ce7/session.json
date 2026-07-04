@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "session_id": "20260703T215207Z-c2ca4ce7",
+  "lifecycle_state": "active",
+  "updated_at": "2026-07-04T17:32:15.329Z",
+  "active_task": null,
+  "workflow_step": "idle",
+  "next_action": null,
+  "handoff_summary": "session started",
+  "open_questions": [],
+  "blockers": [],
+  "decisions": [],
+  "subagent_results": [],
+  "pending_human_confirmation": null,
+  "mode": "harness",
+  "loop_goal": {
+    "keys": [
+      "TASK-001",
+      "TASK-002",
+      "TASK-003",
+      "TASK-004",
+      "TASK-005",
+      "TASK-006",
+      "TASK-007",
+      "TASK-008",
+      "TASK-009",
+      "TASK-010",
+      "TASK-011",
+      "TASK-012",
+      "TASK-013",
+      "TASK-014",
+      "TASK-015"
+    ]
+  },
+  "loop_auth": {
+    "auto_close_on_green_review": true,
+    "auto_push_after_close": false,
+    "uat_delegated_to_orchestrator": true,
+    "auto_version_bump_on_milestone": false
+  }
+}

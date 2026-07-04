@@ -1,0 +1,30 @@
+{
+  "key": "TASK-006",
+  "title": "graph.json exporter + ingestion summary report",
+  "description": "Generate the client-facing artifact the Vue app consumes: export the SQLite graph to a single `graph.json` (nodes[] with id/type/name/attrs, edges[] with src/rel/dst/attrs) plus lightweight per-type indexes to keep client search fast. Also emit a human-readable ingestion summary/report (counts by node type, by edge type, top builders by #yachts, #regions, list of source files ingested vs skipped, dedup collision stats) as both console output and a `reports/ingestion-summary.md`. Keep graph.json size reasonable; if it grows large, split into per-type shards or a manifest. This closes the Phase 1 loop end-to-end.\n\nPart of Phase 1 (Ingestion). This artifact is the contract between ingestion and the UI.",
+  "acceptance_criteria": [
+    "`npm run ingest` produces graph.json containing all nodes and edges with the documented shape",
+    "graph.json includes per-type node indexes (or a manifest) usable by the client for fast lookup",
+    "An ingestion-summary.md report is written with counts by node type, edge type, and files ingested vs skipped",
+    "The exported node/edge totals match the SQLite row counts (no data loss on export)",
+    "Loading graph.json in a scratch script and traversing Yacht->Builder->Region works end-to-end"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-1",
+    "ingestion",
+    "export"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-005"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:05:10.676Z",
+  "updated_at": "2026-07-04T03:26:33.999Z",
+  "jira_key": null,
+  "verification_tier": "tests-after"
+}

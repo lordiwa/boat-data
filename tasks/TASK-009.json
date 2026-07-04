@@ -1,0 +1,36 @@
+{
+  "key": "TASK-009",
+  "title": "Entity list views with sortable, filterable tables",
+  "description": "Build the 'easy-to-read tables' the user asked for: a reusable data-table component and per-type list pages (All Yachts, Builders, Yacht Clubs, Marinas, People, Regions...). Columns chosen per entity type from its common attributes (e.g. Yachts: name, builder, LOA, year, owner, weekly rate, guests). Client-side column sorting, per-column text/range filters, and pagination or virtualized scroll for large sets (yachts number in the thousands). Rows link to detail pages. Clean, readable, non-technical styling.\n\nPart of Phase 2 (UI foundation). Directly serves the 'get tables' half of the goal.",
+  "acceptance_criteria": [
+    "A reusable table component renders any node type with type-appropriate columns",
+    "List pages exist for Yacht, Builder, YachtClub, Marina, Person, and Region",
+    "Columns are sortable and support per-column filtering (text and numeric range where relevant)",
+    "Large tables (thousands of yachts) remain smooth via pagination or virtual scroll",
+    "Each row links to the entity detail page; empty and loading states are handled"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-2",
+    "ui",
+    "tables"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-007"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T12:07:20.523Z",
+      "body": "UAT (delegated to Orchestrator per session loop_auth): all 5 steps PASS — verified by Orchestrator at the human's request. Developer evidence (Playwright vs live dev server): /browse/yacht 605 rows paginated 13 pages; LOA desc -> Somnio 222m first; nulls-last both directions; name-contains + numeric-min filters narrow correctly; row->entity nav; all 9 /browse routes counts match store exactly; unknown type friendly message; 0 console errors. Developer also found+fixed a real numeric-filter bug during verification. Orchestrator independent: build green, route + components present. DATA-QUALITY FLAGS for later tickets: all 893 marina websites null in dataset; some yacht weekly_rate values are actually SALE prices (e.g. Alfa Nero '€88.5M (sale)') — affects TASK-013 charter-rate report; person net_worth all null currently."
+    }
+  ],
+  "created_at": "2026-07-03T22:05:47.441Z",
+  "updated_at": "2026-07-04T12:07:26.037Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

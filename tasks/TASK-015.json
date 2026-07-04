@@ -1,0 +1,37 @@
+{
+  "key": "TASK-015",
+  "title": "Firebase Hosting deployment",
+  "description": "Ship it: configure Firebase Hosting for the static Vue SPA + graph.json. Add firebase.json + .firebaserc, SPA rewrite to index.html, a build+deploy npm script, and cache headers for graph.json. Document the deploy steps (firebase login/init/deploy) in the README. Verify the deployed site loads the graph, search works, and a query + report render in production. Since data is baked in at build time, redeploying after a fresh `npm run ingest` refreshes the data.\n\nPart of Phase 4 (Deploy). Deployment target chosen at init: Firebase.",
+  "acceptance_criteria": [
+    "firebase.json and .firebaserc are present with an SPA rewrite to index.html",
+    "An npm script builds the app and deploys to Firebase Hosting in one command",
+    "graph.json is served with appropriate cache headers and loads on the deployed site",
+    "The live site passes a smoke test: search, one guided query, and one report all work in production",
+    "README documents the full deploy flow including how to refresh data via re-ingest + redeploy"
+  ],
+  "status": "in_review",
+  "priority": "medium",
+  "labels": [
+    "phase-4",
+    "deploy",
+    "firebase"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-013",
+    "TASK-014"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T17:31:38.023Z",
+      "body": "All automatable criteria verified (config valid + schema-checked via firebase-tools' own loader; deploy script resolves repo-root config from app/; SPA fallback + graph.json serving proven on local static server; README with full deploy + data-refresh + smoke-test docs; 114/114 tests). REMAINING — HUMAN REQUIRED (hard-stop gate: outward-facing publish + interactive Google auth): (1) firebase login; (2) create/select project (default alias 'datayacht-app' in .firebaserc, or `firebase use --add`); (3) `cd app && npm run deploy`; (4) run README smoke-test checklist on the live URL. Ticket held in in_review until the human confirms the live smoke test."
+    }
+  ],
+  "created_at": "2026-07-03T22:06:56.221Z",
+  "updated_at": "2026-07-04T17:31:44.421Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

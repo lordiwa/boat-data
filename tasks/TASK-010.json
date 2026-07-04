@@ -1,0 +1,37 @@
+{
+  "key": "TASK-010",
+  "title": "Entity detail page with cross-linked relationships",
+  "description": "The 'Wikipedia article' for each entity: a detail page showing all attributes in a clean info panel plus every relationship as clickable links grouped by relation. For a Yacht: builder, owner, designer, engine maker, region(s), tenders/subs, support vessel — each a link to that entity's page. For a Builder: all yachts BUILT_BY it (as a table), country. For a Region: all clubs/marinas/companies/yachts located there. Show source-file provenance. This turns the graph into a browsable, cross-referenced encyclopedia.\n\nPart of Phase 2 (UI foundation). Delivers the 'relations' half of the goal via clickable traversal.",
+  "acceptance_criteria": [
+    "Every node type has a detail route rendering its attributes in a readable panel",
+    "All relationships (both directions) are shown grouped by relation type as clickable links to related entities",
+    "Inverse relations render as tables where useful (e.g. a Builder page lists its yachts)",
+    "Provenance (source files) for the entity is displayed",
+    "Navigating entity->relation->entity works for at least a 3-hop path (Yacht->Builder->another Yacht)"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-2",
+    "ui",
+    "detail",
+    "relationships"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-009"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T12:20:19.587Z",
+      "body": "UAT (delegated to Orchestrator per session loop_auth): all 5 steps PASS — verified by Orchestrator at the human's request. Developer evidence: Playwright 33/33 assertions, 0 console errors — koru attrs formatted (127 m, USD 500,000,000, feature chips), conflicts badge expandable, Sources listed; builder:oceanco 'Yachts built here (21)' sortable table; 3-hop koru->oceanco->black-pearl proven; region/person/marina/club/company/engine/designer spot-checked; not-found friendly; screenshots saved to scratchpad. Orchestrator independent: build green, components present. DATA FLAG: region:monaco has only based_in edges (no located_in from clubs/marinas/yachts — e.g. Yacht Club de Monaco has zero outgoing edges; 'region:mys' exists separately) — ingest punch-list for a future data-quality pass."
+    }
+  ],
+  "created_at": "2026-07-03T22:06:03.903Z",
+  "updated_at": "2026-07-04T12:20:24.697Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

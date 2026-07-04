@@ -1,0 +1,30 @@
+{
+  "key": "TASK-004",
+  "title": "Wave-A mappers: clubs, marinas, brokers, regions, engines",
+  "description": "Extend the mapper layer to the remaining table-dense (Wave A) entity types, reusing the parser and entity-resolution helpers. Create nodes + edges for: YachtClub (files 40, 33, 49, 60, 36, 65) with LOCATED_IN + HOSTS(Event); Marina/haul-out yard (17, 16, 55) with LOCATED_IN + CAN_SERVICE(max LOA); Company = broker/charter/management (41, 21) with BASED_IN; Region/Country/City as shared geo nodes that everything links to; EngineMaker (07) with Yacht POWERED_BY where attested; Designer with DESIGNED_BY. Normalize region names into a single canonical Region node set (dedup 'French Riviera'/'Cote d'Azur' etc.). Reuse dedup keys per type.\n\nPart of Phase 1 (Ingestion). Region is the connective tissue - nearly every entity is geo-tagged.",
+  "acceptance_criteria": [
+    "YachtClub, Marina, Company, Region, EngineMaker, and Designer nodes are created from their Wave-A source files",
+    "Region nodes are canonicalized so aliases collapse to one node and all LOCATED_IN/BASED_IN edges point to it",
+    "Edges created: club LOCATED_IN region, marina LOCATED_IN region + CAN_SERVICE maxLOA, company BASED_IN region, yacht POWERED_BY engine, yacht DESIGNED_BY designer",
+    "Each mapper validates table headers before trusting a file (skips off-schema tables)",
+    "Ingestion summary logs node/edge counts per type; counts are non-zero for each Wave-A type"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-1",
+    "ingestion",
+    "mappers"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-003"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:04:48.310Z",
+  "updated_at": "2026-07-04T01:35:46.763Z",
+  "jira_key": null,
+  "verification_tier": "tests-after"
+}

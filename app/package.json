@@ -1,0 +1,31 @@
+{
+  "name": "datayacht-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DataYacht Vue 3 SPA: browse the yacht knowledge graph.",
+  "scripts": {
+    "sync-graph": "node scripts/sync-graph.mjs",
+    "predev": "npm run sync-graph",
+    "prebuild": "npm run sync-graph",
+    "dev": "vite",
+    "build": "vue-tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "deploy": "npm run build && firebase deploy --only hosting --config ../firebase.json"
+  },
+  "dependencies": {
+    "pinia": "^2.2.6",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.9",
+    "vue-tsc": "^2.1.10"
+  }
+}

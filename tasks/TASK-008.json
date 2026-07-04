@@ -1,0 +1,36 @@
+{
+  "key": "TASK-008",
+  "title": "Global search box across all entities",
+  "description": "Give non-technical users one obvious way in: a prominent global search box (like Wikipedia's) that matches across all node names and key attributes, grouped by entity type in the results (Yachts, Builders, Clubs, Marinas, People, Regions...). Client-side fuzzy/substring search over the in-memory graph with instant results and result counts per type. Clicking a result navigates to that entity's detail page. Keyboard-accessible, works on mobile.\n\nPart of Phase 2 (UI foundation). This is the primary entry point toward the goal: query for specific information without technical knowledge.",
+  "acceptance_criteria": [
+    "A global search box is present on every page and returns results as the user types",
+    "Results are grouped by entity type with a count per group and match on name + key attributes",
+    "Selecting a result navigates to the corresponding entity detail page",
+    "Search is case-insensitive and tolerant of partial words; empty/no-match states are handled gracefully",
+    "Search remains responsive on the full graph (thousands of nodes)"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-2",
+    "ui",
+    "search"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-007"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T11:53:38.017Z",
+      "body": "UAT (delegated to Orchestrator per session loop_auth): all 5 steps PASS — verified by Orchestrator at the human's request. Developer evidence: Playwright/Chromium against live dev server with full graph — search on every route; 'kor'->Koru under Yachts; 'oceanco' name-collision (Builder+Company+21 yachts via builder-name index); case-insensitive; empty state; Enter navigates to /entity/yacht:koru; ArrowDown/Escape/outside-click/'/' shortcut; mobile 375px wrap; 0 console errors. Orchestrator independent check: npm run build green (vue-tsc+vite), /entity/:id route present, search component wired. Visual-polish notes deferred to human review at end."
+    }
+  ],
+  "created_at": "2026-07-03T22:05:38.502Z",
+  "updated_at": "2026-07-04T11:53:44.173Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

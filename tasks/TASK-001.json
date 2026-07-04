@@ -1,0 +1,28 @@
+{
+  "key": "TASK-001",
+  "title": "Project scaffold + SQLite graph schema",
+  "description": "Stand up the ingestion project skeleton that every later ticket builds on. Create a Node.js project (package.json, ESM) under an `ingest/` (or `src/ingest/`) folder with an `npm run ingest` entry point that runs end-to-end even on zero input. Define the SQLite schema: `nodes(id TEXT PRIMARY KEY, type TEXT, name TEXT, attrs_json TEXT)` and `edges(id INTEGER PK, src TEXT, rel TEXT, dst TEXT, attrs_json TEXT)` with indexes on nodes.type, nodes.name, edges.src, edges.rel, edges.dst. Use better-sqlite3 (synchronous, zero-config). Establish the folder layout for parsers/mappers/exporters and a shared db helper module. No data extraction yet — just the runnable skeleton and schema.\n\nPart of Phase 1 (Ingestion pipeline). Storage decision: SQLite nodes+edges + generated graph.json. See PROJECT.md and project-context.",
+  "acceptance_criteria": [
+    "`npm install` and `npm run ingest` complete with exit code 0 on a fresh checkout",
+    "Running ingest creates a SQLite database file with `nodes` and `edges` tables matching the documented schema",
+    "Indexes exist on nodes.type, nodes.name, edges.src, edges.rel, edges.dst",
+    "A shared db helper module opens/initializes the database and is importable by other modules",
+    "Re-running ingest is idempotent (drops/recreates or upserts cleanly, no duplicate-schema errors)"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "phase-1",
+    "ingestion",
+    "scaffold"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-07-03T22:03:55.095Z",
+  "updated_at": "2026-07-03T22:20:29.698Z",
+  "jira_key": null,
+  "verification_tier": "tests-after"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "TASK-012",
+  "title": "One-click relationship queries from any entity",
+  "description": "Make relationship exploration effortless for non-technical users: on every entity page and in table rows, offer one-click canned relationship queries that open pre-filled results in the query builder / table — e.g. from a Builder: 'See all yachts by this builder', 'Other builders in this country'; from a Region: 'All yachts here', 'All marinas here', 'All clubs here'; from a Person: 'All yachts owned by this person'. These are graph traversals surfaced as plain buttons, not queries the user has to construct. Complements the guided builder by covering the common questions in a single tap.\n\nPart of Phase 3 (Query & Reports). Lowers the floor: common relational questions become one click.",
+  "acceptance_criteria": [
+    "Entity pages expose contextual one-click relationship actions appropriate to the entity type",
+    "Each action opens a results view (query builder or table) pre-filled with the corresponding graph traversal",
+    "Actions cover the common questions: yachts by builder, entities by region, yachts by owner, at minimum",
+    "The opened result view shows the plain-English description of what is being shown",
+    "Actions are keyboard/mobile accessible and never require typing a query"
+  ],
+  "status": "done",
+  "priority": "medium",
+  "labels": [
+    "phase-3",
+    "ui",
+    "relationships",
+    "goal"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-011"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-04T17:02:23.923Z",
+      "body": "UAT (delegated to Orchestrator per session loop_auth): all 5 steps PASS — verified by Orchestrator at the human's request. Developer evidence: 8 Playwright scenarios, 0 console errors — koru chips (More by Oceanco -> builder page; Similar size -> /query between filter + sentence + 25 results); builder query chip -> 21 of 21 with sentence; region anchors scroll; owner-less yacht omits owner chip; Tab+Enter keyboard nav; mobile 375px verified via screenshots. Design honors TASK-013's over-match caution (entity-page pivots exact by id; contains only where sentence visible). Orchestrator independent: 93/93 tests, build green, files present."
+    }
+  ],
+  "created_at": "2026-07-03T22:06:25.634Z",
+  "updated_at": "2026-07-04T17:02:38.061Z",
+  "jira_key": null,
+  "verification_tier": "uat-only"
+}

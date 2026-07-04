@@ -1,0 +1,9 @@
+# OS junk
+Thumbs.db
+.DS_Store
+
+# framework session lock (transient)
+state/.lock
+
+# logs
+*.log
