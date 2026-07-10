@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T22:33:31.916Z",
+  "generated_at": "2026-07-10T23:04:54.375Z",
   "byType": [
     {
       "type": "yacht",
@@ -10,10 +10,10 @@
     },
     {
       "type": "shipyard",
-      "count": 0,
-      "attrPct": 0,
-      "edgePct": 0,
-      "score": 0
+      "count": 236,
+      "attrPct": 88.74,
+      "edgePct": 100,
+      "score": 9.21
     },
     {
       "type": "builder",
@@ -31,14 +31,14 @@
     },
     {
       "type": "company",
-      "count": 527,
-      "attrPct": 71.66,
-      "edgePct": 5.69,
-      "score": 5.19
+      "count": 696,
+      "attrPct": 63.6,
+      "edgePct": 26.87,
+      "score": 5.26
     },
     {
       "type": "region",
-      "count": 642,
+      "count": 826,
       "attrPct": 100,
       "edgePct": 100,
       "score": 10
@@ -72,5 +72,5 @@
       "score": 7.19
     }
   ],
-  "overall": 4.4
+  "overall": 5.79
 }
