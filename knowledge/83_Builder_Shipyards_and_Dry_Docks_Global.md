@@ -11,6 +11,25 @@ made against `84_Independent_Refit_and_Haul_Out_Yards_Global.md`.
 
 ## Curation notes
 
+**Review fix (MEDIUM 1, post-ship):** three Operator cells originally narrated an ownership
+*change* in prose rather than naming the current operator — `shipyardMapper.js` minted a
+junk company node from each cell's literal text (e.g.
+`company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025`). All three were corrected to
+just the current operator's name, with the ownership history preserved in each row's Notes
+cell instead:
+
+- Peene-Werft Wolgast: "Formerly Lürssen/NVL; sold to Rheinmetall in 2025" -> **Rheinmetall**.
+- Perini Navi Viareggio: "Sold by The Italian Sea Group to Next Yacht Group in 2024" ->
+  **Next Yacht Group**.
+- Christensen Shipyards Vancouver, WA (former): "Christensen Yachts (ceased 2015; site sold
+  to Vigor Industrial 2019)" -> **Vigor Industrial** (caught by the same review fix's
+  semicolon check, below, even though the reviewer's two named examples didn't include this
+  row — fixed for consistency rather than leaving this shipyard with a dangling operator).
+
+`shipyardMapper.js`'s `isPlausibleOperatorName()` now also rejects this shape defensively
+(leading "Formerly"/"Sold"/"Ceased", or a semicolon) for any future corpus row shaped the
+same way.
+
 Some facilities named in this file and in `84_Independent_Refit_and_Haul_Out_Yards_Global.md`
 turned out to be the SAME physical site described from two angles (builder/newbuild vs.
 an in-house refit-division brand operating at the same address) — per the "one facility =
@@ -96,7 +115,7 @@ than a harmless near-duplicate would:
 | Lürssen Berne | Germany | Bremen (Berne) | Lürssen | builder + refit yard | 1 | 150 | 4,800 | 400,000 sqm site | floating dock, syncrolift | newbuild, refit | | lurssen.com | Floating dock with synchrolift can elevate ships to 150m/4,800t. |
 | Lürssen Rendsburg (Kröger Werft) | Germany | Rendsburg | Lürssen | builder + refit yard | | 110 | | | | newbuild, refit, repair | | lurssen.com | Custom yachts 55-110m; sits on the Kiel Canal linking North and Baltic Seas. |
 | Blohm+Voss Hamburg | Germany | Hamburg | Lürssen | refit yard | 1 | | | 351m x 59m dock | graving dock, floating dock | refit, repair, conversion | 1877 (yard); 2016 (Lürssen acquisition) | lurssen.com | One of northern Europe's largest dry docks; downsized 2021, ceased cruise/tanker refit work. CURATION NOTE: `85_Commercial_Dry_Docks_Per_Country.md` separately lists this same Elbe 17 dock ("Blohm+Voss (Elbe 17)") under its current 2025-era operator NVL Group (Rheinmetall) — kept as two rows (this one reflects the yacht-refit-relevant Lürssen-era description; 85's row is the current commercial-repair-focused listing) rather than merged, since the operator attribution genuinely changed over time and collapsing them risks misattributing current ownership. |
-| Peene-Werft Wolgast | Germany | Wolgast | Formerly Lürssen/NVL; sold to Rheinmetall in 2025 | builder yard | | | | 250,000 sqm site, 46,500 sqm covered halls | | newbuild, repair | 1948 | nvl.de | Naval/coastguard vessel specialist, not primarily a yacht yard; no longer Lürssen-owned as of 2025 — included per task scope but ownership has changed. |
+| Peene-Werft Wolgast | Germany | Wolgast | Rheinmetall | builder yard | | | | 250,000 sqm site, 46,500 sqm covered halls | | newbuild, repair | 1948 | nvl.de | Naval/coastguard vessel specialist, not primarily a yacht yard. CURATION FIX (review MEDIUM 1): Operator corrected to the current owner — formerly Lürssen/NVL-owned, sold to Rheinmetall in a September 2025 deal; ownership history moved here from the Operator cell (which previously read as ownership-history prose rather than a company name and minted a junk node). |
 | Nobiskrug Rendsburg | Germany | Rendsburg | Nobiskrug | builder yard | | | | | | newbuild, refit | 1905 | nobiskrug.com | Built Sailing Yacht A and Artefact; distinct site/company from Lürssen's Rendsburg (Kröger Werft) yard. |
 | Abeking & Rasmussen Lemwerder | Germany | Lemwerder | Abeking & Rasmussen | builder + refit yard | 1 | 125 | | 65m, 85m, 85m and 125m sheds; inner harbour | covered dry dock, syncrolift | newbuild, refit, repair | 1907 | abeking.com | Family-owned; five production halls plus syncrolift in an inner harbour. |
 
@@ -125,7 +144,7 @@ than a harmless near-duplicate would:
 | Overmarine (Mangusta) Massa | Italy | Massa | Overmarine Group | builder yard | | | | | | engineering | | mangustayachts.com | Forming/rolling for large composite yacht components. |
 | Baglietto Varazze | Italy | Varazze | Baglietto (Gruppo Gavio) | builder yard | | | | | | newbuild | 1854 | baglietto.com | Original founding site; racing sailboats then early motor yachts (Giuseppina, 1906). |
 | Baglietto La Spezia (Cantieri di Pisa) | Italy | La Spezia | Baglietto (Gruppo Gavio) | builder + refit yard | 2 | | | 85m x 2 dry docks | graving dock | newbuild, refit | 1999 (acquired ex-Ferrari yard) | baglietto.com | 32,000 sqm site added to Baglietto in 1999; Gruppo Gavio investment from 2012. |
-| Perini Navi Viareggio | Italy | Viareggio | Sold by The Italian Sea Group to Next Yacht Group in 2024 | builder yard | | 60 | | | | newbuild, refit | 1983 | perininavi.it | No longer TISG-owned; sailing yachts up to 60m built here historically. |
+| Perini Navi Viareggio | Italy | Viareggio | Next Yacht Group | builder yard | | 60 | | | | newbuild, refit | 1983 | perininavi.it | Sailing yachts up to 60m built here historically. CURATION FIX (review MEDIUM 1): Operator corrected to the current owner — sold by The Italian Sea Group to Next Yacht Group in 2024; ownership history moved here from the Operator cell (which previously read as ownership-history prose rather than a company name and minted a junk node). |
 | The Italian Sea Group La Spezia / Marina di Carrara | Italy | Marina di Carrara / La Spezia | The Italian Sea Group | builder + refit yard | | | | | | newbuild, refit | | theitalianseagroup.com | Handles Perini Navi/TISG large-yacht builds since the 2021 Perini Navi acquisition. |
 | Tankoa Yachts Genova (Sestri Ponente) | Italy | Genoa | Tankoa Yachts | builder yard | 1 | 90 | 4,000 | | floating dock | newbuild, engineering | 2008 | tankoa.it | 20,000 sqm site beside Marina Genova; permanent floating dry dock up to 90m/4,000t. |
 | Palumbo Superyachts Naples | Italy | Naples | Palumbo Group (Columbus Yachts, ISA, Mondomarine brands) | builder + refit yard | | | | | | newbuild, refit, repair | 2008 (Columbus Yachts founded) | palumbogroup.it | REMOVED (curation merge): consolidated into `84_Independent_Refit_and_Haul_Out_Yards_Global.md`'s "Palumbo Naples" row, which has more complete dry-dock/lift data; this file's Columbus Yachts/ISA/Mondomarine brand-origin note was merged into that row's Notes. |
@@ -161,7 +180,7 @@ than a harmless near-duplicate would:
 | Westport Yachts Port Angeles | United States | Port Angeles, WA | Westport Yachts | builder + refit yard | | 50 | 500 | paint booth 190ft x 52ft; two 200ft floating docks | travelift | newbuild, refit, repair, paint | 1964 | westportyachts.com | 500-ton travel lift (max beam 32 ft); builds 112-164 ft (34-50m) range. |
 | Westport Yachts Hoquiam | United States | Hoquiam, WA | Westport Yachts | builder yard | | 50 | | | | newbuild | | westportyachts.com | Second Westport production shipyard alongside Port Angeles. |
 | Delta Marine Seattle | United States | Seattle, WA | Delta Marine | builder + refit yard | | | 440 | | travelift | newbuild, refit, repair | 1961 | deltamarine.com | 440-ton travel lift; covered refit bays. |
-| Christensen Shipyards Vancouver, WA (former) | United States | Vancouver, WA | Christensen Yachts (ceased 2015; site sold to Vigor Industrial 2019) | builder yard | | | | 180,000 sq ft climate-controlled facility | | newbuild (historical) | 1983 | christensenyachts.com | Production halted 2015 amid receivership; brand relocated to Tellico Lake, TN; original WA site now Vigor Industrial. |
+| Christensen Shipyards Vancouver, WA (former) | United States | Vancouver, WA | Vigor Industrial | builder yard | | | | 180,000 sq ft climate-controlled facility | | newbuild (historical) | 1983 | christensenyachts.com | Production halted 2015 amid receivership; brand relocated to Tellico Lake, TN. CURATION FIX (review MEDIUM 1, bonus catch): Operator corrected to the current site owner (Vigor Industrial, since 2019) — formerly Christensen Yachts, which ceased production here in 2015; ownership history moved here from the Operator cell (which previously read as ownership-history prose containing a semicolon rather than a company name). |
 
 ## Taiwan
 

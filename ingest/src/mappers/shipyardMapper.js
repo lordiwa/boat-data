@@ -3,9 +3,9 @@
 // TASK-016: maps parsed shipyard/dry-dock directory tables into Shipyard
 // nodes (id 'shipyard:<slug(name)>') + LOCATED_IN edges to a canonical
 // Region node (see regions.js) + OPERATED_BY edges to a Builder or Company
-// node. Grounded in the ticket's exact header spec (no real corpus doc
-// exists for this yet — the researched directory lands in a separate
-// enrichment round):
+// node. Grounded in the ticket's exact header spec, now populated by five
+// real corpus docs (knowledge/83-87, curated from research/round1's global
+// shipyard/dry-dock research lanes in TASK-016 Phase 2):
 //   Shipyard | Country | City | Operator | Facility Type | Dry Docks |
 //   Max LOA (m) | Max Tonnage (t) | Dock Dimensions | Lift Type | Services |
 //   Founded | Website | Notes
@@ -114,10 +114,19 @@ function nodeExists(db, id) {
 
 const NUMBER_RE = /(\d+(?:\.\d+)?)/;
 
-// "160m", "160", "160 m" -> 160. Returns null for empty/unparseable input.
+// "160m", "160", "160 m", "400,000", "93,500" -> 160 / 400000 / 93500. Strips
+// thousands-separator commas BEFORE matching (review fix, HIGH: without this,
+// "400,000".match(NUMBER_RE) matches just "400", silently truncating every
+// comma-formatted tonnage cell in the corpus — e.g. Fincantieri Palermo's
+// 400,000t read back as 400t, Skaramangas's 500,000t as 500t, Hanwha Ocean's
+// 1,000,000t as 1t). normalize.js's own parseLength/parseMoney already strip
+// commas first for the same reason; mirrored here rather than importing
+// those (they parse different cell shapes — this needs a plain float, not a
+// meters/money object).
 function parseNumeric(raw) {
   if (isEmptyValue(raw)) return null;
-  const m = String(raw).match(NUMBER_RE);
+  const cleaned = String(raw).replace(/,/g, '');
+  const m = cleaned.match(NUMBER_RE);
   return m ? parseFloat(m[1]) : null;
 }
 
@@ -144,6 +153,29 @@ function stripEmptyAttrs(attrs, fields) {
   }
 }
 
+// Review fix (MEDIUM 1): an Operator cell is sometimes researcher prose
+// narrating an ownership CHANGE rather than naming the current operator
+// (real fixtures: "Formerly Lürssen/NVL; sold to Rheinmetall in 2025" and
+// "Sold by The Italian Sea Group to Next Yacht Group in 2024") — matching
+// isPlausibleEntityName alone (normalize.js) doesn't reject these (they're
+// short, no sentence-ending "[.!?] " run), so they minted junk company
+// nodes (e.g. "company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025").
+// A real operator name doesn't open with a history-narrating verb or
+// contain a semicolon (a strong signal of multi-clause "X; now Y" prose) —
+// reject rather than mint a node from it. The curation-side fix (rewriting
+// those two Operator cells to the actual current operator, with the
+// ownership history moved to Notes) is the primary fix; this is defense in
+// depth for any future corpus row shaped the same way.
+const PROSE_OPERATOR_RE = /^(formerly|sold|ceased)\b/i;
+
+function isPlausibleOperatorName(raw) {
+  if (!isPlausibleEntityName(raw)) return false;
+  const s = String(raw).trim();
+  if (PROSE_OPERATOR_RE.test(s)) return false;
+  if (s.includes(';')) return false;
+  return true;
+}
+
 /**
  * Resolves an Operator cell to an existing Builder or Company node id by
  * normalized name (same id convention as yachtMapper's builder ids and
@@ -154,10 +186,10 @@ function stripEmptyAttrs(attrs, fields) {
  * mints a minimal Company node (kind: 'shipyard operator') so the
  * OPERATED_BY edge always resolves to a real node rather than dangling.
  * Returns the resolved/created node id, or null if the Operator cell is
- * empty/implausible.
+ * empty/implausible (see isPlausibleOperatorName).
  */
 function resolveOperatorId(db, operatorRaw, sourceFile) {
-  if (isEmptyValue(operatorRaw) || !isPlausibleEntityName(operatorRaw)) return null;
+  if (isEmptyValue(operatorRaw) || !isPlausibleOperatorName(operatorRaw)) return null;
 
   const slugged = slug(normalizeName(operatorRaw));
   const builderId = `builder:${slugged}`;
