@@ -242,6 +242,26 @@ const DESIGNER_FIELDS: FieldMeta[] = [
   },
 ];
 
+const SHIPYARD_FIELDS: FieldMeta[] = [
+  { kind: 'attr', field: 'name', label: 'Name', valueKind: 'text', get: nameOf },
+  {
+    kind: 'attr',
+    field: 'facility_type',
+    label: 'Facility type',
+    valueKind: 'text',
+    get: (row) => (typeof row.node.attrs.facility_type === 'string' ? (row.node.attrs.facility_type as string) : null),
+  },
+  {
+    kind: 'attr',
+    field: 'max_loa',
+    label: 'Max LOA (m)',
+    valueKind: 'number',
+    unit: 'm',
+    get: (row) => num(row.node.attrs.max_loa),
+  },
+  { kind: 'rel', field: 'location', label: 'Located in', rel: 'located_in', targetType: 'region' },
+];
+
 export const QUERYABLE_FIELDS: Record<NodeType, FieldMeta[]> = {
   yacht: YACHT_FIELDS,
   builder: BUILDER_FIELDS,
@@ -252,6 +272,7 @@ export const QUERYABLE_FIELDS: Record<NodeType, FieldMeta[]> = {
   region: REGION_FIELDS,
   engine: ENGINE_FIELDS,
   designer: DESIGNER_FIELDS,
+  shipyard: SHIPYARD_FIELDS,
 };
 
 /** Looks up a field slug's metadata for `type`, or undefined if it doesn't exist for that type. */

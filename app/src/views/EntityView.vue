@@ -44,6 +44,7 @@ const OUTGOING_ORDER: EdgeRel[] = [
   'based_in',
   'designed_by',
   'powered_by',
+  'operated_by',
   'part_of',
 ];
 
@@ -54,6 +55,8 @@ const OUTGOING_LABELS: Record<EdgeRel, string> = {
   based_in: 'Based in',
   designed_by: 'Designed by',
   powered_by: 'Powered by',
+  // TASK-016: shipyard -> builder/company.
+  operated_by: 'Operated by',
   part_of: 'Part of',
 };
 
@@ -96,6 +99,7 @@ const INVERSE_GROUP_DEFS: InverseGroupDef[] = [
   { rel: 'located_in', srcType: 'club', heading: 'Clubs here', omit: 'location' },
   { rel: 'located_in', srcType: 'marina', heading: 'Marinas here', omit: 'location' },
   { rel: 'based_in', srcType: 'company', heading: 'Companies here', omit: 'base' },
+  { rel: 'located_in', srcType: 'shipyard', heading: 'Shipyards here', omit: 'location' },
   { rel: 'part_of', srcType: 'region', heading: 'Sub-regions' },
 ];
 
@@ -108,6 +112,7 @@ const rowsByType: Partial<Record<NodeType, ReturnType<typeof useTypeRows>>> = {
   marina: useTypeRows(computed(() => 'marina' as NodeType)),
   company: useTypeRows(computed(() => 'company' as NodeType)),
   region: useTypeRows(computed(() => 'region' as NodeType)),
+  shipyard: useTypeRows(computed(() => 'shipyard' as NodeType)),
 };
 
 interface InverseGroup {

@@ -111,6 +111,13 @@ function buildRows(graph: Graph, type: NodeType): EnrichedRow[] {
         yachtCount: graph.edgesTo(node.id, 'designed_by').length,
         rels: {},
       }));
+    case 'shipyard':
+      return nodes.map((node) => ({
+        node,
+        location: firstNeighborName(graph, node.id, 'located_in', 'out'),
+        operatorName: firstNeighborName(graph, node.id, 'operated_by', 'out'),
+        rels: buildRels(graph, node.id, ['located_in', 'operated_by']),
+      }));
     case 'engine':
     default:
       return nodes.map((node) => ({ node, rels: {} }));

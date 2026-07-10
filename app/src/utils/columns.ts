@@ -291,6 +291,45 @@ function engineColumns(): ColumnDef<EnrichedRow>[] {
   ];
 }
 
+function shipyardColumns(): ColumnDef<EnrichedRow>[] {
+  return [
+    nameColumn(),
+    {
+      key: 'location',
+      label: 'Location',
+      accessor: (row) => (row.location as string | null) ?? '—',
+      sortAccessor: (row) => (row.location as string | null) ?? null,
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'facility_type',
+      label: 'Facility Type',
+      accessor: (row) => str(row.node.attrs.facility_type) ?? '—',
+      sortAccessor: (row) => str(row.node.attrs.facility_type),
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'max_loa',
+      label: 'Max LOA (m)',
+      accessor: (row) => formatMeters(num(row.node.attrs.max_loa), null),
+      sortAccessor: (row) => num(row.node.attrs.max_loa),
+      type: 'number',
+      filterable: true,
+    },
+    {
+      key: 'operator',
+      label: 'Operator',
+      accessor: (row) => (row.operatorName as string | null) ?? '—',
+      sortAccessor: (row) => (row.operatorName as string | null) ?? null,
+      type: 'text',
+      filterable: true,
+    },
+    websiteColumn(),
+  ];
+}
+
 function designerColumns(): ColumnDef<EnrichedRow>[] {
   return [
     nameColumn(),
@@ -315,6 +354,7 @@ const COLUMN_BUILDERS: Record<NodeType, () => ColumnDef<EnrichedRow>[]> = {
   region: regionColumns,
   engine: engineColumns,
   designer: designerColumns,
+  shipyard: shipyardColumns,
 };
 
 export function getColumnsForType(type: NodeType): ColumnDef<EnrichedRow>[] {

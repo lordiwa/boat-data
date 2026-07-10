@@ -15,6 +15,7 @@ export const KNOWN_NODE_TYPES: NodeType[] = [
   'marina',
   'company',
   'region',
+  'shipyard',
 ];
 
 export function isKnownNodeType(type: string): type is NodeType {

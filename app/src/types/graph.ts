@@ -13,7 +13,9 @@ export type NodeType =
   | 'builder'
   | 'person'
   | 'engine'
-  | 'designer';
+  | 'designer'
+  // TASK-016: shipyard/dry-dock facilities (ingest/src/mappers/shipyardMapper.js).
+  | 'shipyard';
 
 /** The relation kinds present in the graph, per meta.edge_types. */
 export type EdgeRel =
@@ -23,7 +25,9 @@ export type EdgeRel =
   | 'based_in'
   | 'designed_by'
   | 'powered_by'
-  | 'part_of';
+  | 'part_of'
+  // TASK-016: shipyard -> builder/company (ingest/src/mappers/shipyardMapper.js).
+  | 'operated_by';
 
 export interface GraphNode {
   id: string;
