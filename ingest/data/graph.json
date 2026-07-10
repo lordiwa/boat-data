@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-10T23:06:08.341Z",
+    "generated_at": "2026-07-10T23:21:06.175Z",
     "node_count": 3946,
     "edge_count": 2303,
     "types": {
@@ -9195,17 +9195,6 @@
       }
     },
     {
-      "id": "company:christensen-yachts-ceased-2015-site-sold-to-vigor-industrial-2019",
-      "type": "company",
-      "name": "Christensen Yachts (ceased 2015; site sold to Vigor Industrial 2019)",
-      "attrs": {
-        "kind": "shipyard operator",
-        "provenance": [
-          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
-        ]
-      }
-    },
-    {
       "id": "company:christie-yachts",
       "type": "company",
       "name": "Christie Yachts",
@@ -10313,17 +10302,6 @@
         "notes": null,
         "provenance": [
           "42_Monaco_Yacht_Show_Key_Players_Charters.md"
-        ]
-      }
-    },
-    {
-      "id": "company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025",
-      "type": "company",
-      "name": "Formerly Lürssen/NVL; sold to Rheinmetall in 2025",
-      "attrs": {
-        "kind": "shipyard operator",
-        "provenance": [
-          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
       }
     },
@@ -12919,6 +12897,17 @@
       }
     },
     {
+      "id": "company:next-yacht-group",
+      "type": "company",
+      "name": "Next Yacht Group",
+      "attrs": {
+        "kind": "shipyard operator",
+        "provenance": [
+          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
+        ]
+      }
+    },
+    {
       "id": "company:nicholson-yacht-charters",
       "type": "company",
       "name": "Nicholson Yacht Charters",
@@ -13822,6 +13811,17 @@
         "notes": null,
         "provenance": [
           "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+        ]
+      }
+    },
+    {
+      "id": "company:rheinmetall",
+      "type": "company",
+      "name": "Rheinmetall",
+      "attrs": {
+        "kind": "shipyard operator",
+        "provenance": [
+          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
       }
     },
@@ -15004,17 +15004,6 @@
       }
     },
     {
-      "id": "company:sold-by-the-italian-sea-group-to-next-yacht-group-in-2024",
-      "type": "company",
-      "name": "Sold by The Italian Sea Group to Next Yacht Group in 2024",
-      "attrs": {
-        "kind": "shipyard operator",
-        "provenance": [
-          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
-        ]
-      }
-    },
-    {
       "id": "company:soldboatprice-com",
       "type": "company",
       "name": "soldboatprice.com",
@@ -16185,6 +16174,17 @@
         "notes": "Supplier of 4,000+ boat products for 14 systems.",
         "provenance": [
           "21_Online_Yacht_Brokerage_Competitors_and_Innovations.md"
+        ]
+      }
+    },
+    {
+      "id": "company:vigor-industrial",
+      "type": "company",
+      "name": "Vigor Industrial",
+      "attrs": {
+        "kind": "shipyard operator",
+        "provenance": [
+          "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
       }
     },
@@ -40088,7 +40088,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 1,
         "max_loa": 240,
-        "max_tonnage": 46,
+        "max_tonnage": 46600,
         "dock_dimensions": "240m x 50m",
         "lift_type": [
           "floating dock"
@@ -40285,7 +40285,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 375,
-        "max_tonnage": 500,
+        "max_tonnage": 500000,
         "dock_dimensions": "375m x 75m graving dock (\"1,230ft\"); floating docks 252m & 227m",
         "lift_type": [
           "graving dock",
@@ -40962,7 +40962,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 4,
         "max_loa": 200,
-        "max_tonnage": 20,
+        "max_tonnage": 20000,
         "dock_dimensions": "200m x n/a",
         "lift_type": [
           "floating dock"
@@ -41094,7 +41094,7 @@
         ],
         "founded": "1983",
         "website": "christensenyachts.com",
-        "notes": "Production halted 2015 amid receivership; brand relocated to Tellico Lake, TN; original WA site now Vigor Industrial.",
+        "notes": "Production halted 2015 amid receivership; brand relocated to Tellico Lake, TN. CURATION FIX (review MEDIUM 1, bonus catch): Operator corrected to the current site owner (Vigor Industrial, since 2019) — formerly Christensen Yachts, which ceased production here in 2015; ownership history moved here from the Operator cell (which previously read as ownership-history prose containing a semicolon rather than a company name).",
         "provenance": [
           "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
@@ -41160,7 +41160,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 360,
-        "max_tonnage": 300,
+        "max_tonnage": 300000,
         "lift_type": [
           "floating dock"
         ],
@@ -41184,7 +41184,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 430,
-        "max_tonnage": 300,
+        "max_tonnage": 300000,
         "dock_dimensions": "430m x 120m",
         "lift_type": [
           "graving dock"
@@ -41709,7 +41709,7 @@
         "country": "Australia",
         "city": "Henderson, WA",
         "facility_type": "builder + refit yard",
-        "max_tonnage": 12,
+        "max_tonnage": 12000,
         "dock_dimensions": "103m and 80m shipbuilding halls",
         "lift_type": [
           "slipway",
@@ -41738,7 +41738,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 276,
-        "max_tonnage": 120,
+        "max_tonnage": 120000,
         "dock_dimensions": "276m x 41.8m",
         "lift_type": [
           "floating dock"
@@ -41814,7 +41814,7 @@
         "city": "Ancona",
         "facility_type": "builder yard",
         "max_loa": 95,
-        "max_tonnage": 3,
+        "max_tonnage": 3000,
         "dock_dimensions": "3 sheds",
         "services": [
           "newbuild",
@@ -41982,7 +41982,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
         "max_loa": 370,
-        "max_tonnage": 400,
+        "max_tonnage": 400000,
         "dock_dimensions": "370m x 68m",
         "lift_type": [
           "graving dock"
@@ -42249,7 +42249,7 @@
         "city": "Geoje",
         "facility_type": "commercial dry dock",
         "dry_docks": 4,
-        "max_tonnage": 1,
+        "max_tonnage": 1000000,
         "lift_type": [
           "graving dock"
         ],
@@ -42865,7 +42865,7 @@
         "facility_type": "builder + refit yard",
         "dry_docks": 1,
         "max_loa": 150,
-        "max_tonnage": 4,
+        "max_tonnage": 4800,
         "dock_dimensions": "400,000 sqm site",
         "lift_type": [
           "floating dock",
@@ -43036,7 +43036,7 @@
         "city": "Yokohama",
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
-        "max_tonnage": 270,
+        "max_tonnage": 270000,
         "lift_type": [
           "graving dock"
         ],
@@ -43268,7 +43268,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 195,
-        "max_tonnage": 15,
+        "max_tonnage": 15000,
         "dock_dimensions": "195m x 33.5m",
         "lift_type": [
           "floating dock"
@@ -43293,7 +43293,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
         "max_loa": 305,
-        "max_tonnage": 35,
+        "max_tonnage": 35000,
         "dock_dimensions": "305m x 53m",
         "lift_type": [
           "graving dock",
@@ -43634,7 +43634,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
         "max_loa": 254,
-        "max_tonnage": 75,
+        "max_tonnage": 75000,
         "dock_dimensions": "254m x 35m",
         "lift_type": [
           "floating dock"
@@ -43980,7 +43980,7 @@
         "city": "Ancona",
         "facility_type": "builder + refit yard",
         "max_loa": 110,
-        "max_tonnage": 3,
+        "max_tonnage": 3300,
         "dock_dimensions": "52,000 sqm site, 3 pre-existing sheds + new facility",
         "lift_type": [
           "shiplift",
@@ -44078,7 +44078,7 @@
         ],
         "founded": "1948",
         "website": "nvl.de",
-        "notes": "Naval/coastguard vessel specialist, not primarily a yacht yard; no longer Lürssen-owned as of 2025 — included per task scope but ownership has changed.",
+        "notes": "Naval/coastguard vessel specialist, not primarily a yacht yard. CURATION FIX (review MEDIUM 1): Operator corrected to the current owner — formerly Lürssen/NVL-owned, sold to Rheinmetall in a September 2025 deal; ownership history moved here from the Operator cell (which previously read as ownership-history prose rather than a company name and minted a junk node).",
         "provenance": [
           "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
@@ -44156,7 +44156,7 @@
         ],
         "founded": "1983",
         "website": "perininavi.it",
-        "notes": "No longer TISG-owned; sailing yachts up to 60m built here historically.",
+        "notes": "Sailing yachts up to 60m built here historically. CURATION FIX (review MEDIUM 1): Operator corrected to the current owner — sold by The Italian Sea Group to Next Yacht Group in 2024; ownership history moved here from the Operator cell (which previously read as ownership-history prose rather than a company name and minted a junk node).",
         "provenance": [
           "83_Builder_Shipyards_and_Dry_Docks_Global.md"
         ]
@@ -44694,7 +44694,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 5,
         "max_loa": 267,
-        "max_tonnage": 80,
+        "max_tonnage": 80000,
         "dock_dimensions": "267m x 40m",
         "lift_type": [
           "graving dock"
@@ -44819,7 +44819,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
         "max_loa": 220,
-        "max_tonnage": 36,
+        "max_tonnage": 36000,
         "dock_dimensions": "220m x 45.8m",
         "lift_type": [
           "graving dock"
@@ -44898,7 +44898,7 @@
         "city": "Tuzla",
         "facility_type": "commercial dry dock",
         "dry_docks": 1,
-        "max_tonnage": 180,
+        "max_tonnage": 180000,
         "dock_dimensions": "310m x 50m",
         "lift_type": [
           "graving dock"
@@ -45011,7 +45011,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 4,
         "max_loa": 421,
-        "max_tonnage": 500,
+        "max_tonnage": 500000,
         "dock_dimensions": "421m x 75m",
         "lift_type": [
           "graving dock",
@@ -45125,7 +45125,7 @@
         "city": "Suez",
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
-        "max_tonnage": 55,
+        "max_tonnage": 55000,
         "dock_dimensions": "302m x 55m",
         "lift_type": [
           "graving dock",
@@ -45193,7 +45193,7 @@
         "facility_type": "builder yard",
         "dry_docks": 1,
         "max_loa": 90,
-        "max_tonnage": 4,
+        "max_tonnage": 4000,
         "lift_type": [
           "floating dock"
         ],
@@ -45497,7 +45497,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 293,
-        "max_tonnage": 80,
+        "max_tonnage": 80000,
         "dock_dimensions": "293m x 57m",
         "lift_type": [
           "floating dock"
@@ -45523,7 +45523,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 3,
         "max_loa": 195,
-        "max_tonnage": 22,
+        "max_tonnage": 22000,
         "dock_dimensions": "195m x 35m",
         "lift_type": [
           "floating dock"
@@ -45643,7 +45643,7 @@
         "facility_type": "commercial dry dock",
         "dry_docks": 2,
         "max_loa": 305,
-        "max_tonnage": 150,
+        "max_tonnage": 150000,
         "dock_dimensions": "305m x 45.8m",
         "lift_type": [
           "floating dock"
@@ -71762,7 +71762,7 @@
     {
       "src": "shipyard:christensen-shipyards-vancouver-wa-former",
       "rel": "operated_by",
-      "dst": "company:christensen-yachts-ceased-2015-site-sold-to-vigor-industrial-2019",
+      "dst": "company:vigor-industrial",
       "attrs": {}
     },
     {
@@ -73208,7 +73208,7 @@
     {
       "src": "shipyard:peene-werft-wolgast",
       "rel": "operated_by",
-      "dst": "company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025",
+      "dst": "company:rheinmetall",
       "attrs": {}
     },
     {
@@ -73244,7 +73244,7 @@
     {
       "src": "shipyard:perini-navi-viareggio",
       "rel": "operated_by",
-      "dst": "company:sold-by-the-italian-sea-group-to-next-yacht-group-in-2024",
+      "dst": "company:next-yacht-group",
       "attrs": {}
     },
     {
@@ -78844,7 +78844,6 @@
         "company:chartersyachtsaustralia-com",
         "company:charterworld-com",
         "company:charteryachts-com",
-        "company:christensen-yachts-ceased-2015-site-sold-to-vigor-industrial-2019",
         "company:christie-yachts",
         "company:christina-o",
         "company:clarke-s-court-boatyard-marina",
@@ -78920,7 +78919,6 @@
         "company:fjord-yachts-com",
         "company:flagshipinternational-com-au",
         "company:flying-fox",
-        "company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025",
         "company:fraser",
         "company:fraser-yachts",
         "company:fraseryachts-com",
@@ -79095,6 +79093,7 @@
         "company:navigare-yachting-com",
         "company:networkyachtbrokers-com",
         "company:networkyachtbrokers-com-noted-but-com-skip-if-strict-non-com",
+        "company:next-yacht-group",
         "company:nicholson-yacht-charters",
         "company:niyana-yachts",
         "company:nmma-org",
@@ -79156,6 +79155,7 @@
         "company:ratanachai-shipyard",
         "company:relevanceyacht-com",
         "company:renaissance",
+        "company:rheinmetall",
         "company:ric-marine-com-sg",
         "company:rightboat-com",
         "company:rigpro",
@@ -79234,7 +79234,6 @@
         "company:smesgroup-com-sg",
         "company:smgroup-co-th",
         "company:sogemm",
-        "company:sold-by-the-italian-sea-group-to-next-yacht-group-in-2024",
         "company:soldboatprice-com",
         "company:sophia",
         "company:southern-spars",
@@ -79313,6 +79312,7 @@
         "company:vard-sg",
         "company:vento",
         "company:vetus-com",
+        "company:vigor-industrial",
         "company:vigor-marine-group",
         "company:vikingyachts-com",
         "company:virginislandsailing-com",
@@ -84320,9 +84320,6 @@
       "christensen shipyards vancouver, wa (former)": [
         "shipyard:christensen-shipyards-vancouver-wa-former"
       ],
-      "christensen yachts (ceased 2015; site sold to vigor industrial 2019)": [
-        "company:christensen-yachts-ceased-2015-site-sold-to-vigor-industrial-2019"
-      ],
       "christie yachts": [
         "company:christie-yachts"
       ],
@@ -85774,9 +85771,6 @@
       ],
       "forlì": [
         "region:forli"
-      ],
-      "formerly lürssen/nvl; sold to rheinmetall in 2025": [
-        "company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025"
       ],
       "formosa": [
         "yacht:formosa"
@@ -89082,6 +89076,9 @@
       "newport, ri": [
         "region:newport-ri"
       ],
+      "next yacht group": [
+        "company:next-yacht-group"
+      ],
       "nezugaseki marina": [
         "marina:nezugaseki-marina"
       ],
@@ -90577,6 +90574,9 @@
       "rgyc": [
         "region:rgyc"
       ],
+      "rheinmetall": [
+        "company:rheinmetall"
+      ],
       "rhode island moorings": [
         "marina:rhode-island-moorings"
       ],
@@ -91699,9 +91699,6 @@
       ],
       "solaris": [
         "yacht:solaris"
-      ],
-      "sold by the italian sea group to next yacht group in 2024": [
-        "company:sold-by-the-italian-sea-group-to-next-yacht-group-in-2024"
       ],
       "soldboatprice.com": [
         "company:soldboatprice-com"
@@ -92951,6 +92948,9 @@
       ],
       "vienna": [
         "region:vienna"
+      ],
+      "vigor industrial": [
+        "company:vigor-industrial"
       ],
       "vigor marine group": [
         "company:vigor-marine-group"
