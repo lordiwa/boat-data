@@ -4,9 +4,15 @@
 // sorted filename order — required because yachtMapper's id assignment is
 // ingestion-order-dependent, see yachtMapper.js), parses each file's pipe
 // tables, and routes every table to exactly one entity mapper by schema
-// guard, in precedence order: yacht > club > marina > company > engine.
-// A table that matches none of the five schemas is skipped and counted
-// (diagnostic only — never silently dropped from the log).
+// guard, in precedence order: yacht > club > marina > company > engine >
+// shipyard. A table that matches none of the six schemas is skipped and
+// counted (diagnostic only — never silently dropped from the log).
+//
+// TASK-016 adds shipyardMapper LAST in precedence (a highly specific guard
+// per its own module header — see shipyardMapper.js for the full
+// collision analysis against the other five guards) and, separately, the
+// `npm run score` completeness reporter (src/reporters/completenessScore.js,
+// not part of the ingest run itself).
 //
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
@@ -44,6 +50,7 @@ import { mapClubTables, isClubTable } from './mappers/clubMapper.js';
 import { mapMarinaTables, isMarinaTable } from './mappers/marinaMapper.js';
 import { mapCompanyTables, isCompanyTable } from './mappers/companyMapper.js';
 import { mapEngineTables, isEngineTable } from './mappers/engineMapper.js';
+import { mapShipyardTables, isShipyardTable } from './mappers/shipyardMapper.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -119,11 +126,12 @@ function isYachtTable(table) {
 
 /**
  * Partitions `tables` into per-mapper buckets by schema guard, in
- * precedence order (yacht > club > marina > company > engine). A table
- * matching none of the five is counted in `skipped` (diagnostic only).
+ * precedence order (yacht > club > marina > company > engine > shipyard).
+ * A table matching none of the six is counted in `skipped` (diagnostic
+ * only).
  */
 function routeTables(tables) {
-  const buckets = { yacht: [], club: [], marina: [], company: [], engine: [] };
+  const buckets = { yacht: [], club: [], marina: [], company: [], engine: [], shipyard: [] };
   let skipped = 0;
 
   for (const table of tables) {
@@ -132,6 +140,7 @@ function routeTables(tables) {
     else if (isMarinaTable(table)) buckets.marina.push(table);
     else if (isCompanyTable(table)) buckets.company.push(table);
     else if (isEngineTable(table)) buckets.engine.push(table);
+    else if (isShipyardTable(table)) buckets.shipyard.push(table);
     else skipped += 1;
   }
 
@@ -302,6 +311,7 @@ export function runIngest() {
       marinas: 0,
       companies: 0,
       engines: 0,
+      shipyards: 0,
       designers: 0,
       poweredBy: 0,
       edges: 0,
@@ -352,6 +362,10 @@ export function runIngest() {
 
       const engineResult = mapEngineTables(db, buckets.engine, fileName);
       totals.engines += engineResult.engines;
+
+      const shipyardResult = mapShipyardTables(db, buckets.shipyard, fileName);
+      totals.shipyards += shipyardResult.shipyards;
+      totals.edges += shipyardResult.edges;
 
       // Independent side-pass: does not consume from `buckets` / does not
       // affect `skipped` accounting (see module header).
