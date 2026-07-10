@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-07-10T22:33:31.916Z",
+  "byType": [
+    {
+      "type": "yacht",
+      "count": 605,
+      "attrPct": 32.53,
+      "edgePct": 94.21,
+      "score": 5.1
+    },
+    {
+      "type": "shipyard",
+      "count": 0,
+      "attrPct": 0,
+      "edgePct": 0,
+      "score": 0
+    },
+    {
+      "type": "builder",
+      "count": 186,
+      "attrPct": 0,
+      "edgePct": 100,
+      "score": 3
+    },
+    {
+      "type": "marina",
+      "count": 893,
+      "attrPct": 26.32,
+      "edgePct": 79.84,
+      "score": 4.24
+    },
+    {
+      "type": "company",
+      "count": 527,
+      "attrPct": 71.66,
+      "edgePct": 5.69,
+      "score": 5.19
+    },
+    {
+      "type": "region",
+      "count": 642,
+      "attrPct": 100,
+      "edgePct": 100,
+      "score": 10
+    },
+    {
+      "type": "person",
+      "count": 110,
+      "attrPct": 12.73,
+      "edgePct": 93.64,
+      "score": 3.7
+    },
+    {
+      "type": "club",
+      "count": 368,
+      "attrPct": 44.75,
+      "edgePct": 90.49,
+      "score": 5.85
+    },
+    {
+      "type": "designer",
+      "count": 10,
+      "attrPct": 0,
+      "edgePct": 100,
+      "score": 3
+    },
+    {
+      "type": "engine",
+      "count": 16,
+      "attrPct": 100,
+      "edgePct": 6.25,
+      "score": 7.19
+    }
+  ],
+  "overall": 4.4
+}

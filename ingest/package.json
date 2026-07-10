@@ -7,6 +7,7 @@
   "scripts": {
     "ingest": "node src/ingest.js",
     "verify-export": "node src/exporters/verifyExport.js",
+    "score": "node src/reporters/completenessScore.js",
     "test": "vitest run"
   },
   "dependencies": {
