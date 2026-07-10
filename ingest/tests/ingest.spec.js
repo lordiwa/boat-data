@@ -145,6 +145,17 @@ const SYNTHETIC_YACHT = `
 | Big Data | Unknown | 16.15 m (53 ft) | Beneteau | 2019 | French Riviera |
 `;
 
+// Real-shaped shipyard table (TASK-016) — see shipyardMapper.spec.js for
+// full field-level coverage; this proves the routing wiring end-to-end
+// (routeTables -> mapShipyardTables -> shipyard nodes + located_in/
+// operated_by edges), not just the guard in isolation (review fix,
+// MEDIUM 2).
+const SYNTHETIC_SHIPYARD = `
+| Shipyard              | Country | City      | Operator   | Facility Type | Dry Docks | Max LOA (m) | Max Tonnage (t) | Dock Dimensions | Lift Type     | Services            | Founded | Website           | Notes |
+|------------------------|---------|-----------|------------|----------------|-----------|-------------|------------------|------------------|----------------|-----------------------|---------|-------------------|-------|
+| Wave A Test Shipyard  | Spain   | Barcelona | Test Group | refit yard     | 1         | 100         | 4000             | 200m x 30m       | floating dock  | refit, repair, paint | 2000    | testshipyard.com |       |
+`;
+
 // A table shape that matches none of the five schemas (no name/club_name/
 // facility/company_name/platform/website/manufacturer column) — must be
 // counted as skipped, not silently dropped or misclaimed.
@@ -156,7 +167,10 @@ const SYNTHETIC_OFF_SCHEMA = `
 
 describe('runIngest — synthetic corpus (routing, skip-list, per-type counts)', () => {
   beforeEach(() => {
-    writeCorpusFile('40_Wave_A_Fixture.md', SYNTHETIC_CLUB + SYNTHETIC_MARINA + SYNTHETIC_COMPANY + SYNTHETIC_ENGINE);
+    writeCorpusFile(
+      '40_Wave_A_Fixture.md',
+      SYNTHETIC_CLUB + SYNTHETIC_MARINA + SYNTHETIC_COMPANY + SYNTHETIC_ENGINE + SYNTHETIC_SHIPYARD
+    );
     writeCorpusFile('42_Wave_A_Yacht_Fixture.md', SYNTHETIC_YACHT + SYNTHETIC_OFF_SCHEMA);
     // A SKIP_FILES-listed name: its (deliberately club-shaped) content
     // must NOT be ingested even though it would otherwise match a schema.
@@ -172,6 +186,39 @@ describe('runIngest — synthetic corpus (routing, skip-list, per-type counts)',
     expect(result.totals.companies).toBeGreaterThan(0);
     expect(result.totals.engines).toBeGreaterThan(0);
     expect(result.totals.yachts).toBeGreaterThan(0);
+    expect(result.totals.shipyards).toBeGreaterThan(0);
+  });
+
+  // Review fix (MEDIUM 2): a guard-level unit test (shipyardMapper.spec.js)
+  // isn't enough to protect the routeTables() wiring in ingest.js itself —
+  // this proves a shipyard-shaped table survives the full routing
+  // precedence (yacht > club > marina > company > engine > shipyard) and
+  // produces a real shipyard node plus its located_in/operated_by edges.
+  it('routes a shipyard-shaped table through routeTables end-to-end into a Shipyard node with its edges', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    const result = runIngest();
+
+    expect(result.totals.shipyards).toBe(1);
+
+    const { openDb } = await import('../src/db.js');
+    const db = openDb(tmpDbPath);
+    try {
+      const shipyard = db.prepare("SELECT * FROM nodes WHERE id = 'shipyard:wave-a-test-shipyard'").get();
+      expect(shipyard).toBeTruthy();
+      expect(shipyard.type).toBe('shipyard');
+
+      const locatedIn = db
+        .prepare("SELECT * FROM edges WHERE src = 'shipyard:wave-a-test-shipyard' AND rel = 'located_in'")
+        .get();
+      expect(locatedIn).toBeTruthy();
+
+      const operatedBy = db
+        .prepare("SELECT * FROM edges WHERE src = 'shipyard:wave-a-test-shipyard' AND rel = 'operated_by'")
+        .get();
+      expect(operatedBy).toBeTruthy();
+    } finally {
+      db.close();
+    }
   });
 
   it('skips SKIP_FILES-listed files entirely (their content is never ingested)', async () => {
@@ -206,6 +253,7 @@ describe('runIngest — synthetic corpus (routing, skip-list, per-type counts)',
     expect(second.totals.companies).toBe(first.totals.companies);
     expect(second.totals.engines).toBe(first.totals.engines);
     expect(second.totals.yachts).toBe(first.totals.yachts);
+    expect(second.totals.shipyards).toBe(first.totals.shipyards);
   });
 });
 

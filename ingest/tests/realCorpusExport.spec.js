@@ -97,3 +97,51 @@ describe('real corpus — export totals match SQLite exactly', () => {
     expect(summary).toContain(`Edges: ${sqliteEdgeCount}`);
   }, 30000);
 });
+
+// Review fix (MEDIUM 3): yachtMapper's id assignment is ingestion-order-
+// dependent (see ingest.js's module header) — the corpus is scanned in
+// sorted filename order, so a future data-enrichment round that adds new
+// numbered files should sort AFTER the existing corpus and never shift an
+// existing yacht's id. This lock pins the current real-corpus per-type
+// counts (as of TASK-016's shipyard-lane enrichment) and a small sample of
+// well-known yacht ids, so a future round that silently disturbs ingestion
+// order (e.g. a new file inserted with a lower sort-order number, or a
+// rename that changes a yacht's normalized name) fails loudly here instead
+// of quietly reshuffling ids downstream.
+describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', () => {
+  it('matches the pinned per-type node counts (TASK-016 shipyard-lane baseline)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    // `result.totals.<type>` is a running tally of ROWS PROCESSED (it
+    // increments on every mention across files, including re-merges of an
+    // already-known entity), not the final distinct-node count — the
+    // graph.json export's meta.types is the one true per-type node count
+    // (see graphExporter.js's buildMeta), so the baseline lock reads from
+    // there instead.
+    const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
+
+    expect(graph.meta.types.yacht).toBe(605);
+    expect(graph.meta.types.builder).toBe(186);
+    expect(graph.meta.types.club).toBe(368);
+    expect(graph.meta.types.marina).toBe(893);
+    expect(graph.meta.types.person).toBe(110);
+    expect(graph.meta.types.designer).toBe(10);
+    expect(graph.meta.types.engine).toBe(16);
+    expect(graph.meta.types.shipyard).toBe(236);
+  }, 30000);
+
+  it('resolves a pinned sample of well-known yacht ids unchanged', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const pinnedIds = ['yacht:azzam', 'yacht:eclipse', 'yacht:dilbar', 'yacht:big-data', 'yacht:breakthrough'];
+    for (const id of pinnedIds) {
+      const row = db.prepare('SELECT id, type FROM nodes WHERE id = ?').get(id);
+      expect(row, `expected pinned yacht id ${id} to still exist`).toBeTruthy();
+      expect(row.type).toBe('yacht');
+    }
+    db.close();
+  }, 30000);
+});

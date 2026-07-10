@@ -1,8 +1,9 @@
 // ingest/tests/shipyardMapper.spec.js
 //
-// TASK-016: shipyard/dry-dock facility mapper. Synthetic fixtures (no
-// shipyard docs exist in /knowledge yet — this ticket's data lands in a
-// separate enrichment round) shaped exactly per the ticket's header spec:
+// TASK-016: shipyard/dry-dock facility mapper. Synthetic fixtures (the real
+// corpus docs now live at knowledge/83-87, curated in TASK-016 Phase 2 — see
+// realCorpusExport.spec.js for the end-to-end real-corpus lock) shaped
+// exactly per the ticket's header spec:
 //   Shipyard | Country | City | Operator | Facility Type | Dry Docks |
 //   Max LOA (m) | Max Tonnage (t) | Dock Dimensions | Lift Type | Services |
 //   Founded | Website | Notes
@@ -41,6 +42,29 @@ const FIXTURE_SHIPYARDS = `
 |--------------------------|-------------|-----------|--------------|----------------------|-----------|-------------|------------------|------------------|-----------------|------------------------------------|---------|----------------------|------------------------------|
 | Feadship Aalsmeer Yard   | Netherlands | Aalsmeer  | Feadship     | Builder Yard         | 3         | 160m        | 15000            | 200m x 40m       | Syncrolift      | New build, Refit, Sea trials      | 1849    | https://feadship.nl  | Royal Dutch shipbuilder.    |
 | MB92 Barcelona           | Spain       | Barcelona | MB92 Group   | Refit & Repair       | 2         | 130m        | 8000             | —                | Floating dock   | Refit, Repaint, Engineering       | 2005    | https://mb92.com     | N/A                          |
+`;
+
+// --- Synthetic fixture (HIGH regression): comma-formatted Max Tonnage
+// cells, shaped like the real corpus's Grand Bahama Shipyard row (93,500t
+// "East End" floating dock) — must parse to the full value, not just the
+// digits before the first comma. ---
+const FIXTURE_COMMA_TONNAGE = `
+| Shipyard              | Country | City     | Operator            | Facility Type      | Dry Docks | Max LOA (m) | Max Tonnage (t) | Dock Dimensions | Lift Type    | Services         | Founded | Website                     | Notes |
+|------------------------|---------|----------|----------------------|---------------------|-----------|-------------|------------------|------------------|---------------|-------------------|---------|------------------------------|-------|
+| Grand Bahama Shipyard | Bahamas | Freeport | Grand Bahama Shipyard Ltd | commercial dry dock | 5         | 414         | 93,500           | 357m x 76m       | floating dock | repair, conversion | 1997    | grandbahamashipyard.com     |       |
+`;
+
+// --- Synthetic fixture (MEDIUM 1 regression): Operator cells that are
+// researcher prose narrating an OWNERSHIP CHANGE rather than naming the
+// current operator, shaped exactly like the real corpus rows that minted
+// junk company nodes (see knowledge/83's Peene-Werft Wolgast and Perini
+// Navi Viareggio rows, now curated to name the current operator instead —
+// this fixture proves the mapper itself also guards against the shape). ---
+const FIXTURE_PROSE_OPERATOR = `
+| Shipyard                  | Country | City     | Operator                                                | Facility Type | Dry Docks | Max LOA (m) | Max Tonnage (t) | Dock Dimensions | Lift Type | Services | Founded | Website      | Notes |
+|----------------------------|---------|----------|----------------------------------------------------------|----------------|-----------|-------------|------------------|------------------|-----------|----------|---------|--------------|-------|
+| Peene-Werft Wolgast Test  | Germany | Wolgast | Formerly Lürssen/NVL; sold to Rheinmetall in 2025       | builder yard   | 1         | 100         | 1000             | 100m dock        | slipway   | newbuild | 1948    | nvl.de       |       |
+| Perini Navi Viareggio Test | Italy   | Viareggio | Sold by The Italian Sea Group to Next Yacht Group in 2024 | builder yard   | 1         | 60          | 500              | 60m dock         | slipway   | newbuild | 1983    | perininavi.it |       |
 `;
 
 // --- Synthetic fixture: a table with only ONE of the four specific
@@ -174,6 +198,48 @@ describe('mapShipyardTables — attribute mapping', () => {
     const mb92 = getNode('shipyard:mb92-barcelona');
     expect(mb92.attrs).not.toHaveProperty('dock_dimensions');
     expect(mb92.attrs).not.toHaveProperty('notes');
+  });
+});
+
+describe('mapShipyardTables — numeric parsing (regression: HIGH, comma-formatted tonnage)', () => {
+  it('strips thousands-separator commas before parsing Max Tonnage (93,500 -> 93500, not 93)', () => {
+    const tables = parseTables(FIXTURE_COMMA_TONNAGE);
+    mapShipyardTables(db, tables, 'comma-tonnage-fixture.md');
+
+    const gbs = getNode('shipyard:grand-bahama-shipyard');
+    expect(gbs).not.toBeNull();
+    expect(gbs.attrs.max_tonnage).toBe(93500);
+  });
+});
+
+describe('mapShipyardTables — Operator plausibility (regression: MEDIUM 1, ownership-history prose)', () => {
+  it('rejects an Operator cell narrating an ownership change ("Formerly X; sold to Y") rather than minting a junk company node from it', () => {
+    const tables = parseTables(FIXTURE_PROSE_OPERATOR);
+    const result = mapShipyardTables(db, tables, 'prose-operator-fixture.md');
+
+    expect(result.shipyards).toBe(2);
+    // Shipyard nodes are still created (the row itself is fine)...
+    expect(getNode('shipyard:peene-werft-wolgast-test')).not.toBeNull();
+    // ...but no OPERATED_BY edge, and no junk company node minted from the
+    // prose text.
+    expect(
+      db
+        .prepare("SELECT COUNT(*) AS count FROM edges WHERE src = 'shipyard:peene-werft-wolgast-test' AND rel = 'operated_by'")
+        .get().count
+    ).toBe(0);
+    expect(getNode('company:formerly-lurssen-nvl-sold-to-rheinmetall-in-2025')).toBeNull();
+  });
+
+  it('rejects a "Sold by X to Y" Operator cell the same way', () => {
+    const tables = parseTables(FIXTURE_PROSE_OPERATOR);
+    mapShipyardTables(db, tables, 'prose-operator-fixture.md');
+
+    expect(
+      db
+        .prepare("SELECT COUNT(*) AS count FROM edges WHERE src = 'shipyard:perini-navi-viareggio-test' AND rel = 'operated_by'")
+        .get().count
+    ).toBe(0);
+    expect(getNode('company:sold-by-the-italian-sea-group-to-next-yacht-group-in-2024')).toBeNull();
   });
 });
 
