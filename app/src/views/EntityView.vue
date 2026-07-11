@@ -107,6 +107,12 @@ const INVERSE_GROUP_DEFS: InverseGroupDef[] = [
   { rel: 'located_in', srcType: 'shipyard', heading: 'Shipyards here', omit: 'location' },
   { rel: 'made_by', srcType: 'engine_model', heading: 'Engine models', omit: 'brandName' },
   { rel: 'part_of', srcType: 'region', heading: 'Sub-regions' },
+  // TASK-019: a company (or, per builderEnrichmentMapper.js's resolution
+  // order, occasionally another builder) that owns one or more builders —
+  // mirrors engine's own TASK-017 owned_by inverse group pattern (engine
+  // doesn't currently have its own inverse group listed here either; this
+  // is builder's first).
+  { rel: 'owned_by', srcType: 'builder', heading: 'Builders owned', omit: 'ownerName' },
 ];
 
 // One lazily-evaluated (Vue computed = memoized + only runs when read) row
@@ -120,6 +126,7 @@ const rowsByType: Partial<Record<NodeType, ReturnType<typeof useTypeRows>>> = {
   region: useTypeRows(computed(() => 'region' as NodeType)),
   shipyard: useTypeRows(computed(() => 'shipyard' as NodeType)),
   engine_model: useTypeRows(computed(() => 'engine_model' as NodeType)),
+  builder: useTypeRows(computed(() => 'builder' as NodeType)),
 };
 
 interface InverseGroup {

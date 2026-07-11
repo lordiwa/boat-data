@@ -73,7 +73,11 @@ function buildRows(graph: Graph, type: NodeType): EnrichedRow[] {
         node,
         region: firstNeighborName(graph, node.id, 'located_in', 'out'),
         yachtCount: graph.edgesTo(node.id, 'built_by').length,
-        rels: buildRels(graph, node.id, ['located_in']),
+        // TASK-019: builderEnrichmentMapper.js's owned_by edge (builder ->
+        // company or builder -> another builder) — same edge shape as
+        // engineMapper's TASK-017 owned_by, resolved here the same way.
+        ownerName: firstNeighborName(graph, node.id, 'owned_by', 'out'),
+        rels: buildRels(graph, node.id, ['located_in', 'owned_by']),
       }));
     case 'club':
       return nodes.map((node) => ({

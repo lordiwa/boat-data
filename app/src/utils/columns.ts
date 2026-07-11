@@ -133,6 +133,15 @@ function builderColumns(): ColumnDef<EnrichedRow>[] {
       type: 'number',
       filterable: true,
     },
+    // TASK-019: builderEnrichmentMapper.js's owned_by edge (Parent Company column).
+    {
+      key: 'ownerName',
+      label: 'Owned by',
+      accessor: (row) => (row.ownerName as string | null) ?? '—',
+      sortAccessor: (row) => (row.ownerName as string | null) ?? null,
+      type: 'text',
+      filterable: true,
+    },
   ];
 }
 
