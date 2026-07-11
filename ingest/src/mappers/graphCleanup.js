@@ -692,6 +692,58 @@ function applyYachtConflictNotes(db) {
   }
 }
 
+// --- TASK-025 (Round 7) review fix (HIGH): non-yacht stay-split notes ----
+// research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1(f):
+// builder:olympic-yacht-services (the present-day Olympic Yacht Shipyard/
+// OYS refit yard, oys.gr — publicly credited with the Dream mega-yacht
+// conversion) vs marina:olympic-marine-lavrion (Olympic Marine S.A., a
+// separate marina/boatyard complex, olympicmarine.gr — 680 berths, founded
+// 1969) — related-but-distinct roles in the same Lavrio, Attica waterfront
+// cluster. One secondary source hints Olympic Marine was itself "founded in
+// Lavrio under the initial name of Olympic Yachts," suggesting possible
+// shared historical lineage, but this is not strong enough grounding to
+// assert they are the identical legal entity TODAY, and their present-day
+// web presences are separate. STAY-SPLIT, no merge action taken — but
+// recorded here (rather than left silently implicit) so the verdict is
+// visible on-graph, same discipline as YACHT_CONFLICT_NOTES above.
+// yachtSpecMapper.js's attrs.conflicts.identity reserved-key convention is
+// yacht-specific in NAME only, not mechanism — this generic executor
+// reuses the identical shape for the two non-yacht node types this ticket
+// needs it for (builder, marina).
+export const NODE_STAY_SPLIT_NOTES = [
+  {
+    id: 'builder:olympic-yacht-services',
+    note:
+      'Distinct from marina:olympic-marine-lavrion (Olympic Marine S.A., a separate marina/boatyard complex in ' +
+      'the same Lavrio, Greece waterfront cluster) — STAY-SPLIT: related-but-distinct roles (refit yard vs ' +
+      'berthing facility); one secondary source hints at shared historical lineage but grounding is insufficient ' +
+      'to assert they are the identical legal entity today. See ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 1(f).',
+  },
+  {
+    id: 'marina:olympic-marine-lavrion',
+    note:
+      'Distinct from builder:olympic-yacht-services (Olympic Yacht Shipyard/OYS, a separate refit yard in the ' +
+      'same Lavrio, Greece waterfront cluster) — STAY-SPLIT: related-but-distinct roles (berthing facility vs ' +
+      'refit yard); one secondary source hints at shared historical lineage but grounding is insufficient to ' +
+      'assert they are the identical legal entity today. See ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 1(f).',
+  },
+];
+
+function applyNodeStaySplitNotes(db) {
+  for (const { id, note } of NODE_STAY_SPLIT_NOTES) {
+    if (!nodeExists(db, id)) continue;
+    const row = getFullNode(db, id);
+    const attrs = parseAttrsJson(row.attrs_json);
+    const conflicts = { ...(attrs.conflicts || {}) };
+    const existing = conflicts.identity || [];
+    conflicts.identity = existing.includes(note) ? existing : [...existing, note];
+    attrs.conflicts = conflicts;
+    upsertNode(db, { id, type: row.type, name: row.name, attrs });
+  }
+}
+
 // TASK-023 item 3: research/round5/yacht-specs-under35m.md's own Suspect
 // entries flag Al Mirqab's two graph nodes as carrying "no reconciliation
 // between the two builder claims" — `builder:kusch-yachts` (wrong) vs
@@ -719,6 +771,32 @@ function fixAlMirqabBuilderConflict(db) {
 // edge is already correct).
 function fixSamsaraBuilderMisattribution(db) {
   db.prepare("DELETE FROM edges WHERE src = 'yacht:samsara' AND rel = 'built_by' AND dst = 'builder:benetti'").run();
+}
+
+// Review fix (LOW, round 1): knowledge/98's Samsara row routes its ~6,700nm
+// range estimate to attrs.conflicts.range_nm via yachtSpecMapper.js's
+// isApproxRaw handling (same mechanism as La Datcha's own ~6,000nm entry —
+// see that node's row) — but because the row's ambiguous same-name
+// tie-break always lands on yacht:samsara (the "from" side of the
+// samsara -> samsara-oceanco merge below), and yacht:samsara-oceanco (the
+// "to"/survivor side) already carries its OWN non-null attrs.conflicts
+// object (the pre-existing "features" duplication), mergeNode()'s
+// whole-key first-non-empty-wins merge never copies the "from" side's
+// conflicts.range_nm over — it's silently dropped. Restored directly here,
+// run AFTER the merge (see applyGraphCleanup's call ordering), same
+// approx-estimate note text convention as yachtSpecMapper.js's own
+// approxConflictNote().
+function fixSamsaraRangeConflict(db) {
+  const id = 'yacht:samsara-oceanco';
+  if (!nodeExists(db, id)) return;
+  const row = getFullNode(db, id);
+  const attrs = parseAttrsJson(row.attrs_json);
+  const conflicts = { ...(attrs.conflicts || {}) };
+  const note = '~6700 (estimate — not stored as a confirmed value; see source Notes)';
+  const existing = conflicts.range_nm || [];
+  conflicts.range_nm = existing.includes(note) ? existing : [...existing, note];
+  attrs.conflicts = conflicts;
+  upsertNode(db, { id, type: row.type, name: row.name, attrs });
 }
 
 // BOTH Moka nodes' stored builder (Overmarine/Overmarine Group) is wrong —
@@ -756,9 +834,19 @@ function fixNavetta68Builder(db) {
 // builder edges (see knowledge/98's own Curation notes), so this small
 // dedicated fixup adds it directly — same pattern as fixWinchDesignVard's
 // one-off edge repair above.
+//
+// Review fix (MEDIUM, round 1): the node's primary-ingestion built_by edge
+// resolved to the generic `builder:custom` placeholder (the raw corpus row
+// named no specific yard) — same delete-then-add pattern as
+// fixNavetta68Builder above, so the node ends up with exactly one, correct
+// built_by edge instead of two (the real Newcastle Marine PLUS the
+// placeholder).
 function fixLadyBethBuiltBy(db) {
-  if (!nodeExists(db, 'yacht:lady-beth') || !nodeExists(db, 'builder:newcastle-marine')) return;
-  upsertEdge(db, { src: 'yacht:lady-beth', rel: 'built_by', dst: 'builder:newcastle-marine' });
+  if (!nodeExists(db, 'yacht:lady-beth')) return;
+  db.prepare("DELETE FROM edges WHERE src = 'yacht:lady-beth' AND rel = 'built_by' AND dst = 'builder:custom'").run();
+  if (nodeExists(db, 'builder:newcastle-marine')) {
+    upsertEdge(db, { src: 'yacht:lady-beth', rel: 'built_by', dst: 'builder:newcastle-marine' });
+  }
 }
 
 // --- 5. TASK-020: Rybovich marina merge -----------------------------------
@@ -1402,6 +1490,12 @@ export function applyGraphCleanup(db) {
   fixNavetta68Builder(db);
   fixLadyBethBuiltBy(db);
 
+  // TASK-025 (Round 7) review fix (LOW): restores Samsara's ~6,700nm range
+  // estimate onto the FINAL merge-survivor id, run AFTER the
+  // samsara -> samsara-oceanco merge above (see fixSamsaraRangeConflict's
+  // own comment for why the merge alone loses it).
+  fixSamsaraRangeConflict(db);
+
   // TASK-024 review LOW 2: same-name-conflict identity notes — runs last,
   // after every merge above, so it always targets the FINAL canonical node
   // id for each of the 7 flagged yachts (none of the 7 is itself a merge
@@ -1410,4 +1504,10 @@ export function applyGraphCleanup(db) {
   // entries (Sophia, Lady Beth (Lürssen)) to the same YACHT_CONFLICT_NOTES
   // table this function reads.
   applyYachtConflictNotes(db);
+
+  // TASK-025 (Round 7) review fix (HIGH): non-yacht stay-split notes
+  // (Olympic Marine / Olympic Yacht Services) — same "runs last" reasoning
+  // as applyYachtConflictNotes above, though neither of this pair is a
+  // merge source/target either.
+  applyNodeStaySplitNotes(db);
 }

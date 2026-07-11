@@ -104,6 +104,14 @@ describe('Round 7 — dupe-pair merges (research/round7/02_dupe_pairs_loa_carryo
     // not carry over the Benetti misattribution.
     const builtBy = edgesFrom('yacht:samsara-oceanco', 'built_by');
     expect(builtBy.map((e) => e.dst)).toEqual(['builder:oceanco']);
+
+    // Review fix (LOW, round 1): the ~6,700nm range estimate (knowledge/98's
+    // own Samsara row) must survive the tie-break-then-merge path, not be
+    // silently dropped by mergeNode()'s shallow conflicts-key merge — see
+    // graphCleanup.js's fixSamsaraRangeConflict.
+    const rangeConflicts = (survivor.attrs.conflicts && survivor.attrs.conflicts.range_nm) || [];
+    expect(rangeConflicts.length).toBeGreaterThan(0);
+    expect(rangeConflicts.join(' ')).toMatch(/6700|6,700/);
   });
 
   it('moka-overmarine -> moka: builder corrected to Sanlorenzo (the real builder of the 42.2m Moka)', () => {
@@ -192,6 +200,31 @@ describe('Round 7 — stay-split pairs with a recorded conflicts.identity entry'
     const joined = identityNotes.join(' ').toLowerCase();
     expect(joined).toMatch(/lürssen|lurssen/);
     expect(joined).toMatch(/no .*(lürssen|lurssen).*lady beth|not found|no source/);
+  });
+
+  // Review fix (HIGH, round 1): the Olympic Marine / Olympic Yacht Services
+  // equivalence was resolved STAY-SPLIT in research/round7/02's Sub-task
+  // 1(f), but nothing was recorded on-node — added via graphCleanup.js's
+  // NODE_STAY_SPLIT_NOTES (a non-yacht generalization of YACHT_CONFLICT_NOTES).
+  it('builder:olympic-yacht-services and marina:olympic-marine-lavrion each carry a cited stay-split conflicts.identity entry', () => {
+    const builder = node('builder:olympic-yacht-services');
+    const marina = node('marina:olympic-marine-lavrion');
+    expect(builder).toBeTruthy();
+    expect(marina).toBeTruthy();
+
+    for (const n of [builder, marina]) {
+      const identityNotes = (n.attrs.conflicts && n.attrs.conflicts.identity) || [];
+      expect(identityNotes.length, `expected ${n.id} to carry a conflicts.identity entry`).toBeGreaterThan(0);
+      const joined = identityNotes.join(' ').toLowerCase();
+      expect(joined).toMatch(/olympic/);
+      expect(joined).toMatch(/stay-split|distinct|insufficient|related-but-distinct/);
+      expect(joined).toContain('research/round7/02_dupe_pairs_loa_carryover.md');
+    }
+
+    // yacht:dream's own built_by edge is untouched by this note — the pair
+    // stays split, no merge action was ever taken.
+    const dreamBuiltBy = edgesFrom('yacht:dream', 'built_by');
+    expect(dreamBuiltBy.map((e) => e.dst)).toEqual(['builder:olympic-yacht-services']);
   });
 });
 
@@ -415,8 +448,11 @@ describe('Round 7 — Lady Beth research carry-over', () => {
     expect(n.attrs.year.value).toBe(2011);
     expect(n.attrs.former_names).toEqual(expect.arrayContaining(['Harbour Island', 'Sovereign', 'Loon']));
 
+    // Review fix (MEDIUM, round 1): exactly one built_by edge — the
+    // primary-ingestion placeholder builder:custom edge must be replaced,
+    // not merely supplemented (see graphCleanup.js's fixLadyBethBuiltBy).
     const builtBy = edgesFrom('yacht:lady-beth', 'built_by');
-    expect(builtBy.map((e) => e.dst)).toContain('builder:newcastle-marine');
+    expect(builtBy.map((e) => e.dst)).toEqual(['builder:newcastle-marine']);
   });
 
   it('yacht:lady-beth does NOT store max_speed as a single confirmed number (sources vary 15.5-16kn)', () => {

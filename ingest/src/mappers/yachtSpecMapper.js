@@ -385,20 +385,29 @@ export function mapYachtSpecTables(db, tables, sourceFile) {
       }
       for (const alt of draftCell.conflicts) addConflict('draft', alt);
 
-      // gt / max_speed / range_nm: plain numbers. Same approx-marker
-      // handling as beam/draft above.
-      const gtRaw = pickFirstPresent(row, GT_KEYS);
-      if (isApproxRaw(gtRaw)) {
-        addConflict('gt', approxConflictNote(gtRaw));
+      // gt / range_nm: plain numbers, curated-conflict-aware (TASK-025
+      // review fix, MEDIUM: extends the SAME splitConflictMarker mechanism
+      // already used by beam/draft/flag above to these two fields — a
+      // curated "<primary> [conflict: <alt>]" cell routes the alternate
+      // into attrs.conflicts instead of it being silently dropped when a
+      // research row itself flags "sources vary" but a single one-off
+      // "primary" figure is still the best available confirmed value).
+      // Approx-marker ("~"-prefixed) handling unchanged from before.
+      const gtCell = splitConflictMarker(pickFirstPresent(row, GT_KEYS));
+      if (isApproxRaw(gtCell.primary)) {
+        addConflict('gt', approxConflictNote(gtCell.primary));
       } else {
-        const gtValue = parseNumeric(gtRaw);
+        const gtValue = parseNumeric(gtCell.primary);
         if (gtValue !== null) {
           const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'gt', gtValue, (a, b) => a === b, scalarRawOf);
           merged.gt = value;
           if (conflict) addConflict('gt', conflict);
         }
       }
+      for (const alt of gtCell.conflicts) addConflict('gt', alt);
 
+      // max_speed: plain number, approx-marker handling only (no curated
+      // conflict-marker cells needed for this field this round).
       const maxSpeedRaw = pickFirstPresent(row, MAX_SPEED_KEYS);
       if (isApproxRaw(maxSpeedRaw)) {
         addConflict('max_speed', approxConflictNote(maxSpeedRaw));
@@ -411,17 +420,18 @@ export function mapYachtSpecTables(db, tables, sourceFile) {
         }
       }
 
-      const rangeRaw = pickFirstPresent(row, RANGE_KEYS);
-      if (isApproxRaw(rangeRaw)) {
-        addConflict('range_nm', approxConflictNote(rangeRaw));
+      const rangeCell = splitConflictMarker(pickFirstPresent(row, RANGE_KEYS));
+      if (isApproxRaw(rangeCell.primary)) {
+        addConflict('range_nm', approxConflictNote(rangeCell.primary));
       } else {
-        const rangeValue = parseNumeric(rangeRaw);
+        const rangeValue = parseNumeric(rangeCell.primary);
         if (rangeValue !== null) {
           const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'range_nm', rangeValue, (a, b) => a === b, scalarRawOf);
           merged.range_nm = value;
           if (conflict) addConflict('range_nm', conflict);
         }
       }
+      for (const alt of rangeCell.conflicts) addConflict('range_nm', alt);
 
       // flag / class_society: plain strings, curated-conflict-aware for flag.
       const flagCell = splitConflictMarker(pickFirstPresent(row, FLAG_KEYS));
