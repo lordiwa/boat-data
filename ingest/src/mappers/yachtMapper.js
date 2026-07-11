@@ -118,6 +118,15 @@ function loadYachtCandidates(db) {
       builderId: resolution.builderId ?? null,
       loaMeters:
         attrs.loa && typeof attrs.loa.meters === 'number' ? attrs.loa.meters : null,
+      // TASK-023 item 0 fix: graphCleanup.js's YACHT_QUALITY_CORRECTIONS
+      // (e.g. EIV, MYSTERE) rewrites a node's loa.meters to the researched
+      // correct value but the /knowledge corpus's raw row is never
+      // rewritten — a re-ingest sees the same historical (pre-correction)
+      // raw LOA every time. loaAliasMeters carries that historical value
+      // forward so classifyCandidate() below can recognize it as the SAME
+      // yacht rather than a definite LOA mismatch (see this node's own
+      // attrs.loa_aliases, set by applyYachtQualityCorrections).
+      loaAliasMeters: Array.isArray(attrs.loa_aliases) ? attrs.loa_aliases : [],
       provenance: attrs.provenance || [],
     };
   });
@@ -147,6 +156,15 @@ function nodeExists(db, id) {
  *   'UNKNOWN' — neither builder nor LOA is comparable between the two
  *               (at least one is missing on one side for both fields):
  *               not enough evidence either way.
+ *
+ * TASK-023 item 0 fix: an LOA disagreement is NOT a mismatch when the
+ * candidate's raw LOA matches one of `existing.loaAliasMeters` — the
+ * historical (pre-quality-correction) LOA value graphCleanup.js's
+ * YACHT_QUALITY_CORRECTIONS preserves precisely so a re-ingest of the same,
+ * still-uncorrected /knowledge row keeps resolving onto the corrected node
+ * instead of being classified as a different yacht and minting a
+ * disambiguated "-2" sibling (yacht:eiv-2, yacht:mystere-2 were the two
+ * real-corpus repeat offenders before this fix).
  */
 function classifyCandidate(existing, candidate) {
   const builderComparable = Boolean(existing.builderId) && Boolean(candidate.builderId);
@@ -154,7 +172,15 @@ function classifyCandidate(existing, candidate) {
     typeof existing.loaMeters === 'number' && typeof candidate.loaMeters === 'number';
 
   if (builderComparable && existing.builderId !== candidate.builderId) return 'MISMATCH';
-  if (loaComparable && !lengthsMatch(existing.loaMeters, candidate.loaMeters)) return 'MISMATCH';
+
+  if (loaComparable) {
+    const matchesCurrentLoa = lengthsMatch(existing.loaMeters, candidate.loaMeters);
+    const matchesLoaAlias = (existing.loaAliasMeters || []).some((aliasMeters) =>
+      lengthsMatch(aliasMeters, candidate.loaMeters)
+    );
+    if (!matchesCurrentLoa && !matchesLoaAlias) return 'MISMATCH';
+  }
+
   if (builderComparable || loaComparable) return 'MATCH';
   return 'UNKNOWN';
 }

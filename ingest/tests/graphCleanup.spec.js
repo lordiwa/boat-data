@@ -602,6 +602,27 @@ describe('applyGraphCleanup — yacht LOA quality corrections (EIV, MYSTERE)', (
     const node = getNode('yacht:mystere');
     expect(node.attrs.loa.meters).toBe(33.29);
   });
+
+  // TASK-023 item 0: the double-ingest minting bug fix. See yachtMapper.spec.js
+  // for the classifyCandidate()-side half of this fix (accepting the alias).
+  it('records the pre-correction LOA in attrs.loa_aliases so a re-ingest of the still-uncorrected raw corpus row keeps resolving onto this node', () => {
+    upsertNode(db, { id: 'yacht:eiv', type: 'yacht', name: 'EIV', attrs: { loa: { meters: 160, raw: '160m' } } });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:eiv');
+    expect(node.attrs.loa_aliases).toEqual([160]);
+  });
+
+  it('is idempotent: running applyGraphCleanup twice does not duplicate the loa_aliases entry', () => {
+    upsertNode(db, { id: 'yacht:eiv', type: 'yacht', name: 'EIV', attrs: { loa: { meters: 160, raw: '160m' } } });
+
+    applyGraphCleanup(db);
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:eiv');
+    expect(node.attrs.loa_aliases).toEqual([160]);
+  });
 });
 
 describe('applyGraphCleanup — club dedupe (TASK-021)', () => {

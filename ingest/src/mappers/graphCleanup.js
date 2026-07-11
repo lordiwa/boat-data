@@ -700,6 +700,23 @@ export const CLUB_MERGE_MAP = [
 // above — the WRONG value is preserved in attrs.conflicts (with the
 // correction's own rationale) rather than silently discarded, so the
 // mistake stays traceable.
+//
+// TASK-023 item 0 fix: a length-shaped correction ALSO records the
+// pre-correction `meters` value in attrs.loa_aliases (see
+// applyYachtQualityCorrections below). Without this, a second full-corpus
+// ingest run re-reads the SAME still-uncorrected raw corpus row (this hook
+// only ever rewrites the graph node, never the source /knowledge files) and
+// yachtMapper.js's classifyCandidate() sees the corrected node's loa.meters
+// (e.g. EIV's 48.8) disagree with the raw row's loa (160) — a definite
+// MISMATCH by its old logic, even though every OTHER comparable field
+// (builder) still agrees — and mints a disambiguated "-2" sibling
+// (yacht:eiv-2) every single re-ingest. yachtMapper.js's classifyCandidate()
+// now also accepts a candidate LOA that matches one of the existing node's
+// attrs.loa_aliases as a non-mismatch (see that module's own comment), so
+// the historical raw value stays a recognized alias of the corrected node
+// forever, and a double-ingest is byte-stable
+// (tests/realCorpusExport.spec.js's "full-graph double-ingest idempotency"
+// describe block).
 export const YACHT_QUALITY_CORRECTIONS = [
   {
     id: 'yacht:eiv',
@@ -719,22 +736,49 @@ export const YACHT_QUALITY_CORRECTIONS = [
   },
 ];
 
+// True when `a` and `b` already represent the same corrected value (e.g. a
+// repeat call on an already-corrected node) — guards
+// applyYachtQualityCorrections's conflict/alias recording below against
+// treating the CURRENT (already-correct) value as a fresh "old" value to
+// preserve every time this idempotent hook re-runs (once per ingest).
+function sameCorrectionValue(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
 function applyYachtQualityCorrections(db) {
   for (const { id, field, correctedValue, note } of YACHT_QUALITY_CORRECTIONS) {
     if (!nodeExists(db, id)) continue;
     const row = getFullNode(db, id);
     const attrs = parseAttrsJson(row.attrs_json);
     const oldValue = attrs[field];
+    const alreadyCorrected = Boolean(oldValue) && sameCorrectionValue(oldValue, correctedValue);
 
     attrs[field] = correctedValue;
 
-    if (oldValue) {
+    if (oldValue && !alreadyCorrected) {
       const oldRaw = (oldValue && oldValue.raw) || JSON.stringify(oldValue);
       const conflicts = { ...(attrs.conflicts || {}) };
       const entry = `${oldRaw} (superseded — ${note})`;
       const existingList = conflicts[field] || [];
       conflicts[field] = existingList.includes(entry) ? existingList : [...existingList, entry];
       attrs.conflicts = conflicts;
+
+      // TASK-023 item 0 fix: for a length-shaped field (currently only
+      // `loa`, the one field yachtMapper.js's resolver actually consults —
+      // see classifyCandidate()), remember the pre-correction numeric value
+      // as a matcher-consumable alias, keyed `<field>_aliases`, so a future
+      // re-ingest's raw (still-uncorrected) corpus row keeps resolving onto
+      // this SAME node instead of a re-ingest seeing a MISMATCH and minting
+      // a disambiguated sibling. Deduped so a repeat cleanup run (or a
+      // future correction of the SAME field on the SAME node) never grows
+      // this list with a value it already holds.
+      if (typeof oldValue.meters === 'number') {
+        const aliasKey = `${field}_aliases`;
+        const existingAliases = attrs[aliasKey] || [];
+        if (!existingAliases.includes(oldValue.meters)) {
+          attrs[aliasKey] = [...existingAliases, oldValue.meters];
+        }
+      }
     }
 
     upsertNode(db, { id, type: row.type, name: row.name, attrs });

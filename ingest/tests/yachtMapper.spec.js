@@ -22,7 +22,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { openDb, initSchema } from '../src/db.js';
+import { openDb, initSchema, upsertNode } from '../src/db.js';
 import { parseTables } from '../src/parsers/tableParser.js';
 import { mapYachtTables } from '../src/mappers/yachtMapper.js';
 
@@ -388,6 +388,70 @@ describe('mapYachtTables — idempotency', () => {
     expect(secondBuilderCount).toBe(firstBuilderCount);
     expect(secondPersonCount).toBe(firstPersonCount);
     expect(secondEdgeCount).toBe(firstEdgeCount);
+  });
+});
+
+// TASK-023 item 0: the double-ingest minting bug fix. Mirrors what actually
+// happens on the real corpus: graphCleanup.js's YACHT_QUALITY_CORRECTIONS
+// rewrites an already-ingested yacht's loa.meters to the researched-correct
+// value AND records the pre-correction value in attrs.loa_aliases (see
+// graphCleanup.js's own applyYachtQualityCorrections/graphCleanup.spec.js).
+// The /knowledge corpus row itself is never rewritten, so a later re-run of
+// mapYachtTables sees the SAME raw (still "wrong") LOA every time — this
+// must resolve onto the corrected node, not mint a "-2" sibling.
+const FIXTURE_EIV_RAW_ROW = `
+| Yacht Name | Builder | Length |
+|------------|---------|--------|
+| EIV | Rossinavi | 160m |
+`;
+
+describe('mapYachtTables — accepts a corrected node\'s loa_aliases as a non-mismatch (TASK-023 item 0 regression lock)', () => {
+  it('re-resolves the raw (pre-correction) LOA onto the already-corrected node instead of minting yacht:eiv-2', () => {
+    upsertNode(db, {
+      id: 'yacht:eiv',
+      type: 'yacht',
+      name: 'EIV',
+      attrs: {
+        loa: { meters: 48.8, raw: '48.8m' },
+        loa_aliases: [160],
+        _resolution: { nameNorm: 'eiv', builderId: 'builder:rossinavi' },
+        provenance: ['some-earlier-file.md'],
+      },
+    });
+
+    const tables = parseTables(FIXTURE_EIV_RAW_ROW);
+    mapYachtTables(db, tables, '42_Monaco_Yacht_Show_Key_Players_Charters.md');
+
+    const eivNodes = db.prepare("SELECT id FROM nodes WHERE type = 'yacht' AND name = 'EIV'").all();
+    expect(eivNodes.map((r) => r.id)).toEqual(['yacht:eiv']);
+    expect(getNode('yacht:eiv-2')).toBeNull();
+
+    const eiv = getNode('yacht:eiv');
+    expect(eiv.attrs.loa.meters).toBe(48.8); // the corrected value is never clobbered back
+  });
+
+  it('still mints a genuinely different, similarly-named yacht when the builder disagrees (alias acceptance does not blanket-suppress real mismatches)', () => {
+    upsertNode(db, {
+      id: 'yacht:eiv',
+      type: 'yacht',
+      name: 'EIV',
+      attrs: {
+        loa: { meters: 48.8, raw: '48.8m' },
+        loa_aliases: [160],
+        _resolution: { nameNorm: 'eiv', builderId: 'builder:rossinavi' },
+        provenance: ['some-earlier-file.md'],
+      },
+    });
+
+    const tables = parseTables(`
+| Yacht Name | Builder | Length |
+|------------|---------|--------|
+| EIV | Feadship | 160m |
+`);
+    mapYachtTables(db, tables, 'synthetic-different-eiv.md');
+
+    const eivNodes = db.prepare("SELECT id FROM nodes WHERE type = 'yacht' AND name = 'EIV'").all();
+    expect(eivNodes).toHaveLength(2); // a definite builder MISMATCH still creates a distinct node
   });
 });
 

@@ -473,17 +473,7 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
   }, 30000);
 
   // AC4: hardening — a second full real-corpus ingest must not mint any NEW
-  // region variants. Scoped to region count specifically (not a whole-graph
-  // node/edge identity check): a second real-corpus run is already known,
-  // pre-existing, and OUT OF THIS TICKET'S SCOPE to mint two extra yacht
-  // nodes (yacht:eiv-2/yacht:mystere-2) — graphCleanup.js's
-  // YACHT_QUALITY_CORRECTIONS rewrites yacht:eiv/yacht:mystere's `loa` on
-  // the first run, so the second run's fresh yachtMapper pass sees the
-  // corpus's still-wrong raw LOA no longer matching the now-corrected
-  // node's loa within lengthsMatch's tolerance and mints a disambiguated
-  // "-2" sibling. That is a real, independent data-quality bug (flagged in
-  // this ticket's punch list), not a region-canonicalization regression, so
-  // this lock intentionally does not assert on totalNodes/totalEdges.
+  // region variants.
   it('is idempotent on the real corpus for regions specifically: a second full ingest run mints zero new region nodes', async () => {
     const { runIngest } = await import('../src/ingest.js');
 
@@ -500,4 +490,63 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
     expect(regionCountFirst).toBe(857);
     expect(regionCountSecond).toBe(857);
   }, 40000);
+});
+
+// TASK-023 item 0: full-graph double-ingest idempotency. Formerly scoped to
+// region-count-only (see git history) because graphCleanup.js's
+// YACHT_QUALITY_CORRECTIONS rewrote yacht:eiv/yacht:mystere's `loa` on the
+// first run, so a second run's fresh yachtMapper pass saw the corpus's
+// still-wrong raw LOA no longer matching the now-corrected node's loa within
+// lengthsMatch's tolerance and minted a disambiguated "-2" sibling
+// (yacht:eiv-2/yacht:mystere-2) every time. Fixed by having
+// applyYachtQualityCorrections record the pre-correction loa.meters value in
+// a new attrs.loa_aliases list, which yachtMapper.js's classifyCandidate now
+// also treats as an acceptable match for that field (see both modules' own
+// comments) — a second full real-corpus ingest run is now byte-stable
+// (identical node/edge totals), so this lock asserts on the WHOLE graph, not
+// just regions.
+describe('real corpus — full-graph double-ingest idempotency (TASK-023 item 0)', () => {
+  it('a second full real-corpus ingest run mints zero new nodes/edges anywhere in the graph', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+
+    const first = runIngest();
+    const second = runIngest();
+
+    expect(second.totalNodes).toBe(first.totalNodes);
+    expect(second.totalEdges).toBe(first.totalEdges);
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const nodeCountsByType = db
+      .prepare('SELECT type, COUNT(*) AS count FROM nodes GROUP BY type ORDER BY type')
+      .all();
+    db.close();
+
+    // Neither of the two known previously-affected yachts (nor any other
+    // yacht) gets a disambiguated "-2"/"-3"/... sibling minted on re-ingest.
+    const dupSuffixed = nodeCountsByType.find((r) => r.type === 'yacht');
+    expect(dupSuffixed).toBeTruthy();
+    expect(dupSuffixed.count).toBe(599);
+  }, 60000);
+
+  it('never mints yacht:eiv-2 or yacht:mystere-2 on a second ingest, and both corrected yachts keep their fixed loa', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+
+    runIngest();
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const eivDup = db.prepare("SELECT id FROM nodes WHERE id = 'yacht:eiv-2'").get();
+    const mystereDup = db.prepare("SELECT id FROM nodes WHERE id = 'yacht:mystere-2'").get();
+    const eiv = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:eiv'").get();
+    const mystere = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:mystere'").get();
+    db.close();
+
+    expect(eivDup).toBeFalsy();
+    expect(mystereDup).toBeFalsy();
+
+    const eivAttrs = JSON.parse(eiv.attrs_json);
+    const mystereAttrs = JSON.parse(mystere.attrs_json);
+    expect(eivAttrs.loa.meters).toBe(48.8);
+    expect(mystereAttrs.loa.meters).toBeCloseTo(33.29, 2);
+  }, 60000);
 });
