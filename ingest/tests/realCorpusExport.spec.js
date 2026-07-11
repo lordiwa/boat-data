@@ -200,9 +200,50 @@ describe('real corpus — numeric attr range-sanity locks', () => {
     for (const row of rows) {
       const attrs = JSON.parse(row.attrs_json || '{}');
       if (attrs.power_hp !== undefined && attrs.power_hp !== null) {
-        expect(attrs.power_hp, `${row.id} power_hp=${attrs.power_hp}`).toBeGreaterThanOrEqual(1);
+        // Review fix (MEDIUM 2): a lower bound of 1 is too weak to catch
+        // either of the two real bugs this lane already shipped once — a
+        // comma-truncation ("1,650" -> 1) or a prose-digit capture (the
+        // Kiekhaefer Aeromarine surface drive's "V8" -> 8) both land inside
+        // [1, 10000] and would sail through silently. 2 hp is below any
+        // real Mercury/Mercury-Racing model in this corpus (the smallest
+        // is the 10 hp Lightning KE-7), so this bound is tight enough to
+        // catch a single stray leading digit while still being a range
+        // check, not an exact-value assertion.
+        expect(attrs.power_hp, `${row.id} power_hp=${attrs.power_hp}`).toBeGreaterThanOrEqual(2);
         expect(attrs.power_hp, `${row.id} power_hp=${attrs.power_hp}`).toBeLessThanOrEqual(10_000);
       }
     }
+  }, 30000);
+
+  it('pins the exact power_hp of a sample of known engine_models (catches truncation/prose-digit bugs a range alone would miss)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const pinned = [
+      ['engine_model:verado-600-v12', 600],
+      // Would-be comma-truncation victim: "1,650 (race fuel) / 1,350 (pump
+      // fuel)" must parse to 1650, never 1 (or 1350, the second figure).
+      ['engine_model:qc4v-1650', 1650],
+      // Would-be prose-digit-capture victim (the HIGH review finding): the
+      // "V8" in its Notes/former-Power-cell text must NOT yield 8 — the
+      // curated cell is now blank, so this model has no power_hp at all.
+      ['engine_model:kiekhaefer-aeromarine-surface-drive-number-six-drive', null],
+      // Watts-vs-hp regression: "750 W (~3.5 hp equiv.)" must parse to the
+      // hp-equivalent figure (3.5), not the leading Watts number (750).
+      ['engine_model:avator-7-5e', 3.5],
+    ];
+
+    for (const [id, expected] of pinned) {
+      const row = db.prepare('SELECT attrs_json FROM nodes WHERE id = ?').get(id);
+      expect(row, `expected pinned engine_model id ${id} to exist`).toBeTruthy();
+      const attrs = JSON.parse(row.attrs_json || '{}');
+      if (expected === null) {
+        expect(attrs.power_hp ?? null, `${id} power_hp`).toBeNull();
+      } else {
+        expect(attrs.power_hp, `${id} power_hp`).toBe(expected);
+      }
+    }
+    db.close();
   }, 30000);
 });
