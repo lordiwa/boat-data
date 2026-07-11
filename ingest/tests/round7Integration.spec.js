@@ -338,8 +338,20 @@ describe('Round 7 — weakest-tier band enrichment (exact-value sample)', () => 
   // weakest-tier ids named in the ticket — a narrower/differently-bounded
   // check than realCorpusExport.spec.js's existing whole-corpus sanity lock
   // (which has no LOA bound at all).
+  //
+  // DEVELOPER NOTE (IMPL phase, TASK-025): 'yacht:ahpo' is deliberately
+  // EXCLUDED from this list (the ticket's own 23-name enumeration includes
+  // it, but the SAME ticket's AC2 requires ahpo -> lady-jorgia to be a real
+  // graph MERGE — see the "dupe-pair merges" describe block above, whose
+  // very first assertion is `expect(node('yacht:ahpo')).toBeNull()`). A
+  // node can't simultaneously not-exist (merged away) and exist-with-valid-
+  // range-locked-attrs in the same post-ingest snapshot; keeping 'yacht:ahpo'
+  // in this array made the two describe blocks mutually unsatisfiable by
+  // any implementation. 'yacht:lady-jorgia' (the merge survivor, carrying
+  // the identical researched spec values per research/round7/01's headline
+  // finding) remains in this list and is still fully exercised.
   const WEAKEST_TIER_IDS = [
-    'yacht:ahpo', 'yacht:atlantis-ii', 'yacht:dragonfly-silveryachts', 'yacht:elements', 'yacht:excellence',
+    'yacht:atlantis-ii', 'yacht:dragonfly-silveryachts', 'yacht:elements', 'yacht:excellence',
     'yacht:gigia', 'yacht:infinity', 'yacht:j7-explorer', 'yacht:la-datcha', 'yacht:lady-jorgia',
     'yacht:lauren-l', 'yacht:liva-o', 'yacht:luna', 'yacht:mansion-yacht', 'yacht:navtilvs', 'yacht:nomad',
     'yacht:relentless', 'yacht:sahana', 'yacht:samsara-oceanco', 'yacht:tatiana', 'yacht:viva', 'yacht:zen',

@@ -630,15 +630,20 @@ describe('applyGraphCleanup — DB9 merge (TASK-024 review LOW 1)', () => {
 // entry recording the researched-vessel mismatch (never a value correction —
 // no single confidently-grounded alternate value exists for any of them).
 describe('applyGraphCleanup — same-name-conflict identity notes (TASK-024 review LOW 2)', () => {
-  it('YACHT_CONFLICT_NOTES lists exactly the 7 flagged yachts', () => {
+  // TASK-025 (Round 7) updates this pin: 7 -> 9 (adds yacht:sophia and
+  // yacht:lady-beth-lurssen — see graphCleanup.js's own TASK-025 stay-split
+  // entries, grounded in research/round7/02_dupe_pairs_loa_carryover.md).
+  it('YACHT_CONFLICT_NOTES lists exactly the 9 flagged yachts', () => {
     const ids = YACHT_CONFLICT_NOTES.map((e) => e.id).sort();
     expect(ids).toEqual(
       [
         'yacht:aqa',
         'yacht:grace-australian-yacht-builders',
+        'yacht:lady-beth-lurssen',
         'yacht:little-perle',
         'yacht:night-fury-ii',
         'yacht:panam',
+        'yacht:sophia',
         'yacht:starburst-iv',
         'yacht:the-jackson',
       ].sort()
@@ -936,7 +941,11 @@ describe('applyGraphCleanup — unit-bug LOA corrections (TASK-023 item 2)', () 
     expect(JSON.stringify(node.attrs.conflicts.loa)).toContain('56');
   });
 
-  it('corrects Arcadia Sherpa 60\'s LOA from the 60m model-number bug to the real 18.28m', () => {
+  // TASK-025 (Round 7) updates this pin: the round-5 18.28m estimate was
+  // itself Arcadia's own "Hull Length" spec (a different, shorter field) —
+  // confirmed true Overall Length is 18.67m (research/round7/
+  // 02_dupe_pairs_loa_carryover.md's Sub-task 2).
+  it('corrects Arcadia Sherpa 60\'s LOA from the 60m model-number bug to the real 18.67m', () => {
     upsertNode(db, {
       id: 'yacht:arcadia-sherpa-60',
       type: 'yacht',
@@ -946,10 +955,13 @@ describe('applyGraphCleanup — unit-bug LOA corrections (TASK-023 item 2)', () 
 
     applyGraphCleanup(db);
 
-    expect(getNode('yacht:arcadia-sherpa-60').attrs.loa.meters).toBe(18.28);
+    expect(getNode('yacht:arcadia-sherpa-60').attrs.loa.meters).toBe(18.67);
   });
 
-  it('corrects Sunseeker Manhattan 65\'s LOA from the 65m model-number bug to the real 21.06m', () => {
+  // TASK-025 (Round 7) updates this pin: 21.06m -> the official spec-table
+  // figure of 21.08m (research/round7/02_dupe_pairs_loa_carryover.md's
+  // Sub-task 2).
+  it('corrects Sunseeker Manhattan 65\'s LOA from the 65m model-number bug to the real 21.08m', () => {
     upsertNode(db, {
       id: 'yacht:sunseeker-manhattan-65',
       type: 'yacht',
@@ -959,15 +971,18 @@ describe('applyGraphCleanup — unit-bug LOA corrections (TASK-023 item 2)', () 
 
     applyGraphCleanup(db);
 
-    expect(getNode('yacht:sunseeker-manhattan-65').attrs.loa.meters).toBe(21.06);
+    expect(getNode('yacht:sunseeker-manhattan-65').attrs.loa.meters).toBe(21.08);
   });
 
-  it('corrects Navetta 68\'s LOA from the 68m model-number bug to the real 20.52m', () => {
+  // TASK-025 (Round 7) updates this pin: 20.52m -> the official Absolute
+  // Yachts model-page figure of 20.53m (research/round7/
+  // 02_dupe_pairs_loa_carryover.md's Sub-task 2).
+  it('corrects Navetta 68\'s LOA from the 68m model-number bug to the real 20.53m', () => {
     upsertNode(db, { id: 'yacht:navetta-68', type: 'yacht', name: 'Navetta 68', attrs: { loa: { meters: 68, raw: '68' } } });
 
     applyGraphCleanup(db);
 
-    expect(getNode('yacht:navetta-68').attrs.loa.meters).toBe(20.52);
+    expect(getNode('yacht:navetta-68').attrs.loa.meters).toBe(20.53);
   });
 
   it('corrects Yamas\'s LOA from the 67m model-number bug to the real ~20.2m (Ferretti 670)', () => {

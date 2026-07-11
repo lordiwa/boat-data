@@ -137,7 +137,14 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // TASK-024 review LOW 1: yacht DROPS once more, 581 -> 580 — the DB9/
     // DB9 (Palmer Johnson) duplicate pair merges (grounded by research/
     // round5/yacht-specs-45-55m.md's own DB9 row) — 581 - 1 = 580.
-    expect(graph.meta.types.yacht).toBe(580);
+    // TASK-025 (Round 7): yacht net +1, 580 -> 581 — 6 dupe-pair merges
+    // REMOVE 6 nodes (samsara->samsara-oceanco, moka-overmarine->moka,
+    // that-s-amore-grandi-yatcilik->that-s-amore, dream-olympic->dream,
+    // dream-olympic-yacht->dream, ahpo->lady-jorgia — see graphCleanup.js's
+    // own TASK-025 YACHT_MERGE_MAP entries) while oligarchYachtMapper.js
+    // MINTS exactly 7 sanctioned oligarch yachts (Amadea, Tango, Phi, Lady
+    // Anastasia, Lena, Valerie, Royal Romance): 580 - 6 + 7 = 581.
+    expect(graph.meta.types.yacht).toBe(581);
     // TASK-019: builder DROPPED from 186 to 160 (documented deliberately —
     // see graphCleanup.js's own module header for the full ledger): 18
     // duplicate-entity-pair merges (17 pairs + 1 extra leg of the Olympic
@@ -580,7 +587,9 @@ describe('real corpus — full-graph double-ingest idempotency (TASK-023 item 0)
     // yacht) gets a disambiguated "-2"/"-3"/... sibling minted on re-ingest.
     const dupSuffixed = nodeCountsByType.find((r) => r.type === 'yacht');
     expect(dupSuffixed).toBeTruthy();
-    expect(dupSuffixed.count).toBe(580); // TASK-024 review LOW 1: 581 - 1 (DB9 merge) = 580 (see baseline lock above)
+    // TASK-025 (Round 7): 580 -> 581 (6 dupe-pair merges - 7 oligarch mints
+    // = net +1; see baseline lock above for the full accounting).
+    expect(dupSuffixed.count).toBe(581);
   }, 60000);
 
   it('never mints yacht:eiv-2 or yacht:mystere-2 on a second ingest, and both corrected yachts keep their fixed loa', async () => {
@@ -614,12 +623,17 @@ describe('real corpus — full-graph double-ingest idempotency (TASK-023 item 0)
 // item 3's duplicate-hull merges, which happen to run in the same
 // applyGraphCleanup() pass).
 describe('real corpus — yacht long-tail spec completion (TASK-023 item 1)', () => {
-  it('resolves virtually all ~114 knowledge/97 rows (only the pre-existing knowledge/93 Amadea row stays unresolved)', async () => {
+  // TASK-025 (Round 7) updates this pin: the previously-unresolved
+  // knowledge/93 Amadea row NOW resolves — oligarchYachtMapper.js's
+  // mintOligarchYachtNodes() runs BEFORE the per-file corpus-processing
+  // loop (see its own module header), so yacht:amadea already exists by
+  // the time knowledge/93's file (alphabetically later) is processed.
+  it('resolves ~115 of knowledge/97+93 rows (the Amadea row now resolves onto the round-7-minted yacht:amadea)', async () => {
     const { runIngest } = await import('../src/ingest.js');
     const result = runIngest();
 
     expect(result.totals.yachtSpecMatched).toBeGreaterThanOrEqual(200);
-    expect(result.totals.yachtSpecUnresolved).toBe(1);
+    expect(result.totals.yachtSpecUnresolved).toBe(0);
   }, 30000);
 
   it('adds EIV\'s draft (previously blank) without disturbing its already-corrected loa', async () => {
@@ -708,19 +722,30 @@ describe('real corpus — yacht identifiability + dual scoring (TASK-023 item 4)
   }, 30000);
 
   // TASK-024 review fix (HIGH): pins the EXACT identifiable/fragment split
-  // under Rule B (232/348 of 580 yachts), not just ">0" — a stale-artifact
-  // regression (a committed graph.json produced from an accumulated,
-  // never-reset local graph.db, e.g. carrying leftover per-node attrs from
-  // an earlier code/data state) would otherwise silently drift these counts
-  // without failing any existing assertion. Update deliberately, by hand,
-  // whenever a future round's real data/rule change legitimately moves
-  // this number — same convention as the per-type baseline lock above.
-  it('pins the exact identifiable/fragment split under Rule B (232/348 of 580)', async () => {
+  // under Rule B, not just ">0" — a stale-artifact regression (a committed
+  // graph.json produced from an accumulated, never-reset local graph.db,
+  // e.g. carrying leftover per-node attrs from an earlier code/data state)
+  // would otherwise silently drift these counts without failing any
+  // existing assertion. Update deliberately, by hand, whenever a future
+  // round's real data/rule change legitimately moves this number — same
+  // convention as the per-type baseline lock above.
+  //
+  // TASK-025 (Round 7) updates this pin: 232/348 of 580 -> 238/343 of 581.
+  // yacht count +1 (see baseline lock above). identifiable +6: the 7 newly-
+  // minted oligarch yachts are identifiable (year+data_quality signals —
+  // see oligarchYachtMapper.js), the ahpo->lady-jorgia merge removes one
+  // already-identifiable node (net -0 identifiable, since the survivor was
+  // already identifiable too) but the weakest-tier band's own spec
+  // enrichment (knowledge/98) pushes several previously-fragment nodes
+  // (spec attrs alone can flip a node from 1 signal to >=2) into
+  // identifiable — net across all of Round 7's data changes (merges, mints,
+  // enrichment): 232 -> 238 identifiable, 348 -> 343 fragment (238+343=581).
+  it('pins the exact identifiable/fragment split under Rule B (238/343 of 581)', async () => {
     const { runIngest } = await import('../src/ingest.js');
     const result = runIngest();
 
-    expect(result.totals.yachtIdentifiable).toBe(232);
-    expect(result.totals.yachtFragment).toBe(348);
+    expect(result.totals.yachtIdentifiable).toBe(238);
+    expect(result.totals.yachtFragment).toBe(343);
   }, 30000);
 
   it('computeCompleteness on the real exported graph reports both overall scores, with the identifiable-only yacht count strictly less than the all-nodes count', async () => {

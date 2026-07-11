@@ -344,14 +344,19 @@ describe('real graph.json regression checks', () => {
   const raw: GraphExport = JSON.parse(readFileSync(graphJsonPath, 'utf8'));
   const graph = buildGraphIndex(raw.nodes, raw.edges);
 
-  it('R1: top builder after placeholder exclusion is Lurssen with 43 yachts', () => {
+  it('R1: top builder after placeholder exclusion is Lurssen with 42 yachts', () => {
     // TASK-020: dropped from 45 to 43 — graphCleanup.js's YACHT_MERGE_MAP
     // merges 2 same-hull duplicate pairs that were both attributed to
     // Lürssen under different names/ids (CC-Summer/Madsummer,
     // Kismet(95m)/Whisper), each collapsing 2 built_by-Lürssen edges into 1.
+    // TASK-025 (Round 7): 43 -> 42 — the ahpo -> lady-jorgia merge collapses
+    // two separate Lürssen-built yacht NODES (both already correctly
+    // built_by Lürssen) into one, so the DISTINCT-yacht count Lürssen is
+    // credited with drops by 1 even though neither yacht's builder
+    // attribution itself changed.
     const result = reportTopBuilders(graph);
     if (result.chart.kind !== 'bar-h') throw new Error('unreachable');
-    expect(result.chart.items[0]).toMatchObject({ label: 'Lurssen', value: 43 });
+    expect(result.chart.items[0]).toMatchObject({ label: 'Lurssen', value: 42 });
   });
 
   it('R1: excludes Custom and Various entirely', () => {
@@ -370,7 +375,7 @@ describe('real graph.json regression checks', () => {
     expect(total).toBe(12);
   });
 
-  it('R3: description states real coverage — 12 of 580 yachts have a usable charter rate', () => {
+  it('R3: description states real coverage — 12 of 581 yachts have a usable charter rate', () => {
     // TASK-020: total yacht count dropped from 605 to 599 (6 rename/
     // duplicate merges — see graphCleanup.js's YACHT_MERGE_MAP); the 12
     // yachts with a usable charter rate figure is unaffected (none of the
@@ -382,8 +387,13 @@ describe('real graph.json regression checks', () => {
     // TASK-024 review LOW 1: yacht count drops once more, 581 -> 580 (the
     // DB9/DB9 (Palmer Johnson) merge); again unaffected (neither DB9 node
     // had a weekly_rate attr).
+    // TASK-025 (Round 7): yacht count net +1, 580 -> 581 (6 dupe-pair
+    // merges - 7 oligarch mints — see graphCleanup.js's TASK-025
+    // YACHT_MERGE_MAP entries + oligarchYachtMapper.js); the 12-yacht
+    // charter-rate figure is again unaffected (none of the 6 merged pairs
+    // nor any of the 7 oligarch-minted nodes has a weekly_rate attr).
     const result = reportCharterRateDistribution(graph);
-    expect(result.description).toContain('Only 12 of 580 yachts have a usable charter rate.');
+    expect(result.description).toContain('Only 12 of 581 yachts have a usable charter rate.');
   });
 
   it('R5: top owner by fleet size is Saudi Royal with 3 yachts', () => {
