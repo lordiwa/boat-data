@@ -14,6 +14,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
 
 let tmpDir;
@@ -706,6 +707,22 @@ describe('real corpus — yacht identifiability + dual scoring (TASK-023 item 4)
     expect(result.totals.yachtFragment).toBe(counts.fragment);
   }, 30000);
 
+  // TASK-024 review fix (HIGH): pins the EXACT identifiable/fragment split
+  // under Rule B (232/348 of 580 yachts), not just ">0" — a stale-artifact
+  // regression (a committed graph.json produced from an accumulated,
+  // never-reset local graph.db, e.g. carrying leftover per-node attrs from
+  // an earlier code/data state) would otherwise silently drift these counts
+  // without failing any existing assertion. Update deliberately, by hand,
+  // whenever a future round's real data/rule change legitimately moves
+  // this number — same convention as the per-type baseline lock above.
+  it('pins the exact identifiable/fragment split under Rule B (232/348 of 580)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    const result = runIngest();
+
+    expect(result.totals.yachtIdentifiable).toBe(232);
+    expect(result.totals.yachtFragment).toBe(348);
+  }, 30000);
+
   it('computeCompleteness on the real exported graph reports both overall scores, with the identifiable-only yacht count strictly less than the all-nodes count', async () => {
     const { runIngest } = await import('../src/ingest.js');
     runIngest();
@@ -723,5 +740,69 @@ describe('real corpus — yacht identifiability + dual scoring (TASK-023 item 4)
     // denominator, so its score should be at least as high as the
     // all-nodes yacht score on the real corpus.
     expect(yachtIdentifiable.score).toBeGreaterThanOrEqual(yachtAllNodes.score);
+  }, 30000);
+});
+
+// TASK-024 review fix (HIGH, root cause): every test above runs the pipeline
+// against a FRESH tmp database (GRAPH_DB_PATH overridden to a brand-new
+// mkdtempSync'd path in beforeEach) — so no test in this file could ever
+// have caught the actual incident: a developer's LOCAL ingest/data/graph.db
+// (the real, default, git-ignored path — never overridden outside tests)
+// accumulating state across many manual `npm run ingest` runs during a dev
+// session, and the checked-in ingest/data/graph.json being exported from
+// that stale, never-reset database rather than a clean-slate run. Every
+// node/edge COUNT still matched (upsertNode/upsertEdge never drop a node a
+// current mapper wouldn't itself produce, so per-type totals looked
+// identical) — only individual nodes' attrs_json content drifted (duplicate
+// accumulated conflicts-array entries, repeatedly-appended notes text), so
+// none of the count-based assertions above would ever fail on this failure
+// class either.
+//
+// This guard runs a real clean-slate ingest (this file's own fresh tmp DB,
+// per the pattern above) and deep-compares every yacht node's attrs against
+// the ACTUAL COMMITTED ingest/data/graph.json (read directly from disk, by
+// its real path — NOT through GRAPH_JSON_PATH, which every other test in
+// this file overrides to its own tmp path) node-by-node. A future commit
+// of ingest/data/graph.json that isn't the honest output of a clean-slate
+// `rm ingest/data/graph.db && npm run ingest` will fail this test with a
+// concrete list of which node ids diverge, rather than silently shipping.
+describe('real corpus — committed artifact freshness (TASK-024 review HIGH root-cause guard)', () => {
+  const committedGraphJsonPath = path.resolve(fileURLToPath(import.meta.url), '..', '..', 'data', 'graph.json');
+
+  it('the committed ingest/data/graph.json is byte-for-byte reproducible (per yacht node attrs) from a clean-slate ingest', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const fresh = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
+    expect(fs.existsSync(committedGraphJsonPath), `expected a committed graph.json at ${committedGraphJsonPath}`).toBe(
+      true
+    );
+    const committed = JSON.parse(fs.readFileSync(committedGraphJsonPath, 'utf8'));
+
+    const freshById = new Map(fresh.nodes.map((n) => [n.id, n]));
+    const committedById = new Map(committed.nodes.map((n) => [n.id, n]));
+
+    expect(committed.nodes.length, 'committed graph.json has a different TOTAL node count than a clean ingest').toBe(
+      fresh.nodes.length
+    );
+
+    const onlyInCommitted = [...committedById.keys()].filter((id) => !freshById.has(id));
+    const onlyInFresh = [...freshById.keys()].filter((id) => !committedById.has(id));
+    expect(onlyInCommitted, 'committed graph.json has node ids a clean ingest never produces (stale leftovers)').toEqual(
+      []
+    );
+    expect(onlyInFresh, 'a clean ingest produces node ids missing from the committed graph.json').toEqual([]);
+
+    const divergentIds = [];
+    for (const [id, committedNode] of committedById) {
+      const freshNode = freshById.get(id);
+      if (JSON.stringify(committedNode.attrs) !== JSON.stringify(freshNode.attrs)) divergentIds.push(id);
+    }
+    expect(
+      divergentIds,
+      `${divergentIds.length} node(s) differ between the committed graph.json and a clean-slate ingest — ` +
+        `the committed artifact is stale (likely exported from an accumulated, never-reset local graph.db). ` +
+        `Re-run: rm ingest/data/graph.db && npm run ingest && npm run score, then recommit.`
+    ).toEqual([]);
   }, 30000);
 });
