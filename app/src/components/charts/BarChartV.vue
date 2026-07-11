@@ -129,7 +129,10 @@ function activate(bucket: BarChartVBucket) {
              The "&#32;" after this <text>'s closing tag is a literal space
              *text node*, deliberately outside any <text>/<tspan> (so SVG
              never paints it) — see BarChartH.vue's identical comment for
-             why it's needed for axe to see "{label} {value}" as one run. -->
+             why it's needed for axe to see "{label} {value}" as one run.
+             If you touch this row's markup or bucketAriaLabel, re-run
+             __tests__/chartLabelMismatch.spec.ts — it exercises the real
+             axe rule, not just this comment's claim. -->
         <text
           :x="BAR_AREA_WIDTH / 2 - 4"
           :y="CHART_HEIGHT + 18"

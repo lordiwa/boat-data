@@ -129,7 +129,10 @@ function activate(item: BarChartHItem) {
              matching rowAriaLabel below. Vue's whitespace condensing would
              otherwise collapse/drop the newline-formatted whitespace that's
              actually in this template, joining the two into "labelvalue"
-             with nothing between them (axe: label-content-name-mismatch). -->
+             with nothing between them (axe: label-content-name-mismatch).
+             If you touch this row's markup or rowAriaLabel, re-run
+             __tests__/chartLabelMismatch.spec.ts — it exercises the real
+             axe rule, not just this comment's claim. -->
         <text
           :x="LABEL_WIDTH - 8"
           :y="BAR_H / 2 + 4"

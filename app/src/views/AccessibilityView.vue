@@ -7,6 +7,9 @@
 // suite, per PROJECT conventions), lists known limitations honestly rather
 // than claiming perfect conformance, and gives a real contact channel for
 // anyone who hits a barrier.
+// Bump this whenever an accessibility-relevant change lands (a11y fixes,
+// new views/components audited, axe/Lighthouse re-verification, etc.) —
+// not on every unrelated commit that happens to touch this file.
 const LAST_UPDATED = '2026-07-11';
 const CONTACT_EMAIL = 'srparca@gmail.com';
 </script>
