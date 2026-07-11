@@ -33,6 +33,15 @@ const node = computed(() => graph.nodeById(props.id));
 // --- Header: conflicting-source-data indicator -----------------------------
 const conflictEntries = computed(() => (node.value ? buildConflictEntries(node.value.attrs.conflicts) : []));
 
+// --- Header: data-quality warning (TASK-020: RIO/MOSAIQUE flags, and any
+// future graphCleanup.js QUALITY_FLAGS entry) — a visible banner, not just
+// another row in the generic attr grid (attrs.ts hides `data_quality` from
+// AttrPanel for exactly this reason).
+const dataQualityWarning = computed(() => {
+  const value = node.value?.attrs.data_quality;
+  return typeof value === 'string' && value.trim() !== '' ? value : null;
+});
+
 // --- Provenance --------------------------------------------------------
 const provenance = computed(() => (node.value ? provenanceFiles(node.value.attrs) : []));
 
@@ -205,6 +214,11 @@ function rowKey(row: EnrichedRow): string {
         </div>
         <h1 class="entity__title">{{ node.name }}</h1>
 
+        <p v-if="dataQualityWarning" class="entity__data-quality-warning" role="alert">
+          <span class="entity__data-quality-warning-icon" aria-hidden="true">&#9888;</span>
+          Data quality: {{ dataQualityWarning }}
+        </p>
+
         <details v-if="conflictEntries.length" class="entity__conflicts">
           <summary class="entity__conflicts-summary">Has conflicting source data</summary>
           <dl class="entity__conflicts-detail">
@@ -343,6 +357,24 @@ function rowKey(row: EnrichedRow): string {
 
 .entity__title {
   margin-bottom: 0.5rem;
+}
+
+.entity__data-quality-warning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #7a3b00;
+  background: rgba(230, 145, 30, 0.15);
+  border: 1px solid rgba(230, 145, 30, 0.4);
+  border-radius: var(--radius);
+}
+
+.entity__data-quality-warning-icon {
+  font-size: 1.1rem;
 }
 
 .entity__conflicts {

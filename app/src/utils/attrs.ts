@@ -9,10 +9,18 @@
 // JSON.stringify.
 import { formatMeters, formatMoney, formatNumber, formatYear, shortHost } from '@/utils/format';
 
-/** Keys handled elsewhere on the entity page (resolution metadata, provenance list, conflict flags) — never shown in the attr grid. */
-const HIDDEN_KEYS = new Set(['_resolution', 'provenance', 'conflicts']);
+/**
+ * Keys handled elsewhere on the entity page (resolution metadata,
+ * provenance list, conflict flags) — never shown in the attr grid.
+ * TASK-020: `data_quality` is also hidden here — EntityView.vue renders it
+ * as a prominent warning banner (see its own `dataQualityWarning`
+ * computed), not a plain attr row.
+ */
+const HIDDEN_KEYS = new Set(['_resolution', 'provenance', 'conflicts', 'data_quality']);
 
-const METERS_KEYS = new Set(['loa', 'max_loa']);
+// TASK-020: beam/draft (yachtSpecMapper.js) and max_draft (marinaMapper.js's
+// isMarinaEnrichmentTable) are all { meters, raw } shapes, same as loa/max_loa.
+const METERS_KEYS = new Set(['loa', 'max_loa', 'beam', 'draft', 'max_draft']);
 const YEAR_KEYS = new Set(['year', 'founded', 'established']);
 const MONEY_KEYS = new Set(['value', 'net_worth', 'weekly_rate']);
 const COUNT_KEYS = new Set(['guests', 'cabins', 'crew', 'berths']);
@@ -25,6 +33,14 @@ const LABEL_OVERRIDES: Record<string, string> = {
   travelift_tonnage: 'Travelift tonnage',
   power_range: 'Power range',
   parent_brand: 'Parent brand',
+  // TASK-020: yachtSpecMapper.js's new spec fields.
+  max_draft: 'Max draft',
+  gt: 'GT',
+  max_speed: 'Max speed (kn)',
+  range_nm: 'Range (nm)',
+  class_society: 'Class society',
+  imo: 'IMO number',
+  former_names: 'Former names',
 };
 
 /** Humanizes an attr key ("power_range" -> "Power range"), preferring a known override. */
