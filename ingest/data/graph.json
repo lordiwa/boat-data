@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T02:49:30.209Z",
+    "generated_at": "2026-07-11T03:05:25.476Z",
     "node_count": 4337,
     "edge_count": 2621,
     "types": {
@@ -43167,7 +43167,7 @@
         "provenance": [
           "95_Person_Enrichment_Directory.md"
         ],
-        "industry": "Emirati",
+        "nationality": "Emirati",
         "role": "Deputy PM UAE; Chairman, Mubadala; owner, Manchester City FC",
         "status": "Living"
       }
@@ -43177,7 +43177,7 @@
       "type": "person",
       "name": "Sheikh Mohammed bin Rashid Al Maktoum",
       "attrs": {
-        "industry": "Emirati",
+        "nationality": "Emirati",
         "role": "Ruler of Dubai / UAE PM & VP",
         "status": "Living",
         "notes": "Owns Dubai (162m).",
@@ -85568,7 +85568,9 @@
       "src": "yacht:a",
       "rel": "owned_by",
       "dst": "person:sheikh-mansour-bin-zayed-al-nahyan",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:a-blohm-voss",

@@ -345,3 +345,27 @@ describe('real corpus — numeric attr range-sanity locks', () => {
     expect(checkedAny, 'expected at least one yacht to carry a TASK-020 spec field').toBe(true);
   }, 30000);
 });
+
+// TASK-021 review fix (MEDIUM, post-ship): research/round4/
+// person-enrichment.md's own rows for "Sheikh Mansour"/"Sheikh Mohammed"
+// had "Emirati" shifted one column right into Industry, with Nationality
+// left holding the generic "— duplicate node —" marker — personMapper.js
+// faithfully transcribes whatever's in each column, so the canonical,
+// post-merge nodes shipped with industry:'Emirati' and NO nationality at
+// all. This locks the column-shift class: any future re-introduction of
+// the same bug on either canonical sheikh node fails loudly here instead
+// of silently shipping with a missing nationality again.
+describe('real corpus — TASK-021 review fix regression lock (Sheikh Mansour/Mohammed column-shift)', () => {
+  it('pins one canonical sheikh\'s nationality (not industry) as "Emirati"', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const row = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'person:sheikh-mansour-bin-zayed-al-nahyan'").get();
+    db.close();
+
+    expect(row, 'expected the canonical Sheikh Mansour node to exist').toBeTruthy();
+    const attrs = JSON.parse(row.attrs_json || '{}');
+    expect(attrs.nationality).toBe('Emirati');
+  }, 30000);
+});
