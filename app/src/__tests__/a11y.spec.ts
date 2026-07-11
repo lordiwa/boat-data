@@ -14,7 +14,15 @@
 // reliably catch a real contrast bug nor reliably pass a fine one). AA
 // contrast is instead locked by src/__tests__/contrast.spec.ts, computed
 // directly from the real color tokens/alphas in style.css.
-import { afterEach, describe, expect, it, vi } from 'vitest';
+//
+// axe's `label-content-name-mismatch` rule (WCAG 2.5.3 — this is the exact
+// rule that caught BarChartH/V's aria-label bug during TASK-018's review)
+// is left enabled and made to actually work here via
+// support/axeCanvasStub.ts's canvas stub — see that file's header comment
+// for why one is needed at all under jsdom. See chartLabelMismatch.spec.ts
+// for a narrower, dedicated test of this same rule against the charts
+// specifically (including proof the check isn't vacuous).
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { mount, flushPromises, type VueWrapper } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import { createRouter, createMemoryHistory } from 'vue-router';
@@ -26,8 +34,17 @@ import App from '@/App.vue';
 import { routes } from '@/router';
 import { useGraphStore } from '@/stores/graph';
 import type { GraphExport } from '@/types/graph';
+import { installAxeCanvasStub } from './support/axeCanvasStub';
 
 const axe = (axeCore as unknown as { default?: typeof axeCore }).default ?? axeCore;
+
+let restoreCanvasStub: () => void;
+beforeAll(() => {
+  restoreCanvasStub = installAxeCanvasStub();
+});
+afterAll(() => {
+  restoreCanvasStub();
+});
 
 const graphJsonPath = path.resolve(fileURLToPath(import.meta.url), '../../../../ingest/data/graph.json');
 const graphJson: GraphExport = JSON.parse(readFileSync(graphJsonPath, 'utf8'));
