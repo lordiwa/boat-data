@@ -6,6 +6,7 @@
   "description": "Ingestion pipeline: parses the /knowledge markdown corpus into a SQLite nodes+edges graph.",
   "scripts": {
     "ingest": "node src/ingest.js",
+    "ingest:clean": "node scripts/cleanDb.mjs && node src/ingest.js",
     "verify-export": "node src/exporters/verifyExport.js",
     "score": "node src/reporters/completenessScore.js",
     "test": "vitest run"
