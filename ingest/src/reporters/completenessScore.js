@@ -83,8 +83,11 @@ export const REQUIRED_ATTRS = {
   region: [],
 };
 
-// Per the ticket. Sum is 105 (TASK-016) + 13 (TASK-017's three new types) =
-// 118 — overall divides by the sum of weights actually applied (see
+// Per the ticket. Sum is 113 (review fix, LOW 1: a prior version of this
+// comment miscounted it as 118, and the TASK-016-era comment before that
+// miscounted its own 10-type subtotal as 105 when it was actually 100 —
+// verify by summing the object below directly rather than trusting this
+// comment) — overall divides by the sum of weights actually applied (see
 // computeCompleteness), so this need not be a strict 0-100 partition.
 export const TYPE_WEIGHTS = {
   yacht: 20,
