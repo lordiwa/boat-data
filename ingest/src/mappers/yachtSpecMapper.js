@@ -151,10 +151,6 @@ const FORMER_NAMES_MAP = {
   whisper: ['Kismet'],
 };
 
-function nodeExists(db, id) {
-  return !!db.prepare('SELECT 1 FROM nodes WHERE id = ?').get(id);
-}
-
 /**
  * Resolves a Yacht cell to an existing yacht node id: exact case-
  * insensitive name match; when 2+ nodes share that name, disambiguates by
