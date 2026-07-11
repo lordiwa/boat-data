@@ -385,6 +385,39 @@ describe('applyRegionCanonicalization — Naples split (TASK-023 item 5)', () =>
     expect(nodeExists('region:naples-italy')).toBe(false);
     expect(nodeExists('region:naples-fl')).toBe(false);
   });
+
+  // TASK-024 review LOW 3: an unlisted future source must quarantine, not
+  // silently default onto the Florida side.
+  it('quarantines an edge from a source NOT in either the Italy or FL grounded list, rather than defaulting it onto Florida', () => {
+    seedNaplesCluster();
+    upsertNode(db, { id: 'builder:mystery-naples-yard', type: 'builder', name: 'Mystery Naples Yard' });
+    upsertEdge(db, { src: 'builder:mystery-naples-yard', rel: 'located_in', dst: 'region:naples' });
+
+    applyRegionCanonicalization(db);
+
+    expect(edgeExists('builder:mystery-naples-yard', 'located_in', 'region:naples-fl')).toBe(false);
+    expect(edgeExists('builder:mystery-naples-yard', 'located_in', 'region:naples-italy')).toBe(false);
+
+    const rows = db
+      .prepare("SELECT dst FROM edges WHERE src = 'builder:mystery-naples-yard' AND rel = 'located_in'")
+      .all();
+    expect(rows).toHaveLength(1);
+    const quarantineId = rows[0].dst;
+    const quarantineNode = getNode(quarantineId);
+    expect(quarantineNode.attrs.artifact).toBe(true);
+    expect(orphanEdgeCount()).toBe(0);
+  });
+
+  it('still routes known Italy/FL sources correctly when an unknown source is present in the same run', () => {
+    seedNaplesCluster();
+    upsertNode(db, { id: 'builder:mystery-naples-yard', type: 'builder', name: 'Mystery Naples Yard' });
+    upsertEdge(db, { src: 'builder:mystery-naples-yard', rel: 'located_in', dst: 'region:naples' });
+
+    applyRegionCanonicalization(db);
+
+    expect(edgeExists('builder:palumbo', 'located_in', 'region:naples-italy')).toBe(true);
+    expect(edgeExists('club:naples-yacht-club', 'located_in', 'region:naples-fl')).toBe(true);
+  });
 });
 
 describe('applyRegionCanonicalization — idempotency and hygiene', () => {

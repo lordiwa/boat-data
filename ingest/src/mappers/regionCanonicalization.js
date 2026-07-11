@@ -267,21 +267,35 @@ function applyArtifactFlags(db) {
 // Palumbo's own real, well-documented Mediterranean entities; club IDs are
 // the three FL yacht clubs research/round5/yacht-specs-55-70m.md's own
 // corpus corroborates as Naples, FL (see knowledge/67's "Naples, FL"
-// heading). A future round's new Naples-tagged node not in either list
-// falls through unclaimed (left on whichever split node the generic safety
-// net below assigns, or simply undisturbed if this pass never runs again
-// on it) — this is a one-time corpus-scoped split, same discipline as
-// REGION_MERGE_MAP above, not a permanent heuristic.
+// heading). TASK-024 review LOW 3: a future round's new Naples-tagged
+// source not in EITHER list is QUARANTINED (region:naples-unresolved,
+// attrs.artifact = true) rather than silently defaulting onto the Florida
+// side — see applyNaplesSplit's own comment. This is a one-time
+// corpus-scoped split, same discipline as REGION_MERGE_MAP above, not a
+// permanent heuristic.
 const NAPLES_ITALY_SOURCE_IDS = new Set([
   'builder:palumbo',
   'shipyard:palumbo-naples',
   'shipyard:palumbo-superyachts-naples',
 ]);
 
+// TASK-024 review LOW 3: the FL side of the split, made explicit as its own
+// grounded list (mirroring NAPLES_ITALY_SOURCE_IDS above) rather than an
+// implicit "everything else defaults here" else-branch — see
+// applyNaplesSplit's own updated comment for why the fall-through case is
+// now a quarantine, not a silent default to Florida.
+const NAPLES_FL_SOURCE_IDS = new Set([
+  'club:naples-yacht-club',
+  'club:naples-sailing-yacht-club',
+  'club:pelican-isle-yacht-club',
+]);
+
 const NAPLES_ITALY_ID = 'region:naples-italy';
 const NAPLES_ITALY_NAME = 'Naples, Italy';
 const NAPLES_FL_ID = 'region:naples-fl';
 const NAPLES_FL_NAME = 'Naples, FL';
+const NAPLES_UNRESOLVED_ID = 'region:naples-unresolved';
+const NAPLES_UNRESOLVED_NAME = 'Naples (unresolved)';
 const ITALY_ID = 'region:italy';
 
 function applyNaplesSplit(db) {
@@ -312,7 +326,34 @@ function applyNaplesSplit(db) {
     .prepare("SELECT src, rel, attrs_json FROM edges WHERE dst = ?")
     .all(conflatedId);
   for (const e of incomingEdges) {
-    const targetId = NAPLES_ITALY_SOURCE_IDS.has(e.src) ? NAPLES_ITALY_ID : NAPLES_FL_ID;
+    let targetId;
+    if (NAPLES_ITALY_SOURCE_IDS.has(e.src)) targetId = NAPLES_ITALY_ID;
+    else if (NAPLES_FL_SOURCE_IDS.has(e.src)) targetId = NAPLES_FL_ID;
+    else {
+      // TASK-024 review LOW 3: an edge from a source this split doesn't
+      // recognize (a future corpus round's new Naples-tagged builder/
+      // shipyard/club) is QUARANTINED rather than silently defaulted onto
+      // the Florida side — the original bug this guards against is exactly
+      // that default: an unlisted future source would otherwise silently
+      // inherit region:naples-fl's part_of->florida edge with no grounding
+      // at all. Minted lazily (only if actually needed) and flagged
+      // attrs.artifact = true, same quarantine convention as
+      // REGION_ARTIFACT_FLAGS above.
+      if (!nodeExists(db, NAPLES_UNRESOLVED_ID)) {
+        upsertNode(db, {
+          id: NAPLES_UNRESOLVED_ID,
+          type: 'region',
+          name: NAPLES_UNRESOLVED_NAME,
+          attrs: {
+            artifact: true,
+            artifact_reason:
+              'Naples split (TASK-023 item 5 / TASK-024 review LOW 3): source not in either the Italy or FL ' +
+              'grounded list — quarantined rather than guessed onto either side.',
+          },
+        });
+      }
+      targetId = NAPLES_UNRESOLVED_ID;
+    }
     upsertEdge(db, { src: e.src, rel: e.rel, dst: targetId, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
   }
 
