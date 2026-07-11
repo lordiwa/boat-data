@@ -550,12 +550,16 @@ export const YACHT_MERGE_MAP = [
 // own citation) — not a data value to correct (no single alternate value
 // is confidently grounded), so recorded as a node-level identity-mismatch
 // note in `attrs.conflicts.identity` rather than guessed at or silently
-// left implicit. Same "small curated mechanism, never a hand-edit of
-// graph.json" discipline as QUALITY_FLAGS/YACHT_QUALITY_CORRECTIONS above.
-// These same 7 names are also carried into identifiability.js's
-// NEGATIVE_EVIDENCE_TABLE (Rule B's negative-evidence skip list) — the two
-// mechanisms are independent (this one annotates the node; that one
-// affects scoring) but grounded in the same research citations.
+// left implicit. `identity` is a RESERVED key within attrs.conflicts (see
+// yachtSpecMapper.js's own module header for the general per-field
+// convention this reserves against) — it is never a real yacht attr name,
+// so it can never collide with a genuine per-field value conflict. Same
+// "small curated mechanism, never a hand-edit of graph.json" discipline as
+// QUALITY_FLAGS/YACHT_QUALITY_CORRECTIONS above. These same 7 names are
+// also carried into identifiability.js's NEGATIVE_EVIDENCE_TABLE (Rule B's
+// negative-evidence skip list) — the two mechanisms are independent (this
+// one annotates the node; that one affects scoring) but grounded in the
+// same research citations.
 export const YACHT_CONFLICT_NOTES = [
   {
     id: 'yacht:aqa',

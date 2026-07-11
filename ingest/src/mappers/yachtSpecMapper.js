@@ -39,12 +39,27 @@
 // itself flagged as source-conflicted (Al Lusail's beam, Yersin's flag),
 // curated in knowledge/93 into an explicit, parseable
 // "<primary> [conflict: <alt1>, <alt2>]" marker (see splitConflictMarker).
+// `attrs.conflicts` is keyed by field name for every per-VALUE conflict
+// this mapper (and yachtMapper.js) records — EXCEPT the reserved key
+// `identity`, which graphCleanup.js's YACHT_CONFLICT_NOTES/
+// applyYachtConflictNotes uses for a node-level identity-mismatch note
+// (research found a same-named real vessel whose specs contradict this
+// node's own, with no single confidently-grounded replacement value —
+// see that module's own comment). `identity` is never a real yacht attr
+// name, so it can never collide with a genuine per-field conflict key.
 //
 // NUMERIC PARSING DISCIPLINE (full, per the ticket): strips thousands-
-// separator commas and a leading "~" approx marker BEFORE matching (same
-// HIGH-severity lesson as shipyardMapper.js's tonnage fix), and rejects a
-// digit run immediately adjacent to a letter on either side (same fix as
-// engineModelMapper.js's power_hp "V8" bug — NUMBER_RE below is identical).
+// separator commas BEFORE matching (same HIGH-severity lesson as
+// shipyardMapper.js's tonnage fix), and rejects a digit run immediately
+// adjacent to a letter on either side (same fix as engineModelMapper.js's
+// power_hp "V8" bug — NUMBER_RE below is identical). A leading "~" approx
+// marker is handled differently (TASK-024 item 4): detected on the RAW
+// cell text and routed to attrs.conflicts with an explanatory note INSTEAD
+// of being parsed and stored as a confirmed value — see isApproxRaw's own
+// comment; earlier versions of this mapper stripped the "~" silently
+// before parsing, which mis-stored several research/round5-sourced
+// estimates (e.g. De Lisle III's "~400 (est., not published)" GT) as if
+// they were confirmed hull specs.
 // Range-sanity locks (beam [3,35], draft [1,12], gt [50,25000], max_speed
 // [5,80], range_nm [500,20000]) are enforced as a real-corpus TEST
 // (realCorpusExport.spec.js), not a parse-time rejection — a value outside
@@ -65,16 +80,17 @@ import {
 
 const NAME_KEYS = ['yacht'];
 const LOA_KEYS = ['loa']; // used ONLY for disambiguation among same-named nodes — never stored by this mapper.
-// TASK-024 item 4: the Year column (tableParser's ALIAS_MAP already aliases
-// the raw "Year" header to 'year' — same key yachtMapper.js's own primary
-// ingestion uses) was previously read only for nothing at all; this mapper
-// now ingests it into attrs.year, same {value, raw} shape as yachtMapper.js's
-// buildYearAttr, merged with the same first-non-empty-wins/conflict
-// discipline as every other field below. Closes the gap several research/
-// round5 band files' own headers noted (e.g. knowledge/97's DUNIA BARU/EIV/
-// NORTHERN SUN/Teleost/Oriy rows, whose builderId was null before this
-// mapper's builder-adjacent fields ran) — the Year column itself was never
-// actually blocked from being read, just never mapped anywhere.
+// TASK-024 item 4: this mapper's table shape has always carried a Year
+// column (tableParser's ALIAS_MAP already aliases the raw "Year" header to
+// 'year' — the same canonical key yachtMapper.js's own primary ingestion
+// pass uses for attrs.year), but until this ticket the column was parsed
+// and discarded: nothing below ever read `row.year` or wrote attrs.year.
+// Now ingested with the same {value, raw} shape as yachtMapper.js's own
+// buildYearAttr(), merged with the same first-non-empty-wins/conflict
+// discipline as every other field this mapper writes (see buildYearAttr/
+// yearFieldsEqual/yearRawOf below) — a yacht whose primary-ingestion pass
+// never captured a year (e.g. its row had a builder/LOA but no Year cell)
+// can now get one filled in here instead.
 const YEAR_KEYS = ['year'];
 const BEAM_KEYS = ['beam_m'];
 const DRAFT_KEYS = ['draft_m'];
