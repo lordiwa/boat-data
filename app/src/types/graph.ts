@@ -15,7 +15,14 @@ export type NodeType =
   | 'engine'
   | 'designer'
   // TASK-016: shipyard/dry-dock facilities (ingest/src/mappers/shipyardMapper.js).
-  | 'shipyard';
+  | 'shipyard'
+  // TASK-017: engine model/series history (ingest/src/mappers/engineModelMapper.js),
+  // boat/yacht parts anatomy (ingest/src/mappers/partMapper.js), and the
+  // yacht/superyacht/megayacht/gigayacht classification table
+  // (ingest/src/mappers/sizeClassMapper.js).
+  | 'engine_model'
+  | 'part'
+  | 'size_class';
 
 /** The relation kinds present in the graph, per meta.edge_types. */
 export type EdgeRel =
@@ -27,7 +34,11 @@ export type EdgeRel =
   | 'powered_by'
   | 'part_of'
   // TASK-016: shipyard -> builder/company (ingest/src/mappers/shipyardMapper.js).
-  | 'operated_by';
+  | 'operated_by'
+  // TASK-017: engine_model -> engine brand (engineModelMapper.js), and
+  // engine brand -> engine brand (engineMapper.js's linkEngineOemSupplies).
+  | 'made_by'
+  | 'oem_supplies';
 
 export interface GraphNode {
   id: string;

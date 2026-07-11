@@ -15,6 +15,9 @@ const TYPE_LABELS: Record<string, string> = {
   engine: 'Engines',
   designer: 'Designers',
   shipyard: 'Shipyards',
+  engine_model: 'Engine Models',
+  part: 'Parts',
+  size_class: 'Size Classes',
 };
 
 // TASK-011 fast-follow: naive `s$` stripping of the plural label mangles
@@ -31,6 +34,9 @@ const TYPE_SINGULAR_LABELS: Record<string, string> = {
   engine: 'Engine',
   designer: 'Designer',
   shipyard: 'Shipyard',
+  engine_model: 'Engine Model',
+  part: 'Part',
+  size_class: 'Size Class',
 };
 
 const TYPE_ICONS: Record<string, string> = {
@@ -44,6 +50,9 @@ const TYPE_ICONS: Record<string, string> = {
   engine: '⚙️', // gear
   designer: '✏️', // pencil
   shipyard: '\u{1F6E0}\u{FE0F}', // hammer and wrench
+  engine_model: '\u{1F6E9}\u{FE0F}', // engine/motor
+  part: '\u{1F529}', // nut and bolt
+  size_class: '\u{1F4CF}', // ruler
 };
 
 export function labelForType(type: string): string {

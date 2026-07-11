@@ -23,6 +23,10 @@ describe('singularLabelForType', () => {
     expect(singularLabelForType('designer')).toBe('Designer');
     // TASK-016: shipyard/dry-dock facility entity type.
     expect(singularLabelForType('shipyard')).toBe('Shipyard');
+    // TASK-017: engine model, part, and size class entity types.
+    expect(singularLabelForType('engine_model')).toBe('Engine Model');
+    expect(singularLabelForType('part')).toBe('Part');
+    expect(singularLabelForType('size_class')).toBe('Size Class');
   });
 
   it('falls back to a capitalized guess for an unknown type', () => {

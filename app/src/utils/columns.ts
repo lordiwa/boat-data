@@ -344,6 +344,84 @@ function designerColumns(): ColumnDef<EnrichedRow>[] {
   ];
 }
 
+function engineModelColumns(): ColumnDef<EnrichedRow>[] {
+  return [
+    nameColumn(),
+    {
+      key: 'brandName',
+      label: 'Brand',
+      accessor: (row) => (row.brandName as string | null) ?? '—',
+      sortAccessor: (row) => (row.brandName as string | null) ?? null,
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'years',
+      label: 'Years',
+      accessor: (row) => str(row.node.attrs.years) ?? '—',
+      sortAccessor: (row) => str(row.node.attrs.years),
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'power_hp',
+      label: 'Power (hp)',
+      accessor: (row) => formatNumber(num(row.node.attrs.power_hp)),
+      sortAccessor: (row) => num(row.node.attrs.power_hp),
+      type: 'number',
+      filterable: true,
+    },
+    {
+      key: 'segment',
+      label: 'Segment',
+      accessor: (row) => str(row.node.attrs.segment) ?? '—',
+      type: 'text',
+      filterable: true,
+    },
+  ];
+}
+
+function partColumns(): ColumnDef<EnrichedRow>[] {
+  return [
+    nameColumn(),
+    {
+      key: 'category',
+      label: 'Category',
+      accessor: (row) => str(row.node.attrs.category) ?? '—',
+      sortAccessor: (row) => str(row.node.attrs.category),
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'location',
+      label: 'Location on vessel',
+      accessor: (row) => str(row.node.attrs.location) ?? '—',
+      type: 'text',
+      filterable: true,
+    },
+  ];
+}
+
+function sizeClassColumns(): ColumnDef<EnrichedRow>[] {
+  return [
+    nameColumn(),
+    {
+      key: 'length_threshold',
+      label: 'Length Threshold',
+      accessor: (row) => str(row.node.attrs.length_threshold) ?? '—',
+      type: 'text',
+      filterable: true,
+    },
+    {
+      key: 'gt_range',
+      label: 'GT Range',
+      accessor: (row) => str(row.node.attrs.gt_range) ?? '—',
+      type: 'text',
+      filterable: true,
+    },
+  ];
+}
+
 const COLUMN_BUILDERS: Record<NodeType, () => ColumnDef<EnrichedRow>[]> = {
   yacht: yachtColumns,
   builder: builderColumns,
@@ -355,6 +433,9 @@ const COLUMN_BUILDERS: Record<NodeType, () => ColumnDef<EnrichedRow>[]> = {
   engine: engineColumns,
   designer: designerColumns,
   shipyard: shipyardColumns,
+  engine_model: engineModelColumns,
+  part: partColumns,
+  size_class: sizeClassColumns,
 };
 
 export function getColumnsForType(type: NodeType): ColumnDef<EnrichedRow>[] {

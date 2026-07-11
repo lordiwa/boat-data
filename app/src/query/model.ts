@@ -262,6 +262,38 @@ const SHIPYARD_FIELDS: FieldMeta[] = [
   { kind: 'rel', field: 'location', label: 'Located in', rel: 'located_in', targetType: 'region' },
 ];
 
+const ENGINE_MODEL_FIELDS: FieldMeta[] = [
+  { kind: 'attr', field: 'name', label: 'Name', valueKind: 'text', get: nameOf },
+  {
+    kind: 'attr',
+    field: 'years',
+    label: 'Years',
+    valueKind: 'text',
+    get: (row) => (typeof row.node.attrs.years === 'string' ? (row.node.attrs.years as string) : null),
+  },
+  {
+    kind: 'attr',
+    field: 'power_hp',
+    label: 'Power (hp)',
+    valueKind: 'number',
+    unit: 'hp',
+    get: (row) => num(row.node.attrs.power_hp),
+  },
+];
+
+const PART_FIELDS: FieldMeta[] = [
+  { kind: 'attr', field: 'name', label: 'Name', valueKind: 'text', get: nameOf },
+  {
+    kind: 'attr',
+    field: 'category',
+    label: 'Category',
+    valueKind: 'text',
+    get: (row) => (typeof row.node.attrs.category === 'string' ? (row.node.attrs.category as string) : null),
+  },
+];
+
+const SIZE_CLASS_FIELDS: FieldMeta[] = [{ kind: 'attr', field: 'name', label: 'Name', valueKind: 'text', get: nameOf }];
+
 export const QUERYABLE_FIELDS: Record<NodeType, FieldMeta[]> = {
   yacht: YACHT_FIELDS,
   builder: BUILDER_FIELDS,
@@ -273,6 +305,9 @@ export const QUERYABLE_FIELDS: Record<NodeType, FieldMeta[]> = {
   engine: ENGINE_FIELDS,
   designer: DESIGNER_FIELDS,
   shipyard: SHIPYARD_FIELDS,
+  engine_model: ENGINE_MODEL_FIELDS,
+  part: PART_FIELDS,
+  size_class: SIZE_CLASS_FIELDS,
 };
 
 /** Looks up a field slug's metadata for `type`, or undefined if it doesn't exist for that type. */

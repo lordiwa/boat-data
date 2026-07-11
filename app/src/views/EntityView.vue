@@ -45,6 +45,8 @@ const OUTGOING_ORDER: EdgeRel[] = [
   'designed_by',
   'powered_by',
   'operated_by',
+  'made_by',
+  'oem_supplies',
   'part_of',
 ];
 
@@ -57,6 +59,9 @@ const OUTGOING_LABELS: Record<EdgeRel, string> = {
   powered_by: 'Powered by',
   // TASK-016: shipyard -> builder/company.
   operated_by: 'Operated by',
+  // TASK-017: engine_model -> engine brand; engine brand -> engine brand.
+  made_by: 'Made by',
+  oem_supplies: 'Supplies OEM engines to',
   part_of: 'Part of',
 };
 
@@ -100,6 +105,7 @@ const INVERSE_GROUP_DEFS: InverseGroupDef[] = [
   { rel: 'located_in', srcType: 'marina', heading: 'Marinas here', omit: 'location' },
   { rel: 'based_in', srcType: 'company', heading: 'Companies here', omit: 'base' },
   { rel: 'located_in', srcType: 'shipyard', heading: 'Shipyards here', omit: 'location' },
+  { rel: 'made_by', srcType: 'engine_model', heading: 'Engine models', omit: 'brandName' },
   { rel: 'part_of', srcType: 'region', heading: 'Sub-regions' },
 ];
 
@@ -113,6 +119,7 @@ const rowsByType: Partial<Record<NodeType, ReturnType<typeof useTypeRows>>> = {
   company: useTypeRows(computed(() => 'company' as NodeType)),
   region: useTypeRows(computed(() => 'region' as NodeType)),
   shipyard: useTypeRows(computed(() => 'shipyard' as NodeType)),
+  engine_model: useTypeRows(computed(() => 'engine_model' as NodeType)),
 };
 
 interface InverseGroup {

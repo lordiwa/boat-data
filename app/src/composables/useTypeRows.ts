@@ -118,7 +118,15 @@ function buildRows(graph: Graph, type: NodeType): EnrichedRow[] {
         operatorName: firstNeighborName(graph, node.id, 'operated_by', 'out'),
         rels: buildRels(graph, node.id, ['located_in', 'operated_by']),
       }));
+    case 'engine_model':
+      return nodes.map((node) => ({
+        node,
+        brandName: firstNeighborName(graph, node.id, 'made_by', 'out'),
+        rels: buildRels(graph, node.id, ['made_by']),
+      }));
     case 'engine':
+    case 'part':
+    case 'size_class':
     default:
       return nodes.map((node) => ({ node, rels: {} }));
   }
