@@ -42,6 +42,19 @@ corpus file 07's Tier/Manufacturer table, well before this enrichment round):
 - **"Mariner (Sanshin/Yamaha-built)"**: Brand "Mariner" kept as-is (a genuinely
   distinct historical badge-engineered brand, not folded into Mercury Marine);
   its own engine node is created on demand.
+
+**Review fix (HIGH, post-ship):** the Kiekhaefer Aeromarine surface drive
+row's Power (hp) cell originally read "drive only (paired to various V8
+racing engines)" — prose, not a number — which `engineModelMapper.js`'s
+numeric parser read back as power_hp=8 (grabbing the digit out of "V8," the
+same failure mode as the shipyard-lane Norfolk Naval Shipyard tonnage=8 bug).
+Blanked per the "never guess" rule; the "no rated hp of its own, paired to
+V8 engines" detail now lives in this row's Notes cell instead.
+`engineModelMapper.js`'s `parsePowerHp()` now also rejects any digit
+directly adjacent to a letter (leading OR trailing) defensively, for any
+future corpus row shaped the same way — see that function's own code
+comment. A full sweep of the other 36 engine_model rows' Power (hp) cells
+found no other instances of this bug.
 - **"Chainsaw engines" row removed**: the original research table included a
   1941-1945 Kiekhaefer wartime chainsaw-engine row, explicitly flagged in its
   own Type/Segment cells as "non-marine (WWII)" — not a boat engine, so it
@@ -119,7 +132,7 @@ not graph rows, this round.
 | Merc 1000 | Mercury Marine | 1962 | inline-6, 2-stroke | 100 | consumer outboard | "Phantom Black" paint |
 | Mariner (Sanshin/Yamaha-built) | Mariner | 1974-1999 (US) | 2-stroke, later 4-stroke | full consumer range | consumer outboard | Badge-engineered Yamahas built by Sanshin under a 1973 Brunswick-Yamaha JV; discontinued in the US 1999, survives in some export markets |
 | OptiMax | Mercury Marine | 1996/97-2018 | 2-stroke, direct injection (DFI) | up to 300-class | consumer/performance outboard | Air-assist DFI; met emissions rules two-strokes otherwise couldn't; last built May 2018 |
-| Kiekhaefer Aeromarine surface drive ("Number Six" drive) | Mercury Racing | 1988- | surface-piercing racing outdrive | drive only (paired to various V8 racing engines) | racing sterndrive | Originally the Kiekhaefer Aeromarine surface drive; came to dominate offshore racing after 1988 introduction; the Kiekhaefer Aeromarine division became Mercury Racing after Brunswick's 1990 acquisition (see Timeline). |
+| Kiekhaefer Aeromarine surface drive ("Number Six" drive) | Mercury Racing | 1988- | surface-piercing racing outdrive | | racing sterndrive | Drive only — paired to various V8 racing engines, no rated hp of its own. Originally the Kiekhaefer Aeromarine surface drive; came to dominate offshore racing after 1988 introduction; the Kiekhaefer Aeromarine division became Mercury Racing after Brunswick's 1990 acquisition (see Timeline). |
 | Verado (inline-6, supercharged) | Mercury Marine | 2004-2021 | inline-6, supercharged 4-stroke | 200-275 hp at launch (later up to ~400 in some SC variants before V10 replacement) | consumer outboard | World's first supercharged 4-stroke outboard; 2.6L; 17-year production run |
 | Zeus | Mercury Zeus | 2007- | pod drive (diesel-paired) | varies by donor diesel | sterndrive/pod system | Joint development with Cummins MerCruiser Diesel |
 | QC4v 1100 Competition | Mercury Racing | ~2010s-present | quad-cam 4-valve twin-turbo V8 | 1,100 | racing sterndrive | Mandatory UIM Class 1 spec engine since 2017; combined twin-engine output 2,200 hp |

@@ -115,6 +115,32 @@ describe('mapEngineModelTables — Power (hp) parsing: Watts-vs-hp regression', 
   });
 });
 
+describe('mapEngineModelTables — Power (hp) parsing: prose-digit regression (review HIGH)', () => {
+  it('yields null for a prose-only cell whose only digit is embedded in a word ("V8"), rather than shipping power_hp=8', () => {
+    const tables = parseTables(`
+| Model/Series | Brand | Years | Type | Power (hp) | Segment | Notes |
+|---|---|---|---|---|---|---|
+| Test Surface Drive | Mercury Racing | 1988- | surface-piercing racing outdrive | drive only (paired to various V8 racing engines) | racing sterndrive | Came to dominate offshore racing. |
+`);
+    mapEngineModelTables(db, tables, 'knowledge/88_fixture.md');
+
+    const drive = getNode('engine_model:test-surface-drive');
+    expect(drive.attrs.power_hp).toBeNull();
+  });
+
+  it('still parses a real value when a letter-adjacent digit ("V10") appears alongside a genuine standalone figure', () => {
+    const tables = parseTables(`
+| Model/Series | Brand | Years | Type | Power (hp) | Segment | Notes |
+|---|---|---|---|---|---|---|
+| Test Verado | Mercury Marine | 2004-2021 | inline-6, supercharged 4-stroke | 200-275 hp at launch (later up to ~400 in some SC variants before V10 replacement) | consumer outboard | 17-year production run |
+`);
+    mapEngineModelTables(db, tables, 'knowledge/88_fixture.md');
+
+    const verado = getNode('engine_model:test-verado');
+    expect(verado.attrs.power_hp).toBe(275);
+  });
+});
+
 describe('mapEngineModelTables — MADE_BY edges', () => {
   it('links to an existing engine brand node when Brand matches by normalized name', () => {
     upsertNode(db, { id: 'engine:mercury-marine', type: 'engine', name: 'Mercury Marine' });

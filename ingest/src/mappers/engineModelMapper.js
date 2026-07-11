@@ -63,15 +63,33 @@ function nodeExists(db, id) {
   return !!db.prepare('SELECT 1 FROM nodes WHERE id = ?').get(id);
 }
 
-const NUMBER_RE = /(\d+(?:\.\d+)?)/;
+// Both regexes below require the matched number NOT be directly adjacent
+// (immediately before or after, no space needed) to a letter — review fix
+// (HIGH): without this, a prose-only cell like "drive only (paired to
+// various V8 racing engines)" matched the bare "8" out of "V8" and shipped
+// power_hp=8 for a drive that has no rated hp of its own (same failure
+// mode as the shipyard Norfolk Naval Shipyard tonnage=8 bug: a digit
+// embedded in a word, not a real standalone figure). A genuine number in
+// these cells is always its own token (e.g. "1,650 (race fuel)", "20-40",
+// "3.5 hp equiv."), never glued to a letter, so this is a safe, narrow
+// rejection rule rather than a false-negative risk for real values.
+const NUMBER_RE = /(?<![a-zA-Z])(\d+(?:\.\d+)?)(?![a-zA-Z])/;
 // Matches a number immediately followed by "hp" ANYWHERE in the cell, e.g.
 // the "~3.5 hp equiv." parenthetical on an electric-outboard row.
-const HP_IN_TEXT_RE = /(\d+(?:\.\d+)?)\s*hp\b/i;
+const HP_IN_TEXT_RE = /(?<![a-zA-Z])(\d+(?:\.\d+)?)\s*hp\b/i;
 
-// "600" -> 600; "1,650 (race fuel) / 1,350 (pump fuel)" -> 1650 (first/
-// highest-listed figure). Strips thousands-separator commas before
-// matching (see shipyardMapper.js's parseNumeric — same HIGH-severity
-// lesson: without this, "1,650" would silently truncate to 1).
+// "600" -> 600. Strips thousands-separator commas before matching (see
+// shipyardMapper.js's parseNumeric — same HIGH-severity lesson: without
+// this, "1,650" would silently truncate to 1).
+//
+// "1,650 (race fuel) / 1,350 (pump fuel)" -> 1650, NOT 1350: this is a
+// deliberate decision to take the FIRST-listed figure in a multi-value
+// cell, which happens to be the higher/race-fuel rating for these
+// dual-calibration entries. The SAME "first-listed" rule applied to a
+// low-to-high RANGE cell like "20-40" instead yields the MINIMUM of the
+// range (20) — there is no special-casing for which shape a cell is; both
+// are simply "the first number found," documented here so a future reader
+// doesn't mistake this for always picking the maximum.
 //
 // "750 W (~3.5 hp equiv.)" -> 3.5, NOT 750: electric-outboard rows quote
 // power in WATTS with a separate "X hp equiv." parenthetical — naively
