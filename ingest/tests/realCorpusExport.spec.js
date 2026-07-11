@@ -383,12 +383,12 @@ describe('real corpus — TASK-021 review fix regression lock (Sheikh Mansour/Mo
 // hardening and regionCanonicalization.js's Tier 2 one-time judgment merges/
 // renames/flags for the full per-case rationale).
 describe('real corpus — region canonicalization (TASK-022)', () => {
-  it('matches the pinned region count (900 baseline - 35 Tier 1 alias-hardening collapses - 8 Tier 2 one-time merges = 857)', async () => {
+  it('matches the pinned region count (900 baseline - 35 Tier 1 alias-hardening collapses - 8 Tier 2 one-time merges = 857, +1 net from TASK-023 item 5\'s Naples split: region:naples removed, region:naples-italy + region:naples-fl added = 858)', async () => {
     const { runIngest } = await import('../src/ingest.js');
     runIngest();
 
     const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
-    expect(graph.meta.types.region).toBe(857);
+    expect(graph.meta.types.region).toBe(858);
   }, 30000);
 
   it('spot-check: exactly one West Palm Beach region node (the ", FL" variant never gets minted)', async () => {
@@ -415,6 +415,50 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
 
     expect(barcelona, 'expected the canonical Barcelona region to exist').toBeTruthy();
     expect(barcelonaCatalonia, 'the ", Catalonia" variant must never be minted as a separate node').toBeFalsy();
+  }, 30000);
+
+  // TASK-023 item 5: the Naples split — Palumbo's Italian shipyard group
+  // vs the three Florida yacht clubs, previously conflated onto one bare
+  // "Naples" node (see regionCanonicalization.js's own Naples-split
+  // comment).
+  it('splits Naples into region:naples-italy (Palumbo) and region:naples-fl (the 3 FL yacht clubs), with region:naples gone', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const conflated = db.prepare("SELECT id FROM nodes WHERE id = 'region:naples'").get();
+    const italyLocated = db
+      .prepare("SELECT src FROM edges WHERE dst = 'region:naples-italy' AND rel = 'located_in'")
+      .all()
+      .map((r) => r.src)
+      .sort();
+    const flLocated = db
+      .prepare("SELECT src FROM edges WHERE dst = 'region:naples-fl' AND rel = 'located_in'")
+      .all()
+      .map((r) => r.src)
+      .sort();
+    const flPartOf = db.prepare("SELECT dst FROM edges WHERE src = 'region:naples-fl' AND rel = 'part_of'").all();
+    const italyPartOfFlorida = db
+      .prepare("SELECT 1 AS x FROM edges WHERE src = 'region:naples-italy' AND rel = 'part_of' AND dst = 'region:florida'")
+      .get();
+    db.close();
+
+    expect(conflated, 'the conflated bare "Naples" node must not survive').toBeFalsy();
+    expect(italyLocated).toEqual(['builder:palumbo', 'shipyard:palumbo-naples', 'shipyard:palumbo-superyachts-naples']);
+    expect(flLocated).toEqual(['club:naples-sailing-yacht-club', 'club:naples-yacht-club', 'club:pelican-isle-yacht-club']);
+    expect(flPartOf.map((r) => r.dst)).toEqual(['region:florida']);
+    expect(italyPartOfFlorida, 'the Italian Naples node must never carry a part_of->florida edge').toBeFalsy();
+  }, 30000);
+
+  it('resolves the "Naples (HQ)" alias directly onto region:naples-italy (Palumbo Group\'s own enrichment row)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const row = db.prepare("SELECT dst FROM edges WHERE src = 'builder:palumbo' AND rel = 'located_in'").get();
+    db.close();
+
+    expect(row.dst).toBe('region:naples-italy');
   }, 30000);
 
   it("marina:safe-harbor-rybovich carries exactly 2 distinct located_in edges post-cleanup (down from the ticket's documented 3, with no duplicate)", async () => {
@@ -494,8 +538,8 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
     const regionCountSecond = dbSecond.prepare("SELECT COUNT(*) AS count FROM nodes WHERE type = 'region'").get().count;
     dbSecond.close();
 
-    expect(regionCountFirst).toBe(857);
-    expect(regionCountSecond).toBe(857);
+    expect(regionCountFirst).toBe(858); // TASK-023 item 5: 857 baseline + 1 net from the Naples split
+    expect(regionCountSecond).toBe(858);
   }, 40000);
 });
 

@@ -288,6 +288,105 @@ describe('applyRegionCanonicalization — generic ";"-in-name safety net', () =>
   });
 });
 
+// TASK-023 item 5 (TASK-022 MEDIUM carry-forward): region:naples conflated
+// two genuinely different real places — Palumbo's Italian shipyards
+// (Naples, Italy) and three Florida yacht clubs (Naples, FL) — under one
+// bare "Naples" node, which also wrongly carried a part_of->florida edge
+// that applied to the Italian entities too. Split into region:naples-italy
+// (Palumbo builder + 2 shipyards) and region:naples-fl (the 3 FL clubs,
+// part_of florida).
+describe('applyRegionCanonicalization — Naples split (TASK-023 item 5)', () => {
+  function seedNaplesCluster() {
+    upsertNode(db, { id: 'region:naples', type: 'region', name: 'Naples' });
+    upsertNode(db, { id: 'region:florida', type: 'region', name: 'Florida' });
+    upsertEdge(db, { src: 'region:naples', rel: 'part_of', dst: 'region:florida' });
+
+    upsertNode(db, { id: 'builder:palumbo', type: 'builder', name: 'Palumbo' });
+    upsertNode(db, { id: 'shipyard:palumbo-naples', type: 'shipyard', name: 'Palumbo Naples' });
+    upsertNode(db, { id: 'shipyard:palumbo-superyachts-naples', type: 'shipyard', name: 'Palumbo Superyachts Naples' });
+    upsertEdge(db, { src: 'builder:palumbo', rel: 'located_in', dst: 'region:naples' });
+    upsertEdge(db, { src: 'shipyard:palumbo-naples', rel: 'located_in', dst: 'region:naples' });
+    upsertEdge(db, { src: 'shipyard:palumbo-superyachts-naples', rel: 'located_in', dst: 'region:naples' });
+
+    upsertNode(db, { id: 'club:naples-yacht-club', type: 'club', name: 'Naples Yacht Club' });
+    upsertNode(db, { id: 'club:naples-sailing-yacht-club', type: 'club', name: 'Naples Sailing & Yacht Club' });
+    upsertNode(db, { id: 'club:pelican-isle-yacht-club', type: 'club', name: 'Pelican Isle Yacht Club' });
+    upsertEdge(db, { src: 'club:naples-yacht-club', rel: 'located_in', dst: 'region:naples' });
+    upsertEdge(db, { src: 'club:naples-sailing-yacht-club', rel: 'located_in', dst: 'region:naples' });
+    upsertEdge(db, { src: 'club:pelican-isle-yacht-club', rel: 'located_in', dst: 'region:naples' });
+  }
+
+  it('re-points the Palumbo entities onto region:naples-italy and the FL clubs onto region:naples-fl', () => {
+    seedNaplesCluster();
+
+    applyRegionCanonicalization(db);
+
+    expect(edgeExists('builder:palumbo', 'located_in', 'region:naples-italy')).toBe(true);
+    expect(edgeExists('shipyard:palumbo-naples', 'located_in', 'region:naples-italy')).toBe(true);
+    expect(edgeExists('shipyard:palumbo-superyachts-naples', 'located_in', 'region:naples-italy')).toBe(true);
+
+    expect(edgeExists('club:naples-yacht-club', 'located_in', 'region:naples-fl')).toBe(true);
+    expect(edgeExists('club:naples-sailing-yacht-club', 'located_in', 'region:naples-fl')).toBe(true);
+    expect(edgeExists('club:pelican-isle-yacht-club', 'located_in', 'region:naples-fl')).toBe(true);
+  });
+
+  it('removes the original region:naples node entirely (fully consolidated into the two split nodes)', () => {
+    seedNaplesCluster();
+
+    applyRegionCanonicalization(db);
+
+    expect(nodeExists('region:naples')).toBe(false);
+  });
+
+  it('gives region:naples-fl a part_of edge to florida, and region:naples-italy NO part_of florida edge', () => {
+    seedNaplesCluster();
+
+    applyRegionCanonicalization(db);
+
+    expect(edgeExists('region:naples-fl', 'part_of', 'region:florida')).toBe(true);
+    expect(edgeExists('region:naples-italy', 'part_of', 'region:florida')).toBe(false);
+  });
+
+  it('adds a part_of edge from region:naples-italy to region:italy when an Italy region already exists', () => {
+    seedNaplesCluster();
+    upsertNode(db, { id: 'region:italy', type: 'region', name: 'Italy' });
+
+    applyRegionCanonicalization(db);
+
+    expect(edgeExists('region:naples-italy', 'part_of', 'region:italy')).toBe(true);
+  });
+
+  it('does not error or mint a region:italy node when no Italy region exists yet', () => {
+    seedNaplesCluster();
+
+    applyRegionCanonicalization(db);
+
+    expect(nodeExists('region:italy')).toBe(false);
+    expect(nodeExists('region:naples-italy')).toBe(true);
+  });
+
+  it('is idempotent: running twice yields identical node/edge counts and no orphan edges', () => {
+    seedNaplesCluster();
+
+    applyRegionCanonicalization(db);
+    const nodesAfterFirst = countNodes();
+    const edgesAfterFirst = countEdges();
+
+    applyRegionCanonicalization(db);
+
+    expect(countNodes()).toBe(nodesAfterFirst);
+    expect(countEdges()).toBe(edgesAfterFirst);
+    expect(orphanEdgeCount()).toBe(0);
+  });
+
+  it('is a no-op when region:naples never existed in the first place (nothing to split)', () => {
+    applyRegionCanonicalization(db);
+
+    expect(nodeExists('region:naples-italy')).toBe(false);
+    expect(nodeExists('region:naples-fl')).toBe(false);
+  });
+});
+
 describe('applyRegionCanonicalization — idempotency and hygiene', () => {
   it('running twice yields identical node/edge counts (safe to call after every ingest run)', () => {
     upsertNode(db, { id: 'region:portland', type: 'region', name: 'Portland' });

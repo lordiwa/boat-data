@@ -107,7 +107,16 @@ export const REGION_ALIAS_GROUPS = [
     name: 'Miami River',
     aliases: ['Miami River', 'Miami River, ~2.6 miles upriver'],
   },
-  { slug: 'naples', name: 'Naples', aliases: ['Naples', 'Naples (HQ)'] },
+  { slug: 'naples', name: 'Naples', aliases: ['Naples'] },
+  // TASK-023 item 5: "Naples (HQ)" is unambiguously the Palumbo Group's
+  // Italian HQ (knowledge/91's own builder-enrichment row: "Palumbo |
+  // Italy | Naples (HQ) | ..."), unlike the bare "Naples" alias above
+  // (used by both Palumbo's Italian shipyards AND three Florida yacht
+  // clubs in this corpus — see regionCanonicalization.js's own Naples-
+  // split retrofit hook for that one-time, corpus-scoped disambiguation).
+  // Safe as a PERMANENT alias straight to the Italy-side node because this
+  // exact qualified text has no plausible Florida referent.
+  { slug: 'naples-italy', name: 'Naples, Italy', aliases: ['Naples (HQ)'] },
   { slug: 'north-vancouver', name: 'North Vancouver', aliases: ['North Vancouver', 'North Vancouver, BC'] },
   { slug: 'poole', name: 'Poole', aliases: ['Poole', 'Poole, Dorset'] },
   { slug: 'port-angeles', name: 'Port Angeles', aliases: ['Port Angeles', 'Port Angeles, WA'] },

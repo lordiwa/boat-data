@@ -197,7 +197,13 @@ describe('resolveRegion — TASK-022 Tier 1 city/qualifier alias hardening', () 
     ['Dianshan Lake, Qingpu', 'region:dianshan-lake'],
     ['Miami River, ~2.6 miles upriver', 'region:miami-river'],
     ['La Seyne-sur-Mer (Toulon)', 'region:la-seyne-sur-mer'],
-    ['Naples (HQ)', 'region:naples'],
+    // TASK-023 item 5: "Naples (HQ)" is unambiguously the Italian Palumbo
+    // Group HQ (knowledge/91's own row) — re-pointed directly to the Italy
+    // node so a future ingest never re-mints the conflated bare "Naples"
+    // node for this specific, unambiguous text (see regionCanonicalization.js's
+    // own Naples-split comment for the FL-clubs/Palumbo-shipyards split of
+    // the pre-existing bare "Naples" node).
+    ['Naples (HQ)', 'region:naples-italy'],
     ['Kaohsiung (+ USA facilities)', 'region:kaohsiung'],
     ['Ameglia (La Spezia), plus Viareggio/Massa plants', 'region:ameglia-la-spezia'],
     ['Monaco (La Condamine)', 'region:monaco'],

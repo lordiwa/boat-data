@@ -251,6 +251,80 @@ function applyArtifactFlags(db) {
   }
 }
 
+// --- 4. TASK-023 item 5: Naples split (TASK-022 MEDIUM carry-forward) ----
+// region:naples conflated two genuinely different real places under one
+// bare "Naples" node: Palumbo's Italian shipyard group (raw corpus text:
+// "Naples" from files 83/84's Country=Italy/City=Naples shipyard rows, plus
+// the "Naples (HQ)" enrichment-row alias from file 91's Palumbo Group row)
+// and three Florida yacht clubs (raw text: bare "Naples" from file 49's
+// club table, corroborated as "Naples, FL" by file 67). The conflated node
+// also carried a part_of->florida edge that consequently (and wrongly)
+// applied to the Italian entities too.
+//
+// GROUNDED per-id split map (not a generic heuristic): every known
+// located_in/based_in edge into region:naples is re-pointed based on which
+// side of this split its SOURCE node belongs to. Builder/shipyard IDs are
+// Palumbo's own real, well-documented Mediterranean entities; club IDs are
+// the three FL yacht clubs research/round5/yacht-specs-55-70m.md's own
+// corpus corroborates as Naples, FL (see knowledge/67's "Naples, FL"
+// heading). A future round's new Naples-tagged node not in either list
+// falls through unclaimed (left on whichever split node the generic safety
+// net below assigns, or simply undisturbed if this pass never runs again
+// on it) — this is a one-time corpus-scoped split, same discipline as
+// REGION_MERGE_MAP above, not a permanent heuristic.
+const NAPLES_ITALY_SOURCE_IDS = new Set([
+  'builder:palumbo',
+  'shipyard:palumbo-naples',
+  'shipyard:palumbo-superyachts-naples',
+]);
+
+const NAPLES_ITALY_ID = 'region:naples-italy';
+const NAPLES_ITALY_NAME = 'Naples, Italy';
+const NAPLES_FL_ID = 'region:naples-fl';
+const NAPLES_FL_NAME = 'Naples, FL';
+const ITALY_ID = 'region:italy';
+
+function applyNaplesSplit(db) {
+  const conflatedId = 'region:naples';
+  if (!nodeExists(db, conflatedId)) return; // nothing to split (already done, or never minted this round)
+
+  if (!nodeExists(db, NAPLES_ITALY_ID)) {
+    upsertNode(db, { id: NAPLES_ITALY_ID, type: 'region', name: NAPLES_ITALY_NAME });
+  }
+  if (!nodeExists(db, NAPLES_FL_ID)) {
+    upsertNode(db, { id: NAPLES_FL_ID, type: 'region', name: NAPLES_FL_NAME });
+  }
+
+  // Per the ticket: part_of italy ONLY if an Italy region already exists —
+  // this pass never mints region:italy itself (out of this round's scope).
+  if (nodeExists(db, ITALY_ID)) {
+    upsertEdge(db, { src: NAPLES_ITALY_ID, rel: 'part_of', dst: ITALY_ID });
+  }
+  // Direct part_of->florida (not routed through ensureFloridaPartOf's
+  // generic isFloridaCity(name) check, which keys off the bare city name
+  // "Naples" — this node's own display name is "Naples, FL", which
+  // wouldn't match that generic lookup): this split's very existence IS
+  // the grounding that region:naples-fl is the Florida side.
+  upsertNode(db, { id: FLORIDA_ID, type: 'region', name: FLORIDA_NAME });
+  upsertEdge(db, { src: NAPLES_FL_ID, rel: 'part_of', dst: FLORIDA_ID });
+
+  const incomingEdges = db
+    .prepare("SELECT src, rel, attrs_json FROM edges WHERE dst = ?")
+    .all(conflatedId);
+  for (const e of incomingEdges) {
+    const targetId = NAPLES_ITALY_SOURCE_IDS.has(e.src) ? NAPLES_ITALY_ID : NAPLES_FL_ID;
+    upsertEdge(db, { src: e.src, rel: e.rel, dst: targetId, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
+  }
+
+  // Removes the conflated node AND every edge referencing it (as src OR
+  // dst) — this drops its own wrong part_of->florida edge (already
+  // superseded by NAPLES_FL_ID's own, correctly-scoped part_of edge above)
+  // along with the now-redundant original incoming edges (re-pointed
+  // above).
+  db.prepare('DELETE FROM edges WHERE src = ? OR dst = ?').run(conflatedId, conflatedId);
+  db.prepare('DELETE FROM nodes WHERE id = ?').run(conflatedId);
+}
+
 // Generic hardening safety net (see module header, item 4): after the
 // hand-curated passes above run, any REMAINING region node whose name still
 // contains ';' gets quarantined too, even if this file's authors never
@@ -270,12 +344,14 @@ function applyGenericSemicolonSafetyNet(db) {
 /**
  * Runs the full Tier 2 region canonicalization pass (see module header):
  * one-time judgment merges, prose-artifact renames, artifact quarantine
- * flags, and the generic ";"-in-name safety net. Idempotent — safe to call
- * after every ingest run, same as graphCleanup.js's applyGraphCleanup().
+ * flags, the Naples split (TASK-023 item 5), and the generic ";"-in-name
+ * safety net. Idempotent — safe to call after every ingest run, same as
+ * graphCleanup.js's applyGraphCleanup().
  */
 export function applyRegionCanonicalization(db) {
   applyMergeMap(db);
   applyRenameMap(db);
   applyArtifactFlags(db);
+  applyNaplesSplit(db);
   applyGenericSemicolonSafetyNet(db);
 }
