@@ -97,7 +97,10 @@ export const REQUIRED_ATTRS = {
   // per the ticket's own acceptance criterion: ">=55 nodes with discipline +
   // notable_yachts attrs").
   designer: ['country', 'discipline', 'notable_yachts'],
-  person: ['notes', 'provenance'],
+  // TASK-021: personMapper.js's real schema (nationality, industry, role,
+  // status) replaces the old placeholder pair — mirrors the same
+  // real-schema-replaces-placeholder pattern as TASK-019's designer update.
+  person: ['nationality', 'industry', 'role', 'status'],
   engine: ['tier', 'parent_brand', 'power_range'],
   // TASK-017: engine_model's own attrs, plus its MADE_BY edge to the brand
   // (an engine_model with no resolved brand is a data gap, same spirit as

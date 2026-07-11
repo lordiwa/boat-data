@@ -251,3 +251,142 @@ export function mapClubTables(db, tables, sourceFile) {
 }
 
 export { isClubTable };
+
+// --- TASK-021: Club enrichment table (knowledge/96) -----------------------
+//
+// Curated from research/round4/club-enrichment.md. Real header shape:
+//   Club | City | Country | Founded | Website | Notes
+// "Club" is a BARE header (not aliased to 'name'/'club_name' by
+// tableParser's ALIAS_MAP), so this guard's identifier is deliberately
+// distinct from mapClubTables' own NAME_KEYS above — no collision either
+// direction (see ingest/tests/guardCollisions.spec.js).
+//
+// UNLIKE mapClubTables above (which mints a node when none exists),
+// this mapper NEVER creates a club node — 62 clubs enrich-only, per the
+// ticket. A row whose Club cell doesn't exact-match an existing node is
+// counted `unresolved`.
+//
+// FOUNDED-YEAR CONFLICTS: reuses yachtSpecMapper.js's exact convention —
+// first-non-empty-wins (the EXISTING graph value, if any, always stays
+// primary) with a differing incoming value recorded in
+// attrs.conflicts.founded rather than silently overwriting. Supports the
+// same curated "<primary> [conflict: <alt>]" marker for the one row
+// (Vero Beach Yacht Club) where the graph has no existing founded value
+// at all to naturally disagree with.
+
+const CE_NAME_KEYS = ['club'];
+const CE_CITY_KEYS = ['city'];
+const CE_FOUNDED_KEYS = ['founded'];
+const CE_WEBSITE_KEYS = ['website'];
+const CE_NOTES_KEYS = ['notes'];
+
+const CE_SIGNAL_KEYS = [...CE_FOUNDED_KEYS, ...CE_WEBSITE_KEYS];
+
+function isClubEnrichmentTable(table) {
+  const present = new Set(table.normalizedHeaders);
+  if (!CE_NAME_KEYS.some((key) => present.has(key))) return false;
+  return CE_SIGNAL_KEYS.some((key) => present.has(key));
+}
+
+// "<primary> [conflict: <alt1>, <alt2>]" -> { primary, conflicts: [...] }.
+// Identical convention to yachtSpecMapper.js's splitConflictMarker.
+const CE_CONFLICT_MARKER_RE = /^(.*?)\s*\[conflict:\s*(.+?)\]\s*$/i;
+
+function splitConflictMarker(raw) {
+  if (isEmptyValue(raw)) return { primary: raw, conflicts: [] };
+  const s = String(raw).trim();
+  const m = s.match(CE_CONFLICT_MARKER_RE);
+  if (!m) return { primary: s, conflicts: [] };
+  const conflicts = m[2]
+    .split(',')
+    .map((x) => x.trim())
+    .filter(Boolean);
+  return { primary: m[1].trim(), conflicts };
+}
+
+function foundedFieldsEqual(a, b) {
+  if (typeof a.value === 'number' && typeof b.value === 'number') return a.value === b.value;
+  return a.raw === b.raw;
+}
+
+/**
+ * Maps every club-enrichment-shaped table found in `tables` onto EXISTING
+ * club nodes in `db` (never minting one). Founded-year conflicts follow
+ * the shared first-non-empty-wins-plus-conflicts-array convention (see
+ * module header). Tables that don't look like this shape are skipped and
+ * reported in `skippedTables`.
+ *
+ * Returns { matched, unresolved, unresolvedNames, skippedTables }.
+ */
+export function mapClubEnrichmentTables(db, tables, sourceFile) {
+  const skippedTables = [];
+  let matched = 0;
+  let unresolved = 0;
+  const unresolvedNames = [];
+
+  tables.forEach((table, index) => {
+    if (!isClubEnrichmentTable(table)) {
+      skippedTables.push({ index, headers: table.headers });
+      return;
+    }
+
+    for (const row of table.rows) {
+      const nameRaw = pickFirstPresent(row, CE_NAME_KEYS);
+      if (isEmptyValue(nameRaw) || !isPlausibleEntityName(nameRaw)) continue;
+
+      const trimmed = String(nameRaw).trim();
+      const existingRow = db.prepare("SELECT id, name, attrs_json FROM nodes WHERE type = 'club' AND name = ?").get(trimmed);
+      if (!existingRow) {
+        unresolved += 1;
+        unresolvedNames.push(trimmed);
+        continue;
+      }
+
+      const clubId = existingRow.id;
+      const existingAttrs = parseAttrsJson(existingRow.attrs_json);
+      const merged = { ...existingAttrs };
+      const conflicts = { ...(existingAttrs.conflicts || {}) };
+
+      const addConflict = (field, altRaw) => {
+        if (!altRaw) return;
+        const existingList = conflicts[field] || [];
+        conflicts[field] = existingList.includes(altRaw) ? existingList : [...existingList, altRaw];
+      };
+
+      const foundedCell = splitConflictMarker(pickFirstPresent(row, CE_FOUNDED_KEYS));
+      const incomingFounded = parseHistoricalYear(foundedCell.primary);
+      if (incomingFounded) {
+        const oldVal = existingAttrs.founded ?? null;
+        if (oldVal === null) {
+          merged.founded = incomingFounded;
+        } else if (foundedFieldsEqual(oldVal, incomingFounded)) {
+          merged.founded = oldVal;
+        } else {
+          merged.founded = oldVal;
+          addConflict('founded', incomingFounded.raw);
+        }
+      }
+      for (const alt of foundedCell.conflicts) addConflict('founded', alt);
+
+      const cityRaw = pickFirstPresent(row, CE_CITY_KEYS);
+      if (!isEmptyValue(cityRaw)) merged.city = merged.city ?? String(cityRaw).trim();
+
+      const websiteRaw = pickFirstPresent(row, CE_WEBSITE_KEYS);
+      if (!isEmptyValue(websiteRaw)) merged.website = merged.website ?? String(websiteRaw).trim();
+
+      const notesRaw = pickFirstPresent(row, CE_NOTES_KEYS);
+      if (!isEmptyValue(notesRaw)) merged.notes = merged.notes ?? String(notesRaw).trim();
+
+      if (Object.keys(conflicts).length > 0) merged.conflicts = conflicts;
+
+      merged.provenance = appendProvenance(existingAttrs.provenance, sourceFile);
+
+      upsertNode(db, { id: clubId, type: 'club', name: existingRow.name, attrs: merged });
+      matched += 1;
+    }
+  });
+
+  return { matched, unresolved, unresolvedNames, skippedTables };
+}
+
+export { isClubEnrichmentTable };
