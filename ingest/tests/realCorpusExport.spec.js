@@ -557,3 +557,76 @@ describe('real corpus — full-graph double-ingest idempotency (TASK-023 item 0)
     expect(mystereAttrs.loa.meters).toBeCloseTo(33.29, 2);
   }, 60000);
 });
+
+// TASK-023 item 1: yacht long-tail spec completion (knowledge/97, curated
+// from research/round5's four band files). yachtSpecMapper.js never mints a
+// yacht node, so this only ever ADDS attrs to/reconciles conflicts on
+// existing nodes — no yacht node-count change from this file alone (the
+// count change observed in the baseline lock above comes entirely from
+// item 3's duplicate-hull merges, which happen to run in the same
+// applyGraphCleanup() pass).
+describe('real corpus — yacht long-tail spec completion (TASK-023 item 1)', () => {
+  it('resolves virtually all ~114 knowledge/97 rows (only the pre-existing knowledge/93 Amadea row stays unresolved)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    const result = runIngest();
+
+    expect(result.totals.yachtSpecMatched).toBeGreaterThanOrEqual(200);
+    expect(result.totals.yachtSpecUnresolved).toBe(1);
+  }, 30000);
+
+  it('adds EIV\'s draft (previously blank) without disturbing its already-corrected loa', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const row = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:eiv'").get();
+    db.close();
+
+    const attrs = JSON.parse(row.attrs_json);
+    expect(attrs.draft.meters).toBeCloseTo(2.29, 2);
+    expect(attrs.loa.meters).toBe(48.8);
+  }, 30000);
+
+  it('resolves the Batello/Amevi rename-merge cluster: former_names populated, Amevi merged away, Batello fully spec\'d', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const amevi = db.prepare("SELECT id FROM nodes WHERE id = 'yacht:amevi'").get();
+    const batello = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:batello'").get();
+    db.close();
+
+    expect(amevi).toBeFalsy();
+    const attrs = JSON.parse(batello.attrs_json);
+    expect(attrs.former_names).toEqual(['Amevi', 'Aalto']);
+    expect(attrs.gt).toBe(2500);
+  }, 30000);
+
+  it('resolves the Loewe/Loewe-Tankoa cluster onto the correctly-attributed node with full specs, gap-filled through the merge', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const loewe = db.prepare("SELECT id FROM nodes WHERE id = 'yacht:loewe'").get();
+    const loeweTankoa = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:loewe-tankoa'").get();
+    db.close();
+
+    expect(loewe).toBeFalsy();
+    const attrs = JSON.parse(loeweTankoa.attrs_json);
+    expect(attrs.gt).toBe(499);
+    expect(attrs.max_speed).toBe(17.5);
+  }, 30000);
+
+  it('gives Sportiva 55 (the model-line node, distinct from the Loewe cluster) its own spec data', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const row = db.prepare("SELECT attrs_json FROM nodes WHERE id = 'yacht:sportiva-55'").get();
+    db.close();
+
+    expect(row).toBeTruthy();
+    const attrs = JSON.parse(row.attrs_json);
+    expect(attrs.gt).toBe(499);
+  }, 30000);
+});

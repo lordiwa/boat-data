@@ -149,6 +149,12 @@ const FORMER_NAMES_MAP = {
   zeus: ['Eco'],
   multiverse: ['Ulysses'],
   whisper: ['Kismet'],
+  // TASK-023 item 1: same Oceanco Y701 80m hull's full rename chain
+  // (research/round5/yacht-specs-under35m.md) — "Amevi" is separately
+  // merged away by graphCleanup.js's YACHT_MERGE_MAP (item 3), same
+  // "old-name node merged away, former_names lands on the CURRENT/
+  // canonical name" pattern as kaos/mar/madsummer above.
+  batello: ['Amevi', 'Aalto'],
 };
 
 /**
