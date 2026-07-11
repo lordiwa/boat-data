@@ -445,6 +445,15 @@ function processRow(db, row, sourceFile, candidates) {
     builderId: resolution.builderId,
     loaMeters:
       mergedAttrs.loa && typeof mergedAttrs.loa.meters === 'number' ? mergedAttrs.loa.meters : null,
+    // TASK-023 item 0/2 fix: without carrying this forward, a SECOND
+    // same-name row later in the SAME file (or a later file, since
+    // `nextCandidates` — not a fresh loadYachtCandidates() read — is what
+    // the next row in this table/file compares against) loses the
+    // corrected node's loa_aliases entirely and re-triggers the exact
+    // "-2"-sibling minting bug classifyCandidate's loaAliasMeters check is
+    // meant to prevent (caught by a real-corpus repeat-mention case:
+    // "Arcadia Sherpa 60" appears 3x in the same charter-guide file).
+    loaAliasMeters: Array.isArray(mergedAttrs.loa_aliases) ? mergedAttrs.loa_aliases : [],
     provenance: mergedAttrs.provenance || [],
   };
   const nextCandidates = candidates.filter((c) => c.id !== yachtId).concat(updatedCandidate);

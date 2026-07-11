@@ -431,7 +431,120 @@ export const YACHT_MERGE_MAP = [
   // "Graph has 2 duplicate nodes for this yacht" (research/round3/
   // yacht-specs.md, Prince Abdulaziz row) — same 147m Helsingør Værft hull.
   { from: 'yacht:prince-abdulaziz-helsingor-vaerft', to: 'yacht:prince-abdulaziz' },
+
+  // --- TASK-023 item 3: ~17-18 grounded duplicate-hull merges -------------
+  // research/round5/yacht-specs-55-70m.md's Coverage notes list 12 named
+  // clusters (several as pairs/triples of the same real hull); research/
+  // round5/yacht-specs-under35m.md's Suspect entries add 3 more (Amevi/
+  // Batello, Al Mirqab, H3). `to` is chosen as whichever side already
+  // carries (or, after this round's other cleanup steps run, WILL carry)
+  // the correctly-attributed builder — never guessed, always grounded in
+  // the research doc's own per-entry rationale (cited per line below).
+  // Deliberately NOT merged (per the ticket's own instruction): "Katina"
+  // (Brodosplit, populated) / "Lady Beth" (Lürssen) — research found no
+  // grounded evidence either second node is the SAME real vessel (a
+  // different, unrelated well-documented "Katina"/"Lady Beth" of that
+  // builder simply wasn't found publicly) — left unmerged, same
+  // "GROUNDED merges only" discipline as every prior round's merge maps.
+
+  // "Nomad" (69.5m Oceanfast megayacht) recorded as two nodes — a clean
+  // "Nomad" (id nomad-oceanfast) and a messy markdown-artifact name
+  // "**Nomad** (ex-Aussie Rules)" with no builder resolved at all. The
+  // UNRELATED, much smaller 30m "Nomad" (South Pacific fast MY, id
+  // `yacht:nomad`) is a genuinely different real yacht and is never
+  // referenced by this merge map.
+  { from: 'yacht:nomad-ex-aussie-rules', to: 'yacht:nomad-oceanfast' },
+  // Argus: 1971-built/2022-refit expedition conversion, recorded twice
+  // under two equally-generic placeholder builder tags (`custom-rebuild`/
+  // `custom`) — same real vessel per research, no distinguishing evidence
+  // either way, so the plain "Argus" id is kept canonical.
+  { from: 'yacht:argus-custom', to: 'yacht:argus' },
+  // Amor a Vida: CRN's first hybrid-propulsion 67m hull, double-counted
+  // under two builder-id spellings that graphCleanup's own BUILDER_MERGE_MAP
+  // (crn -> crn-yachts) already reconciles to the same real company.
+  { from: 'yacht:amor-a-vida-crn-yachts', to: 'yacht:amor-a-vida' },
+  // Loon: Icon Yachts' 67m flagship (ex "Icon"), double-counted under two
+  // builder-id spellings (icon -> icon-yachts, also already reconciled by
+  // BUILDER_MERGE_MAP).
+  { from: 'yacht:loon-icon', to: 'yacht:loon' },
+  // Alchemy/Alchemia: same 65.99m Rossinavi hull (Vitruvius Yachts design)
+  // — "Alchemia" is a spelling-variant duplicate; no separate "Alchemia"
+  // hull was found by any source. "Alchemy" is the correct/real name.
+  { from: 'yacht:alchemia', to: 'yacht:alchemy' },
+  // Roma/RoMa: same 61.8m Viareggio Superyachts (VSY) hull — "RoMa"'s own
+  // builder tag (bare `builder:viareggio`) is ALSO the "town name, not a
+  // company" suspect node SUSPECT_NODE_ACTIONS already removes above, so
+  // this merge simply consolidates onto the correctly-attributed "Roma".
+  { from: 'yacht:roma-viareggio', to: 'yacht:roma' },
+  // After You: Damen Yachting's first "Xplorer 60" hull, recorded three
+  // times — a generic-builder placeholder (`various`), the correctly-
+  // attributed real builder (`damen-yachting`), and a third node whose
+  // builder tag is literally the brand name "Xplorer" (Damen Yachting's
+  // own yacht brand, not a separate shipyard, per research). Both
+  // duplicates fold onto the correctly-attributed node.
+  { from: 'yacht:after-you', to: 'yacht:after-you-damen-yachting' },
+  { from: 'yacht:after-you-xplorer', to: 'yacht:after-you-damen-yachting' },
+  // St David: same 60m Benetti hull (ex "Xanadu") under a real builder tag
+  // and a generic `custom` placeholder duplicate.
+  { from: 'yacht:st-david-custom', to: 'yacht:st-david' },
+  // Andrea L / Andreas L: same 60m Benetti hull (rename chain Amnesia ->
+  // Andreas L -> MIMI -> LA BLANCA) — "Andrea L" is a spelling-variant
+  // duplicate; "Andreas L" matches the vessel's own documented rename
+  // chain and is kept canonical.
+  { from: 'yacht:andrea-l', to: 'yacht:andreas-l' },
+  // Come Together: Amels 60 Limited Editions hull (ex-project "Witchcraft"),
+  // recorded three times — a generic `custom` placeholder and a node whose
+  // builder tag is the retyped `person:y-co`/`company:y-co` brokerage
+  // (never a real shipyard) both fold onto the correctly-attributed Amels
+  // node.
+  { from: 'yacht:come-together-custom', to: 'yacht:come-together' },
+  { from: 'yacht:come-together-y-co', to: 'yacht:come-together' },
+  // Pink Shadow: Damen Yachting's only "Xplorer 58" hull, same three-node
+  // pattern as After You/Come Together above (generic `custom` placeholder
+  // + a Y.CO-tagged duplicate) folding onto the correctly-attributed node.
+  { from: 'yacht:pink-shadow-custom', to: 'yacht:pink-shadow' },
+  { from: 'yacht:pink-shadow-y-co', to: 'yacht:pink-shadow' },
+  // Loewe: Tankoa's T55 Sportiva 2nd hull, recorded twice — one node's own
+  // cached `_resolution.builderId` nonsensically points to
+  // `builder:sportiva-55` (a model-designation string that leaked into the
+  // builder field; that suspect builder node is itself already removed by
+  // SUSPECT_NODE_ACTIONS above, so this is a dangling/stale reference, not
+  // a real second builder claim) — merging onto the correctly-attributed
+  // `loewe-tankoa` node (real builder Tankoa) resolves the remnant.
+  { from: 'yacht:loewe', to: 'yacht:loewe-tankoa' },
+
+  // Amevi/Batello: the SAME Oceanco Y701 80m hull under its rename chain
+  // (Aalto -> Amevi -> Batello, current) — research/round5/
+  // yacht-specs-under35m.md consolidates onto the CURRENT name, "Batello".
+  { from: 'yacht:amevi', to: 'yacht:batello' },
+  // Al Mirqab: the Emir of Qatar's 133m yacht, recorded twice with
+  // conflicting builder claims (`kusch-yachts` vs the correct, real
+  // `peters-schiffbau` — already corrected in knowledge/93's own row for
+  // this same node). Canonical id kept as the cleaner `yacht:al-mirqab`;
+  // its mismatched `built_by` edge to `builder:kusch-yachts` is dropped by
+  // fixAlMirqabBuilderConflict() (below) so only the correct
+  // `builder:peters-schiffbau` edge survives the merge.
+  { from: 'yacht:al-mirqab-peters-schiffbau', to: 'yacht:al-mirqab' },
+  // H3: Oceanco's 105m rebuild (real, well-documented — see knowledge/93's
+  // own H3 row), double-counted alongside a thin `various`/`loa: "70+"`
+  // placeholder duplicate with no other data.
+  { from: 'yacht:h3-various', to: 'yacht:h3' },
 ];
+
+// TASK-023 item 3: research/round5/yacht-specs-under35m.md's own Suspect
+// entries flag Al Mirqab's two graph nodes as carrying "no reconciliation
+// between the two builder claims" — `builder:kusch-yachts` (wrong) vs
+// `builder:peters-schiffbau` (the real, correct builder, matching
+// knowledge/93's own already-corrected row for this same yacht). Dropped
+// BEFORE the YACHT_MERGE_MAP merge above runs, mirroring
+// fixSergeyBrinRumoredArtifact's "drop the wrong edge before the generic
+// merge carries it over" pattern — otherwise the merged node would end up
+// with two contradictory `built_by` edges.
+function fixAlMirqabBuilderConflict(db) {
+  db.prepare(
+    "DELETE FROM edges WHERE src = 'yacht:al-mirqab' AND rel = 'built_by' AND dst = 'builder:kusch-yachts'"
+  ).run();
+}
 
 // --- 5. TASK-020: Rybovich marina merge -----------------------------------
 // research/round3/marina-enrichment.md's own enrichment-table row:
@@ -734,6 +847,106 @@ export const YACHT_QUALITY_CORRECTIONS = [
       'Graph LOA (109m) conflated "109 ft" with "109 m" (a feet-to-meters conversion bug) — real MYSTERE is a ' +
       '33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md\'s Suspect yachts table.',
   },
+
+  // TASK-023 item 2: ~15 model-number/feet-as-LOA corrections identified
+  // across research/round5's four band files — the same failure class as
+  // EIV/MYSTERE above: a production model's own number (usually a
+  // feet-based model-line designation) was parsed by the ingestion
+  // pipeline's LOA column as if it were a metres figure. Two modes, per
+  // the ticket's own instruction:
+  //   - the research grounds a real LOA (a specific/derived metres figure,
+  //     even if only an approximate feet->metres conversion of the model
+  //     name): `correctedValue` carries it, same as EIV/MYSTERE.
+  //   - the research only proves the CURRENT value wrong without
+  //     establishing a single confident true LOA (Pardo 50: two research
+  //     band files give two different approximate conversions with no
+  //     resolution between them; Admiral 72: no source corroborates that a
+  //     specific hull of this description even exists): `correctedValue:
+  //     null` blanks the field and `dataQuality` records why (applied by
+  //     applyYachtQualityCorrections below), rather than guessing.
+  {
+    id: 'yacht:rivale-56',
+    field: 'loa',
+    correctedValue: { meters: 17.3, raw: '~17.3m (56ft)' },
+    note:
+      '"56" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. ' +
+      'Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+  },
+  {
+    id: 'yacht:arcadia-sherpa-60',
+    field: 'loa',
+    correctedValue: { meters: 18.28, raw: '18.28m' },
+    note:
+      '"60" is Arcadia Yachts\' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected ' +
+      'per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+  },
+  {
+    id: 'yacht:sunseeker-manhattan-65',
+    field: 'loa',
+    correctedValue: { meters: 21.06, raw: '21.06m (69\'1")' },
+    note:
+      '"65" is the Sunseeker Manhattan 65 model\'s (loosely foot-based) name, not metres — real LOA is 69\'1"/21.06m. ' +
+      'Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+  },
+  {
+    id: 'yacht:navetta-68',
+    field: 'loa',
+    correctedValue: { meters: 20.52, raw: '20.52m' },
+    note:
+      '"68" is the Absolute Navetta 68 model\'s foot-based name, not metres — real LOA is 20.52m. Corrected per ' +
+      'research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+  },
+  {
+    id: 'yacht:yamas',
+    field: 'loa',
+    correctedValue: { meters: 20.2, raw: '~20.2m (Ferretti 670)' },
+    note:
+      'The graph\'s 67m LOA mistook the Ferretti 670 model\'s own model number for a length — real Yamas is a ' +
+      '~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+  },
+  {
+    id: 'yacht:isa-120',
+    field: 'loa',
+    correctedValue: { meters: 36.6, raw: '~36.6m (120ft)' },
+    note:
+      '"120" is ISA Yachts\' foot-based "120" model-line designation, not metres — real LOA is ~120ft/36.6m. ' +
+      'Corrected per research/round5/yacht-specs-under35m.md\'s Suspect entries.',
+  },
+  {
+    id: 'yacht:majesty-120',
+    field: 'loa',
+    correctedValue: { meters: 36.5, raw: '~36.5m (120ft)' },
+    note:
+      '"120" is Gulf Craft\'s foot-based Majesty 120 model designation, not metres — real LOA is ~120ft/36.5m. ' +
+      'Corrected per research/round5/yacht-specs-under35m.md\'s Suspect entries.',
+  },
+  {
+    id: 'yacht:pardo-50',
+    field: 'loa',
+    correctedValue: null,
+    dataQuality:
+      'unit-bug: "50" is Cantiere del Pardo\'s foot-based Pardo 50 model designation (a ~15-16m day/sport ' +
+      'cruiser), not a 50m LOA — research/round5\'s 45-55m and under-35m band files give two differing ' +
+      'approximate conversions (~16.25m vs ~15.5m) with no single confidently-grounded true LOA, so the field is ' +
+      'blanked rather than guessed (2026-07 research pass).',
+    note:
+      '"50" is the Pardo 50 model\'s foot-based designation (a day/sport cruiser, not a 50m superyacht) — the true ' +
+      'LOA is blanked rather than guessed because research/round5\'s two band files give differing approximate ' +
+      'conversions (~15.5m vs ~16.25m) with no single confidently-grounded figure.',
+  },
+  {
+    id: 'yacht:admiral-72-giorgio-armani',
+    field: 'loa',
+    correctedValue: null,
+    dataQuality:
+      'unit-bug: "72" is a foot-based Admiral/Overmarine Armani-collaboration model designation (~22m if the ' +
+      'conversion is accurate), not a 72m LOA — no corroborating source confirms a specific hull of this ' +
+      'description exists, so the field is blanked rather than guessed (2026-07 research pass).',
+    note:
+      '"72" is a foot-based Admiral/Overmarine Armani-collaboration model designation (72ft ≈ 22m) — blanked ' +
+      'rather than guessed because no source corroborates a confirmed, specific hull of this description. Per ' +
+      'research/round5/yacht-specs-under35m.md\'s Suspect entries.',
+  },
 ];
 
 // True when `a` and `b` already represent the same corrected value (e.g. a
@@ -746,7 +959,7 @@ function sameCorrectionValue(a, b) {
 }
 
 function applyYachtQualityCorrections(db) {
-  for (const { id, field, correctedValue, note } of YACHT_QUALITY_CORRECTIONS) {
+  for (const { id, field, correctedValue, note, dataQuality } of YACHT_QUALITY_CORRECTIONS) {
     if (!nodeExists(db, id)) continue;
     const row = getFullNode(db, id);
     const attrs = parseAttrsJson(row.attrs_json);
@@ -754,6 +967,15 @@ function applyYachtQualityCorrections(db) {
     const alreadyCorrected = Boolean(oldValue) && sameCorrectionValue(oldValue, correctedValue);
 
     attrs[field] = correctedValue;
+
+    // TASK-023 item 2: an entry may blank the field (correctedValue: null)
+    // rather than correct it to a numeric value, when the research only
+    // proves the CURRENT value wrong without establishing a single
+    // confident true LOA (see this array's own per-entry comments, e.g.
+    // Pardo 50, Admiral 72). `dataQuality` records why, same convention as
+    // graphCleanup.js's own QUALITY_FLAGS map (attrs.data_quality, never a
+    // delete).
+    if (dataQuality) attrs.data_quality = dataQuality;
 
     if (oldValue && !alreadyCorrected) {
       const oldRaw = (oldValue && oldValue.raw) || JSON.stringify(oldValue);
@@ -807,6 +1029,11 @@ export function applyGraphCleanup(db) {
   fixWinchDesignVard(db);
   fixNavalInspiredArtifact(db);
   fixWeichaiMerge(db);
+
+  // TASK-023 item 3: drop Al Mirqab's mismatched built_by edge BEFORE the
+  // generic yacht merge below carries it over (see fixAlMirqabBuilderConflict's
+  // own comment).
+  fixAlMirqabBuilderConflict(db);
 
   for (const { from, to } of YACHT_MERGE_MAP) {
     mergeNode(db, from, to);

@@ -397,6 +397,195 @@ describe('applyGraphCleanup — yacht rename/duplicate merges (TASK-020)', () =>
   });
 });
 
+// TASK-023 item 3: ~17-18 grounded duplicate-hull merges identified across
+// research/round5's 55-70m and under-35m/stragglers band files. Each pair is
+// the SAME real vessel recorded as two graph nodes (an id-collision suffix,
+// a spelling variant, or a rename-chain artifact) — see
+// graphCleanup.js's own YACHT_MERGE_MAP comment for the full per-cluster
+// citation. "Nomad" (30m, an unrelated smaller yacht) must be left
+// completely untouched — only the two 69.5m "Nomad" nodes merge.
+describe('applyGraphCleanup — duplicate-hull merges (TASK-023 item 3)', () => {
+  it('merges the two 69.5m Nomad nodes but leaves the unrelated 30m Nomad node untouched', () => {
+    upsertNode(db, { id: 'yacht:nomad', type: 'yacht', name: 'Nomad', attrs: { loa: { meters: 30, raw: '30 m (98 ft)' } } });
+    upsertNode(db, { id: 'yacht:nomad-oceanfast', type: 'yacht', name: 'Nomad', attrs: { loa: { meters: 69.5, raw: '69.5' } } });
+    upsertNode(db, {
+      id: 'yacht:nomad-ex-aussie-rules',
+      type: 'yacht',
+      name: '**Nomad** (ex-Aussie Rules)',
+      attrs: { loa: { meters: 69.5, raw: '69.5m (228ft)' } },
+    });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:nomad')).toBe(true); // untouched, different real yacht
+    expect(nodeExists('yacht:nomad-oceanfast')).toBe(true);
+    expect(nodeExists('yacht:nomad-ex-aussie-rules')).toBe(false);
+  });
+
+  it('merges the Argus (custom-rebuild/custom) duplicate pair', () => {
+    upsertNode(db, { id: 'yacht:argus', type: 'yacht', name: 'Argus' });
+    upsertNode(db, { id: 'yacht:argus-custom', type: 'yacht', name: 'Argus' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:argus-custom')).toBe(false);
+    expect(nodeExists('yacht:argus')).toBe(true);
+  });
+
+  it('merges the Amor a Vida duplicate pair', () => {
+    upsertNode(db, { id: 'yacht:amor-a-vida', type: 'yacht', name: 'Amor a Vida' });
+    upsertNode(db, { id: 'yacht:amor-a-vida-crn-yachts', type: 'yacht', name: 'Amor a Vida' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:amor-a-vida-crn-yachts')).toBe(false);
+    expect(nodeExists('yacht:amor-a-vida')).toBe(true);
+  });
+
+  it('merges the Loon duplicate pair', () => {
+    upsertNode(db, { id: 'yacht:loon', type: 'yacht', name: 'Loon' });
+    upsertNode(db, { id: 'yacht:loon-icon', type: 'yacht', name: 'Loon' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:loon-icon')).toBe(false);
+    expect(nodeExists('yacht:loon')).toBe(true);
+  });
+
+  it('merges Alchemia (spelling variant) into Alchemy', () => {
+    upsertNode(db, { id: 'yacht:alchemy', type: 'yacht', name: 'Alchemy' });
+    upsertNode(db, { id: 'yacht:alchemia', type: 'yacht', name: 'Alchemia' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:alchemia')).toBe(false);
+    expect(nodeExists('yacht:alchemy')).toBe(true);
+  });
+
+  it('merges RoMa (spelling variant) into Roma', () => {
+    upsertNode(db, { id: 'yacht:roma', type: 'yacht', name: 'Roma' });
+    upsertNode(db, { id: 'yacht:roma-viareggio', type: 'yacht', name: 'RoMa' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:roma-viareggio')).toBe(false);
+    expect(nodeExists('yacht:roma')).toBe(true);
+  });
+
+  it('merges the After You x3 cluster onto the correctly-attributed damen-yachting node', () => {
+    upsertNode(db, { id: 'yacht:after-you', type: 'yacht', name: 'After You' });
+    upsertNode(db, { id: 'yacht:after-you-damen-yachting', type: 'yacht', name: 'After You' });
+    upsertNode(db, { id: 'yacht:after-you-xplorer', type: 'yacht', name: 'After You' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:after-you')).toBe(false);
+    expect(nodeExists('yacht:after-you-xplorer')).toBe(false);
+    expect(nodeExists('yacht:after-you-damen-yachting')).toBe(true);
+  });
+
+  it('merges the St David duplicate pair', () => {
+    upsertNode(db, { id: 'yacht:st-david', type: 'yacht', name: 'St David' });
+    upsertNode(db, { id: 'yacht:st-david-custom', type: 'yacht', name: 'St David' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:st-david-custom')).toBe(false);
+    expect(nodeExists('yacht:st-david')).toBe(true);
+  });
+
+  it('merges Andrea L (spelling variant) into Andreas L', () => {
+    upsertNode(db, { id: 'yacht:andreas-l', type: 'yacht', name: 'Andreas L' });
+    upsertNode(db, { id: 'yacht:andrea-l', type: 'yacht', name: 'Andrea L' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:andrea-l')).toBe(false);
+    expect(nodeExists('yacht:andreas-l')).toBe(true);
+  });
+
+  it('merges the Come Together x3 cluster onto the canonical Amels node', () => {
+    upsertNode(db, { id: 'yacht:come-together', type: 'yacht', name: 'Come Together' });
+    upsertNode(db, { id: 'yacht:come-together-custom', type: 'yacht', name: 'Come Together' });
+    upsertNode(db, { id: 'yacht:come-together-y-co', type: 'yacht', name: 'Come Together' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:come-together-custom')).toBe(false);
+    expect(nodeExists('yacht:come-together-y-co')).toBe(false);
+    expect(nodeExists('yacht:come-together')).toBe(true);
+  });
+
+  it('merges the Pink Shadow x3 cluster onto the canonical Damen node', () => {
+    upsertNode(db, { id: 'yacht:pink-shadow', type: 'yacht', name: 'Pink Shadow' });
+    upsertNode(db, { id: 'yacht:pink-shadow-custom', type: 'yacht', name: 'Pink Shadow' });
+    upsertNode(db, { id: 'yacht:pink-shadow-y-co', type: 'yacht', name: 'Pink Shadow' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:pink-shadow-custom')).toBe(false);
+    expect(nodeExists('yacht:pink-shadow-y-co')).toBe(false);
+    expect(nodeExists('yacht:pink-shadow')).toBe(true);
+  });
+
+  it('merges Loewe onto the correctly-attributed Tankoa node, resolving the builder:sportiva-55 remnant', () => {
+    upsertNode(db, { id: 'yacht:loewe', type: 'yacht', name: 'Loewe' });
+    upsertNode(db, { id: 'yacht:loewe-tankoa', type: 'yacht', name: 'Loewe' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:loewe')).toBe(false);
+    expect(nodeExists('yacht:loewe-tankoa')).toBe(true);
+  });
+
+  it('merges Amevi into Batello (the current name of the same Oceanco Y701 hull)', () => {
+    upsertNode(db, { id: 'yacht:amevi', type: 'yacht', name: 'Amevi' });
+    upsertNode(db, { id: 'yacht:batello', type: 'yacht', name: 'Batello' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:amevi')).toBe(false);
+    expect(nodeExists('yacht:batello')).toBe(true);
+  });
+
+  it('merges the H3 (various/thin) duplicate into the fully-resolved Oceanco node', () => {
+    upsertNode(db, { id: 'yacht:h3', type: 'yacht', name: 'H3' });
+    upsertNode(db, { id: 'yacht:h3-various', type: 'yacht', name: 'H3' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:h3-various')).toBe(false);
+    expect(nodeExists('yacht:h3')).toBe(true);
+  });
+
+  it('merges the Al Mirqab duplicate pair AND drops the mismatched builder:kusch-yachts edge, keeping only the correct builder:peters-schiffbau edge', () => {
+    upsertNode(db, { id: 'yacht:al-mirqab', type: 'yacht', name: 'Al Mirqab' });
+    upsertNode(db, { id: 'yacht:al-mirqab-peters-schiffbau', type: 'yacht', name: 'Al Mirqab' });
+    upsertNode(db, { id: 'builder:kusch-yachts', type: 'builder', name: 'Kusch Yachts' });
+    upsertNode(db, { id: 'builder:peters-schiffbau', type: 'builder', name: 'Peters Schiffbau' });
+    upsertEdge(db, { src: 'yacht:al-mirqab', rel: 'built_by', dst: 'builder:kusch-yachts' });
+    upsertEdge(db, { src: 'yacht:al-mirqab-peters-schiffbau', rel: 'built_by', dst: 'builder:peters-schiffbau' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:al-mirqab-peters-schiffbau')).toBe(false);
+    expect(nodeExists('yacht:al-mirqab')).toBe(true);
+    const builtByEdges = db.prepare("SELECT dst FROM edges WHERE src = 'yacht:al-mirqab' AND rel = 'built_by'").all();
+    expect(builtByEdges.map((e) => e.dst)).toEqual(['builder:peters-schiffbau']);
+  });
+
+  it('never creates an orphan edge across the full duplicate-hull merge pass', () => {
+    upsertNode(db, { id: 'yacht:argus', type: 'yacht', name: 'Argus' });
+    upsertNode(db, { id: 'yacht:argus-custom', type: 'yacht', name: 'Argus' });
+    upsertNode(db, { id: 'builder:custom-rebuild', type: 'builder', name: 'Custom (rebuild)' });
+    upsertEdge(db, { src: 'yacht:argus-custom', rel: 'built_by', dst: 'builder:custom-rebuild' });
+
+    applyGraphCleanup(db);
+
+    expect(orphanEdgeCount()).toBe(0);
+  });
+});
+
 describe('applyGraphCleanup — Rybovich marina merge (TASK-020)', () => {
   it('merges marina:rybovich-superyacht-marina into marina:safe-harbor-rybovich with provenance', () => {
     upsertNode(db, {
@@ -622,6 +811,120 @@ describe('applyGraphCleanup — yacht LOA quality corrections (EIV, MYSTERE)', (
 
     const node = getNode('yacht:eiv');
     expect(node.attrs.loa_aliases).toEqual([160]);
+  });
+});
+
+// TASK-023 item 2: ~15 model-number/feet-as-LOA corrections identified in
+// research/round5's four band files (10 named — see graphCleanup.js's own
+// YACHT_QUALITY_CORRECTIONS comment for the full per-entry citation). Two
+// modes: (a) the research grounds a real LOA figure (even an approximate
+// feet->metres conversion) -> corrected numerically, old value preserved in
+// conflicts, exactly like EIV/MYSTERE; (b) the research only proves the
+// CURRENT value wrong without establishing a confident true LOA -> the field
+// is blanked (correctedValue: null) and a data_quality flag records why.
+describe('applyGraphCleanup — unit-bug LOA corrections (TASK-023 item 2)', () => {
+  it('corrects Rivale 56\'s LOA from the 56m model-number bug to the real ~17.3m (Riva 56 Rivale)', () => {
+    upsertNode(db, { id: 'yacht:rivale-56', type: 'yacht', name: 'Rivale 56', attrs: { loa: { meters: 56, raw: '56' } } });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:rivale-56');
+    expect(node.attrs.loa.meters).toBeCloseTo(17.3, 1);
+    expect(JSON.stringify(node.attrs.conflicts.loa)).toContain('56');
+  });
+
+  it('corrects Arcadia Sherpa 60\'s LOA from the 60m model-number bug to the real 18.28m', () => {
+    upsertNode(db, {
+      id: 'yacht:arcadia-sherpa-60',
+      type: 'yacht',
+      name: 'Arcadia Sherpa 60',
+      attrs: { loa: { meters: 60, raw: '60' } },
+    });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:arcadia-sherpa-60').attrs.loa.meters).toBe(18.28);
+  });
+
+  it('corrects Sunseeker Manhattan 65\'s LOA from the 65m model-number bug to the real 21.06m', () => {
+    upsertNode(db, {
+      id: 'yacht:sunseeker-manhattan-65',
+      type: 'yacht',
+      name: 'Sunseeker Manhattan 65',
+      attrs: { loa: { meters: 65, raw: '65' } },
+    });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:sunseeker-manhattan-65').attrs.loa.meters).toBe(21.06);
+  });
+
+  it('corrects Navetta 68\'s LOA from the 68m model-number bug to the real 20.52m', () => {
+    upsertNode(db, { id: 'yacht:navetta-68', type: 'yacht', name: 'Navetta 68', attrs: { loa: { meters: 68, raw: '68' } } });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:navetta-68').attrs.loa.meters).toBe(20.52);
+  });
+
+  it('corrects Yamas\'s LOA from the 67m model-number bug to the real ~20.2m (Ferretti 670)', () => {
+    upsertNode(db, { id: 'yacht:yamas', type: 'yacht', name: 'Yamas', attrs: { loa: { meters: 67, raw: '67' } } });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:yamas').attrs.loa.meters).toBeCloseTo(20.2, 1);
+  });
+
+  it('corrects ISA 120\'s LOA from the 120m model-number bug to the real ~36.6m (120ft)', () => {
+    upsertNode(db, { id: 'yacht:isa-120', type: 'yacht', name: 'ISA 120', attrs: { loa: { meters: 120, raw: '120' } } });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:isa-120').attrs.loa.meters).toBeCloseTo(36.6, 1);
+  });
+
+  it('corrects Majesty 120\'s LOA from the 120m model-number bug to the real ~36.5m (120ft)', () => {
+    upsertNode(db, { id: 'yacht:majesty-120', type: 'yacht', name: 'Majesty 120', attrs: { loa: { meters: 120, raw: '120' } } });
+
+    applyGraphCleanup(db);
+
+    expect(getNode('yacht:majesty-120').attrs.loa.meters).toBeCloseTo(36.5, 1);
+  });
+
+  it('blanks Pardo 50\'s LOA (conflicting research estimates, no single confident true value) and flags data_quality instead of guessing', () => {
+    upsertNode(db, { id: 'yacht:pardo-50', type: 'yacht', name: 'Pardo 50', attrs: { loa: { meters: 50, raw: '50' } } });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:pardo-50');
+    expect(node.attrs.loa).toBeNull();
+    expect(JSON.stringify(node.attrs.conflicts.loa)).toContain('50');
+    expect(node.attrs.data_quality).toMatch(/unit-bug/i);
+  });
+
+  it('blanks Admiral 72 (Giorgio Armani)\'s LOA (uncorroborated hull) and flags data_quality instead of guessing', () => {
+    upsertNode(db, {
+      id: 'yacht:admiral-72-giorgio-armani',
+      type: 'yacht',
+      name: 'Admiral 72 (Giorgio Armani)',
+      attrs: { loa: { meters: 72, raw: '72/236' } },
+    });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:admiral-72-giorgio-armani');
+    expect(node.attrs.loa).toBeNull();
+    expect(node.attrs.data_quality).toMatch(/unit-bug/i);
+  });
+
+  it('is idempotent: running applyGraphCleanup twice does not duplicate conflicts for the new unit-bug corrections', () => {
+    upsertNode(db, { id: 'yacht:navetta-68', type: 'yacht', name: 'Navetta 68', attrs: { loa: { meters: 68, raw: '68' } } });
+
+    applyGraphCleanup(db);
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:navetta-68');
+    expect(node.attrs.conflicts.loa).toHaveLength(1);
   });
 });
 

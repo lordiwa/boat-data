@@ -453,6 +453,42 @@ describe('mapYachtTables — accepts a corrected node\'s loa_aliases as a non-mi
     const eivNodes = db.prepare("SELECT id FROM nodes WHERE type = 'yacht' AND name = 'EIV'").all();
     expect(eivNodes).toHaveLength(2); // a definite builder MISMATCH still creates a distinct node
   });
+
+  // Regression lock for a second, subtler half of the same item-0 bug class,
+  // found while implementing TASK-023 item 2 against the real corpus
+  // ("Arcadia Sherpa 60" appears 3x in the same charter-guide file):
+  // processRow's in-memory `updatedCandidate` (what the NEXT same-name row
+  // in the SAME file/table compares against, rather than a fresh
+  // loadYachtCandidates() read) dropped `loaAliasMeters` entirely, so only
+  // the FIRST repeated mention of a corrected yacht in a file resolved
+  // correctly — the second/third mention still minted a "-2" sibling.
+  it('accepts the loa alias on the SECOND and THIRD repeated mention of the same corrected yacht within one file, not just the first', () => {
+    upsertNode(db, {
+      id: 'yacht:eiv',
+      type: 'yacht',
+      name: 'EIV',
+      attrs: {
+        loa: { meters: 48.8, raw: '48.8m' },
+        loa_aliases: [160],
+        _resolution: { nameNorm: 'eiv', builderId: 'builder:rossinavi' },
+        provenance: ['some-earlier-file.md'],
+      },
+    });
+
+    const tables = parseTables(`
+| Yacht Name | Builder | Length |
+|------------|---------|--------|
+| EIV | Rossinavi | 160m |
+| EIV | Rossinavi | 160m |
+| EIV | Rossinavi | 160m |
+`);
+    mapYachtTables(db, tables, '41_repeated_eiv_mentions.md');
+
+    const eivNodes = db.prepare("SELECT id FROM nodes WHERE type = 'yacht' AND name = 'EIV'").all();
+    expect(eivNodes.map((r) => r.id)).toEqual(['yacht:eiv']);
+    expect(getNode('yacht:eiv-2')).toBeNull();
+    expect(getNode('yacht:eiv-3')).toBeNull();
+  });
 });
 
 describe('module importability', () => {
