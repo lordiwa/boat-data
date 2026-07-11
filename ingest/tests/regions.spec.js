@@ -154,3 +154,77 @@ describe('upsertRegion — DB effects', () => {
     expect(upsertRegion(db, 'Unknown')).toBeNull();
   });
 });
+
+// TASK-022: region canonicalization — Tier 1 hardening. Every pair below is
+// a "City, <broader qualifier>" / "City" (or "City (<narrower-but-actually-
+// redundant note>)") near-duplicate confirmed, by real-corpus edge
+// inspection, to name the SAME real place with NO plausible alternate
+// referent (unlike Portland OR/ME, Newport RI/OR, Henderson WA/NV, Toledo
+// OH/OR, Jamestown RI/PA, Scarborough ON/QLD, Vancouver BC/WA, Belfast
+// UK/ME, Richmond CA/BC, and Tuzla Turkey/Bosnia — all of which stay
+// deliberately UNMERGED at this alias-table level; see
+// regionCanonicalization.spec.js for the corpus-scoped, one-time judgment
+// merges applied to that second group instead). Adding these as permanent
+// REGION_ALIAS_GROUPS aliases (rather than a post-hoc merge) is the actual
+// "harden regions.js resolution" fix: a fresh ingest never mints the
+// duplicate node in the first place, so there is nothing left to merge.
+describe('resolveRegion — TASK-022 Tier 1 city/qualifier alias hardening', () => {
+  const CASES = [
+    ['West Palm Beach, FL', 'region:west-palm-beach'],
+    ['Barcelona, Catalonia', 'region:barcelona'],
+    ['Alameda, CA', 'region:alameda'],
+    ['Fort Lauderdale, FL', 'region:fort-lauderdale'],
+    ['Dania Beach, FL', 'region:dania-beach'],
+    ['Miami, FL', 'region:miami'],
+    ['Port Angeles, WA', 'region:port-angeles'],
+    ['Seattle, WA', 'region:seattle'],
+    ['San Diego, CA', 'region:san-diego'],
+    ['North Vancouver, BC', 'region:north-vancouver'],
+    ['West Vancouver, BC', 'region:west-vancouver'],
+    ['Bremerton, WA', 'region:bremerton'],
+    ['Fremantle, WA', 'region:fremantle'],
+    ['Gold Coast, QLD', 'region:gold-coast'],
+    ['Sydney, NSW', 'region:sydney'],
+    ['Marina del Rey, CA', 'region:marina-del-rey'],
+    ['Poole, Dorset', 'region:poole'],
+    ['Freeport, Grand Bahama Island', 'region:freeport'],
+    ['Whangarei, Northland', 'region:whangarei'],
+    ['Tauranga, Bay of Plenty', 'region:tauranga'],
+    ['Houghton, MI (Keweenaw Peninsula)', 'region:houghton-mi'],
+    ['Port Vila, Efate', 'region:port-vila'],
+    ['Vuda Point, Lautoka', 'region:vuda-point'],
+    ['Marbella, Costa del Sol', 'region:marbella'],
+    ['Dianshan Lake, Qingpu', 'region:dianshan-lake'],
+    ['Miami River, ~2.6 miles upriver', 'region:miami-river'],
+    ['La Seyne-sur-Mer (Toulon)', 'region:la-seyne-sur-mer'],
+    ['Naples (HQ)', 'region:naples'],
+    ['Kaohsiung (+ USA facilities)', 'region:kaohsiung'],
+    ['Ameglia (La Spezia), plus Viareggio/Massa plants', 'region:ameglia-la-spezia'],
+    ['Monaco (La Condamine)', 'region:monaco'],
+    ['CYCA, NSW', 'region:cyca'],
+    ['Coomera, QLD', 'region:coomera'],
+    ['Calvià, Mallorca, Balearic Islands', 'region:calvia-mallorca'],
+    ['Newport, Rhode Island', 'region:newport-ri'],
+    ['Newport, RI', 'region:newport-ri'],
+  ];
+
+  for (const [raw, expectedId] of CASES) {
+    it(`resolves "${raw}" onto the pre-existing canonical ${expectedId}`, () => {
+      expect(resolveRegion(raw).id).toBe(expectedId);
+    });
+  }
+
+  it('does NOT fold the bare, genuinely-ambiguous "Portland" into "Portland, OR" at the alias level (one-time corpus merge handles this instead)', () => {
+    expect(resolveRegion('Portland').id).toBe('region:portland');
+    expect(resolveRegion('Portland, OR').id).toBe('region:portland-or');
+  });
+
+  it('does NOT fold the bare, genuinely-ambiguous "Newport" onto "Newport, RI" (Newport, OR marinas also resolve through the bare form in this corpus)', () => {
+    expect(resolveRegion('Newport').id).toBe('region:newport');
+  });
+
+  it('keeps Vancouver, WA distinct from bare Vancouver (BC) — different real cities, never merged', () => {
+    expect(resolveRegion('Vancouver').id).toBe('region:vancouver');
+    expect(resolveRegion('Vancouver, WA').id).toBe('region:vancouver-wa');
+  });
+});

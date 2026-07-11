@@ -369,3 +369,135 @@ describe('real corpus — TASK-021 review fix regression lock (Sheikh Mansour/Mo
     expect(attrs.nationality).toBe('Emirati');
   }, 30000);
 });
+
+// TASK-022: region canonicalization — real-corpus locks. Regions grew
+// 642->900 across enrichment rounds with near-duplicate city variants and a
+// handful of prose-name artifacts (see regions.js's Tier 1 REGION_ALIAS_GROUPS
+// hardening and regionCanonicalization.js's Tier 2 one-time judgment merges/
+// renames/flags for the full per-case rationale).
+describe('real corpus — region canonicalization (TASK-022)', () => {
+  it('matches the pinned region count (900 baseline - 35 Tier 1 alias-hardening collapses - 8 Tier 2 one-time merges = 857)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
+    expect(graph.meta.types.region).toBe(857);
+  }, 30000);
+
+  it('spot-check: exactly one West Palm Beach region node (the ", FL" variant never gets minted)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const wpb = db.prepare("SELECT id FROM nodes WHERE id = 'region:west-palm-beach'").get();
+    const wpbFl = db.prepare("SELECT id FROM nodes WHERE id = 'region:west-palm-beach-fl'").get();
+    db.close();
+
+    expect(wpb, 'expected the canonical West Palm Beach region to exist').toBeTruthy();
+    expect(wpbFl, 'the ", FL" variant must never be minted as a separate node').toBeFalsy();
+  }, 30000);
+
+  it('spot-check: exactly one Barcelona region node (the ", Catalonia" variant never gets minted)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const barcelona = db.prepare("SELECT id FROM nodes WHERE id = 'region:barcelona'").get();
+    const barcelonaCatalonia = db.prepare("SELECT id FROM nodes WHERE id = 'region:barcelona-catalonia'").get();
+    db.close();
+
+    expect(barcelona, 'expected the canonical Barcelona region to exist').toBeTruthy();
+    expect(barcelonaCatalonia, 'the ", Catalonia" variant must never be minted as a separate node').toBeFalsy();
+  }, 30000);
+
+  it("marina:safe-harbor-rybovich carries exactly 2 distinct located_in edges post-cleanup (down from the ticket's documented 3, with no duplicate)", async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db
+      .prepare("SELECT DISTINCT dst FROM edges WHERE src = 'marina:safe-harbor-rybovich' AND rel = 'located_in'")
+      .all()
+      .map((r) => r.dst);
+    db.close();
+
+    expect(rows.sort()).toEqual(['region:palm-beach', 'region:west-palm-beach']);
+  }, 30000);
+
+  it('no region node whose name contains ";" survives WITHOUT being quarantined (attrs.artifact === true)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db.prepare("SELECT id, name, attrs_json FROM nodes WHERE type = 'region'").all();
+    db.close();
+
+    const unquarantined = rows.filter((r) => {
+      if (!r.name || !r.name.includes(';')) return false;
+      const attrs = JSON.parse(r.attrs_json || '{}');
+      return attrs.artifact !== true;
+    });
+    expect(unquarantined, JSON.stringify(unquarantined)).toEqual([]);
+  }, 30000);
+
+  it('no orphan located_in/based_in/part_of edge remains after region canonicalization', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const orphanCount = db
+      .prepare(
+        `SELECT COUNT(*) AS count FROM edges e
+         WHERE NOT EXISTS (SELECT 1 FROM nodes n WHERE n.id = e.src)
+            OR NOT EXISTS (SELECT 1 FROM nodes n WHERE n.id = e.dst)`
+      )
+      .get().count;
+    db.close();
+
+    expect(orphanCount).toBe(0);
+  }, 30000);
+
+  it('no node carries duplicate (identical src/rel/dst) located_in edges after merging near-duplicate regions', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const dupes = db
+      .prepare(
+        `SELECT src, rel, dst, COUNT(*) AS c FROM edges GROUP BY src, rel, dst HAVING c > 1`
+      )
+      .all();
+    db.close();
+
+    expect(dupes, JSON.stringify(dupes)).toEqual([]);
+  }, 30000);
+
+  // AC4: hardening — a second full real-corpus ingest must not mint any NEW
+  // region variants. Scoped to region count specifically (not a whole-graph
+  // node/edge identity check): a second real-corpus run is already known,
+  // pre-existing, and OUT OF THIS TICKET'S SCOPE to mint two extra yacht
+  // nodes (yacht:eiv-2/yacht:mystere-2) — graphCleanup.js's
+  // YACHT_QUALITY_CORRECTIONS rewrites yacht:eiv/yacht:mystere's `loa` on
+  // the first run, so the second run's fresh yachtMapper pass sees the
+  // corpus's still-wrong raw LOA no longer matching the now-corrected
+  // node's loa within lengthsMatch's tolerance and mints a disambiguated
+  // "-2" sibling. That is a real, independent data-quality bug (flagged in
+  // this ticket's punch list), not a region-canonicalization regression, so
+  // this lock intentionally does not assert on totalNodes/totalEdges.
+  it('is idempotent on the real corpus for regions specifically: a second full ingest run mints zero new region nodes', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+
+    runIngest();
+    const dbFirst = new Database(tmpDbPath, { readonly: true });
+    const regionCountFirst = dbFirst.prepare("SELECT COUNT(*) AS count FROM nodes WHERE type = 'region'").get().count;
+    dbFirst.close();
+
+    runIngest();
+    const dbSecond = new Database(tmpDbPath, { readonly: true });
+    const regionCountSecond = dbSecond.prepare("SELECT COUNT(*) AS count FROM nodes WHERE type = 'region'").get().count;
+    dbSecond.close();
+
+    expect(regionCountFirst).toBe(857);
+    expect(regionCountSecond).toBe(857);
+  }, 40000);
+});
