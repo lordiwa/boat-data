@@ -541,6 +541,50 @@ export const YACHT_MERGE_MAP = [
   // by that citation, this ticket closes it. `to` is the already-spec'd
   // node so no data is lost either way.
   { from: 'yacht:db9-palmer-johnson', to: 'yacht:db9' },
+
+  // --- TASK-025 (Round 7): dupe-pair merges -------------------------------
+  // research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1. Each pair's
+  // own builder-misattribution (if any) is fixed BEFORE this loop runs, by
+  // fixSamsaraBuilderMisattribution / fixMokaBuilderMisattribution below —
+  // see their own comments for why a plain merge alone isn't enough for
+  // those two pairs.
+
+  // Samsara: the SAME 88.5m Oceanco hull (delivered 2015 as Infinity, later
+  // Cloud 9, now Samsara) recorded twice under two different (and, for
+  // yacht:samsara, factually WRONG) builder attributions. True builder is
+  // Oceanco, not Benetti — no confirmed Benetti-built "Samsara" exists in
+  // any source found. Survivor = the already-correctly-attributed node.
+  { from: 'yacht:samsara', to: 'yacht:samsara-oceanco' },
+  // Moka: the SAME 42.2m Sanlorenzo-built hull recorded twice from the
+  // identical source-file row — BOTH nodes' stored builder ("Overmarine"/
+  // "Overmarine Group") is wrong (a mix-up with an unrelated, much larger
+  // 49.9m Mangusta/Overmarine "Moka"). Survivor = the richer duplicate
+  // (carries `cabins: 5`).
+  { from: 'yacht:moka-overmarine', to: 'yacht:moka' },
+  // That's Amore: an orphan builder-id duplicate (`builder:grandi-yatcilik`,
+  // no corresponding builder node anywhere in the graph) of the same 42.9m
+  // Grandi Yatcilik Mimarlik gulet already correctly resolved on the
+  // survivor (`builder:grandi-yatcilik-mimarlik`, a real, resolvable
+  // builder node).
+  { from: 'yacht:that-s-amore-grandi-yatcilik', to: 'yacht:that-s-amore' },
+  // Dream: the SAME 107m converted mega yacht (ex-Poseidonos, Olympic Yacht
+  // Services) recorded THREE times — two orphan-builder-id duplicates
+  // (`builder:olympic`, `builder:olympic-yacht`, neither an actual builder
+  // node) folding onto the graph's already-correctly-resolved canonical
+  // `yacht:dream` (real `builder:olympic-yacht-services` edge, richest
+  // attrs: guests 36, crew 40).
+  { from: 'yacht:dream-olympic', to: 'yacht:dream' },
+  { from: 'yacht:dream-olympic-yacht', to: 'yacht:dream' },
+  // Ahpo -> Lady Jorgia: the SAME 115.1m Lürssen hull (Project Enzo,
+  // delivered 2021 to Michael Lee-Chin as Ahpo), sold May 2023 to Patrick
+  // Dovigi and renamed Lady Jorgia. Survivor keeps the CURRENT name
+  // (Lady Jorgia); mergeNode() re-points ALL of Ahpo's edges onto the
+  // survivor, so BOTH real ownership periods (Michael Lee-Chin, Patrick
+  // Dovigi) survive as separate owned_by edges — mergeNode() never drops
+  // one to make room for the other. `former_names` gains "Ahpo" via
+  // yachtSpecMapper.js's FORMER_NAMES_MAP (set directly by knowledge/98's
+  // own Lady Jorgia row, independent of this merge's own timing).
+  { from: 'yacht:ahpo', to: 'yacht:lady-jorgia' },
 ];
 
 // --- TASK-024 review LOW 2: same-name-conflict identity notes -----------
@@ -611,6 +655,28 @@ export const YACHT_CONFLICT_NOTES = [
       'Horizon yacht) — could not confirm the graph\'s 37m/Horizon/2017 entry against any source. See research/' +
       'round5/yacht-specs-35-45m.md and yacht-specs-45-55m.md.',
   },
+
+  // --- TASK-025 (Round 7): stay-split pairs (dupe-pair grounding insufficient) ---
+  {
+    id: 'yacht:sophia',
+    note:
+      'Graph describes a 108m ("108/354") Benetti-attributed "Sophia," claimed as a sister ship to IJE. This does ' +
+      'not check out: Benetti\'s actual 100m+ "Giga Season" trio (2019-2020) is IJE (108m), LANA (107m), and ' +
+      'LUMINOSITY (107m) — not "Mar" and "Sophia." No independent source (SuperYachtTimes, Boat International, ' +
+      'YachtCharterFleet, Benetti\'s own site) corroborates a Benetti-built 108m yacht named Sophia — likely ' +
+      'fabricated/unsubstantiated data riding on the real IJE/LANA/LUMINOSITY story, not simply a feet/metres ' +
+      'artifact of the separate, well-grounded 97m Feadship "Sophia" (yacht:sophia-feadship). See ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 1(d).',
+  },
+  {
+    id: 'yacht:lady-beth-lurssen',
+    note:
+      'Graph describes a 55m Lürssen-attributed "Lady Beth." No Lürssen-built "Lady Beth" has been found in any ' +
+      'source searched (Boat International, SuperYachtTimes, YachtBuyer, YachtCharterFleet, Northrop & Johnson, ' +
+      'IYC, CharterWorld, Marine Project, Out of the Blue Yacht Charters) — every documented "Lady Beth" is the ' +
+      'same 54.86m Newcastle Marine hull (see yacht:lady-beth, fully spec\'d this round). See ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Lady Beth addendum ("Identity verification" section).',
+  },
 ];
 
 function applyYachtConflictNotes(db) {
@@ -641,6 +707,60 @@ function fixAlMirqabBuilderConflict(db) {
   ).run();
 }
 
+// --- TASK-025 (Round 7): pre-merge builder-misattribution fixes ----------
+// Same "drop the wrong edge BEFORE the generic merge carries it over"
+// pattern as fixAlMirqabBuilderConflict/fixSergeyBrinRumoredArtifact above —
+// research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1.
+
+// Samsara's real builder is Oceanco (see the YACHT_MERGE_MAP entry above);
+// yacht:samsara's own built_by edge to builder:benetti is a confirmed
+// misattribution, not a competing fact, and must never land on the merge
+// survivor (yacht:samsara-oceanco, whose own built_by -> builder:oceanco
+// edge is already correct).
+function fixSamsaraBuilderMisattribution(db) {
+  db.prepare("DELETE FROM edges WHERE src = 'yacht:samsara' AND rel = 'built_by' AND dst = 'builder:benetti'").run();
+}
+
+// BOTH Moka nodes' stored builder (Overmarine/Overmarine Group) is wrong —
+// the real 42.2m Moka is Sanlorenzo-built (see the YACHT_MERGE_MAP entry
+// above). Drops the wrong edge from both nodes (so the merge never carries
+// it over) and adds the correct one directly onto the survivor.
+function fixMokaBuilderMisattribution(db) {
+  db.prepare(
+    "DELETE FROM edges WHERE src IN ('yacht:moka', 'yacht:moka-overmarine') AND rel = 'built_by' AND dst = 'builder:overmarine-group'"
+  ).run();
+  if (nodeExists(db, 'yacht:moka') && nodeExists(db, 'builder:sanlorenzo')) {
+    upsertEdge(db, { src: 'yacht:moka', rel: 'built_by', dst: 'builder:sanlorenzo' });
+  }
+}
+
+// research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 2 Navetta 68
+// note: the graph resolves this node to `builder:custom`, but the LOA that
+// matches to the centimetre (20.53m) belongs specifically to Absolute
+// Yachts' Navetta 68 model — Custom Line's own "Navetta" series is named
+// directly in metres (Navetta 30/33/37/42...), not "68", so a Custom Line
+// match is implausible. Independent of the LOA correction
+// (YACHT_QUALITY_CORRECTIONS below) — corrects the builder edge, not a
+// scalar attr.
+function fixNavetta68Builder(db) {
+  if (!nodeExists(db, 'yacht:navetta-68')) return;
+  db.prepare("DELETE FROM edges WHERE src = 'yacht:navetta-68' AND rel = 'built_by' AND dst = 'builder:custom'").run();
+  if (nodeExists(db, 'builder:absolute')) {
+    upsertEdge(db, { src: 'yacht:navetta-68', rel: 'built_by', dst: 'builder:absolute' });
+  }
+}
+
+// research/round7/02_dupe_pairs_loa_carryover.md's Lady Beth addendum:
+// confirmed builder Newcastle Marine (also styled "Newcastle Shipyard" in
+// charter listings) for the 54.86m hull. yachtSpecMapper.js never creates
+// builder edges (see knowledge/98's own Curation notes), so this small
+// dedicated fixup adds it directly — same pattern as fixWinchDesignVard's
+// one-off edge repair above.
+function fixLadyBethBuiltBy(db) {
+  if (!nodeExists(db, 'yacht:lady-beth') || !nodeExists(db, 'builder:newcastle-marine')) return;
+  upsertEdge(db, { src: 'yacht:lady-beth', rel: 'built_by', dst: 'builder:newcastle-marine' });
+}
+
 // --- 5. TASK-020: Rybovich marina merge -----------------------------------
 // research/round3/marina-enrichment.md's own enrichment-table row:
 // "Safe Harbor Rybovich (= 'Rybovich Superyacht Marina' dup node)" — same
@@ -665,6 +785,51 @@ export const QUALITY_FLAGS = [
   {
     id: 'yacht:mosaique',
     dataQuality: 'unverified — no matching real vessel found (2026-07 research pass)',
+  },
+
+  // --- TASK-025 (Round 7): corpus-confusion quarantine ---------------------
+  // research/round7/01_weakest_tier_yacht_specs.md's own "UNRESOLVED — no
+  // specs applied" rows: the stored LOA/builder/year combination on each of
+  // these 3 nodes matches no real, public vessel found — quarantined rather
+  // than force-matched to an unrelated same-named hull (Nomad/Relentless
+  // each already have a correctly-attributed, fully-spec'd real hull under
+  // a SEPARATE graph node — yacht:nomad-oceanfast / the real 43-44m Trinity
+  // Relentless is not itself a graph node — neither is conflated with these
+  // quarantined nodes).
+  {
+    id: 'yacht:nomad',
+    dataQuality:
+      'unresolved — graph LOA is 30m, but the only well-documented Oceanfast "Nomad" publicly found is the ' +
+      '69.5m hull (already spec\'d separately as yacht:nomad-oceanfast); no public 30m Oceanfast "Nomad" exists ' +
+      'in any source searched, so no specs applied rather than force-matched. See ' +
+      'research/round7/01_weakest_tier_yacht_specs.md.',
+  },
+  {
+    id: 'yacht:relentless',
+    dataQuality:
+      'unresolved — graph LOA is 34m, but the only public Trinity Yachts "Relentless" is 43.28-44.2m (145ft), a ' +
+      '~10m mismatch; no specs applied rather than force-matched to a different-sized real hull. See ' +
+      'research/round7/01_weakest_tier_yacht_specs.md.',
+  },
+  {
+    id: 'yacht:sahana',
+    dataQuality:
+      'unresolved — the graph\'s 75m/2025/Feadship combination matches no real vessel found; the two closest ' +
+      'candidates (a 36m Oceanfast charter yacht also named "Sahana," and Feadship\'s genuine 73m "Hasna") each ' +
+      'fail to match on either name or size/builder, so no specs applied. See ' +
+      'research/round7/01_weakest_tier_yacht_specs.md.',
+  },
+  // Not part of the corpus-confusion trio above — a different reason for no
+  // spec row: Mansion Yacht is a per-model product-line spec (Stainless
+  // Structures' beach-launchable line), not a single named, registry-
+  // tracked hull, so no hull-specific figures exist to confirm at all.
+  {
+    id: 'yacht:mansion-yacht',
+    dataQuality:
+      'no hull-specific registry record exists — "Mansion Yacht" is Stainless Structures\' beach-launchable ' +
+      'product line, not a single named vessel; only the flagship model\'s published (per-model, not per-hull) ' +
+      'dimensions were found, which per this project\'s never-guess rule are not stored as confirmed individual-' +
+      'hull attrs. See research/round7/01_weakest_tier_yacht_specs.md.',
   },
 ];
 
@@ -960,44 +1125,65 @@ export const YACHT_QUALITY_CORRECTIONS = [
   //     null` blanks the field and `dataQuality` records why (applied by
   //     applyYachtQualityCorrections below), rather than guessing.
   {
+    // TASK-025 (Round 7) sub-task 2: supersedes the round-5 ~17.3m estimate
+    // with the exact, official Riva spec-table figure.
     id: 'yacht:rivale-56',
     field: 'loa',
-    correctedValue: { meters: 17.3, raw: '~17.3m (56ft)' },
+    correctedValue: { meters: 17.27, raw: "17.27m (56'8\")" },
     note:
-      '"56" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. ' +
-      'Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+      '"56" is the foot-based model number of the Riva 56 Rivale, not a 56m LOA — confirmed exact figure is ' +
+      '17.27m (56\'8") per the official Riva model page, cross-checked via YachtBuyer. Corrected per ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 2 (supersedes the round-5 ~17.3m estimate).',
   },
   {
+    // TASK-025 (Round 7) sub-task 2: the round-5 18.28m value was Arcadia's
+    // own "Hull Length" spec, a shorter, DIFFERENT field from Overall
+    // Length — a correction, not just a re-confirmation.
     id: 'yacht:arcadia-sherpa-60',
     field: 'loa',
-    correctedValue: { meters: 18.28, raw: '18.28m' },
+    correctedValue: { meters: 18.67, raw: '18.67m' },
     note:
-      '"60" is Arcadia Yachts\' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected ' +
-      'per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+      '"60" is Arcadia Yachts\' own Sherpa model-line number, not metres. The previously-stored 18.28m is ' +
+      'Arcadia\'s own published "Hull Length" figure, NOT Overall Length — confirmed true Overall Length is ' +
+      '18.67m per Arcadia Yachts\' own Sherpa 60 Technical Data page. Corrected per ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 2.',
   },
   {
+    // TASK-025 (Round 7) sub-task 2: confirms/refines the round-5 21.06m
+    // estimate to the exact official spec-table figure.
     id: 'yacht:sunseeker-manhattan-65',
     field: 'loa',
-    correctedValue: { meters: 21.06, raw: '21.06m (69\'1")' },
+    correctedValue: { meters: 21.08, raw: "21.08m (69'2\")" },
     note:
-      '"65" is the Sunseeker Manhattan 65 model\'s (loosely foot-based) name, not metres — real LOA is 69\'1"/21.06m. ' +
-      'Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+      '"65" is the Sunseeker Manhattan 65 model\'s (loosely foot-based) name, not metres — confirmed exact LOA is ' +
+      '21.08m (69\'2") per YachtBuyer\'s official spec table. Corrected per ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 2 (supersedes the round-5 21.06m estimate).',
   },
   {
+    // TASK-025 (Round 7) sub-task 2: near-exact refinement (20.52m ->
+    // 20.53m) of the round-5 estimate to Absolute Yachts' own official
+    // model-page figure.
     id: 'yacht:navetta-68',
     field: 'loa',
-    correctedValue: { meters: 20.52, raw: '20.52m' },
+    correctedValue: { meters: 20.53, raw: '20.53m' },
     note:
-      '"68" is the Absolute Navetta 68 model\'s foot-based name, not metres — real LOA is 20.52m. Corrected per ' +
-      'research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+      '"68" is the Absolute Navetta 68 model\'s foot-based name, not metres — confirmed exact LOA is 20.53m per ' +
+      'Absolute Yachts\' own official Navetta 68 model page. Corrected per ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 2 (supersedes the round-5 20.52m estimate). ' +
+      'Builder edge separately corrected to Absolute Yachts by fixNavetta68Builder (this node had resolved to ' +
+      'builder:custom, a mis-attribution — Custom Line\'s own "Navetta" series is named directly in metres, not ' +
+      '"68").',
   },
   {
+    // TASK-025 (Round 7) sub-task 2: exact figure from Ferretti's own model
+    // page, supersedes the round-5 ~20.2m estimate.
     id: 'yacht:yamas',
     field: 'loa',
-    correctedValue: { meters: 20.2, raw: '~20.2m (Ferretti 670)' },
+    correctedValue: { meters: 20.24, raw: '20.24m (Ferretti 670)' },
     note:
-      'The graph\'s 67m LOA mistook the Ferretti 670 model\'s own model number for a length — real Yamas is a ' +
-      '~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md\'s Coverage notes.',
+      'The graph\'s original 67m LOA mistook the Ferretti 670 model\'s own model number for a length — confirmed ' +
+      'exact LOA is 20.24m per the official Ferretti Yachts 670 model page. Corrected per ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 2 (supersedes the round-5 ~20.2m estimate).',
   },
   {
     id: 'yacht:isa-120',
@@ -1041,6 +1227,52 @@ export const YACHT_QUALITY_CORRECTIONS = [
       '"72" is a foot-based Admiral/Overmarine Armani-collaboration model designation (72ft ≈ 22m) — blanked ' +
       'rather than guessed because no source corroborates a confirmed, specific hull of this description. Per ' +
       'research/round5/yacht-specs-under35m.md\'s Suspect entries.',
+  },
+
+  // --- TASK-025 (Round 7) ---------------------------------------------------
+  {
+    id: 'yacht:gigia',
+    field: 'year',
+    correctedValue: {
+      value: 2017,
+      raw: '2017 (delivered as "Areti"; the stored "2005" component was a data-entry error; 2024 refit is genuine)',
+    },
+    note:
+      'Confirmed delivery year is 2017 (as "Areti," for Igor Makarov; renamed Amatasia 2019, then Gigia 2023) — ' +
+      'the stored "2005/2024" combined year had no supporting source found anywhere for the 2005 component. ' +
+      'Corrected per research/round7/01_weakest_tier_yacht_specs.md\'s headline finding.',
+  },
+  // Samsara's confirmed exact LOA (88.5m) applied directly onto the FINAL
+  // merge-survivor id (yacht:samsara-oceanco), run AFTER the
+  // samsara -> samsara-oceanco merge above — see graphCleanup.js's own
+  // applyGraphCleanup() call ordering and knowledge/98's own Curation notes
+  // for why this can't simply be a yachtSpecMapper.js row (both pre-merge
+  // "Samsara" nodes share the identical pre-round-7 raw LOA of 88m, so the
+  // mapper's own tie-break can't distinguish them on LOA alone).
+  {
+    id: 'yacht:samsara-oceanco',
+    field: 'loa',
+    correctedValue: { meters: 88.5, raw: '88.5m' },
+    note:
+      'Confirmed exact LOA for the real Oceanco-built hull (Y710, delivered 2015 as Infinity) is 88.5m — the ' +
+      'previously-stored 88m was a rounded figure. Corrected per ' +
+      'research/round7/01_weakest_tier_yacht_specs.md\'s headline finding and ' +
+      'research/round7/02_dupe_pairs_loa_carryover.md\'s Sub-task 1(a).',
+  },
+  // Lady Beth's confirmed exact LOA — same "yachtSpecMapper.js never writes
+  // the loa field at all" reason as every other LOA correction in this
+  // array (the knowledge/98 spec row's own LOA column is disambiguation-
+  // only). Applied directly by id (no merge/ambiguity involved here — see
+  // knowledge/98's own Curation notes for how this node's tied-LOA
+  // resolution against yacht:lady-beth-lurssen was independently verified).
+  {
+    id: 'yacht:lady-beth',
+    field: 'loa',
+    correctedValue: { meters: 54.86, raw: '54.86m (180ft)' },
+    note:
+      'Confirmed exact LOA for the real Newcastle Marine hull (delivered 2011) is 54.86m — the previously-stored ' +
+      '55m was a rounded figure. Corrected per research/round7/02_dupe_pairs_loa_carryover.md\'s Lady Beth ' +
+      'addendum.',
   },
 ];
 
@@ -1131,6 +1363,11 @@ export function applyGraphCleanup(db) {
   // own comment).
   fixAlMirqabBuilderConflict(db);
 
+  // TASK-025 (Round 7): same "drop the wrong edge BEFORE the generic merge
+  // carries it over" pattern, for the Samsara/Moka dupe pairs.
+  fixSamsaraBuilderMisattribution(db);
+  fixMokaBuilderMisattribution(db);
+
   for (const { from, to } of YACHT_MERGE_MAP) {
     mergeNode(db, from, to);
   }
@@ -1158,10 +1395,19 @@ export function applyGraphCleanup(db) {
 
   applyYachtQualityCorrections(db);
 
+  // TASK-025 (Round 7): independent builder-edge fixes (not merges/scalar
+  // corrections) — order relative to the two blocks above doesn't matter
+  // (neither yacht:navetta-68 nor yacht:lady-beth is a merge source/target
+  // this round), grouped here for readability.
+  fixNavetta68Builder(db);
+  fixLadyBethBuiltBy(db);
+
   // TASK-024 review LOW 2: same-name-conflict identity notes — runs last,
   // after every merge above, so it always targets the FINAL canonical node
   // id for each of the 7 flagged yachts (none of the 7 is itself a merge
   // source/target this round, but this ordering keeps the invariant true
-  // for any future round that changes that).
+  // for any future round that changes that). TASK-025 (Round 7) adds 2 more
+  // entries (Sophia, Lady Beth (Lürssen)) to the same YACHT_CONFLICT_NOTES
+  // table this function reads.
   applyYachtConflictNotes(db);
 }

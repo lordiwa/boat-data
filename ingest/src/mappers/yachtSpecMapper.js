@@ -215,6 +215,21 @@ const FORMER_NAMES_MAP = {
   // "old-name node merged away, former_names lands on the CURRENT/
   // canonical name" pattern as kaos/mar/madsummer above.
   batello: ['Amevi', 'Aalto'],
+  // TASK-025 (Round 7): Ahpo's Lürssen hull, sold May 2023 and renamed —
+  // "Ahpo" is separately merged away by graphCleanup.js's YACHT_MERGE_MAP
+  // (ahpo -> lady-jorgia); set here (keyed by the CURRENT name's row, same
+  // pattern as batello/kaos/mar above) so former_names lands on the
+  // survivor independent of merge-vs-mapper ordering. See
+  // research/round7/01_weakest_tier_yacht_specs.md's headline finding.
+  'lady jorgia': ['Ahpo'],
+  // TASK-025 (Round 7): confirmed rename chain for the 54.86m Newcastle
+  // Marine hull, per research/round7/02_dupe_pairs_loa_carryover.md's Lady
+  // Beth addendum (agreed by Boat International + YachtBuyer). Applies only
+  // to yacht:lady-beth (the correctly-identified node) — the second,
+  // unrelated "Lady Beth" graph node (yacht:lady-beth-lurssen) has no
+  // grounded rename chain and gets a conflicts.identity note instead (see
+  // graphCleanup.js's YACHT_CONFLICT_NOTES).
+  'lady beth': ['Harbour Island', 'Sovereign', 'Loon'],
 };
 
 /**
