@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T02:10:17.358Z",
+  "generated_at": "2026-07-11T02:49:53.183Z",
   "byType": [
     {
       "type": "yacht",
       "count": 599,
-      "attrPct": 19.45,
+      "attrPct": 20.14,
       "edgePct": 93.16,
-      "score": 4.16
+      "score": 4.2
     },
     {
       "type": "shipyard",
@@ -31,10 +31,10 @@
     },
     {
       "type": "company",
-      "count": 792,
-      "attrPct": 60.98,
-      "edgePct": 35.61,
-      "score": 5.34
+      "count": 795,
+      "attrPct": 61.01,
+      "edgePct": 35.85,
+      "score": 5.35
     },
     {
       "type": "region",
@@ -45,17 +45,17 @@
     },
     {
       "type": "person",
-      "count": 110,
-      "attrPct": 12.73,
-      "edgePct": 93.64,
-      "score": 3.7
+      "count": 86,
+      "attrPct": 89.24,
+      "edgePct": 90.7,
+      "score": 8.97
     },
     {
       "type": "club",
-      "count": 368,
-      "attrPct": 44.75,
-      "edgePct": 90.49,
-      "score": 5.85
+      "count": 360,
+      "attrPct": 52.13,
+      "edgePct": 90.83,
+      "score": 6.37
     },
     {
       "type": "designer",
@@ -93,5 +93,5 @@
       "score": 7
     }
   ],
-  "overall": 6.53
+  "overall": 6.8
 }

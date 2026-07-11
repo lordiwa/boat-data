@@ -138,7 +138,11 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // for research rows deliberately NOT curated onto a same-first-word
     // existing node (Corsair Marine, Crescent Custom Yachts) = 160.
     expect(graph.meta.types.builder).toBe(160);
-    expect(graph.meta.types.club).toBe(368);
+    // TASK-021: club DROPPED from 368 to 360 — graphCleanup.js's
+    // CLUB_MERGE_MAP merges 8 duplicate pairs (the Florida Yacht Club
+    // 3-way group plus 6 further "X" / "X (ABBR)"-style dupes — see that
+    // module's own header for the full ledger).
+    expect(graph.meta.types.club).toBe(360);
     // TASK-020: marina rose from 893 to 930 — the Rybovich duplicate merge
     // (graphCleanup.js's MARINA_MERGE_MAP, -1) plus marinaMapper.js's new
     // isMarinaEnrichmentTable pass over knowledge/94's 51 rows: 7 rows
@@ -148,7 +152,16 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // it) couldn't detect, and the remaining 38 rows mint new marina
     // nodes (893 - 1 + 38 = 930).
     expect(graph.meta.types.marina).toBe(930);
-    expect(graph.meta.types.person).toBe(110);
+    // TASK-021: person DROPPED from 110 to 86 — graphCleanup.js's
+    // PERSON_MERGE_MAP merges 22 name-variant duplicate pairs (Sheikh
+    // Mansour's 4-way group, Sheikh Mohammed's 3-way group, Alisher
+    // Usmanov's 3 ownership-structure variants, the Roger Samuelsson/
+    // Paul-Allen-estate 3-way group, etc — see that module's own header)
+    // and PERSON_NODE_ACTIONS retypes 3 institutional entities to
+    // `company` (Indonesian corporate, Egyptian Presidential Yacht,
+    // Turkish Republic) — 110 - 22 - 3 = 85... plus 1 new person node
+    // (Shapoor Mistry, minted by the Tatiana ownership correction) = 86.
+    expect(graph.meta.types.person).toBe(86);
     // TASK-019: designer ROSE from 10 (empty-attrs placeholders) to 60 —
     // designerMapper.js enriches the 9 pre-existing nodes it could resolve
     // by exact name (the 10th, "(Naval-inspired)", is excluded from

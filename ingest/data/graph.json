@@ -1,18 +1,18 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T02:10:16.666Z",
-    "node_count": 4366,
-    "edge_count": 2640,
+    "generated_at": "2026-07-11T02:49:30.209Z",
+    "node_count": 4337,
+    "edge_count": 2621,
     "types": {
       "builder": 160,
-      "club": 368,
-      "company": 792,
+      "club": 360,
+      "company": 795,
       "designer": 60,
       "engine": 59,
       "engine_model": 37,
       "marina": 930,
       "part": 111,
-      "person": 110,
+      "person": 86,
       "region": 900,
       "shipyard": 236,
       "size_class": 4,
@@ -22,11 +22,11 @@
       "based_in": 42,
       "built_by": 549,
       "designed_by": 86,
-      "located_in": 1447,
+      "located_in": 1446,
       "made_by": 37,
       "oem_supplies": 5,
       "operated_by": 232,
-      "owned_by": 226,
+      "owned_by": 208,
       "part_of": 15,
       "powered_by": 1
     }
@@ -2403,14 +2403,16 @@
           "value": 1926,
           "raw": "1926"
         },
-        "website": null,
+        "website": "byc.org.au",
         "address": null,
         "city": "BYC",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Runs the Banjos Shoreline Crown Series Regatta, one of Tasmania's largest regattas."
       }
     },
     {
@@ -2513,15 +2515,17 @@
           "value": 1946,
           "raw": "1946"
         },
-        "website": null,
+        "website": "bradentonyachtclub.com",
         "address": "4307 Snead Island Road, Palmetto",
         "city": "Bradenton/Palmetto",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "One of the 13 original founding members of the Florida Council of Yacht Clubs."
       }
     },
     {
@@ -2638,14 +2642,16 @@
           "value": 1932,
           "raw": "1932"
         },
-        "website": null,
+        "website": "burrardyachtclub.com",
         "address": null,
         "city": "North Vancouver",
         "facilities": "Marina, clubhouse; social facilities.",
         "provenance": [
           "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Grew out of the Vancouver Rowing Club (1899); moved across Burrard Inlet to its current North Vancouver site in 1977."
       }
     },
     {
@@ -2672,13 +2678,15 @@
           "value": 1908,
           "raw": "1908"
         },
-        "website": null,
+        "website": "cairnsyachtclub.com",
         "address": null,
         "city": "CYC",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Present-day club formed by a 1977 merger of the Tropical Catamaran Club and Cairns Sailing Club."
       }
     },
     {
@@ -2701,14 +2709,19 @@
       "type": "club",
       "name": "California Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1922,
+          "raw": "1922"
+        },
+        "website": "calyachtclub.net",
         "address": null,
         "city": "Marina Del Rey",
         "facilities": null,
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Originally in Wilmington Harbor; moved to Marina del Rey in 1963, own clubhouse from 1966."
       }
     },
     {
@@ -2830,13 +2843,15 @@
           "value": 1936,
           "raw": "1936"
         },
-        "website": null,
+        "website": "csc.org.sg",
         "address": null,
         "city": "CSC",
         "facilities": null,
         "provenance": [
-          "46_Singapore_Post_WW2_to_Yacht_Culture.md"
-        ]
+          "46_Singapore_Post_WW2_to_Yacht_Culture.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Notable alumni sailor: Olympian Benedict Tan."
       }
     },
     {
@@ -2848,15 +2863,22 @@
           "value": 1984,
           "raw": "1984"
         },
-        "website": null,
+        "website": "charlotteharboryc.com",
         "address": "4400 Lister Street",
         "city": "Port Charlotte",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "(curated Founded cell to the club's own published history from \"Graph says 1984; web sources (club's own account) say 1973 (property purchased Sept 1973, groundbreaking 1974)\") Discrepancy flagged — recommend using 1973 per the club's own published history.",
+        "conflicts": {
+          "founded": [
+            "1973"
+          ]
+        }
       }
     },
     {
@@ -2873,8 +2895,10 @@
         "city": "Chicago, IL",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Organized by 37 yachtsmen; has hosted the Race to Mackinac since 1898, one of the oldest and largest annual freshwater distance races in the world."
       }
     },
     {
@@ -2904,14 +2928,16 @@
           "value": 1905,
           "raw": "1905"
         },
-        "website": null,
+        "website": "claremontyachtclub.org.au",
         "address": null,
         "city": "CYC",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Sits on Freshwater Bay, Swan River, between Fremantle and Perth."
       }
     },
     {
@@ -2935,36 +2961,24 @@
       }
     },
     {
-      "id": "club:cleveland-yacht-club",
-      "type": "club",
-      "name": "Cleveland Yacht Club",
-      "attrs": {
-        "founded": {
-          "value": 1904,
-          "raw": "1904"
-        },
-        "website": null,
-        "address": null,
-        "city": "CYC",
-        "facilities": null,
-        "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
-      }
-    },
-    {
       "id": "club:cleveland-yachting-club",
       "type": "club",
       "name": "Cleveland Yachting Club",
       "attrs": {
-        "founded": null,
+        "founded": {
+          "value": 1878,
+          "raw": "1878 (organized as Cleveland Yachting Assn.); incorporated 1888"
+        },
         "website": "[www.cycrr.org](http://www.cycrr.org/)",
         "address": null,
         "city": "Rocky River, OH",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md",
+          "49_Long_Island_Yacht_Clubs_Data.md"
+        ],
+        "notes": "See dedup note above — likely the same club as \"Cleveland Yacht Club\" node."
       }
     },
     {
@@ -2972,14 +2986,19 @@
       "type": "club",
       "name": "Club de Regatas Lima",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1875,
+          "raw": "1875 (April 26)"
+        },
+        "website": "crl.pe",
         "address": null,
         "city": "Peru",
         "facilities": null,
         "provenance": [
-          "54_Central_America_Yacht_Clubs_Directory.md"
-        ]
+          "54_Central_America_Yacht_Clubs_Directory.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Biggest multi-sport club in Peru; founded as a rowing club."
       }
     },
     {
@@ -3291,15 +3310,17 @@
           "value": 1955,
           "raw": "1955"
         },
-        "website": null,
+        "website": "coralreefyachtclub.org",
         "address": null,
         "city": "Coconut Grove, Miami",
         "facilities": null,
         "provenance": [
           "26_Boat_Docking_Options_in_Miami.md",
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded as Royal Palm Yacht Club at George Engle's Bayshore Drive estate; hosts the Bacardi Cup, the largest Star-class regatta in North America (since 1978)."
       }
     },
     {
@@ -3307,14 +3328,19 @@
       "type": "club",
       "name": "Coral Ridge Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1947,
+          "raw": "1947"
+        },
+        "website": "coralridgeyachtclub.com",
         "address": null,
         "city": "Fort Lauderdale",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded by Hal E. Wolfe with Coral Ridge Properties' James Hunt and Stephen Calder."
       }
     },
     {
@@ -3322,14 +3348,19 @@
       "type": "club",
       "name": "Corinthian Yacht Club of San Francisco",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1886,
+          "raw": "1886"
+        },
+        "website": "cyc.org",
         "address": null,
         "city": "Tiburon",
         "facilities": null,
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Second-oldest yacht club in Northern California, on its original site since founding; originated the \"Opening Day on the Bay\" tradition."
       }
     },
     {
@@ -3341,13 +3372,15 @@
           "value": 1972,
           "raw": "1972"
         },
-        "website": null,
+        "website": "ccyc.org",
         "address": "30 N Caribe Cay Blvd, Coronado, CA 92118",
-        "city": null,
+        "city": "Coronado, CA",
         "facilities": null,
         "provenance": [
-          "65_West_Coast_Yacht_Club_Overview.md"
-        ]
+          "65_West_Coast_Yacht_Club_Overview.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Known locally as \"the friendliest yacht club in San Diego.\""
       }
     },
     {
@@ -3374,13 +3407,15 @@
           "value": 1944,
           "raw": "1944"
         },
-        "website": null,
+        "website": "cyca.com.au",
         "address": null,
         "city": "CYCA",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Organizes the Rolex Sydney Hobart Yacht Race, run annually since 1945."
       }
     },
     {
@@ -3453,15 +3488,17 @@
           "value": 1909,
           "raw": "1909"
         },
-        "website": null,
+        "website": "diyc.org",
         "address": "1315 Severn Avenue, Tampa",
         "city": "Tampa",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founding member of the Florida Council of Yacht Clubs; founding year is graph-provenance only."
       }
     },
     {
@@ -3469,32 +3506,20 @@
       "type": "club",
       "name": "Deep Cove Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
-        "address": null,
-        "city": "North Vancouver",
-        "facilities": null,
-        "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
-      }
-    },
-    {
-      "id": "club:deep-cove-yacht-club-sports-club",
-      "type": "club",
-      "name": "Deep Cove Yacht Club & Sports Club",
-      "attrs": {
         "founded": {
           "value": 1936,
           "raw": "1936"
         },
-        "website": null,
+        "website": "deepcoveyc.com",
         "address": null,
-        "city": "DCYC",
+        "city": "North Vancouver",
         "facilities": null,
         "provenance": [
-          "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Clubhouse was repurposed for civil-defense use (Ladies' Air Raid Patrol) during WWII."
       }
     },
     {
@@ -3521,13 +3546,15 @@
           "value": 1868,
           "raw": "1868"
         },
-        "website": null,
+        "website": "dyc.com",
         "address": null,
         "city": "Detroit, MI - Lake St. Clair/Lake Huron",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Clubhouse (1922–23, Mediterranean Revival, architect George D. Mason) sits on its own island off Belle Isle and is the largest yacht-club clubhouse in the United States."
       }
     },
     {
@@ -3715,8 +3742,10 @@
         "city": "Enoshima, Fujisawa, Kanagawa",
         "facilities": "Founded as host for 1964 Tokyo Olympics sailing; promotes sailing and ocean culture; live camera and weather info available . Burgee: N/A. Address: 1-12-2 Enoshima, Fujisawa-shi, Kanagawa ZIP:251-0036.",
         "provenance": [
-          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md"
-        ]
+          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded as the host club for the 1964 Tokyo Olympics sailing competition; Enoshima also hosted sailing for the 2020(2021) Tokyo Olympics."
       }
     },
     {
@@ -3733,8 +3762,10 @@
         "city": "Erie, PA",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Its Annette Cup trophy (est. 1907) is one of the oldest continuously-awarded club trophies in the US."
       }
     },
     {
@@ -3814,24 +3845,6 @@
       }
     },
     {
-      "id": "club:first-yacht-club-in-florida",
-      "type": "club",
-      "name": "First Yacht Club in Florida",
-      "attrs": {
-        "founded": {
-          "value": 1876,
-          "raw": "1876"
-        },
-        "website": null,
-        "address": null,
-        "city": null,
-        "facilities": null,
-        "provenance": [
-          "67_First_Yacht_Club_in_Florida_History_and_Impact.md"
-        ]
-      }
-    },
-    {
       "id": "club:florida-yacht-club",
       "type": "club",
       "name": "Florida Yacht Club",
@@ -3840,15 +3853,17 @@
           "value": 1876,
           "raw": "1876"
         },
-        "website": null,
+        "website": "thefloridayachtclub.org",
         "address": null,
         "city": "Jacksonville",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Oldest social club in Jacksonville and 4th-oldest surviving yacht club in the US; driven by New York businessman William B. Astor Jr.; moved to Ortega in 1928 after the original clubhouse burned in the Great Fire of 1901."
       }
     },
     {
@@ -3875,14 +3890,16 @@
           "value": 1929,
           "raw": "1929"
         },
-        "website": null,
+        "website": "(not found)",
         "address": "2360 West First Street",
         "city": "Fort Myers, FL",
         "facilities": null,
         "provenance": [
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Could not independently verify — modern Fort Myers-area clubs found in searches (St. Charles YC, Fort Myers Beach YC) were founded later (Fort Myers Beach YC in 1953), suggesting this may be a defunct or renamed predecessor club."
       }
     },
     {
@@ -3920,14 +3937,19 @@
       "type": "club",
       "name": "Fremantle Sailing Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1919,
+          "raw": "1919 (modern club; predecessor Fremantle Yacht Club dates to 1885, disbanded ~1908)"
+        },
+        "website": "fremantlesailingclub.com.au",
         "address": null,
-        "city": null,
+        "city": "Fremantle, WA",
         "facilities": null,
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Now one of the largest sailing clubs in WA with 3,000+ members across 11 sections."
       }
     },
     {
@@ -4124,8 +4146,10 @@
         "city": "Grosse Pointe Shores, MI",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Already fully populated in the graph (founded + website) — included here for cross-check confirmation only; no further discrepancy found."
       }
     },
     {
@@ -4293,13 +4317,20 @@
           "value": 1964,
           "raw": "1964"
         },
-        "website": null,
+        "website": "horc.gr",
         "address": null,
         "city": "Piraeus",
         "facilities": null,
         "provenance": [
-          "35_Comprehensive_Greece_Yachting_Data_Report.md"
-        ]
+          "35_Comprehensive_Greece_Yachting_Data_Report.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "(curated Founded cell to the web-sourced alternate from \"1961 (web sources; graph lists 1964, which likely refers to its Aegean Rally, running since 1964)\") Discrepancy flagged. Runs a Sailing Academy since 1969 with 25,000+ graduates.",
+        "conflicts": {
+          "founded": [
+            "1961"
+          ]
+        }
       }
     },
     {
@@ -4509,14 +4540,16 @@
           "value": 1976,
           "raw": "1976"
         },
-        "website": null,
+        "website": "islesyc.com",
         "address": "1780 West Marion Avenue",
         "city": "Punta Gorda, FL",
         "facilities": null,
         "provenance": [
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Accepted into the Florida Council of Yacht Clubs the same year it was founded; reached 400 members by 1979."
       }
     },
     {
@@ -4602,14 +4635,19 @@
       "type": "club",
       "name": "Kansai Yacht Club",
       "attrs": {
-        "founded": null,
+        "founded": {
+          "value": 1964,
+          "raw": "~1964 (unconfirmed; inferred from club's own \"kyc1964\" branding)"
+        },
         "website": "https://www.kyc.or.jp",
         "address": null,
         "city": "Nishinomiya, Hyogo",
         "facilities": "Platinum club; facilities for superyachts . (Detailed site info unavailable.)",
         "provenance": [
-          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md"
-        ]
+          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Already had website in graph; founding year could not be independently confirmed beyond the club's own social-media branding."
       }
     },
     {
@@ -4647,14 +4685,19 @@
       "type": "club",
       "name": "Kelowna Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1945,
+          "raw": "1945"
+        },
+        "website": "kelownayachtclub.com",
         "address": null,
         "city": "Kelowna",
         "facilities": "Largest freshwater marina (600+ slips); clubhouse, dining, events hall.",
         "provenance": [
-          "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
-        ]
+          "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Its moorage basin (1,006 slips) is the largest freshwater marina basin in Canada."
       }
     },
     {
@@ -4729,13 +4772,15 @@
           "value": 1955,
           "raw": "1955"
         },
-        "website": null,
+        "website": "kbyc.org",
         "address": null,
-        "city": null,
+        "city": "Key Biscayne",
         "facilities": null,
         "provenance": [
-          "26_Boat_Docking_Options_in_Miami.md"
-        ]
+          "26_Boat_Docking_Options_in_Miami.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Started as a fundraising effort to install a hoisting crane in Hurricane Cove; charter filed Feb 3, 1955 with 214 charter members."
       }
     },
     {
@@ -4878,14 +4923,19 @@
       "type": "club",
       "name": "Lauderdale Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1938,
+          "raw": "1938"
+        },
+        "website": "lyc1938.org",
         "address": null,
         "city": "Fort Lauderdale",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founding discussion held aboard the schooner Abenaki; original clubhouse destroyed by the 1947 hurricane."
       }
     },
     {
@@ -5047,13 +5097,15 @@
           "value": 1950,
           "raw": "1950"
         },
-        "website": null,
+        "website": "myc.org.au",
         "address": null,
         "city": "MYC",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Formed as the Manly 14ft Skiff Club; clubhouse occupies the site of the former \"Gentlemen's Baths\" (opened 1892)."
       }
     },
     {
@@ -5467,14 +5519,19 @@
       "type": "club",
       "name": "National Yacht Club",
       "attrs": {
-        "founded": null,
+        "founded": {
+          "value": 1894,
+          "raw": "1894 (as National Yacht and Skiff Club)"
+        },
         "website": "[www.thenyc.com](https://www.thenyc.com/)",
         "address": null,
         "city": "Toronto, ON",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Became a center of hydroplane racing in the late 1920s."
       }
     },
     {
@@ -5552,31 +5609,15 @@
           "value": 1937,
           "raw": "1937"
         },
-        "website": null,
+        "website": "nov.gr",
         "address": null,
         "city": "Vouliagmeni",
         "facilities": null,
         "provenance": [
-          "35_Comprehensive_Greece_Yachting_Data_Report.md"
-        ]
-      }
-    },
-    {
-      "id": "club:nautical-club-of-vouliagmeni-nov",
-      "type": "club",
-      "name": "Nautical Club of Vouliagmeni (NOV)",
-      "attrs": {
-        "founded": {
-          "value": 1937,
-          "raw": "1937"
-        },
-        "website": null,
-        "address": null,
-        "city": null,
-        "facilities": null,
-        "provenance": [
-          "35_Comprehensive_Greece_Yachting_Data_Report.md"
-        ]
+          "35_Comprehensive_Greece_Yachting_Data_Report.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Multi-sport club (sailing, swimming, water polo, water-skiing) alongside its marina."
       }
     },
     {
@@ -5618,13 +5659,15 @@
           "value": 1958,
           "raw": "1958"
         },
-        "website": null,
+        "website": "(not found)",
         "address": null,
         "city": "94 Martynova Quay, Krestovsky Island, St. Petersburg",
         "facilities": "Sailing/rowing/motorboating; events; security",
         "provenance": [
-          "33_Russia_Yacht_Clubs_Data_Compilation.md"
-        ]
+          "33_Russia_Yacht_Clubs_Data_Compilation.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Claims (disputed by Royal Cork Yacht Club, Ireland, 1720) to be the world's oldest yacht-club lineage."
       }
     },
     {
@@ -5953,14 +5996,19 @@
       "type": "club",
       "name": "Pensacola Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1908,
+          "raw": "1908 (as Pensacola Yacht & Motor Boat Club); chartered 1910"
+        },
+        "website": "pensacolayachtclub.org",
         "address": null,
         "city": "Pensacola",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Clubhouse was a converted US Army transport ship (General Wilson) from 1922 until it burned in 1925."
       }
     },
     {
@@ -6274,8 +6322,10 @@
         "city": "Toronto, ON",
         "facilities": null,
         "provenance": [
-          "57_Haulover_Inlet_History_Dangers_Popularity.md"
-        ]
+          "57_Haulover_Inlet_History_Dangers_Popularity.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Began as the Toronto Boat Club (1850); granted Royal warrant by Queen Victoria in 1854; summer clubhouse on the Toronto Islands."
       }
     },
     {
@@ -6302,14 +6352,16 @@
           "value": 1859,
           "raw": "1859"
         },
-        "website": null,
+        "website": "rgyc.com.au",
         "address": null,
         "city": "RGYC",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Granted Royal warrant by King George V in 1924; hosts the Festival of Sails, Australia's most popular keelboat regatta."
       }
     },
     {
@@ -6332,14 +6384,19 @@
       "type": "club",
       "name": "Royal Motor Yacht Club of New South Wales",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1905,
+          "raw": "1905 (as Motor Boat Club of NSW)"
+        },
+        "website": "rmycnsw.com.au",
         "address": null,
         "city": "RMYC NSW",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "First motorboat club outside the UK granted the \"Royal\" prefix (King George V, 1927)."
       }
     },
     {
@@ -6347,14 +6404,19 @@
       "type": "club",
       "name": "Royal Papua Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1921,
+          "raw": "1921 (as Port Moresby Aquatic Club)"
+        },
+        "website": "rpyc.com.pg",
         "address": null,
         "city": "Port Moresby",
         "facilities": "256 berths",
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Granted Royal charter in 1977; celebrated its centennial in 2021."
       }
     },
     {
@@ -6366,13 +6428,20 @@
           "value": 1876,
           "raw": "1876"
         },
-        "website": null,
+        "website": "rpyc.com.au",
         "address": null,
         "city": "RPYC",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "(curated Founded cell to the alternate club-history claim from \"1876 (per graph; club history cites both 1841 and 1865 origin claims)\" — the graph's existing 1876 value naturally wins the conflicts-convention comparison) Fielded Australia II (skipper John Bertrand) in the 1983 America's Cup, ending the New York Yacht Club's 132-year hold — the first successful challenge in Cup history.",
+        "conflicts": {
+          "founded": [
+            "1841/1865"
+          ]
+        }
       }
     },
     {
@@ -6395,14 +6464,19 @@
       "type": "club",
       "name": "Royal Prince Alfred Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1867,
+          "raw": "1867 (public meeting Oct 15, 1867; roots trace to \"The Mosquito Yacht Club\", 1856)"
+        },
+        "website": "rpayc.com.au",
         "address": null,
         "city": "RPAYC",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Granted \"Royal\" prefix by King George V in 1911; relocated from Kirribilli to Pittwater."
       }
     },
     {
@@ -6410,14 +6484,19 @@
       "type": "club",
       "name": "Royal Suva Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1932,
+          "raw": "1932 (as Suva Yacht Club)"
+        },
+        "website": "(not found — active social media only)",
         "address": null,
         "city": "Suva",
         "facilities": null,
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Granted the \"Royal\" title by the Secretary to King George VI in 1950."
       }
     },
     {
@@ -6429,28 +6508,15 @@
           "value": 1903,
           "raw": "1903"
         },
-        "website": null,
+        "website": "royalvan.com",
         "address": null,
         "city": "RVYC",
-        "facilities": null,
-        "provenance": [
-          "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
-        ]
-      }
-    },
-    {
-      "id": "club:royal-vancouver-yacht-club-rvyc",
-      "type": "club",
-      "name": "Royal Vancouver Yacht Club (RVYC)",
-      "attrs": {
-        "founded": null,
-        "website": null,
-        "address": null,
-        "city": "Vancouver",
         "facilities": "Two clubhouses (Jericho, Coal Harbour); marinas (400+ slips); dining, bars, pools, tennis; offshore stations.",
         "provenance": [
-          "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
-        ]
+          "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded as the Vancouver Yacht Club; granted \"Royal\" prefix in 1906; Jericho Beach clubhouse opened 1927. Graph also carries a duplicate node \"Royal Vancouver Yacht Club (RVYC)\" — recommend dedup."
       }
     },
     {
@@ -6462,9 +6528,10 @@
         "website": null,
         "address": null,
         "city": "RYCT",
-        "facilities": null,
+        "facilities": "maintenance",
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ]
       }
     },
@@ -6562,13 +6629,15 @@
           "value": 1886,
           "raw": "1886"
         },
-        "website": null,
+        "website": "sdyc.org",
         "address": null,
-        "city": null,
+        "city": "San Diego, CA",
         "facilities": "Accepting applications, with a rigorous vetting process prioritizing yachting experience and social fit.",
         "provenance": [
-          "65_West_Coast_Yacht_Club_Overview.md"
-        ]
+          "65_West_Coast_Yacht_Club_Overview.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Won the America's Cup three times (1987, 1988 — Dennis Conner; 1992 — Bill Koch/America³); hosted Cup defenses in 1988, 1992 and 1995."
       }
     },
     {
@@ -6591,15 +6660,20 @@
       "type": "club",
       "name": "Sandringham Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1912,
+          "raw": "1912 (as Sandringham Yachting & Angling Club, 1911; renamed 1912)"
+        },
+        "website": "syc.com.au",
         "address": null,
         "city": "SYC",
         "facilities": "repairs",
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Merged with the neighboring Port Phillip Yacht Club in 1932 after a 1931 clubhouse fire."
       }
     },
     {
@@ -6656,15 +6730,22 @@
           "value": 1907,
           "raw": "1907"
         },
-        "website": null,
+        "website": "sarasotayachtclub.org",
         "address": "1100 John Ringling Blvd",
         "city": "Sarasota",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
           "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
-          "69_Sarasota_Yacht_Club_History_Amenities_Events.md"
-        ]
+          "69_Sarasota_Yacht_Club_History_Amenities_Events.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Predecessor clubs on Siesta Key/Golden Gate Point date to 1907 and 1913; also one of the Florida Council of Yacht Clubs' 13 founders.",
+        "conflicts": {
+          "founded": [
+            "1926"
+          ]
+        }
       }
     },
     {
@@ -6717,14 +6798,19 @@
       "type": "club",
       "name": "Shanghai Yacht Club & Resort",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1868,
+          "raw": "~1868–1871 (colonial-era Shanghai Yacht Club on the Bund; unclear institutional continuity with the present-day graph entry)"
+        },
+        "website": "(not found)",
         "address": null,
         "city": "Dianshan Lake",
         "facilities": null,
         "provenance": [
-          "32_China_Yacht_Clubs_Comprehensive_Data_Analysis.md"
-        ]
+          "32_China_Yacht_Clubs_Comprehensive_Data_Analysis.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Historic club was a racially-exclusive Western colonial institution; cannot confirm continuity to the present \"Shanghai Yacht Club & Resort\" node — flagged rather than merged."
       }
     },
     {
@@ -6830,13 +6916,15 @@
           "value": 1946,
           "raw": "1946"
         },
-        "website": null,
+        "website": "southportyachtclub.com.au",
         "address": null,
         "city": "SYC",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Multiple \"Club of the Year\" (non-gaming) awards from Clubs Queensland, most recently 2023/2025."
       }
     },
     {
@@ -6848,13 +6936,15 @@
           "value": 1925,
           "raw": "1925"
         },
-        "website": null,
+        "website": "southwesternyc.org",
         "address": "2702 Qualtrough St, San Diego, CA 92106",
-        "city": null,
+        "city": "San Diego (Point Loma), CA",
         "facilities": null,
         "provenance": [
-          "65_West_Coast_Yacht_Club_Overview.md"
-        ]
+          "65_West_Coast_Yacht_Club_Overview.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded by Dr. Ernest Chartres-Martin and Stanley Hobson; first met in a shanty at Mancke's pier."
       }
     },
     {
@@ -6957,14 +7047,16 @@
           "value": 1904,
           "raw": "1904"
         },
-        "website": null,
+        "website": "tampayacht.com",
         "address": "5320 Interbay Blvd",
         "city": "Tampa",
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md",
-          "67_First_Yacht_Club_in_Florida_History_and_Impact.md"
-        ]
+          "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded by Tampa's cigar-baron and phosphate-fortune business class; 13-acre site on Hillsborough Bay."
       }
     },
     {
@@ -7043,21 +7135,6 @@
       }
     },
     {
-      "id": "club:the-florida-yacht-club-duplicate-entry-in-sources",
-      "type": "club",
-      "name": "The Florida Yacht Club (duplicate entry in sources)",
-      "attrs": {
-        "founded": null,
-        "website": null,
-        "address": null,
-        "city": "Jacksonville",
-        "facilities": null,
-        "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
-      }
-    },
-    {
       "id": "club:the-mersey-yacht-club",
       "type": "club",
       "name": "The Mersey Yacht Club",
@@ -7084,21 +7161,6 @@
         "facilities": null,
         "provenance": [
           "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
-      }
-    },
-    {
-      "id": "club:the-royal-yacht-club-of-tasmania",
-      "type": "club",
-      "name": "The Royal Yacht Club of Tasmania",
-      "attrs": {
-        "founded": null,
-        "website": null,
-        "address": null,
-        "city": "Sandy Bay",
-        "facilities": "maintenance",
-        "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ]
       }
     },
@@ -7164,8 +7226,10 @@
         "city": "Yumenoshima, Koto-ku, Tokyo",
         "facilities": "300 members, 120 yachts, 40 power boats; holds 10 races/year in Tokyo Bay; family events; clubhouse at marina . Address: Yumenoshima-3, Koto-ku, Tokyo 136-0081. Email: info@tyc.gr.jp.",
         "provenance": [
-          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md"
-        ]
+          "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Operates Yumenoshima Marina (650 berths); Japan's oldest yacht club is reportedly the separate Yokohama Yacht Club (1886, yyc.or.jp), not this one."
       }
     },
     {
@@ -7236,14 +7300,19 @@
       "type": "club",
       "name": "Veleiros do Sul",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1934,
+          "raw": "1934 (Dec 13)"
+        },
+        "website": "vds.com.br",
         "address": null,
         "city": "Puerto Alegre",
         "facilities": null,
         "provenance": [
-          "54_Central_America_Yacht_Clubs_Directory.md"
-        ]
+          "54_Central_America_Yacht_Clubs_Directory.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "First sailing club in Porto Alegre; introduced the Sharpie 12m² class to southern Brazil."
       }
     },
     {
@@ -7286,14 +7355,24 @@
       "type": "club",
       "name": "Vero Beach Yacht Club",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1926,
+          "raw": "1926"
+        },
+        "website": "verobeachyachtclub.com",
         "address": null,
         "city": "Vero Beach",
         "facilities": null,
         "provenance": [
-          "49_Long_Island_Yacht_Clubs_Data.md"
-        ]
+          "49_Long_Island_Yacht_Clubs_Data.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "(curated Founded cell into the [conflict:] marker format — the graph has NO existing founded value for this club, so the generic existing-value comparison cannot trigger; from \"1926 per club's non-profit charter date; a separate club history book dates the modern club to 1938\") Two conflicting founding accounts exist in public sources — flagged rather than resolved.",
+        "conflicts": {
+          "founded": [
+            "1938 per club history book"
+          ]
+        }
       }
     },
     {
@@ -7338,21 +7417,6 @@
         "website": null,
         "address": null,
         "city": "WVYC",
-        "facilities": null,
-        "provenance": [
-          "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
-        ]
-      }
-    },
-    {
-      "id": "club:west-vancouver-yacht-club-wvyc",
-      "type": "club",
-      "name": "West Vancouver Yacht Club (WVYC)",
-      "attrs": {
-        "founded": null,
-        "website": null,
-        "address": null,
-        "city": "West Vancouver",
         "facilities": "Clubhouse, marina (200 slips), restaurant, bar; junior sailing programs.",
         "provenance": [
           "37_Alaska_Yacht_Clubs_and_Charters_Data.md"
@@ -7394,14 +7458,19 @@
       "type": "club",
       "name": "Yacht Club Argentino",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1883,
+          "raw": "1883 (July 2)"
+        },
+        "website": "yca.org.ar",
         "address": null,
         "city": "Buenos Aires",
         "facilities": null,
         "provenance": [
-          "54_Central_America_Yacht_Clubs_Directory.md"
-        ]
+          "54_Central_America_Yacht_Clubs_Directory.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founding member of the International Yacht Racing Union (now World Sailing), 1909."
       }
     },
     {
@@ -7424,13 +7493,17 @@
       "type": "club",
       "name": "Yacht Club de Chile",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1941,
+          "raw": "1941 (Sept 26)"
+        },
+        "website": "yachtclubdechile.cl",
         "address": null,
         "city": "Viña del Mar",
         "facilities": null,
         "provenance": [
-          "54_Central_America_Yacht_Clubs_Directory.md"
+          "54_Central_America_Yacht_Clubs_Directory.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
         ]
       }
     },
@@ -7443,13 +7516,15 @@
           "value": 1953,
           "raw": "1953"
         },
-        "website": null,
+        "website": "yacht-club-monaco.mc",
         "address": null,
-        "city": null,
+        "city": "Monaco",
         "facilities": null,
         "provenance": [
-          "67_First_Yacht_Club_in_Florida_History_and_Impact.md"
-        ]
+          "67_First_Yacht_Club_in_Florida_History_and_Impact.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Founded by Prince Rainier III; presided since 1984 by Prince Albert II; current clubhouse designed by Norman Foster, opened 2014; ~2,500 members from 81 nationalities."
       }
     },
     {
@@ -7506,13 +7581,15 @@
           "value": 1933,
           "raw": "1933"
         },
-        "website": null,
+        "website": "ycg.gr",
         "address": null,
         "city": "Athens (Mikrolimano)",
         "facilities": null,
         "provenance": [
-          "35_Comprehensive_Greece_Yachting_Data_Report.md"
-        ]
+          "35_Comprehensive_Greece_Yachting_Data_Report.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Carried the title \"Royal Yacht Club of Greece\" 1940–1973 under royal patronage."
       }
     },
     {
@@ -7625,14 +7702,19 @@
       "type": "club",
       "name": "Yacht Club Uruguayo",
       "attrs": {
-        "founded": null,
-        "website": null,
+        "founded": {
+          "value": 1906,
+          "raw": "1906"
+        },
+        "website": "ycu.org.uy",
         "address": null,
         "city": "Montevideo",
         "facilities": null,
         "provenance": [
-          "54_Central_America_Yacht_Clubs_Directory.md"
-        ]
+          "54_Central_America_Yacht_Clubs_Directory.md",
+          "96_Yacht_Club_Enrichment_Directory.md"
+        ],
+        "notes": "Its 1939 boat-shaped clubhouse tower (architects Herrán & Crespi) is a declared national historic monument."
       }
     },
     {
@@ -11063,6 +11145,18 @@
       }
     },
     {
+      "id": "company:egyptian-presidential-yacht",
+      "type": "company",
+      "name": "Egyptian Presidential Yacht",
+      "attrs": {
+        "kind": "state institution",
+        "notes": "Institutional (Egyptian state) owner of El Mahrousa — not a real person.",
+        "provenance": [
+          "person-enrichment-cleanup"
+        ]
+      }
+    },
+    {
       "id": "company:elco-electric-launch-company-lineage",
       "type": "company",
       "name": "Elco (Electric Launch Company lineage)",
@@ -12397,6 +12491,18 @@
         "kind": "shipyard operator",
         "provenance": [
           "86_Submarine_and_Submersible_Facilities_Global.md"
+        ]
+      }
+    },
+    {
+      "id": "company:indonesian-corporate",
+      "type": "company",
+      "name": "Indonesian corporate",
+      "attrs": {
+        "kind": "anonymous corporate entity",
+        "notes": "Linked to J7 Explorer; \"not an individual\" per research — an anonymous corporate owner, not a real person.",
+        "provenance": [
+          "person-enrichment-cleanup"
         ]
       }
     },
@@ -17690,6 +17796,18 @@
         "notes": "Directory of marine service companies.",
         "provenance": [
           "21_Online_Yacht_Brokerage_Competitors_and_Innovations.md"
+        ]
+      }
+    },
+    {
+      "id": "company:turkish-republic",
+      "type": "company",
+      "name": "Turkish Republic",
+      "attrs": {
+        "kind": "state institution",
+        "notes": "Institutional (Turkish state) owner of Savarona (presidential/state yacht) — not a real person.",
+        "provenance": [
+          "person-enrichment-cleanup"
         ]
       }
     },
@@ -42041,7 +42159,16 @@
       "id": "person:abdulla-al-futtaim",
       "type": "person",
       "name": "Abdulla Al Futtaim",
-      "attrs": {}
+      "attrs": {
+        "nationality": "UAE (Emirati)",
+        "industry": "Retail/automotive — Al‑Futtaim Group",
+        "role": "Owner, Al‑Futtaim Group",
+        "status": "Living",
+        "notes": "Owns Radiant (ex‑Darius, 110m Lürssen 2009), commissioned by Boris Berezovsky to rival Abramovich's Pelorus.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:alexander-mikheev",
@@ -42051,8 +42178,13 @@
         "net_worth": null,
         "notes": "157 feet, valued at $7 million, detained in Mallorca, Spain, on March 15, 2022. Notable for a Ukrainian crew member’s attempt to sink it in protest of the invasion.[](https://www.cnn.com/interactive/business/russian-oligarchs-yachts-real-estate-seizures/index.html)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Defense/arms export (Rosoboronexport)",
+        "role": "CEO, Rosoboronexport",
+        "status": "Living (US/EU sanctioned)"
       }
     },
     {
@@ -42063,33 +42195,29 @@
         "net_worth": null,
         "notes": "215 feet, valued at $27 million, seized in Imperia, Italy, on March 5, 2022. Features six guest cabins, a pool, and a gym.[](https://www.nbcnews.com/politics/politics-news/are-superyachts-seized-russian-oligarchs-rcna20346)[](https://www.cnbc.com/2022/03/03/here-are-the-russian-oligarch-yachts-being-seized-as-sanctions-take-effect.html)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Steel (Severstal)",
+        "role": "Chairman, Severstal",
+        "status": "Living (EU sanctioned)"
       }
     },
     {
       "id": "person:alisher-usmanov",
       "type": "person",
       "name": "Alisher Usmanov",
-      "attrs": {}
-    },
-    {
-      "id": "person:alisher-usmanov-legally-owned-by-sister-gulbahor-ismailova",
-      "type": "person",
-      "name": "Alisher Usmanov (legally owned by sister Gulbahor Ismailova)",
-      "attrs": {}
-    },
-    {
-      "id": "person:alisher-usmanov-via-sister",
-      "type": "person",
-      "name": "Alisher Usmanov (via sister)",
-      "attrs": {}
-    },
-    {
-      "id": "person:alisher-usmanov-via-sister-gulbahor-ismailova",
-      "type": "person",
-      "name": "Alisher Usmanov (via sister Gulbahor Ismailova)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian/Uzbek",
+        "industry": "Metals/mining/telecom (Metalloinvest, USM)",
+        "role": "Founder, USM Holdings",
+        "status": "Living (US/EU sanctioned)",
+        "notes": "Dilbar (156m Lürssen, largest by GT) immobilized in Hamburg since Mar 2022; legal title held by sister Gulbahor Ismailova.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:andrey-guryev",
@@ -42099,8 +42227,13 @@
         "net_worth": null,
         "notes": "266 feet, valued at $120 million, seized in Antigua and Barbuda in 2022.[](https://robbreport.com/motors/marine/sanctioned-russian-superyachts-updates-1235981641/)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Fertilizer (PhosAgro)",
+        "role": "Former Chairman, PhosAgro",
+        "status": "Living (US sanctioned)"
       }
     },
     {
@@ -42111,27 +42244,57 @@
         "net_worth": null,
         "notes": "469 feet, valued at $440–$578 million, seized in Trieste, Italy, on March 11, 2022. One of the world’s largest sailing yachts, with eight decks, multiple elevators, and the tallest masts globally.[](https://www.nbcnews.com/politics/politics-news/are-superyachts-seized-russian-oligarchs-rcna20346)[](https://www.rferl.org/a/russia-melnichenko-yacht-seized-ukraine/31749454.html)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian (renounced citizenship)",
+        "industry": "Fertilizer/coal (EuroChem, SUEK)",
+        "role": "Founder",
+        "status": "Living (EU sanctioned)"
       }
     },
     {
       "id": "person:ann-walton-kroenke",
       "type": "person",
       "name": "Ann Walton Kroenke",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Retail/inherited wealth (Walmart, Walton family)",
+        "role": "Heiress; wife of Stan Kroenke",
+        "status": "Living",
+        "notes": "Owns Aquila.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:bahrain-royal",
       "type": "person",
       "name": "Bahrain Royal",
-      "attrs": {}
+      "attrs": {
+        "role": "Generic royal-family placeholder",
+        "notes": "Linked to Al Salamah (139m Lürssen, 1999); no single named owner confirmed.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:barry-zekelman",
       "type": "person",
       "name": "Barry Zekelman",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Canadian",
+        "industry": "Steel/manufacturing (Zekelman Industries)",
+        "role": "Executive Chairman",
+        "status": "Living",
+        "notes": "Owns Man of Steel (ex‑Seven Seas, Steven Spielberg's former Oceanco yacht, bought Oct 2021, $150M); has owned multiple yachts all named \"Man of Steel\" (incl. two Heesens) — likely source of the separate \"Z\" graph node.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:bernard-arnault",
@@ -42139,47 +42302,91 @@
       "name": "Bernard Arnault",
       "attrs": {
         "net_worth": null,
-        "notes": null,
+        "notes": "Owns Symphony (101.5m Feadship).",
         "provenance": [
-          "15_Billionaire_Superyacht_Owners_and_Dataset.md"
-        ]
+          "15_Billionaire_Superyacht_Owners_and_Dataset.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "French",
+        "industry": "Luxury goods (LVMH)",
+        "role": "Chairman/CEO, LVMH",
+        "status": "Living"
       }
     },
     {
       "id": "person:bilal-hydrie",
       "type": "person",
       "name": "Bilal Hydrie",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Pakistani‑Canadian",
+        "industry": "Petroleum/entrepreneurship (Pennine Petroleum)",
+        "role": "Businessman",
+        "status": "Living",
+        "notes": "Web search attributes Tatiana (80m Bilgin, 2021) to **Shapoor Mistry** (Indian, Shapoorji Pallonji Group), not Hydrie. Likely a misattribution inherited from the source corpus — flag for correction.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:bill-gates",
       "type": "person",
       "name": "Bill Gates",
-      "attrs": {}
-    },
-    {
-      "id": "person:bill-gates-support-vessel",
-      "type": "person",
-      "name": "Bill Gates (support vessel)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Tech (Microsoft co‑founder), philanthropy",
+        "role": "Co‑founder, Microsoft; Gates Foundation",
+        "status": "Living",
+        "notes": "Linked to Breakthrough (Feadship) and Wayfinder; also historically linked to leasing Serene from MBS (2014). Purchase/charter details vary by source — treat length/price specifics as unverified color.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:dan-snyder-rumored",
       "type": "person",
       "name": "Dan Snyder (rumored)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Media/sports (ex‑Washington Commanders NFL owner)",
+        "role": "Former NFL team owner",
+        "status": "Living",
+        "notes": "Lady S ownership not corroborated independently this session.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:david-geffen",
       "type": "person",
       "name": "David Geffen",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Entertainment (DreamWorks, Geffen Records)",
+        "role": "Media mogul",
+        "status": "Living",
+        "notes": "Sole owner of Rising Sun (453ft Lürssen) since 2010 buyout of co‑owner Larry Ellison.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:dmitry-kamenshchik",
       "type": "person",
       "name": "Dmitry Kamenshchik",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian",
+        "industry": "Aviation infrastructure (Domodedovo Airport)",
+        "role": "Owner/Chairman",
+        "status": "Living",
+        "notes": "Linked to Flying Fox (136m Lürssen); ownership has been described as unclear/disputed in some reporting.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:dmitry-pumpyansky",
@@ -42189,69 +42396,104 @@
         "net_worth": null,
         "notes": "240 feet, valued at $75 million, seized in Gibraltar in March 2022 by JPMorgan Chase, acting on mortgage rights after Pumpyansky was sanctioned.[](https://www.cnn.com/interactive/business/russian-oligarchs-yachts-real-estate-seizures/index.html)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Steel pipe manufacturing (TMK/Sinara)",
+        "role": "Founder",
+        "status": "Living (EU sanctioned)"
       }
-    },
-    {
-      "id": "person:dubai-royal-mohammed-bin-rashid-al-maktoum",
-      "type": "person",
-      "name": "Dubai Royal (Mohammed bin Rashid Al Maktoum)",
-      "attrs": {}
     },
     {
       "id": "person:eduard-khudaynatov",
       "type": "person",
       "name": "Eduard Khudaynatov",
-      "attrs": {}
-    },
-    {
-      "id": "person:egyptian-presidential-yacht",
-      "type": "person",
-      "name": "Egyptian Presidential Yacht",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian",
+        "industry": "Oil (ex‑Rosneft president; Independent Petroleum Company)",
+        "role": "Businessman",
+        "status": "Living (US/EU sanctioned)",
+        "notes": "Claimed owner of Scheherazade (140m Lürssen); ownership publicly contested/litigated, also claimed as owner of Amadea.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:eike-batista-previous",
       "type": "person",
       "name": "Eike Batista (previous)",
-      "attrs": {}
-    },
-    {
-      "id": "person:eike-batista-previously",
-      "type": "person",
-      "name": "Eike Batista (previously)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Brazilian",
+        "industry": "Mining/oil (EBX Group)",
+        "role": "Entrepreneur (convicted, corruption case)",
+        "status": "Living",
+        "notes": "H3 (105.26m Oceanco) ownership not corroborated — public sources instead cite Qatar's former PM, Vijay Mallya, and the Saudi Royal Family as prior owners.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:eric-smidt",
       "type": "person",
       "name": "Eric Smidt",
-      "attrs": {}
-    },
-    {
-      "id": "person:estate-of-paul-allen-now-roger-samuelsson",
-      "type": "person",
-      "name": "Estate of Paul Allen (now Roger Samuelsson)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Retail/tools (Harbor Freight Tools)",
+        "role": "Chairman/CEO",
+        "status": "Living",
+        "notes": "Owns Infinity (117m Oceanco, ~$300M).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:faisal-al-ayyar",
       "type": "person",
       "name": "Faisal Al Ayyar",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Kuwaiti",
+        "industry": "Finance/investment (KIPCO, retired Vice‑Chairman)",
+        "role": "Former Vice‑Chairman, KIPCO",
+        "status": "Living",
+        "notes": "No public source found linking Al Ayyar to a yacht named Elements.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:farkhad-akhmedov",
       "type": "person",
       "name": "Farkhad Akhmedov",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian/Azerbaijani",
+        "industry": "Oil & gas (Northgas)",
+        "role": "Businessman, former senator",
+        "status": "Living",
+        "notes": "Owns Luna (115m Lloyd Werft, ex‑Abramovich); subject of UK's largest-ever divorce settlement case (Akhmedov v Akhmedova).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:frank-fertitta",
       "type": "person",
       "name": "Frank Fertitta",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Gaming/casinos (Station Casinos); UFC co‑founder",
+        "role": "Chairman, Station Casinos",
+        "status": "Living",
+        "notes": "Owned Viva (94m Feadship, $175–250M) — **sold to Ken Griffin (Citadel) in August 2024**; graph should be updated to reflect current owner.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:gennady-timchenko",
@@ -42261,27 +42503,59 @@
         "net_worth": null,
         "notes": "132 feet, valued at $8 million, seized in San Remo, Italy, on March 5, 2022. Features five cabins for 10 guests.[](https://www.nbcnews.com/politics/politics-news/are-superyachts-seized-russian-oligarchs-rcna20346)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Energy (Novatek, Volga Group)",
+        "role": "Businessman",
+        "status": "Living (US/EU sanctioned)"
       }
     },
     {
       "id": "person:graeme-hart",
       "type": "person",
       "name": "Graeme Hart",
-      "attrs": {}
+      "attrs": {
+        "nationality": "New Zealander",
+        "industry": "Manufacturing/packaging (Rank Group, Reynolds Group)",
+        "role": "Owner",
+        "status": "Living (NZ's richest person)",
+        "notes": "Owns Multiverse (116m Kleven).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:guido-krass",
       "type": "person",
       "name": "Guido Krass",
-      "attrs": {}
+      "attrs": {
+        "nationality": "German",
+        "industry": "Investment (Pari Group); founder, Silver Yachts",
+        "role": "Entrepreneur",
+        "status": "Living",
+        "notes": "Owns Bold (85.3m Silver Yachts, delivered 2019, $100M).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:herb-chambers",
       "type": "person",
       "name": "Herb Chambers",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Automotive retail (Herb Chambers Companies, 60 dealerships)",
+        "role": "Founder",
+        "status": "Living",
+        "notes": "Owns Excellence (80m Abeking & Rasmussen, \"Excellence VI\" in a long line of same-named yachts).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:igor-sechin",
@@ -42291,27 +42565,44 @@
         "net_worth": null,
         "notes": "281 feet, valued at $120 million, seized in La Ciotat, France, on March 2, 2022, as it attempted to flee. Can accommodate 14 guests and 28 crew.[](https://www.washingtonpost.com/world/2022/03/03/russian-oligarchs-yachts-seized-ukraine/)[](https://www.reuters.com/business/russia-billionaires-move-superyachts-maldives-sanctions-tighten-data-shows-2022-03-02/)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Oil (Rosneft)",
+        "role": "CEO, Rosneft",
+        "status": "Living (US/EU sanctioned)"
       }
-    },
-    {
-      "id": "person:indonesian-corporate",
-      "type": "person",
-      "name": "Indonesian corporate",
-      "attrs": {}
     },
     {
       "id": "person:jack-ma-rumored",
       "type": "person",
       "name": "Jack Ma (rumored)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Chinese",
+        "industry": "Tech/e‑commerce (Alibaba co‑founder)",
+        "role": "Retired executive, low public profile since 2020",
+        "status": "Living",
+        "notes": "Zen ownership not corroborated in mainstream press this session.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:james-packer",
       "type": "person",
       "name": "James Packer",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Australian",
+        "industry": "Gaming/media (Crown Resorts, Consolidated Press)",
+        "role": "Former Executive Chairman, Crown Resorts",
+        "status": "Living",
+        "notes": "Owns IJE (354ft Benetti, named for his children Indigo/Jackson/Emmanuelle).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:jeff-bezos",
@@ -42319,47 +42610,91 @@
       "name": "Jeff Bezos",
       "attrs": {
         "net_worth": null,
-        "notes": null,
+        "notes": "Owns Koru (127m Oceanco sailing yacht) + support vessel Abeona.",
         "provenance": [
-          "15_Billionaire_Superyacht_Owners_and_Dataset.md"
-        ]
+          "15_Billionaire_Superyacht_Owners_and_Dataset.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "American",
+        "industry": "Tech/e‑commerce (Amazon); aerospace (Blue Origin)",
+        "role": "Founder/Executive Chairman, Amazon",
+        "status": "Living"
       }
-    },
-    {
-      "id": "person:jeff-bezos-rumored",
-      "type": "person",
-      "name": "Jeff Bezos (rumored)",
-      "attrs": {}
     },
     {
       "id": "person:jk-rowling",
       "type": "person",
       "name": "JK Rowling",
-      "attrs": {}
+      "attrs": {
+        "nationality": "British",
+        "industry": "Literature (Harry Potter author)",
+        "role": "Author",
+        "status": "Living",
+        "notes": "Linked to Samsara (ex‑Amphitrite); some reporting frames this as part of a billionaire ownership lineage rather than sole personal ownership.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:john-christodoulou",
       "type": "person",
       "name": "John Christodoulou",
-      "attrs": {}
+      "attrs": {
+        "nationality": "British‑Cypriot",
+        "industry": "Real estate (Yianis Group)",
+        "role": "Property billionaire",
+        "status": "Living",
+        "notes": "Linked to Zeus; not independently re-verified via fresh web search this session (consistent across corpus/aggregator sources).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:john-symond",
       "type": "person",
       "name": "John Symond",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Australian",
+        "industry": "Finance (Aussie Home Loans, founder)",
+        "role": "Founder",
+        "status": "Living",
+        "notes": "Took delivery of Hasna (73m Feadship) in 2017 for $150M+; **sold ~2020**, yacht renamed Lunasea.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:kjell-inge-r-kke",
       "type": "person",
       "name": "Kjell Inge Røkke",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Norwegian",
+        "industry": "Fishing/maritime/industrial (Aker ASA)",
+        "role": "Founder/majority owner, Aker",
+        "status": "Living",
+        "notes": "Owns/commissioned REV Ocean (research + expedition megayacht project).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:lakshmi-mittal",
       "type": "person",
       "name": "Lakshmi Mittal",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Indian (UK‑based)",
+        "industry": "Steel (ArcelorMittal)",
+        "role": "Chairman/CEO",
+        "status": "Living",
+        "notes": "Owns Amevi.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:larry-ellison",
@@ -42367,167 +42702,307 @@
       "name": "Larry Ellison",
       "attrs": {
         "net_worth": null,
-        "notes": null,
+        "notes": "Owns Musashi (88m Feadship); previously co‑owned Rising Sun with David Geffen until 2010.",
         "provenance": [
-          "15_Billionaire_Superyacht_Owners_and_Dataset.md"
-        ]
+          "15_Billionaire_Superyacht_Owners_and_Dataset.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "American",
+        "industry": "Tech (Oracle co‑founder)",
+        "role": "Chairman/CTO, Oracle",
+        "status": "Living"
       }
     },
     {
       "id": "person:laurene-powell-jobs",
       "type": "person",
       "name": "Laurene Powell Jobs",
-      "attrs": {}
-    },
-    {
-      "id": "person:laurene-powell-jobs-steve-jobs-family",
-      "type": "person",
-      "name": "Laurene Powell Jobs (Steve Jobs family)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Philanthropy/investment (Emerson Collective); widow of Steve Jobs",
+        "role": "Founder/President, Emerson Collective",
+        "status": "Living",
+        "notes": "Owns Venus (Steve Jobs commissioned it; inherited/retained by Powell Jobs after his 2011 death).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:liu-qiangdong",
       "type": "person",
       "name": "Liu Qiangdong",
-      "attrs": {}
-    },
-    {
-      "id": "person:liu-qiangdong-jd-com",
-      "type": "person",
-      "name": "Liu Qiangdong (JD.com)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Chinese",
+        "industry": "E‑commerce (JD.com)",
+        "role": "Chairman, JD.com",
+        "status": "Living",
+        "notes": "Linked to Golden Odyssey (123.2m); Chinese billionaire yacht ownership is typically not officially confirmed by the individual — treat as press-reported, not self‑disclosed.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:mark-zuckerberg",
       "type": "person",
       "name": "Mark Zuckerberg",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Tech/social media (Meta/Facebook founder)",
+        "role": "Founder/CEO, Meta",
+        "status": "Living",
+        "notes": "Owns Launchpad (118–119m Feadship). Corpus color claiming \"no broker, no boat show, direct builder sale\" was not independently re-verified this session — treat as plausible but unconfirmed detail.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:michael-lee-chin",
       "type": "person",
       "name": "Michael Lee-Chin",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Canadian‑Jamaican",
+        "industry": "Finance/investment (Portland Holdings, AIC Limited)",
+        "role": "Chairman/CEO",
+        "status": "Living",
+        "notes": "Took delivery of Ahpo (115.1m Lürssen, \"Project Enzo\") in 2021, ~$354M — **sold in 2023 to Patrick Dovigi**, who renamed it Lady Jorgia. Graph currently double-counts this single vessel as two yachts under two owners; both entries are correct as of their respective ownership periods.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:mixed-e-g-more-lurssen-feadship",
       "type": "person",
       "name": "Mixed (e.g., more Lürssen/Feadship)",
-      "attrs": {}
+      "attrs": {
+        "role": "Aggregate placeholder",
+        "notes": "Represents \"Various 110–112m\" filler yachts in a top‑50 list; not a real owner.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:mohammed-bin-salman",
       "type": "person",
       "name": "Mohammed bin Salman",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Saudi",
+        "industry": "n/a (head of government)",
+        "role": "Crown Prince & Prime Minister, Saudi Arabia",
+        "status": "Living",
+        "notes": "Owns Serene (134m Fincantieri), leased to Bill Gates in 2014 before MBS's purchase.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:mohammed-bin-zayed-al-nahyan",
       "type": "person",
       "name": "Mohammed bin Zayed Al Nahyan",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Emirati",
+        "industry": "n/a (head of state)",
+        "role": "President, United Arab Emirates",
+        "status": "Living",
+        "notes": "Owns Azzam (180m Lürssen, world's longest private yacht).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:nancy-walton-laurie",
       "type": "person",
       "name": "Nancy Walton Laurie",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Retail/inherited wealth (Walmart, Walton family)",
+        "role": "Heiress",
+        "status": "Living",
+        "notes": "Owns Kaos.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:nasser-al-rashid",
       "type": "person",
       "name": "Nasser Al-Rashid",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Saudi",
+        "industry": "Engineering/royal advisor",
+        "role": "Advisor to the Saudi royal family",
+        "status": "**Status not independently verified this session**",
+        "notes": "Owns Lady Moura (a long-documented, classic superyacht ownership).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:oleg-tinkov",
       "type": "person",
       "name": "Oleg Tinkov",
-      "attrs": {}
-    },
-    {
-      "id": "person:oman-royal-sultan-haitham",
-      "type": "person",
-      "name": "Oman Royal (Sultan Haitham)",
-      "attrs": {}
-    },
-    {
-      "id": "person:oman-royal-sultan-haitham-bin-tariq",
-      "type": "person",
-      "name": "Oman Royal (Sultan Haitham bin Tariq)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian (renounced citizenship 2020)",
+        "industry": "Banking/retail (Tinkoff Bank, founder)",
+        "role": "Founder",
+        "status": "Living (leukemia diagnosed 2020, in remission since Dec 2020 per reporting)",
+        "notes": "Owns La Datcha (Damen SeaXplorer, world's first private icebreaker superyacht).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:omani-royal-family",
       "type": "person",
       "name": "Omani Royal Family",
-      "attrs": {}
+      "attrs": {
+        "role": "Generic royal-family placeholder",
+        "notes": "Also linked to Fulk Al Salamah.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:patrick-dovigi",
       "type": "person",
       "name": "Patrick Dovigi",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Canadian",
+        "industry": "Waste management (Green For Life Environmental)",
+        "role": "Founder/CEO",
+        "status": "Living",
+        "notes": "Bought Lady Jorgia (ex‑Ahpo) from Michael Lee‑Chin in 2023.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:philip-green",
       "type": "person",
       "name": "Philip Green",
-      "attrs": {}
+      "attrs": {
+        "nationality": "British",
+        "industry": "Retail (Arcadia Group/Topshop)",
+        "role": "Former retail tycoon (Arcadia collapsed 2020)",
+        "status": "Living",
+        "notes": "Owns Lionheart.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:philip-niarchos",
       "type": "person",
       "name": "Philip Niarchos",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Greek",
+        "industry": "Shipping (inherited, Niarchos family); art collecting",
+        "role": "Heir",
+        "status": "Living",
+        "notes": "Owns Atlantis II (116m, built at family's own Hellenic Shipyard, 1981), one of three sister yachts built for his father Stavros Niarchos.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:previously-david-geffen-now-others",
       "type": "person",
       "name": "Previously David Geffen (now others)",
-      "attrs": {}
-    },
-    {
-      "id": "person:previously-paul-allen-now-others",
-      "type": "person",
-      "name": "Previously Paul Allen (now others)",
-      "attrs": {}
+      "attrs": {
+        "notes": "Attached to Pelorus; Geffen's link to Pelorus specifically (vs. his confirmed Rising Sun) was not corroborated — likely a graph placeholder error.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:qatar-royal",
       "type": "person",
       "name": "Qatar Royal",
-      "attrs": {}
+      "attrs": {
+        "role": "Generic royal-family placeholder",
+        "notes": "Linked to Al Mirqab and Katara; corpus separately names former PM Sheikh Hamad bin Jassim bin Jaber Al Thani for Al Mirqab, but that name is not itself a graph node.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:qatar-tamim-bin-hamad",
       "type": "person",
       "name": "Qatar (Tamim bin Hamad)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Qatari",
+        "industry": "n/a (head of state)",
+        "role": "Emir of Qatar",
+        "status": "Living",
+        "notes": "Linked to Al Lusail (123m).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:rinat-akhmetov",
       "type": "person",
       "name": "Rinat Akhmetov",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Ukrainian",
+        "industry": "Metals/mining/energy (System Capital Management)",
+        "role": "Founder/Chairman",
+        "status": "Living",
+        "notes": "Linked to Luminance (138.8m Lürssen, delivered 2024); multiple outlets describe him as the \"believed\" owner rather than a self-disclosed one.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:robert-stiller",
       "type": "person",
       "name": "Robert Stiller",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Coffee/retail (Green Mountain Coffee Roasters, founder)",
+        "role": "Founder",
+        "status": "Living",
+        "notes": "No source found tying Stiller to a yacht named Naia; his documented yacht is Grace E (ex‑Andale, 164ft). Likely a graph misattribution.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:roger-samuelsson",
       "type": "person",
       "name": "Roger Samuelsson",
-      "attrs": {}
-    },
-    {
-      "id": "person:roger-samuelsson-ex-paul-allen-estate",
-      "type": "person",
-      "name": "Roger Samuelsson (ex-Paul Allen estate)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Swedish",
+        "industry": "Business/private investment",
+        "role": "Businessman",
+        "status": "Living",
+        "notes": "Bought Octopus from the Paul Allen estate (~2022).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:roman-abramovich",
@@ -42535,35 +43010,59 @@
       "name": "Roman Abramovich",
       "attrs": {
         "net_worth": null,
-        "notes": null,
+        "notes": "Owns Eclipse (533ft) and Solaris (461ft); both relocated (Turkey/Maldives-area waters) to avoid seizure post‑2022.",
         "provenance": [
-          "15_Billionaire_Superyacht_Owners_and_Dataset.md"
-        ]
+          "15_Billionaire_Superyacht_Owners_and_Dataset.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Metals/oil (ex‑Sibneft, Evraz); former Chelsea FC owner",
+        "role": "Businessman",
+        "status": "Living (UK/EU sanctioned)"
       }
     },
     {
       "id": "person:samuel-tak-lee",
       "type": "person",
       "name": "Samuel Tak Lee",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Hong Kong",
+        "industry": "Real estate (Prudential Enterprises)",
+        "role": "Chairman",
+        "status": "**Deceased — died 24 May 2026, age 87**",
+        "notes": "Owned Pelorus (115m Lürssen, acquired 2016, ex‑Abramovich); listed for sale (~€160M asking) as of 2025. Status change should be reflected in the graph.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:saudi-royal",
       "type": "person",
       "name": "Saudi Royal",
-      "attrs": {}
-    },
-    {
-      "id": "person:saudi-royal-mohammed-bin-salman",
-      "type": "person",
-      "name": "Saudi Royal (Mohammed bin Salman)",
-      "attrs": {}
+      "attrs": {
+        "role": "Generic royal-family placeholder",
+        "notes": "Linked to Alexander, Prince Abdulaziz, and Turama — no single named individual confirmed for these three vessels.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:sebastian-kulczyk",
       "type": "person",
       "name": "Sebastian Kulczyk",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Polish",
+        "industry": "Investment (Kulczyk Investments)",
+        "role": "Chairman",
+        "status": "Living",
+        "notes": "Phoenix 2 (Lürssen, 2010) was built for his late father Jan Kulczyk (d. 2015) and inherited by Sebastian; **sold September 2024**.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:sergei-chemezov",
@@ -42573,8 +43072,13 @@
         "net_worth": null,
         "notes": "Valued at $153 million, seized in Spain on March 14, 2022.[](https://www.businessinsider.com/russian-oligarchs-roman-abramovich-superyachts-properties-jets-seized-2022-3)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Defense/state industry (Rostec)",
+        "role": "CEO, Rostec",
+        "status": "Living (US sanctioned)"
       }
     },
     {
@@ -42585,69 +43089,132 @@
         "net_worth": null,
         "notes": "192 feet, valued at approximately $50 million, seized in London’s Canary Wharf, UK, on March 29, 2022.[](https://www.afr.com/companies/transport/what-happened-to-russia-s-seized-superyachts-20240723-p5jvyj)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Business (limited public profile)",
+        "role": "Businessman",
+        "status": "Living (UK sanctioned)"
       }
     },
     {
       "id": "person:sergey-brin",
       "type": "person",
       "name": "Sergey Brin",
-      "attrs": {}
-    },
-    {
-      "id": "person:sergey-brin-rumored",
-      "type": "person",
-      "name": "Sergey Brin (rumored)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Tech (Google/Alphabet co‑founder)",
+        "role": "Co‑founder",
+        "status": "Living",
+        "notes": "Owns Dragonfly (142m, delivered 2024).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:shahid-khan",
       "type": "person",
       "name": "Shahid Khan",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American (Pakistani‑born)",
+        "industry": "Auto parts manufacturing (Flex‑N‑Gate); sports (Jacksonville Jaguars, Fulham FC)",
+        "role": "Owner",
+        "status": "Living",
+        "notes": "Owns Kismet (122m Lürssen); available for occasional charter.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "person:shapoor-mistry",
+      "type": "person",
+      "name": "Shapoor Mistry",
+      "attrs": {
+        "nationality": "Indian",
+        "industry": "Real estate/construction conglomerate (Shapoorji Pallonji Group)",
+        "role": "Chairman, Shapoorji Pallonji Group",
+        "status": "Living",
+        "notes": "Real owner of Tatiana (80m Bilgin, 2021) per public sources — corrects a misattribution to Bilal Hydrie inherited from the source corpus. See research/round4/person-enrichment.md.",
+        "provenance": [
+          "person-enrichment-cleanup"
+        ]
+      }
     },
     {
       "id": "person:sheikh-abdullah-al-thani",
       "type": "person",
       "name": "Sheikh Abdullah Al Thani",
-      "attrs": {}
-    },
-    {
-      "id": "person:sheikh-mansour",
-      "type": "person",
-      "name": "Sheikh Mansour",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Qatari",
+        "industry": "n/a (royal family, banking background)",
+        "role": "Sheikh",
+        "status": "Living",
+        "notes": "Graph also attributes Opera to \"UAE Royal (Abdullah bin Zayed)\" — a different person from a different royal family (Al Thani/Qatar vs. Al Nahyan/UAE). This looks like a source conflation; which claim is correct was not resolved this session.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:sheikh-mansour-bin-zayed-al-nahyan",
       "type": "person",
       "name": "Sheikh Mansour bin Zayed Al Nahyan",
-      "attrs": {}
-    },
-    {
-      "id": "person:sheikh-mohammed",
-      "type": "person",
-      "name": "Sheikh Mohammed",
-      "attrs": {}
+      "attrs": {
+        "notes": "Same individual as above (full name variant).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "industry": "Emirati",
+        "role": "Deputy PM UAE; Chairman, Mubadala; owner, Manchester City FC",
+        "status": "Living"
+      }
     },
     {
       "id": "person:sheikh-mohammed-bin-rashid-al-maktoum",
       "type": "person",
       "name": "Sheikh Mohammed bin Rashid Al Maktoum",
-      "attrs": {}
+      "attrs": {
+        "industry": "Emirati",
+        "role": "Ruler of Dubai / UAE PM & VP",
+        "status": "Living",
+        "notes": "Owns Dubai (162m).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:sir-michael-hill",
       "type": "person",
       "name": "Sir Michael Hill",
-      "attrs": {}
+      "attrs": {
+        "nationality": "New Zealander",
+        "industry": "Retail (Michael Hill Jeweller, founder)",
+        "role": "Founder",
+        "status": "Living",
+        "notes": "Owns The Beast; not independently re-verified via fresh web search this session.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:stephen-orenstein",
       "type": "person",
       "name": "Stephen Orenstein",
-      "attrs": {}
+      "attrs": {
+        "nationality": "German‑born, US citizen (Dubai‑based)",
+        "industry": "Logistics (Supreme Group, military logistics contractor)",
+        "role": "Founder",
+        "status": "Living",
+        "notes": "Owns Liva O (118m Abeking & Rasmussen, delivered 2023, ~$250M); one source described the owner only as \"a mystery billionaire from Dubai,\" another names Orenstein directly.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:suleiman-kerimov",
@@ -42657,105 +43224,169 @@
         "net_worth": null,
         "notes": "348 feet, valued at $300 million, seized in Fiji on May 5, 2022, pursuant to a U.S. warrant. Features include a helipad, infinity pool, and multiple bars.[](https://www.nbcnews.com/politics/politics-news/are-superyachts-seized-russian-oligarchs-rcna20346)[](https://www.reuters.com/world/russian-oligarchs-seized-yacht-costs-7-million-year-maintain-us-says-2024-02-12/)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Mining/finance (Polyus Gold, Nafta Moskva)",
+        "role": "Businessman, Federation Council senator",
+        "status": "Living (US sanctioned)"
       }
     },
     {
       "id": "person:sultan-haitham-bin-tariq",
       "type": "person",
       "name": "Sultan Haitham bin Tariq",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Omani",
+        "industry": "n/a (head of state)",
+        "role": "Sultan of Oman",
+        "status": "Living",
+        "notes": "See Oman Royal duplicates above; owns Al Said and Fulk Al Salamah.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:tiger-woods",
       "type": "person",
       "name": "Tiger Woods",
-      "attrs": {}
-    },
-    {
-      "id": "person:turkish-republic",
-      "type": "person",
-      "name": "Turkish Republic",
-      "attrs": {}
-    },
-    {
-      "id": "person:uae-mansour-bin-zayed",
-      "type": "person",
-      "name": "UAE (Mansour bin Zayed)",
-      "attrs": {}
-    },
-    {
-      "id": "person:uae-mansour-bin-zayed-al-nahyan",
-      "type": "person",
-      "name": "UAE (Mansour bin Zayed Al Nahyan)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Sports (professional golfer)",
+        "role": "Athlete",
+        "status": "Living",
+        "notes": "Owns Privacy (~155ft).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:uae-royal-abdullah-bin-zayed",
       "type": "person",
       "name": "UAE Royal (Abdullah bin Zayed)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Emirati",
+        "industry": "n/a (politics)",
+        "role": "Deputy PM & Foreign Minister, UAE",
+        "status": "Living",
+        "notes": "See Sheikh Abdullah Al Thani note above — conflicting Opera attribution.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:uae-royal-hamdan-bin-zayed",
       "type": "person",
       "name": "UAE Royal (Hamdan bin Zayed)",
-      "attrs": {}
-    },
-    {
-      "id": "person:uae-royal-mohammed-bin-zayed-al-nahyan-estate",
-      "type": "person",
-      "name": "UAE Royal (Mohammed bin Zayed Al Nahyan estate)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Emirati",
+        "industry": "n/a (politics)",
+        "role": "Ruler's Representative, Al Dhafra Region",
+        "status": "Living",
+        "notes": "Owns Yas (converted former Navy frigate).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:uae-tahnoun-bin-zayed",
       "type": "person",
       "name": "UAE (Tahnoun bin Zayed)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Emirati",
+        "industry": "Politics/business (National Security Advisor; Chairman, ADQ/IHC)",
+        "role": "National Security Advisor, UAE",
+        "status": "Living",
+        "notes": "Owns Maryah (125m Elefsis).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:unknown-charter-focused",
       "type": "person",
       "name": "Unknown (charter-focused)",
-      "attrs": {}
+      "attrs": {
+        "role": "Placeholder",
+        "notes": "Linked to Loon.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:unknown-custom-build",
       "type": "person",
       "name": "Unknown (custom build)",
-      "attrs": {}
+      "attrs": {
+        "role": "Placeholder",
+        "notes": "Linked to Mansion Yacht.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:unknown-disputed",
       "type": "person",
       "name": "Unknown (disputed)",
-      "attrs": {}
+      "attrs": {
+        "role": "Placeholder",
+        "notes": "Linked to Alfa Nero (pre‑2024‑sale ownership dispute).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:unknown-previously-imperial-yachts",
       "type": "person",
       "name": "Unknown (previously Imperial Yachts)",
-      "attrs": {}
+      "attrs": {
+        "role": "Placeholder",
+        "notes": "Linked to Lana (managed via Imperial Yachts; beneficial owner undisclosed).",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:various-ex-john-mccaw",
       "type": "person",
       "name": "Various (ex-John McCaw)",
-      "attrs": {}
+      "attrs": {
+        "nationality": "American",
+        "industry": "Telecom (McCaw Cellular/AT&T Wireless, founder)",
+        "role": "Former owner",
+        "status": "Living",
+        "notes": "Le Grand Bleu (112.8m) was historically linked to John McCaw Jr. as an early owner; since resold to undisclosed parties.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:various-residential",
       "type": "person",
       "name": "Various (residential)",
-      "attrs": {}
-    },
-    {
-      "id": "person:various-residential-superyacht",
-      "type": "person",
-      "name": "Various (residential superyacht)",
-      "attrs": {}
+      "attrs": {
+        "role": "Placeholder",
+        "notes": "Linked to Somnio (residential-yacht concept with multiple unit \"owners\").",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "placeholder": true
+      }
     },
     {
       "id": "person:viktor-medvedchuk",
@@ -42765,15 +43396,29 @@
         "net_worth": null,
         "notes": "300 feet, valued at $200 million, seized in Rijeka, Croatia, in March 2022.[](https://www.newsweek.com/russian-oligarch-yachts-seized-ukraine-sanctions-1689045)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Ukrainian",
+        "industry": "Politics/media",
+        "role": "Pro‑Russian Ukrainian politician",
+        "status": "Living"
       }
     },
     {
       "id": "person:viktor-rashnikov",
       "type": "person",
       "name": "Viktor Rashnikov",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Russian",
+        "industry": "Steel (Magnitogorsk Iron & Steel Works / MMK)",
+        "role": "Chairman",
+        "status": "Living (EU sanctioned)",
+        "notes": "Owns Ocean Victory (140m Fincantieri); relocated to the Maldives to evade seizure.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "person:viktor-vekselberg",
@@ -42783,15 +43428,28 @@
         "net_worth": null,
         "notes": "255 feet, valued at $90 million, seized in Mallorca, Spain, on April 4, 2022, by U.S. and Spanish authorities. Features seven staterooms, a pool, gym, and beauty salon.[](https://www.nbcnews.com/politics/politics-news/are-superyachts-seized-russian-oligarchs-rcna20346)[](https://apnews.com/article/russia-ukraine-war-oligarch-yacht-seized-e8415972392839f818c5505aa93fc8a5)",
         "provenance": [
-          "74_Seized_Yachts_of_Russian_Oligarchs.md"
-        ]
+          "74_Seized_Yachts_of_Russian_Oligarchs.md",
+          "95_Person_Enrichment_Directory.md"
+        ],
+        "nationality": "Russian",
+        "industry": "Metals/investment (Renova Group)",
+        "role": "Founder",
+        "status": "Living (US sanctioned)"
       }
     },
     {
       "id": "person:yiannis-procopiou",
       "type": "person",
       "name": "Yiannis Procopiou",
-      "attrs": {}
+      "attrs": {
+        "nationality": "Greek",
+        "industry": "Shipping (presumed)",
+        "role": "Unconfirmed",
+        "notes": "No source found for a \"Yiannis Procopiou\" or a yacht named \"Navtilvs\"/\"Navtilos.\" The one well-documented Greek shipping magnate with a similar name is **George Prokopiou** (Dynacom/Sea Traders/Dynagas), who owns a yacht called **Dream**, not Navtilvs. Likely a name/spelling confusion in the source corpus.",
+        "provenance": [
+          "95_Person_Enrichment_Directory.md"
+        ]
+      }
     },
     {
       "id": "region:aalsmeer",
@@ -57231,7 +57889,10 @@
           "meters": 160.6,
           "raw": "160.6m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 22.5,
+          "raw": "22.5"
+        },
         "year": {
           "value": 2022,
           "raw": "2022"
@@ -57249,7 +57910,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "blue",
@@ -57259,7 +57921,15 @@
           "features": [
             "Eco propulsion, expedition; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.7,
+          "raw": "5.7"
+        },
+        "gt": 14785,
+        "flag": "n/a (not found)",
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -58348,7 +59018,10 @@
           "meters": 90,
           "raw": "90"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.2,
+          "raw": "14.2"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -58358,12 +59031,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "dar",
           "builderId": "builder:oceanco"
-        }
+        },
+        "draft": {
+          "meters": 3.95,
+          "raw": "3.95"
+        },
+        "max_speed": 20,
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -59046,10 +59727,13 @@
       "name": "EIV",
       "attrs": {
         "loa": {
-          "meters": 160,
-          "raw": "160m"
+          "meters": 48.8,
+          "raw": "48.8m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 8.9,
+          "raw": "8.9"
+        },
         "year": null,
         "value": null,
         "weekly_rate": {
@@ -59063,11 +59747,20 @@
         "features": "5 staterooms, panoramic views",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "eiv",
           "builderId": null
+        },
+        "gt": 498,
+        "max_speed": 19,
+        "range_nm": 3600,
+        "conflicts": {
+          "loa": [
+            "160m (superseded — Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
+          ]
         }
       }
     },
@@ -60234,7 +60927,10 @@
           "meters": 164,
           "raw": "164m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21.04,
+          "raw": "21.04"
+        },
         "year": {
           "value": 2016,
           "raw": "2016"
@@ -60252,7 +60948,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "fulk al salamah",
@@ -60262,7 +60959,17 @@
           "features": [
             "Largest by volume, support vessel; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 6.01,
+          "raw": "6.01"
+        },
+        "gt": 11000,
+        "max_speed": 16,
+        "range_nm": 3000,
+        "flag": "Oman",
+        "class_society": "n/a (not found)",
+        "imo": "9714460 (unverified independently)"
       }
     },
     {
@@ -60919,7 +61626,10 @@
           "meters": 105,
           "raw": "105 m (344 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.78,
+          "raw": "14.78"
+        },
         "year": {
           "value": 2000,
           "raw": "2000 (rebuilt 2023)"
@@ -60936,7 +61646,8 @@
         "features": "Rebuilt from ex-Al Mirqab rescue vessel, helipad, spa, cinema; eco upgrades.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "h3",
@@ -60946,7 +61657,12 @@
           "features": [
             "Eco upgrades, helipad; Med rebuild."
           ]
-        }
+        },
+        "gt": 3521,
+        "max_speed": 18,
+        "range_nm": 6000,
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -64081,7 +64797,10 @@
           "meters": 138.8,
           "raw": "138.8m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21,
+          "raw": "21"
+        },
         "year": {
           "value": 2024,
           "raw": "2024"
@@ -64094,12 +64813,22 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "luminance",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.3,
+          "raw": "5.3"
+        },
+        "gt": 9400,
+        "max_speed": 20,
+        "flag": "n/a (not found)",
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -65579,10 +66308,13 @@
       "name": "MYSTERE",
       "attrs": {
         "loa": {
-          "meters": 109,
-          "raw": "109m"
+          "meters": 33.29,
+          "raw": "33.29m (109ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 7.39,
+          "raw": "7.39"
+        },
         "year": null,
         "value": null,
         "weekly_rate": {
@@ -65596,11 +66328,26 @@
         "features": "Chic vessel for Riviera",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "mystere",
           "builderId": null
+        },
+        "draft": {
+          "meters": 1.9,
+          "raw": "1.9"
+        },
+        "gt": 247,
+        "max_speed": 25,
+        "flag": "n/a (not found)",
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)",
+        "conflicts": {
+          "loa": [
+            "109m (superseded — Graph LOA (109m) conflated \"109 ft\" with \"109 m\" (a feet-to-meters conversion bug) — real MYSTERE is a 33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
+          ]
         }
       }
     },
@@ -67508,7 +68255,10 @@
           "meters": 112,
           "raw": "112/367"
         },
-        "beam": null,
+        "beam": {
+          "meters": 6.8,
+          "raw": "6.8"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -67518,12 +68268,23 @@
         "features": null,
         "location": null,
         "provenance": [
-          "28_Superyachts_Definition_Features_Innovations.md"
+          "28_Superyachts_Definition_Features_Innovations.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "project steel",
           "builderId": null
-        }
+        },
+        "draft": {
+          "meters": 2.5,
+          "raw": "2.5"
+        },
+        "gt": 190,
+        "max_speed": 14,
+        "range_nm": 2750,
+        "flag": "Greece",
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -69033,7 +69794,10 @@
           "meters": 136,
           "raw": "136m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 16,
+          "raw": "16"
+        },
         "year": {
           "value": 1931,
           "raw": "1931"
@@ -69046,12 +69810,22 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "savarona",
           "builderId": "builder:blohm-voss"
-        }
+        },
+        "draft": {
+          "meters": 6.1,
+          "raw": "6.1"
+        },
+        "gt": 4701,
+        "max_speed": 18,
+        "flag": "Turkey",
+        "class_society": "n/a (not found)",
+        "imo": "n/a (not found)"
       }
     },
     {
@@ -74621,7 +75395,7 @@
       "attrs": {}
     },
     {
-      "src": "club:cleveland-yacht-club",
+      "src": "club:cleveland-yachting-club",
       "rel": "located_in",
       "dst": "region:cyc",
       "attrs": {}
@@ -74839,13 +75613,13 @@
     {
       "src": "club:deep-cove-yacht-club",
       "rel": "located_in",
-      "dst": "region:north-vancouver",
+      "dst": "region:dcyc",
       "attrs": {}
     },
     {
-      "src": "club:deep-cove-yacht-club-sports-club",
+      "src": "club:deep-cove-yacht-club",
       "rel": "located_in",
-      "dst": "region:dcyc",
+      "dst": "region:north-vancouver",
       "attrs": {}
     },
     {
@@ -75911,7 +76685,7 @@
       "attrs": {}
     },
     {
-      "src": "club:royal-vancouver-yacht-club-rvyc",
+      "src": "club:royal-vancouver-yacht-club",
       "rel": "located_in",
       "dst": "region:vancouver",
       "attrs": {}
@@ -75920,6 +76694,12 @@
       "src": "club:royal-yacht-club-of-tasmania",
       "rel": "located_in",
       "dst": "region:ryct",
+      "attrs": {}
+    },
+    {
+      "src": "club:royal-yacht-club-of-tasmania",
+      "rel": "located_in",
+      "dst": "region:sandy-bay",
       "attrs": {}
     },
     {
@@ -76133,21 +76913,9 @@
       "attrs": {}
     },
     {
-      "src": "club:the-florida-yacht-club-duplicate-entry-in-sources",
-      "rel": "located_in",
-      "dst": "region:jacksonville",
-      "attrs": {}
-    },
-    {
       "src": "club:the-mersey-yacht-club",
       "rel": "located_in",
       "dst": "region:east-devonport",
-      "attrs": {}
-    },
-    {
-      "src": "club:the-royal-yacht-club-of-tasmania",
-      "rel": "located_in",
-      "dst": "region:sandy-bay",
       "attrs": {}
     },
     {
@@ -76219,13 +76987,13 @@
     {
       "src": "club:west-vancouver-yacht-club",
       "rel": "located_in",
-      "dst": "region:wvyc",
+      "dst": "region:west-vancouver",
       "attrs": {}
     },
     {
-      "src": "club:west-vancouver-yacht-club-wvyc",
+      "src": "club:west-vancouver-yacht-club",
       "rel": "located_in",
-      "dst": "region:west-vancouver",
+      "dst": "region:wvyc",
       "attrs": {}
     },
     {
@@ -84799,7 +85567,7 @@
     {
       "src": "yacht:a",
       "rel": "owned_by",
-      "dst": "person:uae-mansour-bin-zayed",
+      "dst": "person:sheikh-mansour-bin-zayed-al-nahyan",
       "attrs": {}
     },
     {
@@ -84812,7 +85580,9 @@
       "src": "yacht:a-blohm-voss",
       "rel": "owned_by",
       "dst": "person:andrey-melnichenko",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:a4a",
@@ -84890,7 +85660,9 @@
       "src": "yacht:ahpo",
       "rel": "owned_by",
       "dst": "person:michael-lee-chin",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:air",
@@ -84920,7 +85692,9 @@
       "src": "yacht:al-lusail",
       "rel": "owned_by",
       "dst": "person:qatar-tamim-bin-hamad",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:al-mirqab",
@@ -84967,14 +85741,10 @@
     {
       "src": "yacht:al-said",
       "rel": "owned_by",
-      "dst": "person:oman-royal-sultan-haitham",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:al-said",
-      "rel": "owned_by",
       "dst": "person:sultan-haitham-bin-tariq",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:al-salamah",
@@ -85052,7 +85822,9 @@
       "src": "yacht:alfa-nero",
       "rel": "owned_by",
       "dst": "person:andrey-guryev",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:alfa-nero",
@@ -85124,7 +85896,9 @@
       "src": "yacht:amevi",
       "rel": "owned_by",
       "dst": "person:lakshmi-mittal",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:amor-a-vida",
@@ -85238,7 +86012,9 @@
       "src": "yacht:aquila",
       "rel": "owned_by",
       "dst": "person:ann-walton-kroenke",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:arbema",
@@ -85334,7 +86110,9 @@
       "src": "yacht:atlantis-ii",
       "rel": "owned_by",
       "dst": "person:philip-niarchos",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:atlas",
@@ -85388,7 +86166,9 @@
       "src": "yacht:axioma",
       "rel": "owned_by",
       "dst": "person:dmitry-pumpyansky",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:axioma-dunya",
@@ -85412,13 +86192,9 @@
       "src": "yacht:azzam",
       "rel": "owned_by",
       "dst": "person:mohammed-bin-zayed-al-nahyan",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:azzam",
-      "rel": "owned_by",
-      "dst": "person:uae-royal-mohammed-bin-zayed-al-nahyan-estate",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:azzurri",
@@ -85567,20 +86343,10 @@
     {
       "src": "yacht:blue",
       "rel": "owned_by",
-      "dst": "person:sheikh-mansour",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:blue",
-      "rel": "owned_by",
       "dst": "person:sheikh-mansour-bin-zayed-al-nahyan",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:blue",
-      "rel": "owned_by",
-      "dst": "person:uae-mansour-bin-zayed-al-nahyan",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:boadicea",
@@ -85604,7 +86370,9 @@
       "src": "yacht:bold",
       "rel": "owned_by",
       "dst": "person:guido-krass",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:bold-repeat-avoid-but-variant",
@@ -85646,7 +86414,9 @@
       "src": "yacht:breakthrough-feadship",
       "rel": "owned_by",
       "dst": "person:bill-gates",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:brooklyn",
@@ -85790,7 +86560,9 @@
       "src": "yacht:crescent",
       "rel": "owned_by",
       "dst": "person:igor-sechin",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:da-vinci",
@@ -85849,8 +86621,10 @@
     {
       "src": "yacht:deep-blue",
       "rel": "owned_by",
-      "dst": "person:liu-qiangdong-jd-com",
-      "attrs": {}
+      "dst": "person:liu-qiangdong",
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:deniki",
@@ -85886,25 +86660,9 @@
       "src": "yacht:dilbar",
       "rel": "owned_by",
       "dst": "person:alisher-usmanov",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dilbar",
-      "rel": "owned_by",
-      "dst": "person:alisher-usmanov-legally-owned-by-sister-gulbahor-ismailova",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dilbar",
-      "rel": "owned_by",
-      "dst": "person:alisher-usmanov-via-sister",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dilbar",
-      "rel": "owned_by",
-      "dst": "person:alisher-usmanov-via-sister-gulbahor-ismailova",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:discovery",
@@ -85928,18 +86686,14 @@
       "src": "yacht:dragonfly",
       "rel": "owned_by",
       "dst": "person:sergey-brin",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:dragonfly-silveryachts",
       "rel": "built_by",
       "dst": "builder:silveryachts",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dragonfly-silveryachts",
-      "rel": "owned_by",
-      "dst": "person:sergey-brin-rumored",
       "attrs": {}
     },
     {
@@ -85981,20 +86735,10 @@
     {
       "src": "yacht:dubai",
       "rel": "owned_by",
-      "dst": "person:dubai-royal-mohammed-bin-rashid-al-maktoum",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dubai",
-      "rel": "owned_by",
-      "dst": "person:sheikh-mohammed",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:dubai",
-      "rel": "owned_by",
       "dst": "person:sheikh-mohammed-bin-rashid-al-maktoum",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:eclipse",
@@ -86012,7 +86756,9 @@
       "src": "yacht:eclipse",
       "rel": "owned_by",
       "dst": "person:roman-abramovich",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:el-mahrousa",
@@ -86023,7 +86769,7 @@
     {
       "src": "yacht:el-mahrousa",
       "rel": "owned_by",
-      "dst": "person:egyptian-presidential-yacht",
+      "dst": "company:egyptian-presidential-yacht",
       "attrs": {}
     },
     {
@@ -86054,7 +86800,9 @@
       "src": "yacht:elements",
       "rel": "owned_by",
       "dst": "person:faisal-al-ayyar",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "unconfirmed"
+      }
     },
     {
       "src": "yacht:elis-et-mar",
@@ -86180,7 +86928,9 @@
       "src": "yacht:excellence",
       "rel": "owned_by",
       "dst": "person:herb-chambers",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:faith",
@@ -86234,13 +86984,17 @@
       "src": "yacht:flying-fox",
       "rel": "owned_by",
       "dst": "person:dmitry-kamenshchik",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:flying-fox",
       "rel": "owned_by",
-      "dst": "person:jeff-bezos-rumored",
-      "attrs": {}
+      "dst": "person:jeff-bezos",
+      "attrs": {
+        "ownership_confidence": "rumored"
+      }
     },
     {
       "src": "yacht:force-blue",
@@ -86305,14 +87059,16 @@
     {
       "src": "yacht:fulk-al-salamah",
       "rel": "owned_by",
-      "dst": "person:oman-royal-sultan-haitham-bin-tariq",
+      "dst": "person:omani-royal-family",
       "attrs": {}
     },
     {
       "src": "yacht:fulk-al-salamah",
       "rel": "owned_by",
-      "dst": "person:omani-royal-family",
-      "attrs": {}
+      "dst": "person:sultan-haitham-bin-tariq",
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:fx",
@@ -86390,7 +87146,9 @@
       "src": "yacht:golden-odyssey",
       "rel": "owned_by",
       "dst": "person:liu-qiangdong",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:grace",
@@ -86450,13 +87208,9 @@
       "src": "yacht:h3",
       "rel": "owned_by",
       "dst": "person:eike-batista-previous",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:h3",
-      "rel": "owned_by",
-      "dst": "person:eike-batista-previously",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "unconfirmed"
+      }
     },
     {
       "src": "yacht:h3-various",
@@ -86486,7 +87240,9 @@
       "src": "yacht:hasna",
       "rel": "owned_by",
       "dst": "person:john-symond",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:haze-2",
@@ -86558,7 +87314,9 @@
       "src": "yacht:ije",
       "rel": "owned_by",
       "dst": "person:james-packer",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:illusion",
@@ -86588,7 +87346,9 @@
       "src": "yacht:infinity",
       "rel": "owned_by",
       "dst": "person:eric-smidt",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:infinity-oceanco",
@@ -86623,7 +87383,7 @@
     {
       "src": "yacht:j7-explorer",
       "rel": "owned_by",
-      "dst": "person:indonesian-corporate",
+      "dst": "company:indonesian-corporate",
       "attrs": {}
     },
     {
@@ -86690,7 +87450,9 @@
       "src": "yacht:kaos",
       "rel": "owned_by",
       "dst": "person:nancy-walton-laurie",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:katana",
@@ -86804,7 +87566,9 @@
       "src": "yacht:kismet",
       "rel": "owned_by",
       "dst": "person:shahid-khan",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:kogo",
@@ -86828,7 +87592,9 @@
       "src": "yacht:koru",
       "rel": "owned_by",
       "dst": "person:jeff-bezos",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:l-octant",
@@ -86852,7 +87618,9 @@
       "src": "yacht:la-datcha",
       "rel": "owned_by",
       "dst": "person:oleg-tinkov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:la-tania",
@@ -86912,7 +87680,9 @@
       "src": "yacht:lady-jorgia",
       "rel": "owned_by",
       "dst": "person:patrick-dovigi",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:lady-lara",
@@ -86936,7 +87706,9 @@
       "src": "yacht:lady-moura",
       "rel": "owned_by",
       "dst": "person:nasser-al-rashid",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:lady-s",
@@ -86954,7 +87726,9 @@
       "src": "yacht:lady-s",
       "rel": "owned_by",
       "dst": "person:dan-snyder-rumored",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "rumored"
+      }
     },
     {
       "src": "yacht:lady-vera",
@@ -86996,7 +87770,9 @@
       "src": "yacht:launchpad",
       "rel": "owned_by",
       "dst": "person:mark-zuckerberg",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:laurel",
@@ -87026,7 +87802,9 @@
       "src": "yacht:le-grand-bleu",
       "rel": "owned_by",
       "dst": "person:various-ex-john-mccaw",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:le-ponant",
@@ -87092,7 +87870,9 @@
       "src": "yacht:lionheart",
       "rel": "owned_by",
       "dst": "person:philip-green",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:liquidity",
@@ -87122,7 +87902,9 @@
       "src": "yacht:liva-o",
       "rel": "owned_by",
       "dst": "person:stephen-orenstein",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:lizzi",
@@ -87182,7 +87964,9 @@
       "src": "yacht:luminance",
       "rel": "owned_by",
       "dst": "person:rinat-akhmetov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:luna",
@@ -87194,7 +87978,9 @@
       "src": "yacht:luna",
       "rel": "owned_by",
       "dst": "person:farkhad-akhmedov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:luna-2",
@@ -87272,7 +88058,9 @@
       "src": "yacht:man-of-steel",
       "rel": "owned_by",
       "dst": "person:barry-zekelman",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:mangusta-92",
@@ -87356,7 +88144,9 @@
       "src": "yacht:maryah",
       "rel": "owned_by",
       "dst": "person:uae-tahnoun-bin-zayed",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:maverick",
@@ -87488,7 +88278,9 @@
       "src": "yacht:multiverse",
       "rel": "owned_by",
       "dst": "person:graeme-hart",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:musashi",
@@ -87506,7 +88298,9 @@
       "src": "yacht:musashi",
       "rel": "owned_by",
       "dst": "person:larry-ellison",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:mystere",
@@ -87524,7 +88318,9 @@
       "src": "yacht:naia",
       "rel": "owned_by",
       "dst": "person:robert-stiller",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "unconfirmed"
+      }
     },
     {
       "src": "yacht:naia-freire-shipyard",
@@ -87554,7 +88350,9 @@
       "src": "yacht:navtilvs",
       "rel": "owned_by",
       "dst": "person:yiannis-procopiou",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "unconfirmed"
+      }
     },
     {
       "src": "yacht:nero",
@@ -87602,7 +88400,9 @@
       "src": "yacht:nord",
       "rel": "owned_by",
       "dst": "person:alexei-mordashov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:o-madeleine",
@@ -87644,7 +88444,9 @@
       "src": "yacht:ocean-victory",
       "rel": "owned_by",
       "dst": "person:viktor-rashnikov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:oceana",
@@ -87679,26 +88481,10 @@
     {
       "src": "yacht:octopus",
       "rel": "owned_by",
-      "dst": "person:estate-of-paul-allen-now-roger-samuelsson",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:octopus",
-      "rel": "owned_by",
-      "dst": "person:previously-paul-allen-now-others",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:octopus",
-      "rel": "owned_by",
       "dst": "person:roger-samuelsson",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:octopus",
-      "rel": "owned_by",
-      "dst": "person:roger-samuelsson-ex-paul-allen-estate",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:octopussy",
@@ -87740,13 +88526,17 @@
       "src": "yacht:opera",
       "rel": "owned_by",
       "dst": "person:sheikh-abdullah-al-thani",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "disputed"
+      }
     },
     {
       "src": "yacht:opera",
       "rel": "owned_by",
       "dst": "person:uae-royal-abdullah-bin-zayed",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "disputed"
+      }
     },
     {
       "src": "yacht:oracle",
@@ -87836,7 +88626,9 @@
       "src": "yacht:pelorus",
       "rel": "owned_by",
       "dst": "person:samuel-tak-lee",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:phoenix-2",
@@ -87854,7 +88646,9 @@
       "src": "yacht:phoenix-2",
       "rel": "owned_by",
       "dst": "person:sebastian-kulczyk",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:pi",
@@ -87950,7 +88744,9 @@
       "src": "yacht:privacy",
       "rel": "owned_by",
       "dst": "person:tiger-woods",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:project-x",
@@ -88004,7 +88800,9 @@
       "src": "yacht:radiant",
       "rel": "owned_by",
       "dst": "person:abdulla-al-futtaim",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:ragnar",
@@ -88082,7 +88880,9 @@
       "src": "yacht:rev-ocean",
       "rel": "owned_by",
       "dst": "person:kjell-inge-r-kke",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:revelry",
@@ -88118,7 +88918,9 @@
       "src": "yacht:rising-sun",
       "rel": "owned_by",
       "dst": "person:david-geffen",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:rivale-56",
@@ -88184,7 +88986,9 @@
       "src": "yacht:sailing-yacht-a",
       "rel": "owned_by",
       "dst": "person:andrey-melnichenko",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:sairu",
@@ -88208,7 +89012,9 @@
       "src": "yacht:samsara",
       "rel": "owned_by",
       "dst": "person:jk-rowling",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:samsara-oceanco",
@@ -88220,7 +89026,9 @@
       "src": "yacht:samsara-oceanco",
       "rel": "owned_by",
       "dst": "person:jk-rowling",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:samsara-samudra",
@@ -88273,7 +89081,7 @@
     {
       "src": "yacht:savarona",
       "rel": "owned_by",
-      "dst": "person:turkish-republic",
+      "dst": "company:turkish-republic",
       "attrs": {}
     },
     {
@@ -88298,7 +89106,9 @@
       "src": "yacht:scheherazade",
       "rel": "owned_by",
       "dst": "person:eduard-khudaynatov",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "disputed"
+      }
     },
     {
       "src": "yacht:scott-free",
@@ -88406,13 +89216,9 @@
       "src": "yacht:serene",
       "rel": "owned_by",
       "dst": "person:mohammed-bin-salman",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:serene",
-      "rel": "owned_by",
-      "dst": "person:saudi-royal-mohammed-bin-salman",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:serengeti",
@@ -88508,7 +89314,9 @@
       "src": "yacht:solaris",
       "rel": "owned_by",
       "dst": "person:roman-abramovich",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:solemates",
@@ -88532,12 +89340,6 @@
       "src": "yacht:somnio",
       "rel": "owned_by",
       "dst": "person:various-residential",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:somnio",
-      "rel": "owned_by",
-      "dst": "person:various-residential-superyacht",
       "attrs": {}
     },
     {
@@ -88754,7 +89556,9 @@
       "src": "yacht:symphony",
       "rel": "owned_by",
       "dst": "person:bernard-arnault",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:takara-one",
@@ -88777,8 +89581,10 @@
     {
       "src": "yacht:tatiana",
       "rel": "owned_by",
-      "dst": "person:bilal-hydrie",
-      "attrs": {}
+      "dst": "person:shapoor-mistry",
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:tatiana-bilgin-yachts",
@@ -88838,7 +89644,9 @@
       "src": "yacht:the-beast",
       "rel": "owned_by",
       "dst": "person:sir-michael-hill",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:the-jackson",
@@ -89006,13 +89814,9 @@
       "src": "yacht:venus",
       "rel": "owned_by",
       "dst": "person:laurene-powell-jobs",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:venus",
-      "rel": "owned_by",
-      "dst": "person:laurene-powell-jobs-steve-jobs-family",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:vertige",
@@ -89096,7 +89900,9 @@
       "src": "yacht:viva",
       "rel": "owned_by",
       "dst": "person:frank-fertitta",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:voyager",
@@ -89126,13 +89932,9 @@
       "src": "yacht:wayfinder",
       "rel": "owned_by",
       "dst": "person:bill-gates",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:wayfinder",
-      "rel": "owned_by",
-      "dst": "person:bill-gates-support-vessel",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:wedge-too",
@@ -89162,7 +89964,9 @@
       "src": "yacht:whisper",
       "rel": "owned_by",
       "dst": "person:shahid-khan",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:white-star",
@@ -89210,7 +90014,9 @@
       "src": "yacht:yas",
       "rel": "owned_by",
       "dst": "person:uae-royal-hamdan-bin-zayed",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     },
     {
       "src": "yacht:yersin",
@@ -89228,7 +90034,9 @@
       "src": "yacht:z",
       "rel": "owned_by",
       "dst": "person:barry-zekelman",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "confirmed"
+      }
     },
     {
       "src": "yacht:zazou",
@@ -89246,7 +90054,9 @@
       "src": "yacht:zen",
       "rel": "owned_by",
       "dst": "person:jack-ma-rumored",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "rumored"
+      }
     },
     {
       "src": "yacht:zenji",
@@ -89264,7 +90074,9 @@
       "src": "yacht:zeus",
       "rel": "owned_by",
       "dst": "person:john-christodoulou",
-      "attrs": {}
+      "attrs": {
+        "ownership_confidence": "widely reported"
+      }
     }
   ],
   "indexes": {
@@ -89494,7 +90306,6 @@
         "club:china-cruising-yacht-club",
         "club:claremont-yacht-club",
         "club:clearwater-yacht-club",
-        "club:cleveland-yacht-club",
         "club:cleveland-yachting-club",
         "club:club-de-regatas-lima",
         "club:club-de-regatas-san-nicolas",
@@ -89529,7 +90340,6 @@
         "club:darwin-sailing-club",
         "club:davis-island-yacht-club",
         "club:deep-cove-yacht-club",
-        "club:deep-cove-yacht-club-sports-club",
         "club:del-rey-yacht-club",
         "club:detroit-yacht-club",
         "club:duluth-boat-club",
@@ -89550,7 +90360,6 @@
         "club:fantasea-yacht-club",
         "club:fifth-street-yacht-club",
         "club:fircrest-yacht-club",
-        "club:first-yacht-club-in-florida",
         "club:florida-yacht-club",
         "club:ford-yacht-club",
         "club:fort-myers-yacht-club",
@@ -89662,7 +90471,6 @@
         "club:nautical-club-of-palaio-faliro",
         "club:nautical-club-of-thessaloniki",
         "club:nautical-club-of-vouliagmeni",
-        "club:nautical-club-of-vouliagmeni-nov",
         "club:nedlands-yacht-club",
         "club:neptun",
         "club:neva-yacht-club",
@@ -89717,7 +90525,6 @@
         "club:royal-prince-alfred-yacht-club",
         "club:royal-suva-yacht-club",
         "club:royal-vancouver-yacht-club",
-        "club:royal-vancouver-yacht-club-rvyc",
         "club:royal-yacht-club-of-tasmania",
         "club:royal-yacht-club-of-victoria",
         "club:saf-yacht-club",
@@ -89755,10 +90562,8 @@
         "club:terijoki-yacht-club",
         "club:thames-sailing-club",
         "club:the-bay-101-yacht-club",
-        "club:the-florida-yacht-club-duplicate-entry-in-sources",
         "club:the-mersey-yacht-club",
         "club:the-most-famous-yacht-club-in-montauk",
-        "club:the-royal-yacht-club-of-tasmania",
         "club:the-tech-titan-yacht-club",
         "club:thunder-bay-yacht-club",
         "club:tokyo-sail-and-power-squadron",
@@ -89774,7 +90579,6 @@
         "club:visun-royal-yacht-club",
         "club:waseda-university-yacht-club",
         "club:west-vancouver-yacht-club",
-        "club:west-vancouver-yacht-club-wvyc",
         "club:willamette-sailing-club",
         "club:yacht-club-ancon",
         "club:yacht-club-argentino",
@@ -90031,6 +90835,7 @@
         "company:edgeprop-sg",
         "company:edmiston",
         "company:edmiston-and-company",
+        "company:egyptian-presidential-yacht",
         "company:elco-electric-launch-company-lineage",
         "company:elefsis-shipbuilding-industrial-enterprises",
         "company:emstreets-ca",
@@ -90130,6 +90935,7 @@
         "company:imi-saudi-aramco-bahri-hyundai-hi-lamprell-jv",
         "company:ims-shipyard-nepteam-holdings",
         "company:indian-navy",
+        "company:indonesian-corporate",
         "company:ingalls-marine-diesel",
         "company:international-boat-charters-com",
         "company:international-charter-expo",
@@ -90490,6 +91296,7 @@
         "company:tropical-yachts",
         "company:ttaa-or-th",
         "company:tugboatinformation-com",
+        "company:turkish-republic",
         "company:twin-disc-inc",
         "company:tww-yachts",
         "company:u-boat-worx-b-v",
@@ -91807,9 +92614,6 @@
         "person:alexander-mikheev",
         "person:alexei-mordashov",
         "person:alisher-usmanov",
-        "person:alisher-usmanov-legally-owned-by-sister-gulbahor-ismailova",
-        "person:alisher-usmanov-via-sister",
-        "person:alisher-usmanov-via-sister-gulbahor-ismailova",
         "person:andrey-guryev",
         "person:andrey-melnichenko",
         "person:ann-walton-kroenke",
@@ -91818,18 +92622,13 @@
         "person:bernard-arnault",
         "person:bilal-hydrie",
         "person:bill-gates",
-        "person:bill-gates-support-vessel",
         "person:dan-snyder-rumored",
         "person:david-geffen",
         "person:dmitry-kamenshchik",
         "person:dmitry-pumpyansky",
-        "person:dubai-royal-mohammed-bin-rashid-al-maktoum",
         "person:eduard-khudaynatov",
-        "person:egyptian-presidential-yacht",
         "person:eike-batista-previous",
-        "person:eike-batista-previously",
         "person:eric-smidt",
-        "person:estate-of-paul-allen-now-roger-samuelsson",
         "person:faisal-al-ayyar",
         "person:farkhad-akhmedov",
         "person:frank-fertitta",
@@ -91838,11 +92637,9 @@
         "person:guido-krass",
         "person:herb-chambers",
         "person:igor-sechin",
-        "person:indonesian-corporate",
         "person:jack-ma-rumored",
         "person:james-packer",
         "person:jeff-bezos",
-        "person:jeff-bezos-rumored",
         "person:jk-rowling",
         "person:john-christodoulou",
         "person:john-symond",
@@ -91850,9 +92647,7 @@
         "person:lakshmi-mittal",
         "person:larry-ellison",
         "person:laurene-powell-jobs",
-        "person:laurene-powell-jobs-steve-jobs-family",
         "person:liu-qiangdong",
-        "person:liu-qiangdong-jd-com",
         "person:mark-zuckerberg",
         "person:michael-lee-chin",
         "person:mixed-e-g-more-lurssen-feadship",
@@ -91861,46 +92656,35 @@
         "person:nancy-walton-laurie",
         "person:nasser-al-rashid",
         "person:oleg-tinkov",
-        "person:oman-royal-sultan-haitham",
-        "person:oman-royal-sultan-haitham-bin-tariq",
         "person:omani-royal-family",
         "person:patrick-dovigi",
         "person:philip-green",
         "person:philip-niarchos",
         "person:previously-david-geffen-now-others",
-        "person:previously-paul-allen-now-others",
         "person:qatar-royal",
         "person:qatar-tamim-bin-hamad",
         "person:rinat-akhmetov",
         "person:robert-stiller",
         "person:roger-samuelsson",
-        "person:roger-samuelsson-ex-paul-allen-estate",
         "person:roman-abramovich",
         "person:samuel-tak-lee",
         "person:saudi-royal",
-        "person:saudi-royal-mohammed-bin-salman",
         "person:sebastian-kulczyk",
         "person:sergei-chemezov",
         "person:sergei-naumenko",
         "person:sergey-brin",
-        "person:sergey-brin-rumored",
         "person:shahid-khan",
+        "person:shapoor-mistry",
         "person:sheikh-abdullah-al-thani",
-        "person:sheikh-mansour",
         "person:sheikh-mansour-bin-zayed-al-nahyan",
-        "person:sheikh-mohammed",
         "person:sheikh-mohammed-bin-rashid-al-maktoum",
         "person:sir-michael-hill",
         "person:stephen-orenstein",
         "person:suleiman-kerimov",
         "person:sultan-haitham-bin-tariq",
         "person:tiger-woods",
-        "person:turkish-republic",
-        "person:uae-mansour-bin-zayed",
-        "person:uae-mansour-bin-zayed-al-nahyan",
         "person:uae-royal-abdullah-bin-zayed",
         "person:uae-royal-hamdan-bin-zayed",
-        "person:uae-royal-mohammed-bin-zayed-al-nahyan-estate",
         "person:uae-tahnoun-bin-zayed",
         "person:unknown-charter-focused",
         "person:unknown-custom-build",
@@ -91908,7 +92692,6 @@
         "person:unknown-previously-imperial-yachts",
         "person:various-ex-john-mccaw",
         "person:various-residential",
-        "person:various-residential-superyacht",
         "person:viktor-medvedchuk",
         "person:viktor-rashnikov",
         "person:viktor-vekselberg",
@@ -94074,15 +94857,6 @@
       "alisher usmanov": [
         "person:alisher-usmanov"
       ],
-      "alisher usmanov (legally owned by sister gulbahor ismailova)": [
-        "person:alisher-usmanov-legally-owned-by-sister-gulbahor-ismailova"
-      ],
-      "alisher usmanov (via sister gulbahor ismailova)": [
-        "person:alisher-usmanov-via-sister-gulbahor-ismailova"
-      ],
-      "alisher usmanov (via sister)": [
-        "person:alisher-usmanov-via-sister"
-      ],
       "all marine center": [
         "marina:all-marine-center"
       ],
@@ -95132,9 +95906,6 @@
       "bill gates": [
         "person:bill-gates"
       ],
-      "bill gates (support vessel)": [
-        "person:bill-gates-support-vessel"
-      ],
       "bimini": [
         "part:bimini"
       ],
@@ -96162,9 +96933,6 @@
       "cleopatra marina": [
         "marina:cleopatra-marina"
       ],
-      "cleveland yacht club": [
-        "club:cleveland-yacht-club"
-      ],
       "cleveland yachting club": [
         "club:cleveland-yachting-club"
       ],
@@ -96764,9 +97532,6 @@
       "deep cove yacht club": [
         "club:deep-cove-yacht-club"
       ],
-      "deep cove yacht club & sports club": [
-        "club:deep-cove-yacht-club-sports-club"
-      ],
       "deep sea marine": [
         "builder:deep-sea-marine"
       ],
@@ -97057,9 +97822,6 @@
       "dubai maritime city superyacht service centre": [
         "shipyard:dubai-maritime-city-superyacht-service-centre"
       ],
-      "dubai royal (mohammed bin rashid al maktoum)": [
-        "person:dubai-royal-mohammed-bin-rashid-al-maktoum"
-      ],
       "dublin, oh": [
         "region:dublin-oh"
       ],
@@ -97229,7 +97991,7 @@
         "marina:egmont-marina"
       ],
       "egyptian presidential yacht": [
-        "person:egyptian-presidential-yacht"
+        "company:egyptian-presidential-yacht"
       ],
       "ehyc": [
         "region:ehyc"
@@ -97239,9 +98001,6 @@
       ],
       "eike batista (previous)": [
         "person:eike-batista-previous"
-      ],
-      "eike batista (previously)": [
-        "person:eike-batista-previously"
       ],
       "eildon": [
         "region:eildon"
@@ -97423,9 +98182,6 @@
       ],
       "estaleiro jurong aracruz": [
         "shipyard:estaleiro-jurong-aracruz"
-      ],
-      "estate of paul allen (now roger samuelsson)": [
-        "person:estate-of-paul-allen-now-roger-samuelsson"
       ],
       "estepona, costa del sol": [
         "region:estepona-costa-del-sol"
@@ -97654,9 +98410,6 @@
       ],
       "firebird": [
         "yacht:firebird"
-      ],
-      "first yacht club in florida": [
-        "club:first-yacht-club-in-florida"
       ],
       "fisherman's cove marina": [
         "marina:fisherman-s-cove-marina"
@@ -98917,7 +99670,7 @@
         "engine:indmar-marine-engines"
       ],
       "indonesian corporate": [
-        "person:indonesian-corporate"
+        "company:indonesian-corporate"
       ],
       "infinity": [
         "yacht:infinity",
@@ -99107,9 +99860,6 @@
       ],
       "jeff bezos": [
         "person:jeff-bezos"
-      ],
-      "jeff bezos (rumored)": [
-        "person:jeff-bezos-rumored"
       ],
       "jeff boat": [
         "builder:jeff-boat"
@@ -99692,9 +100442,6 @@
       "laurene powell jobs": [
         "person:laurene-powell-jobs"
       ],
-      "laurene powell jobs (steve jobs family)": [
-        "person:laurene-powell-jobs-steve-jobs-family"
-      ],
       "lautém": [
         "region:lautem"
       ],
@@ -99833,9 +100580,6 @@
       ],
       "liu qiangdong": [
         "person:liu-qiangdong"
-      ],
-      "liu qiangdong (jd.com)": [
-        "person:liu-qiangdong-jd-com"
       ],
       "liv love": [
         "yacht:liv-love"
@@ -101192,9 +101936,6 @@
       "nautical club of vouliagmeni": [
         "club:nautical-club-of-vouliagmeni"
       ],
-      "nautical club of vouliagmeni (nov)": [
-        "club:nautical-club-of-vouliagmeni-nov"
-      ],
       "nauticfan.com": [
         "company:nauticfan-com"
       ],
@@ -101773,12 +102514,6 @@
       ],
       "olympic yacht services": [
         "builder:olympic-yacht-services"
-      ],
-      "oman royal (sultan haitham bin tariq)": [
-        "person:oman-royal-sultan-haitham-bin-tariq"
-      ],
-      "oman royal (sultan haitham)": [
-        "person:oman-royal-sultan-haitham"
       ],
       "omani royal family": [
         "person:omani-royal-family"
@@ -102709,9 +103444,6 @@
       "previously henry luken": [
         "company:previously-henry-luken"
       ],
-      "previously paul allen (now others)": [
-        "person:previously-paul-allen-now-others"
-      ],
       "primary: stuart / treasure coast area": [
         "region:primary-stuart-treasure-coast-area"
       ],
@@ -103212,9 +103944,6 @@
       "roger samuelsson": [
         "person:roger-samuelsson"
       ],
-      "roger samuelsson (ex-paul allen estate)": [
-        "person:roger-samuelsson-ex-paul-allen-estate"
-      ],
       "rolling stock": [
         "company:rolling-stock"
       ],
@@ -103313,9 +104042,6 @@
       ],
       "royal vancouver yacht club": [
         "club:royal-vancouver-yacht-club"
-      ],
-      "royal vancouver yacht club (rvyc)": [
-        "club:royal-vancouver-yacht-club-rvyc"
       ],
       "royal yacht club of tasmania": [
         "club:royal-yacht-club-of-tasmania"
@@ -103678,9 +104404,6 @@
       "saudi royal": [
         "person:saudi-royal"
       ],
-      "saudi royal (mohammed bin salman)": [
-        "person:saudi-royal-mohammed-bin-salman"
-      ],
       "sausalito": [
         "region:sausalito"
       ],
@@ -103941,9 +104664,6 @@
       "sergey brin": [
         "person:sergey-brin"
       ],
-      "sergey brin (rumored)": [
-        "person:sergey-brin-rumored"
-      ],
       "ses yachts": [
         "company:ses-yachts"
       ],
@@ -104031,20 +104751,17 @@
       "shanghai/bund; branches in ningbo, ninghai bay": [
         "region:shanghai-bund-branches-in-ningbo-ninghai-bay"
       ],
+      "shapoor mistry": [
+        "person:shapoor-mistry"
+      ],
       "shear yachts": [
         "builder:shear-yachts"
       ],
       "sheikh abdullah al thani": [
         "person:sheikh-abdullah-al-thani"
       ],
-      "sheikh mansour": [
-        "person:sheikh-mansour"
-      ],
       "sheikh mansour bin zayed al nahyan": [
         "person:sheikh-mansour-bin-zayed-al-nahyan"
-      ],
-      "sheikh mohammed": [
-        "person:sheikh-mohammed"
       ],
       "sheikh mohammed bin rashid al maktoum": [
         "person:sheikh-mohammed-bin-rashid-al-maktoum"
@@ -104994,9 +105711,6 @@
       "the dana on mission bay": [
         "marina:the-dana-on-mission-bay"
       ],
-      "the florida yacht club (duplicate entry in sources)": [
-        "club:the-florida-yacht-club-duplicate-entry-in-sources"
-      ],
       "the harbor at marina bay": [
         "marina:the-harbor-at-marina-bay"
       ],
@@ -105041,9 +105755,6 @@
       ],
       "the reef marina port douglas": [
         "marina:the-reef-marina-port-douglas"
-      ],
-      "the royal yacht club of tasmania": [
-        "club:the-royal-yacht-club-of-tasmania"
       ],
       "the strand, townsville city": [
         "region:the-strand-townsville-city"
@@ -105264,7 +105975,7 @@
         "club:turkish-offshore-racing-club"
       ],
       "turkish republic": [
-        "person:turkish-republic"
+        "company:turkish-republic"
       ],
       "turku": [
         "region:turku"
@@ -105317,12 +106028,6 @@
       "ua marina": [
         "marina:ua-marina"
       ],
-      "uae (mansour bin zayed al nahyan)": [
-        "person:uae-mansour-bin-zayed-al-nahyan"
-      ],
-      "uae (mansour bin zayed)": [
-        "person:uae-mansour-bin-zayed"
-      ],
       "uae (tahnoun bin zayed)": [
         "person:uae-tahnoun-bin-zayed"
       ],
@@ -105331,9 +106036,6 @@
       ],
       "uae royal (hamdan bin zayed)": [
         "person:uae-royal-hamdan-bin-zayed"
-      ],
-      "uae royal (mohammed bin zayed al nahyan estate)": [
-        "person:uae-royal-mohammed-bin-zayed-al-nahyan-estate"
       ],
       "uc yacht charters": [
         "company:uc-yacht-charters"
@@ -105482,9 +106184,6 @@
       ],
       "various (ex-john mccaw)": [
         "person:various-ex-john-mccaw"
-      ],
-      "various (residential superyacht)": [
-        "person:various-residential-superyacht"
       ],
       "various (residential)": [
         "person:various-residential"
@@ -105954,9 +106653,6 @@
       ],
       "west vancouver yacht club": [
         "club:west-vancouver-yacht-club"
-      ],
-      "west vancouver yacht club (wvyc)": [
-        "club:west-vancouver-yacht-club-wvyc"
       ],
       "west vancouver, bc": [
         "region:west-vancouver-bc"
