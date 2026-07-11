@@ -127,6 +127,9 @@ import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/pe
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
 import { classifyYachtIdentifiability } from './mappers/identifiability.js';
 import { applyRegionCanonicalization } from './mappers/regionCanonicalization.js';
+import { mintOligarchYachtNodes, linkOligarchYachtOwners } from './mappers/oligarchYachtMapper.js';
+import { ensureKnownPartBrandNodes, linkPartBrands } from './mappers/partBrandLinker.js';
+import { linkYachtSizeClasses } from './mappers/sizeClassLinker.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -394,6 +397,14 @@ function listCorpusFiles(knowledgeDir) {
     .sort(); // stable order: yachtMapper's id assignment is order-dependent.
 }
 
+// TASK-025 (Round 7): gates oligarchYachtMapper.js's minting on this exact
+// source file being present in THIS run's corpus (fs.existsSync, checked
+// once up front — deterministic regardless of file-processing order, unlike
+// gating on whether a person node happens to already exist). A synthetic/
+// partial test corpus with no knowledge/74 mints nothing; the real corpus
+// always has it, so the real graph always gets the 7 sanctioned yachts.
+const OLIGARCH_SOURCE_FILE = '74_Seized_Yachts_of_Russian_Oligarchs.md';
+
 export function runIngest() {
   const dbPath = resolveDbPath();
   const knowledgeDir = resolveKnowledgeDir();
@@ -403,6 +414,7 @@ export function runIngest() {
     initSchema(db);
 
     const files = listCorpusFiles(knowledgeDir);
+    const hasOligarchSource = fs.existsSync(path.join(knowledgeDir, OLIGARCH_SOURCE_FILE));
     const totals = {
       filesProcessed: 0,
       filesSkipped: 0,
@@ -444,6 +456,18 @@ export function runIngest() {
     // any existing counter/behavior above).
     const filesProcessedList = [];
     const filesSkippedList = [];
+
+    // TASK-025 (Round 7): mint the 7 sanctioned oligarch yacht NODES before
+    // the per-file loop below (see oligarchYachtMapper.js's own
+    // mintOligarchYachtNodes() comment for why — designerMapper.js's own
+    // Notable-Yachts cross-link, processed mid-loop, needs these nodes to
+    // already exist to resolve consistently on every run). The owned_by
+    // edge (needs person nodes, created BY the loop) is added afterward —
+    // see linkOligarchYachtOwners() call below.
+    if (hasOligarchSource) {
+      const oligarchNodeResult = mintOligarchYachtNodes(db);
+      totals.yachts += oligarchNodeResult.processed;
+    }
 
     for (const fileName of files) {
       if (SKIP_FILES.has(fileName)) {
@@ -598,13 +622,44 @@ export function runIngest() {
     // remove/flag ledger). Idempotent; safe to run on every ingest.
     applyGraphCleanup(db);
 
+    // TASK-025 (Round 7): oligarch yacht owned_by edges — runs AFTER
+    // applyGraphCleanup() (person nodes are stable by then; none of the 7
+    // sanctioned yacht ids collide with anything graphCleanup touches) and
+    // BEFORE identifiability classification / size-class linking below, so
+    // the 7 new yacht nodes get classified/linked exactly like every other
+    // yacht node. The yacht NODES themselves were already minted early,
+    // before the per-file loop — see mintOligarchYachtNodes()'s call site
+    // above and oligarchYachtMapper.js's own module header.
+    if (hasOligarchSource) {
+      const oligarchOwnerResult = linkOligarchYachtOwners(db);
+      totals.edges += oligarchOwnerResult.edges;
+    }
+
+    // TASK-025 (Round 7): part manufacturer/brand edges — ensureKnownPartBrandNodes
+    // mints the one small, explicitly-cited seed company node (see
+    // partBrandLinker.js's own module header) BEFORE the generic matcher
+    // runs; order relative to graph cleanup/oligarch minting above doesn't
+    // matter (parts and their descriptions are untouched by either).
+    const partBrandSeedResult = ensureKnownPartBrandNodes(db);
+    totals.companies += partBrandSeedResult.processed;
+    const partBrandResult = linkPartBrands(db);
+    totals.edges += partBrandResult.edges;
+
+    // TASK-025 (Round 7): yacht -> size_class classification edges — runs
+    // AFTER every yacht's loa.meters is in its FINAL state (post graph-
+    // cleanup LOA corrections/merges, post oligarch minting) so every
+    // eligible yacht (including the 7 new oligarch nodes) gets classified.
+    const sizeClassLinkResult = linkYachtSizeClasses(db);
+    totals.edges += sizeClassLinkResult.edges;
+
     // TASK-023 item 4: yacht identifiability classification — runs AFTER
     // applyGraphCleanup() so it sees every yacht node's FINAL, post-merge/
     // post-correction state (a merged-away duplicate's data has already
     // landed on its canonical node; a quality-corrected node's
     // attrs.data_quality flag, if any, is already set). Idempotent and
     // non-accumulating (see identifiability.js's own module header) — safe
-    // to run on every ingest.
+    // to run on every ingest. TASK-025 (Round 7): also runs after oligarch
+    // minting above, so the 7 new yacht nodes get classified too.
     const identifiabilityResult = classifyYachtIdentifiability(db);
     totals.yachtIdentifiable = identifiabilityResult.identifiable;
     totals.yachtFragment = identifiabilityResult.fragment;
