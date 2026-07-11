@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T06:50:54.192Z",
-    "node_count": 4277,
-    "edge_count": 2607,
+    "generated_at": "2026-07-11T07:29:55.671Z",
+    "node_count": 4276,
+    "edge_count": 2606,
     "types": {
       "builder": 160,
       "club": 360,
@@ -16,11 +16,11 @@
       "region": 858,
       "shipyard": 236,
       "size_class": 4,
-      "yacht": 581
+      "yacht": 580
     },
     "edge_types": {
       "based_in": 42,
-      "built_by": 543,
+      "built_by": 542,
       "designed_by": 86,
       "located_in": 1436,
       "made_by": 37,
@@ -18283,7 +18283,7 @@
         "provenance": [
           "89_Global_Marine_Engine_Manufacturer_Directory.md"
         ],
-        "notes": "\"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section."
+        "notes": "\"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section. \"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section. \"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section."
       }
     },
     {
@@ -54445,7 +54445,7 @@
           "nameNorm": "100 sunreef power",
           "builderId": "builder:sunreef"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54473,7 +54473,7 @@
           "nameNorm": "4life",
           "builderId": "builder:princess"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54582,7 +54582,7 @@
           "nameNorm": "a4a",
           "builderId": "builder:absolute"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54610,7 +54610,7 @@
           "nameNorm": "ad astra",
           "builderId": "builder:moonen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54638,7 +54638,7 @@
           "nameNorm": "ad astra",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54665,10 +54665,12 @@
         },
         "conflicts": {
           "features": [
+            "Explorer",
+            "Explorer",
             "Explorer"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54684,7 +54686,10 @@
           "meters": 10.05,
           "raw": "10.05"
         },
-        "year": null,
+        "year": {
+          "value": 2026,
+          "raw": "2026"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -54758,7 +54763,10 @@
           "meters": 10.05,
           "raw": "10.05"
         },
-        "year": null,
+        "year": {
+          "value": 2024,
+          "raw": "2024"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -54780,7 +54788,12 @@
         },
         "gt": 425,
         "max_speed": 12,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "gt": [
+            "~425 (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -54821,7 +54834,12 @@
         },
         "gt": 988,
         "max_speed": 15.5,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2015"
+          ]
+        }
       }
     },
     {
@@ -54892,7 +54910,7 @@
           "nameNorm": "(aggregated mid-to-large from riviera pools: e.g., various benetti 60-80m customs, sunseeker 65-131 series, ferretti navetta/ custom line models, princess 35m-40m, azimut magellano lines, sanlorenzo 60-70m hybrids, heesen 50-65m, amels limited editions, crn 60-80m, isa 120 variants, and explorer/motor cats like sunreef power series. rates €150k-€1m+, crew 12-25, amenities gym/spa/jacuzzi/toys/beach clubs/helipads; many 2020-2026 builds/refits for monaco events. multilingual med crews, stcw pros, event-experienced captains.)",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -54931,6 +54949,8 @@
         },
         "conflicts": {
           "features": [
+            "Nature-themed, salt sauna; Canary area.",
+            "Nature-themed, salt sauna; Canary area.",
             "Nature-themed, salt sauna; Canary area."
           ]
         },
@@ -54990,7 +55010,7 @@
           "nameNorm": "air",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55168,6 +55188,8 @@
         },
         "conflicts": {
           "features": [
+            "Concert hall, helipad; global.",
+            "Concert hall, helipad; global.",
             "Concert hall, helipad; global."
           ]
         },
@@ -55249,7 +55271,7 @@
           "nameNorm": "al waab ii",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55302,7 +55324,7 @@
           "nameNorm": "alaskan story",
           "builderId": "builder:westport-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55443,7 +55465,12 @@
         },
         "gt": 1184,
         "max_speed": 15,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2004"
+          ]
+        }
       }
     },
     {
@@ -55494,6 +55521,14 @@
             "Iconic design; at anchor during MYS.",
             "Antibes-based luxury",
             "Iconic, recent refit",
+            "Iconic design, recent refit",
+            "Iconic design; at anchor during MYS.",
+            "Antibes-based luxury",
+            "Iconic, recent refit",
+            "Iconic design, recent refit",
+            "Iconic design; at anchor during MYS.",
+            "Antibes-based luxury",
+            "Iconic, recent refit",
             "Iconic design, recent refit"
           ]
         },
@@ -55534,7 +55569,7 @@
           "nameNorm": "alp",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55574,10 +55609,32 @@
             "Refit-enhanced toys",
             "Refit-enhanced toys",
             "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Toys",
+            "Kayaks, paddleboards, wave runners",
+            "Refit-enhanced toys",
+            "Refit toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Toys",
+            "Kayaks, paddleboards, wave runners",
+            "Refit-enhanced toys",
+            "Refit toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
+            "Refit-enhanced toys",
             "Refit-enhanced toys"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55614,10 +55671,24 @@
             "Brand-new Feadship",
             "Brand-new Feadship",
             "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand new Feadship",
+            "New Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand new Feadship",
+            "New Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
+            "Brand-new Feadship",
             "Brand-new Feadship"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55649,10 +55720,16 @@
           "features": [
             "Wellness",
             "Wellness",
+            "Wellness",
+            "Wellness",
+            "Wellness",
+            "Wellness",
+            "Wellness",
+            "Wellness",
             "Wellness"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55681,7 +55758,7 @@
           "nameNorm": "amalya",
           "builderId": "builder:admiral-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55710,7 +55787,7 @@
           "nameNorm": "amaryllis",
           "builderId": "builder:abeking-rasmussen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55738,7 +55815,7 @@
           "nameNorm": "amatasia",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55766,7 +55843,7 @@
           "nameNorm": "ambassador",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55782,7 +55859,10 @@
           "meters": 11.8,
           "raw": "11.8"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -55831,7 +55911,10 @@
           "meters": 10.4,
           "raw": "10.4"
         },
-        "year": null,
+        "year": {
+          "value": 2016,
+          "raw": "c.2016"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -55869,7 +55952,10 @@
           "meters": 18.01,
           "raw": "18.01"
         },
-        "year": null,
+        "year": {
+          "value": 2016,
+          "raw": "2016"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -55923,14 +56009,20 @@
         },
         "conflicts": {
           "guests": [
+            10,
+            10,
             10
           ],
           "features": [
             "Wellness focus",
+            "Modern",
+            "Wellness focus",
+            "Modern",
+            "Wellness focus",
             "Modern"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55958,7 +56050,7 @@
           "nameNorm": "angelique",
           "builderId": "builder:turquoise-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -55974,7 +56066,10 @@
           "meters": 8.5,
           "raw": "8.5"
         },
-        "year": null,
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -56024,7 +56119,7 @@
           "nameNorm": "antheya iii",
           "builderId": "builder:princess"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56059,7 +56154,12 @@
           "nameNorm": "aqa",
           "builderId": "builder:inace"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 49m Inace-built expedition yacht (2022). Public yacht databases only show an unrelated 28.01m \"AQA\" (Export Yachts, 1996) — no record of a 49m Inace-built AQA found. Likely a very new/private build not yet indexed, or a data-extraction mismatch. See research/round5/yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -56092,10 +56192,18 @@
             "Eco",
             "Eco",
             "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
             "Eco"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56132,10 +56240,24 @@
             "Modern Feadship elegance",
             "Modern Feadship elegance",
             "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
+            "Modern Feadship elegance",
             "Modern Feadship elegance"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56163,7 +56285,7 @@
           "nameNorm": "aquijo",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56212,6 +56334,20 @@
             "Explorer",
             "Explorer",
             "Explorer",
+            "Explorer",
+            "Nightclub, cinema; largest US-built, Florida Keys charters.",
+            "Refitted, explorer capabilities",
+            "Explorer capabilities",
+            "Explorer",
+            "Explorer",
+            "Explorer",
+            "Explorer",
+            "Nightclub, cinema; largest US-built, Florida Keys charters.",
+            "Refitted, explorer capabilities",
+            "Explorer capabilities",
+            "Explorer",
+            "Explorer",
+            "Explorer",
             "Explorer"
           ]
         },
@@ -56253,10 +56389,12 @@
         },
         "conflicts": {
           "features": [
+            "Refit",
+            "Refit",
             "Refit"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56286,13 +56424,19 @@
         },
         "conflicts": {
           "loa": [
-            "60 (superseded — \"60\" is Arcadia Yachts' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
+            "60 (superseded — \"60\" is Arcadia Yachts' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
+            "60",
+            "60",
+            "60",
+            "60",
+            "60",
+            "60"
           ]
         },
         "loa_aliases": [
           60
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56320,7 +56464,7 @@
           "nameNorm": "arctic",
           "builderId": "builder:schichau-unterweser"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56336,7 +56480,10 @@
           "meters": 12,
           "raw": "12.0"
         },
-        "year": null,
+        "year": {
+          "value": 1971,
+          "raw": "1971 / 2022"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -56399,10 +56546,24 @@
             "Sleek Feadship",
             "Sleek Feadship",
             "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship design",
+            "Sleek",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship design",
+            "Sleek",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship",
+            "Sleek Feadship",
             "Sleek Feadship"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56430,7 +56591,7 @@
           "nameNorm": "arsana",
           "builderId": "builder:amer"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56458,7 +56619,7 @@
           "nameNorm": "artefact",
           "builderId": "builder:nobiskrug"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56474,7 +56635,10 @@
           "meters": 17.1,
           "raw": "17.1 (cat. beam)"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -56496,7 +56660,12 @@
         },
         "gt": 498,
         "max_speed": 10,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "max_speed": [
+            "~10 (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -56509,7 +56678,10 @@
           "raw": "65m"
         },
         "beam": null,
-        "year": null,
+        "year": {
+          "value": 2019,
+          "raw": "2019 (refit 2024)"
+        },
         "value": null,
         "weekly_rate": {
           "amount": null,
@@ -56558,7 +56730,7 @@
           "nameNorm": "arya",
           "builderId": "builder:newcastle-marine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56592,10 +56764,20 @@
             "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
+            "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56611,7 +56793,10 @@
           "meters": 12.2,
           "raw": "12.20"
         },
-        "year": null,
+        "year": {
+          "value": 2004,
+          "raw": "2004"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -56721,10 +56906,12 @@
         },
         "conflicts": {
           "features": [
+            "Refit",
+            "Refit",
             "Refit"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56752,7 +56939,7 @@
           "nameNorm": "atomic",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56780,7 +56967,7 @@
           "nameNorm": "aurelia",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56808,7 +56995,7 @@
           "nameNorm": "aurum sky",
           "builderId": "builder:odisej"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56824,7 +57011,10 @@
           "meters": 9.7,
           "raw": "9.7"
         },
-        "year": null,
+        "year": {
+          "value": 2009,
+          "raw": "2009"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -56877,7 +57067,7 @@
           "nameNorm": "away",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56906,7 +57096,7 @@
           "nameNorm": "axioma",
           "builderId": "builder:dunya-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -56934,7 +57124,7 @@
           "nameNorm": "axioma",
           "builderId": "builder:dunya"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57008,6 +57198,16 @@
             "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
             "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
             "Bullet-proof suite; Med cruises.",
+            "Fastest superyacht, missile defense; global.",
+            "Bullet-proof master suite; sophisticated missile defense system; rumored submarine; shallow draft for high speed; Empire style interior; two gas turbines and two diesel engines (94,000 hp).",
+            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
+            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
+            "Bullet-proof suite; Med cruises.",
+            "Fastest superyacht, missile defense; global.",
+            "Bullet-proof master suite; sophisticated missile defense system; rumored submarine; shallow draft for high speed; Empire style interior; two gas turbines and two diesel engines (94,000 hp).",
+            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
+            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
+            "Bullet-proof suite; Med cruises.",
             "Fastest superyacht, missile defense; global."
           ]
         },
@@ -57047,7 +57247,7 @@
           "nameNorm": "azzurri",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57110,10 +57310,22 @@
             "Saint Martin discounted",
             "Saint Martin discounted",
             "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounts",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounts",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
+            "Saint Martin discounted",
             "Saint Martin discounted"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57150,10 +57362,24 @@
             "Glamorous expansive decks",
             "Glamorous expansive decks",
             "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous, expansive decks",
+            "Glamorous expansive",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous, expansive decks",
+            "Glamorous expansive",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
+            "Glamorous expansive decks",
             "Glamorous expansive decks"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57181,7 +57407,7 @@
           "nameNorm": "barbara anne",
           "builderId": "builder:baglietto"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57223,6 +57449,14 @@
         },
         "conflicts": {
           "features": [
+            "Y700 series, award-winning",
+            "Y700 series, full-beam owner suite, 2 Jacuzzis",
+            "Y700 series, 2 Jacuzzis",
+            "2 Jacuzzis",
+            "Y700 series, award-winning",
+            "Y700 series, full-beam owner suite, 2 Jacuzzis",
+            "Y700 series, 2 Jacuzzis",
+            "2 Jacuzzis",
             "Y700 series, award-winning",
             "Y700 series, full-beam owner suite, 2 Jacuzzis",
             "Y700 series, 2 Jacuzzis",
@@ -57274,10 +57508,22 @@
             "Extensive toys",
             "Extensive toys",
             "Extensive toys",
+            "Extensive toys",
+            "Extensive toys",
+            "Toy-heavy beach club",
+            "Extensive toys",
+            "Extensive toys",
+            "Extensive toys",
+            "Extensive toys",
+            "Extensive toys",
+            "Toy-heavy beach club",
+            "Extensive toys",
+            "Extensive toys",
+            "Extensive toys",
             "Extensive toys"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57305,7 +57551,7 @@
           "nameNorm": "bear paw",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57321,7 +57567,10 @@
           "meters": 11.43,
           "raw": "11.43"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -57372,7 +57621,7 @@
           "nameNorm": "bellini",
           "builderId": "builder:cantieri-di-pisa"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57400,7 +57649,7 @@
           "nameNorm": "benik",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57428,7 +57677,7 @@
           "nameNorm": "best of me",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57460,10 +57709,16 @@
           "features": [
             "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
             "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
+            "Modern interior, charter for racing/tourism; Mediterranean-based.",
+            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
+            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
+            "Modern interior, charter for racing/tourism; Mediterranean-based.",
+            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
+            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
             "Modern interior, charter for racing/tourism; Mediterranean-based."
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57479,7 +57734,10 @@
           "meters": 7.92,
           "raw": "7.92"
         },
-        "year": null,
+        "year": {
+          "value": 1980,
+          "raw": "1980"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -57520,7 +57778,10 @@
           "meters": 8.76,
           "raw": "8.76"
         },
-        "year": null,
+        "year": {
+          "value": 2002,
+          "raw": "2002"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -57538,6 +57799,28 @@
         },
         "conflicts": {
           "features": [
+            "Classic",
+            "Classic, flexible cabins",
+            "Classic",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible cabins",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible",
+            "Classic",
+            "Classic, flexible cabins",
+            "Classic",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible cabins",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible",
+            "Classic, flexible cabins",
+            "Classic, flexible",
             "Classic",
             "Classic, flexible cabins",
             "Classic",
@@ -57574,7 +57857,10 @@
           "meters": 15,
           "raw": "15.0"
         },
-        "year": null,
+        "year": {
+          "value": 2018,
+          "raw": "2018"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -57628,10 +57914,12 @@
         },
         "conflicts": {
           "features": [
+            "Eco sail-assisted",
+            "Eco sail-assisted",
             "Eco sail-assisted"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57644,7 +57932,10 @@
           "raw": "49.2"
         },
         "beam": null,
-        "year": null,
+        "year": {
+          "value": 2018,
+          "raw": "2018"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -57693,7 +57984,7 @@
           "nameNorm": "blackwood",
           "builderId": "builder:broward"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57721,7 +58012,7 @@
           "nameNorm": "bleu de nimes",
           "builderId": "builder:clelands-shipbuilding-co"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57749,7 +58040,7 @@
           "nameNorm": "bleu de nimes",
           "builderId": "builder:clelands"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57791,6 +58082,8 @@
         },
         "conflicts": {
           "features": [
+            "Eco propulsion, expedition; global.",
+            "Eco propulsion, expedition; global.",
             "Eco propulsion, expedition; global."
           ]
         },
@@ -57837,10 +58130,20 @@
             "Large capacity refit",
             "Large capacity refit",
             "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
+            "Large capacity refit",
             "Large capacity refit"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -57856,7 +58159,10 @@
           "meters": 12.3,
           "raw": "12.3"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -57874,6 +58180,14 @@
         },
         "conflicts": {
           "features": [
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
+            "Resort-style",
             "Resort-style",
             "Resort-style",
             "Resort-style",
@@ -57937,6 +58251,10 @@
         "conflicts": {
           "features": [
             "Explorer capabilities",
+            "Helipad, explorer",
+            "Explorer capabilities",
+            "Helipad, explorer",
+            "Explorer capabilities",
             "Helipad, explorer"
           ]
         },
@@ -57977,7 +58295,7 @@
           "nameNorm": "bold (repeat avoid, but variant)",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58005,7 +58323,7 @@
           "nameNorm": "bravo",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58021,7 +58339,10 @@
           "meters": 16.3,
           "raw": "16.3"
         },
-        "year": null,
+        "year": {
+          "value": 2018,
+          "raw": "2018"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -58039,6 +58360,18 @@
         },
         "conflicts": {
           "features": [
+            "Luxury",
+            "Luxury",
+            "Luxury crossing",
+            "Luxury crossing",
+            "Luxury crossing",
+            "Luxury crossing",
+            "Luxury",
+            "Luxury",
+            "Luxury crossing",
+            "Luxury crossing",
+            "Luxury crossing",
+            "Luxury crossing",
             "Luxury",
             "Luxury",
             "Luxury crossing",
@@ -58114,6 +58447,14 @@
             "Hydrogen-powered, infinity pool, 14 balconies",
             "World's first hydrogen fuel cell superyacht",
             "Largest new 2025 charter; record-breaker in St Barts",
+            "Hydrogen-powered, infinity pool",
+            "Hydrogen-powered, infinity pool, 14 balconies",
+            "World's first hydrogen fuel cell superyacht",
+            "Largest new 2025 charter; record-breaker in St Barts",
+            "Hydrogen-powered, infinity pool",
+            "Hydrogen-powered, infinity pool, 14 balconies",
+            "World's first hydrogen fuel cell superyacht",
+            "Largest new 2025 charter; record-breaker in St Barts",
             "Hydrogen-powered, infinity pool"
           ]
         },
@@ -58154,7 +58495,7 @@
           "nameNorm": "brooklyn",
           "builderId": "builder:custom-line"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58182,7 +58523,7 @@
           "nameNorm": "burrasca",
           "builderId": "builder:van-der-graaf"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58198,7 +58539,10 @@
           "meters": 10.6,
           "raw": "10.6"
         },
-        "year": null,
+        "year": {
+          "value": 2022,
+          "raw": "2022"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -58216,6 +58560,8 @@
         },
         "conflicts": {
           "features": [
+            "Luxury",
+            "Luxury",
             "Luxury"
           ]
         },
@@ -58241,7 +58587,10 @@
           "meters": 11.43,
           "raw": "11.43"
         },
-        "year": null,
+        "year": {
+          "value": 2003,
+          "raw": "2003"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -58291,7 +58640,7 @@
           "nameNorm": "carinthia vii",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58319,7 +58668,7 @@
           "nameNorm": "centurion",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58360,7 +58709,12 @@
         },
         "conflicts": {
           "features": [
+            "Yoga studio, elevator; Med charters.",
+            "Yoga studio, elevator; Med charters.",
             "Yoga studio, elevator; Med charters."
+          ],
+          "year": [
+            "1963 (refits 2017, 2025)"
           ]
         },
         "draft": {
@@ -58399,7 +58753,7 @@
           "nameNorm": "chakra",
           "builderId": "builder:scheepswerf-gebr-van-der-werf"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58427,7 +58781,7 @@
           "nameNorm": "champagne & caviar",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58455,7 +58809,7 @@
           "nameNorm": "charade",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58471,7 +58825,10 @@
           "meters": 10.97,
           "raw": "10.97"
         },
-        "year": null,
+        "year": {
+          "value": 1943,
+          "raw": "1943 (converted to yacht 1954)"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 34,
@@ -58526,7 +58883,7 @@
           "nameNorm": "cloudbreak",
           "builderId": "builder:abeking-rasmussen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58554,7 +58911,7 @@
           "nameNorm": "cloudbreak",
           "builderId": "builder:abeking-rasmussen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58570,7 +58927,10 @@
           "meters": 12,
           "raw": "12.0"
         },
-        "year": null,
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -58622,7 +58982,7 @@
           "nameNorm": "cocoa bean",
           "builderId": "builder:trinity-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58669,6 +59029,9 @@
             "Media upgrades",
             "Media upgrades",
             "Media upgrades"
+          ],
+          "year": [
+            "2022"
           ]
         },
         "identifiability": "identifiable"
@@ -58699,7 +59062,7 @@
           "nameNorm": "(continuing with aggregated mid-size & emerging yachts from riviera listings: e.g., various sunseeker 131 variants, ferretti models, princess 35m series, benetti 60m customs, sanlorenzo hybrids, azimut magellano lines, and explorer-style like cantiere delle marche – crew 8-20, rates €100k-€500k, amenities gym/jacuzzi/toys; full details expandable via brokers. many feature 2024-2026 builds/refits for peak monaco season.)",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58727,7 +59090,7 @@
           "nameNorm": "cool change",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58791,7 +59154,7 @@
           "nameNorm": "crazy love",
           "builderId": "builder:hudson"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58849,7 +59212,10 @@
           "meters": 9.2,
           "raw": "9.2"
         },
-        "year": null,
+        "year": {
+          "value": 2017,
+          "raw": "2017"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -58902,7 +59268,7 @@
           "nameNorm": "daisy d",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58918,7 +59284,10 @@
           "meters": 14.2,
           "raw": "14.2"
         },
-        "year": null,
+        "year": {
+          "value": 2018,
+          "raw": "2018"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -58969,7 +59338,7 @@
           "nameNorm": "dauntless",
           "builderId": "builder:northstar-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -58985,7 +59354,10 @@
           "meters": 9.5,
           "raw": "9.5"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -59008,34 +59380,6 @@
         "gt": 495,
         "max_speed": 30,
         "range_nm": 4000,
-        "identifiability": "identifiable"
-      }
-    },
-    {
-      "id": "yacht:db9-palmer-johnson",
-      "type": "yacht",
-      "name": "DB9",
-      "attrs": {
-        "loa": {
-          "meters": 50,
-          "raw": "50"
-        },
-        "beam": null,
-        "year": null,
-        "value": null,
-        "weekly_rate": null,
-        "guests": null,
-        "cabins": null,
-        "crew": null,
-        "features": null,
-        "location": null,
-        "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
-        ],
-        "_resolution": {
-          "nameNorm": "db9",
-          "builderId": "builder:palmer-johnson"
-        },
         "identifiability": "identifiable"
       }
     },
@@ -59082,7 +59426,15 @@
         "gt": 400,
         "max_speed": 10.5,
         "flag": "Australia",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2008 (refit 2018/2024)"
+          ],
+          "gt": [
+            "~400 (est., not published) (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -59123,7 +59475,12 @@
         },
         "gt": 9079,
         "flag": "Cayman Islands",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2026"
+          ]
+        }
       }
     },
     {
@@ -59139,7 +59496,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 2007,
+          "raw": "2007"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -59192,7 +59552,7 @@
           "nameNorm": "desamis b",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59240,6 +59600,16 @@
             "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
             "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
             "Largest indoor pool; Med sightings (seized).",
+            "Pool, helipad; global (seized).",
+            "Largest indoor pool on a yacht (25m long); swimming pool; helicopter pad; custom Airbus H175 helicopter tender; Venetian Aft Helm Limo, Chase 31, and Chase Tender; steel hull, aluminum superstructure; 6,000 nm range; seized in 2022 due to sanctions.",
+            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
+            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
+            "Largest indoor pool; Med sightings (seized).",
+            "Pool, helipad; global (seized).",
+            "Largest indoor pool on a yacht (25m long); swimming pool; helicopter pad; custom Airbus H175 helicopter tender; Venetian Aft Helm Limo, Chase 31, and Chase Tender; steel hull, aluminum superstructure; 6,000 nm range; seized in 2022 due to sanctions.",
+            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
+            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
+            "Largest indoor pool; Med sightings (seized).",
             "Pool, helipad; global (seized)."
           ]
         },
@@ -59279,7 +59649,7 @@
           "nameNorm": "discovery",
           "builderId": "builder:pacific-motor-boat"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59307,7 +59677,7 @@
           "nameNorm": "dragon",
           "builderId": "builder:columbus-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59413,7 +59783,7 @@
           "nameNorm": "dream",
           "builderId": "builder:olympic-yacht-services"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59441,7 +59811,7 @@
           "nameNorm": "dream",
           "builderId": "builder:olympic"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59469,7 +59839,7 @@
           "nameNorm": "dream",
           "builderId": "builder:olympic-yacht"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59497,7 +59867,7 @@
           "nameNorm": "drizzle",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59542,6 +59912,14 @@
             "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
             "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
             "Disco, submarine garage; occasional Florida Keys visits.",
+            "Disco, cinema; global.",
+            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
+            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
+            "Disco, submarine garage; occasional Florida Keys visits.",
+            "Disco, cinema; global.",
+            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
+            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
+            "Disco, submarine garage; occasional Florida Keys visits.",
             "Disco, cinema; global."
           ]
         },
@@ -59570,7 +59948,10 @@
           "meters": 11,
           "raw": "11.0"
         },
-        "year": null,
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 14,
@@ -59641,6 +60022,16 @@
             "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
             "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
             "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
+            "Anti-paparazzi lasers; global.",
+            "Two helipads; swimming pool; mini-submarine; missile detection system; anti-paparazzi laser system; dance floor; exterior fireplace; two swimming pools; hybrid propulsion; refitted in 2015.",
+            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
+            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
+            "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
+            "Anti-paparazzi lasers; global.",
+            "Two helipads; swimming pool; mini-submarine; missile detection system; anti-paparazzi laser system; dance floor; exterior fireplace; two swimming pools; hybrid propulsion; refitted in 2015.",
+            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
+            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
+            "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
             "Anti-paparazzi lasers; global."
           ]
         },
@@ -59696,7 +60087,10 @@
           "meters": 8.9,
           "raw": "8.9"
         },
-        "year": null,
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 32750000,
@@ -59726,7 +60120,9 @@
         },
         "conflicts": {
           "loa": [
-            "160m (superseded — Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
+            "160m (superseded — Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)",
+            "160m",
+            "160m"
           ]
         },
         "loa_aliases": [
@@ -59774,7 +60170,12 @@
         "gt": 4561,
         "max_speed": 16,
         "flag": "Egypt",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "1865 (lengthened 1872, 1905)"
+          ]
+        }
       }
     },
     {
@@ -59803,7 +60204,7 @@
           "nameNorm": "el rey",
           "builderId": "builder:deep-sea-marine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59831,7 +60232,7 @@
           "nameNorm": "elegant 007",
           "builderId": "builder:lamda-nafs-shipyards"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59859,7 +60260,7 @@
           "nameNorm": "element",
           "builderId": "builder:cantieri-di-pisa"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -59907,6 +60308,24 @@
             "Modern amenities",
             "Modern amenities",
             "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
+            "Modern amenities",
             "Modern amenities"
           ]
         },
@@ -59926,7 +60345,10 @@
           "meters": 10.21,
           "raw": "10.21"
         },
-        "year": null,
+        "year": {
+          "value": 2012,
+          "raw": "2012"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -59980,10 +60402,24 @@
             "Multi-island flexibility",
             "Multi-island flexibility",
             "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Flexible island-hopping",
+            "Island-hopping flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Flexible island-hopping",
+            "Island-hopping flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
+            "Multi-island flexibility",
             "Multi-island flexibility"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60024,6 +60460,24 @@
             28,
             28,
             28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
+            28,
             28
           ],
           "features": [
@@ -60035,10 +60489,28 @@
             "High guest capacity",
             "High guest capacity",
             "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
             "High guest capacity"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60081,10 +60553,32 @@
             "Wine cellar, modern",
             "Wine cellar",
             "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar, modern",
+            "Wine cellar",
+            "Wine cellar, modern",
             "Wine cellar"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60100,7 +60594,10 @@
           "meters": 8.7,
           "raw": "8.7"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60151,7 +60648,7 @@
           "nameNorm": "endeavour",
           "builderId": "builder:jeff-boat"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60167,7 +60664,10 @@
           "meters": 8.8,
           "raw": "8.8"
         },
-        "year": null,
+        "year": {
+          "value": 2017,
+          "raw": "2017"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60218,7 +60718,7 @@
           "nameNorm": "energy",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60234,7 +60734,10 @@
           "meters": 10.4,
           "raw": "10.4"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 485000,
@@ -60256,6 +60759,12 @@
         },
         "conflicts": {
           "features": [
+            "Modern comfort, hybrid options",
+            "Hybrid tech, beach club",
+            "Hybrid, beach club",
+            "Modern comfort, hybrid options",
+            "Hybrid tech, beach club",
+            "Hybrid, beach club",
             "Modern comfort, hybrid options",
             "Hybrid tech, beach club",
             "Hybrid, beach club"
@@ -60282,7 +60791,10 @@
           "meters": 9.25,
           "raw": "9.25"
         },
-        "year": null,
+        "year": {
+          "value": 2024,
+          "raw": "2024"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60320,7 +60832,10 @@
           "meters": 11.2,
           "raw": "11.2"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": {
           "amount": null,
@@ -60342,6 +60857,14 @@
         },
         "conflicts": {
           "features": [
+            "Large guest",
+            "Large",
+            "Large",
+            "Large",
+            "Large guest",
+            "Large",
+            "Large",
+            "Large",
             "Large guest",
             "Large",
             "Large",
@@ -60382,7 +60905,7 @@
           "nameNorm": "eugenia",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60398,7 +60921,10 @@
           "meters": 8.53,
           "raw": "8.53"
         },
-        "year": null,
+        "year": {
+          "value": 2016,
+          "raw": "2016"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60437,7 +60963,10 @@
           "meters": 10.3,
           "raw": "10.3"
         },
-        "year": null,
+        "year": {
+          "value": 2013,
+          "raw": "2013"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60486,7 +61015,7 @@
           "nameNorm": "everblue",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60514,7 +61043,7 @@
           "nameNorm": "evrima",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60553,6 +61082,24 @@
         },
         "conflicts": {
           "features": [
+            "High-end",
+            "Futuristic profile, pool/Jacuzzi",
+            "Pool/Jacuzzi, futuristic",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "High-end",
+            "Futuristic profile, pool/Jacuzzi",
+            "Pool/Jacuzzi, futuristic",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
+            "Futuristic pool/Jacuzzi",
             "High-end",
             "Futuristic profile, pool/Jacuzzi",
             "Pool/Jacuzzi, futuristic",
@@ -60603,7 +61150,7 @@
           "nameNorm": "fat bob",
           "builderId": "builder:azimut-magellano"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60619,7 +61166,10 @@
           "meters": 9.12,
           "raw": "9.12"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60679,13 +61229,31 @@
             "Adventure highlights",
             "Adventure highlights",
             "Adventure highlights",
+            "Adventure highlights",
+            "Highlights",
+            "Explorer features",
+            "Highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Highlights",
+            "Explorer features",
+            "Highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Adventure highlights",
+            "Adventure highlights",
             "Adventure highlights"
           ],
           "guests": [
+            10,
+            10,
             10
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60713,7 +61281,7 @@
           "nameNorm": "fleur",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60741,7 +61309,7 @@
           "nameNorm": "flying dagger iii",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60790,9 +61358,17 @@
           "features": [
             "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
             "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
+            "12m pool, cryosauna, dive center",
+            "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
+            "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
+            "12m pool, cryosauna, dive center",
+            "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
+            "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
             "12m pool, cryosauna, dive center"
           ],
           "crew": [
+            55,
+            55,
             55
           ]
         },
@@ -60831,7 +61407,7 @@
           "nameNorm": "force blue",
           "builderId": "builder:royal-denship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60863,10 +61439,22 @@
             "Piano room opulence",
             "Piano room opulence",
             "Piano room opulence",
+            "Piano room opulence",
+            "Opulent piano room",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Opulent piano room",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Piano room opulence",
+            "Piano room opulence",
             "Piano room opulence"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60894,7 +61482,7 @@
           "nameNorm": "force blue",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60910,7 +61498,10 @@
           "meters": 10.6,
           "raw": "10.6"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -60960,7 +61551,7 @@
           "nameNorm": "fortitude",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -60992,10 +61583,16 @@
           "features": [
             "New",
             "New",
+            "New",
+            "New",
+            "New",
+            "New",
+            "New",
+            "New",
             "New"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61023,7 +61620,7 @@
           "nameNorm": "freedom",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61065,6 +61662,8 @@
         },
         "conflicts": {
           "features": [
+            "Largest by volume, support vessel; global.",
+            "Largest by volume, support vessel; global.",
             "Largest by volume, support vessel; global."
           ]
         },
@@ -61106,7 +61705,7 @@
           "nameNorm": "fx",
           "builderId": "builder:fx-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61136,10 +61735,12 @@
         },
         "conflicts": {
           "loa": [
+            "60",
+            "60",
             "60"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61205,10 +61806,26 @@
             "High guest capacity",
             "High guest capacity",
             "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
+            "High guest capacity",
             "High guest capacity"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61224,7 +61841,10 @@
           "meters": 8.6,
           "raw": "8.6"
         },
-        "year": null,
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -61277,10 +61897,16 @@
           "features": [
             "Eco",
             "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
+            "Eco",
             "Eco"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61315,7 +61941,7 @@
           "nameNorm": "ghost ii",
           "builderId": "builder:gulf-craft"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61350,6 +61976,10 @@
         "conflicts": {
           "features": [
             "Private owner deck, American-style",
+            "Private owner deck",
+            "Private owner deck, American-style",
+            "Private owner deck",
+            "Private owner deck, American-style",
             "Private owner deck"
           ]
         },
@@ -61381,7 +62011,7 @@
           "nameNorm": "gioia",
           "builderId": "builder:codecasa"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61409,7 +62039,7 @@
           "nameNorm": "glacier bear",
           "builderId": "builder:bayaco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61453,7 +62083,10 @@
           "meters": 18.5,
           "raw": "18.5"
         },
-        "year": null,
+        "year": {
+          "value": 2017,
+          "raw": "2017/2021"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 910000,
@@ -61549,7 +62182,7 @@
           "nameNorm": "grace",
           "builderId": "builder:abeking-rasmussen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61577,7 +62210,12 @@
           "nameNorm": "grace",
           "builderId": "builder:australian-yacht-builders"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 52.4m Australian Yacht Builders \"Grace\". Public records show two distinct \"Grace\" yachts (a 58.5m Australian Yacht Builders vessel, 1991, and an unrelated 52.3m Amels, 2009) — neither matches this node's exact 52.4m + Australian Yacht Builders combination. See research/round5/yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -61605,7 +62243,7 @@
           "nameNorm": "grand illusion",
           "builderId": "builder:palmer-johnson"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61635,7 +62273,7 @@
           "nameNorm": "grand ocean",
           "builderId": "builder:blohm-voss"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61663,7 +62301,7 @@
           "nameNorm": "grey",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61691,7 +62329,7 @@
           "nameNorm": "grey wolf ii",
           "builderId": "builder:circa-marine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61719,7 +62357,7 @@
           "nameNorm": "greyb",
           "builderId": "builder:sunreef"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61750,10 +62388,14 @@
         "conflicts": {
           "loa": [
             "70+",
+            "70+",
+            "70+",
+            "70+",
+            "70+",
             "70+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61795,6 +62437,8 @@
         },
         "conflicts": {
           "features": [
+            "Eco upgrades, helipad; Med rebuild.",
+            "Eco upgrades, helipad; Med rebuild.",
             "Eco upgrades, helipad; Med rebuild."
           ]
         },
@@ -61831,7 +62475,7 @@
           "nameNorm": "hampshire ii",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61859,7 +62503,7 @@
           "nameNorm": "hampshire ii",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61933,7 +62577,7 @@
           "nameNorm": "haze 2",
           "builderId": "builder:cantiere-delle-marche"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -61996,10 +62640,18 @@
             "Refit 2024, modernized",
             "Modernized refit",
             "2,150 GT volume, German precision",
+            "German precision",
+            "Refit 2024, modernized",
+            "Modernized refit",
+            "2,150 GT volume, German precision",
+            "German precision",
+            "Refit 2024, modernized",
+            "Modernized refit",
+            "2,150 GT volume, German precision",
             "German precision"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62027,7 +62679,7 @@
           "nameNorm": "hbc",
           "builderId": "builder:abeking-rasmussen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62063,10 +62715,24 @@
             "Catamaran incentives",
             "Catamaran incentives",
             "Catamaran incentives",
+            "Catamaran incentives",
+            "Catamaran",
+            "Catamaran",
+            "Catamaran specials",
+            "Catamaran incentives",
+            "Catamaran incentives",
+            "Catamaran incentives",
+            "Catamaran incentives",
+            "Catamaran",
+            "Catamaran",
+            "Catamaran specials",
+            "Catamaran incentives",
+            "Catamaran incentives",
+            "Catamaran incentives",
             "Catamaran incentives"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62094,7 +62760,7 @@
           "nameNorm": "helios",
           "builderId": "builder:mangusta"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62122,7 +62788,7 @@
           "nameNorm": "here comes the sun",
           "builderId": "builder:amels"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62159,10 +62825,18 @@
             "Extension, custom interiors",
             "Custom interiors",
             "Custom interiors",
+            "Custom interiors",
+            "Extension, custom interiors",
+            "Custom interiors",
+            "Custom interiors",
+            "Custom interiors",
+            "Extension, custom interiors",
+            "Custom interiors",
+            "Custom interiors",
             "Custom interiors"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62178,7 +62852,10 @@
           "meters": 8.59,
           "raw": "8.59-8.92"
         },
-        "year": null,
+        "year": {
+          "value": 1986,
+          "raw": "1986"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -62196,6 +62873,18 @@
         },
         "conflicts": {
           "features": [
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
+            "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
@@ -62248,10 +62937,22 @@
             "Refit-enhanced Lurssen",
             "Refit-enhanced Lurssen",
             "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
+            "Refit-enhanced Lurssen",
             "Refit-enhanced Lurssen"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62267,7 +62968,10 @@
           "meters": 10.55,
           "raw": "10.55"
         },
-        "year": null,
+        "year": {
+          "value": 2007,
+          "raw": "2007"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -62337,6 +63041,10 @@
         "conflicts": {
           "features": [
             "Cinema, gym, spa; named after children, Caribbean focus.",
+            "Cinema, nightclub",
+            "Cinema, gym, spa; named after children, Caribbean focus.",
+            "Cinema, nightclub",
+            "Cinema, gym, spa; named after children, Caribbean focus.",
             "Cinema, nightclub"
           ]
         },
@@ -62376,7 +63084,7 @@
           "nameNorm": "illusion",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62392,7 +63100,10 @@
           "meters": 8.5,
           "raw": "8.5"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -62451,10 +63162,12 @@
         },
         "conflicts": {
           "features": [
+            "Custom charters, Brisbane/Sydney focus.",
+            "Custom charters, Brisbane/Sydney focus.",
             "Custom charters, Brisbane/Sydney focus."
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62513,7 +63226,7 @@
           "nameNorm": "infinity",
           "builderId": "builder:oceanco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62548,7 +63261,7 @@
           "nameNorm": "infinity pacific",
           "builderId": null
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62579,10 +63292,20 @@
             "Home theatre, beach club, gym",
             "Home theatre, beach club, gym",
             "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
+            "Home theatre, beach club, gym",
             "Home theatre, beach club, gym"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62648,13 +63371,19 @@
         },
         "conflicts": {
           "loa": [
-            "120 (superseded — \"120\" is ISA Yachts' foot-based \"120\" model-line designation, not metres — real LOA is ~120ft/36.6m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)"
+            "120 (superseded — \"120\" is ISA Yachts' foot-based \"120\" model-line designation, not metres — real LOA is ~120ft/36.6m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)",
+            "120",
+            "120",
+            "120",
+            "120",
+            "120",
+            "120"
           ]
         },
         "loa_aliases": [
           120
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62729,7 +63458,10 @@
           "meters": 11.2,
           "raw": "11.2"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -62782,10 +63514,12 @@
         },
         "conflicts": {
           "features": [
+            "Quality",
+            "Quality",
             "Quality"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62801,7 +63535,10 @@
           "meters": 9.12,
           "raw": "9.12"
         },
-        "year": null,
+        "year": {
+          "value": 2011,
+          "raw": "2011"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -62852,7 +63589,7 @@
           "nameNorm": "kai",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -62894,6 +63631,8 @@
         },
         "conflicts": {
           "features": [
+            "Largest aquarium, cinema; Atlantic routes.",
+            "Largest aquarium, cinema; Atlantic routes.",
             "Largest aquarium, cinema; Atlantic routes."
           ]
         },
@@ -62987,7 +63726,12 @@
         "max_speed": 20,
         "range_nm": 5000,
         "flag": "Qatar",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "gt": [
+            "~8,010 (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -63015,7 +63759,7 @@
           "nameNorm": "kathleen anne",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63031,7 +63775,10 @@
           "meters": 10.68,
           "raw": "10.68"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -63083,7 +63830,7 @@
           "nameNorm": "katina",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63111,7 +63858,7 @@
           "nameNorm": "kayana",
           "builderId": "builder:vosper-thornycroft"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63127,7 +63874,10 @@
           "meters": 12.8,
           "raw": "12.8"
         },
-        "year": null,
+        "year": {
+          "value": 2022,
+          "raw": "2022"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -63147,6 +63897,22 @@
         },
         "conflicts": {
           "features": [
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
+            "Modern Admiral",
             "Modern Admiral",
             "Modern Admiral",
             "Modern Admiral",
@@ -63194,7 +63960,7 @@
           "nameNorm": "kensho",
           "builderId": "builder:admiral"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63222,7 +63988,7 @@
           "nameNorm": "kensho",
           "builderId": "builder:heesen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63276,7 +64042,7 @@
           "nameNorm": "kiara",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63304,7 +64070,7 @@
           "nameNorm": "kijo",
           "builderId": "builder:heesen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63332,7 +64098,7 @@
           "nameNorm": "kinda",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63378,16 +64144,28 @@
         "conflicts": {
           "year": [
             "2014 (refit)",
+            "2014 (refit)",
+            "2014 (refit)",
+            "2014 (refit)",
+            "2014 (refit)",
             "2014 (refit)"
           ],
           "value": [
+            "$360 million",
+            "$360 million",
             "$360 million"
           ],
           "features": [
             "Jaguar emblem, helipad, spa; available for Caribbean charters.",
+            "Spa, gym, helipad",
+            "Jaguar emblem, helipad, spa; available for Caribbean charters.",
+            "Spa, gym, helipad",
+            "Jaguar emblem, helipad, spa; available for Caribbean charters.",
             "Spa, gym, helipad"
           ],
           "guests": [
+            12,
+            12,
             12
           ]
         },
@@ -63426,7 +64204,7 @@
           "nameNorm": "kogo",
           "builderId": "builder:alstom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63466,10 +64244,32 @@
             "Modern Benetti",
             "Modern Benetti",
             "Modern Benetti",
+            "Modern Benetti",
+            "Modern",
+            "Modern Benetti",
+            "Modern",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern",
+            "Modern Benetti",
+            "Modern",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
+            "Modern Benetti",
             "Modern Benetti"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63509,6 +64309,8 @@
         },
         "conflicts": {
           "features": [
+            "Three-masted sailing; Med charters.",
+            "Three-masted sailing; Med charters.",
             "Three-masted sailing; Med charters."
           ]
         },
@@ -63546,10 +64348,12 @@
         },
         "conflicts": {
           "features": [
+            "Trimaran",
+            "Trimaran",
             "Trimaran"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63577,7 +64381,7 @@
           "nameNorm": "la blanca",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63614,6 +64418,8 @@
         },
         "conflicts": {
           "features": [
+            "Sub, helipad; Fiji charters.",
+            "Sub, helipad; Fiji charters.",
             "Sub, helipad; Fiji charters."
           ]
         },
@@ -63645,7 +64451,7 @@
           "nameNorm": "la tania",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63673,7 +64479,7 @@
           "nameNorm": "lady alaska",
           "builderId": "builder:broward"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63701,7 +64507,7 @@
           "nameNorm": "lady azul",
           "builderId": "builder:heesen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63732,10 +64538,14 @@
         "conflicts": {
           "features": [
             "Spacious",
+            "Spacious",
+            "Spacious",
+            "Spacious",
+            "Spacious",
             "Spacious"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63763,7 +64573,7 @@
           "nameNorm": "lady beth",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63795,10 +64605,22 @@
             "Opulent RWD interiors",
             "Opulent RWD interiors",
             "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD design",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD design",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
+            "Opulent RWD interiors",
             "Opulent RWD interiors"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63826,7 +64648,7 @@
           "nameNorm": "lady e",
           "builderId": "builder:amels"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63854,7 +64676,7 @@
           "nameNorm": "lady freya",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -63901,7 +64723,10 @@
           "meters": 14.35,
           "raw": "14.35"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 230000000,
@@ -63924,6 +64749,14 @@
         },
         "conflicts": {
           "features": [
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
+            "Wellness deck",
             "Wellness deck",
             "Wellness deck",
             "Wellness deck",
@@ -63965,7 +64798,7 @@
           "nameNorm": "lady luck",
           "builderId": "builder:arcadia-sherpa"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64060,6 +64893,12 @@
           "features": [
             "Glamorous, expansive decks",
             "Glamorous decks, wellness spa",
+            "Glamorous decks, wellness",
+            "Glamorous, expansive decks",
+            "Glamorous decks, wellness spa",
+            "Glamorous decks, wellness",
+            "Glamorous, expansive decks",
+            "Glamorous decks, wellness spa",
             "Glamorous decks, wellness"
           ]
         },
@@ -64097,7 +64936,7 @@
           "nameNorm": "lady vera",
           "builderId": "builder:nobiskrug"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64125,7 +64964,7 @@
           "nameNorm": "lady victory",
           "builderId": "builder:rayburn"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64153,7 +64992,7 @@
           "nameNorm": "laila",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64181,7 +65020,7 @@
           "nameNorm": "largo",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64209,7 +65048,7 @@
           "nameNorm": "last call",
           "builderId": "builder:intermarine-usa"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64248,7 +65087,12 @@
         "max_speed": 24,
         "range_nm": 6000,
         "flag": "Marshall Islands",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "beam": [
+            "~15.2 (50 ft) (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -64280,10 +65124,14 @@
         "conflicts": {
           "features": [
             "Classic interiors, toys",
+            "Classic, toys",
+            "Classic interiors, toys",
+            "Classic, toys",
+            "Classic interiors, toys",
             "Classic, toys"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64327,6 +65175,8 @@
         },
         "conflicts": {
           "features": [
+            "Large group mega yacht",
+            "Large group mega yacht",
             "Large group mega yacht"
           ]
         },
@@ -64358,7 +65208,7 @@
           "nameNorm": "lauren l",
           "builderId": "builder:devonport"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64432,7 +65282,10 @@
           "raw": "84"
         },
         "beam": null,
-        "year": null,
+        "year": {
+          "value": 1991,
+          "raw": "1991"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 32,
@@ -64450,6 +65303,18 @@
         },
         "conflicts": {
           "features": [
+            "Large sail capacity",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large sail capacity",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
+            "Large-capacity sailing",
             "Large sail capacity",
             "Large-capacity sailing",
             "Large-capacity sailing",
@@ -64513,7 +65378,7 @@
           "nameNorm": "le verseau",
           "builderId": "builder:princess"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64555,10 +65420,26 @@
             "New-build luxury",
             "New-build luxury",
             "New-build luxury",
+            "New-build luxury",
+            "New build",
+            "New build luxury",
+            "New build",
+            "New-build luxury",
+            "New-build luxury",
+            "New-build luxury",
+            "New-build luxury",
+            "New-build luxury",
+            "New build",
+            "New build luxury",
+            "New build",
+            "New-build luxury",
+            "New-build luxury",
+            "New-build luxury",
+            "New-build luxury",
             "New-build luxury"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64586,7 +65467,7 @@
           "nameNorm": "les cinq",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64613,7 +65494,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 2011,
+          "raw": "2011"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -64667,7 +65551,7 @@
           "nameNorm": "life time",
           "builderId": "builder:heesen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64683,7 +65567,10 @@
           "meters": 12.1,
           "raw": "12.1"
         },
-        "year": null,
+        "year": {
+          "value": 2006,
+          "raw": "2006"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -64748,6 +65635,8 @@
         },
         "conflicts": {
           "features": [
+            "Helipad, pool; part of fleet in Atlantic.",
+            "Helipad, pool; part of fleet in Atlantic.",
             "Helipad, pool; part of fleet in Atlantic."
           ]
         },
@@ -64788,7 +65677,7 @@
           "nameNorm": "liquidity",
           "builderId": "builder:platinum-marine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64820,10 +65709,19 @@
           "features": [
             "Family",
             "Family",
+            "Family",
+            "Family",
+            "Family",
+            "Family",
+            "Family",
+            "Family",
             "Family"
+          ],
+          "identity": [
+            "Graph describes a 50m \"Little Perle\". The only public \"Little Perle\" is a 30m Moonen (2008) — no 50m vessel of this name exists in yacht databases; probably a graph misattribution during ingestion. See research/round5/yacht-specs-45-55m.md."
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64851,7 +65749,7 @@
           "nameNorm": "liv love",
           "builderId": "builder:benetti"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64913,10 +65811,14 @@
         "conflicts": {
           "loa": [
             "50+",
+            "50+",
+            "50+",
+            "50+",
+            "50+",
             "50+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -64932,7 +65834,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -65003,6 +65908,10 @@
         "conflicts": {
           "features": [
             "Infinity pool, cinema; Med charters.",
+            "Superyacht for Mediterranean charters.",
+            "Infinity pool, cinema; Med charters.",
+            "Superyacht for Mediterranean charters.",
+            "Infinity pool, cinema; Med charters.",
             "Superyacht for Mediterranean charters."
           ]
         },
@@ -65041,7 +65950,7 @@
           "nameNorm": "luciano",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65069,7 +65978,7 @@
           "nameNorm": "lucien",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65085,7 +65994,10 @@
           "meters": 10.5,
           "raw": "10.5"
         },
-        "year": null,
+        "year": {
+          "value": 2002,
+          "raw": "2002"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -65220,10 +66132,16 @@
           "features": [
             "Discounted winter 2026 rates",
             "Award-winning, discounted winter",
+            "Award-winning refit",
+            "Discounted winter 2026 rates",
+            "Award-winning, discounted winter",
+            "Award-winning refit",
+            "Discounted winter 2026 rates",
+            "Award-winning, discounted winter",
             "Award-winning refit"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65288,10 +66206,24 @@
             "Luxury-focused",
             "Luxury-focused",
             "Luxury-focused",
+            "Luxury-focused",
+            "Luxury focus",
+            "Luxury focus",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury focus",
+            "Luxury focus",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury-focused",
+            "Luxury-focused",
             "Luxury-focused"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65307,7 +66239,10 @@
           "meters": 14,
           "raw": "14"
         },
-        "year": null,
+        "year": {
+          "value": 2019,
+          "raw": "2019"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -65338,6 +66273,9 @@
         "conflicts": {
           "crew": [
             30
+          ],
+          "gt": [
+            "~3,120–3,250 (estimate — not stored as a confirmed value; see source Notes)"
           ]
         },
         "identifiability": "identifiable"
@@ -65356,7 +66294,10 @@
           "meters": 8.9,
           "raw": "8.9"
         },
-        "year": null,
+        "year": {
+          "value": 1986,
+          "raw": "1986"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -65408,10 +66349,14 @@
         "conflicts": {
           "loa": [
             "30+",
+            "30+",
+            "30+",
+            "30+",
+            "30+",
             "30+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65441,13 +66386,19 @@
         },
         "conflicts": {
           "loa": [
-            "120 (superseded — \"120\" is Gulf Craft's foot-based Majesty 120 model designation, not metres — real LOA is ~120ft/36.5m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)"
+            "120 (superseded — \"120\" is Gulf Craft's foot-based Majesty 120 model designation, not metres — real LOA is ~120ft/36.5m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)",
+            "120",
+            "120",
+            "120",
+            "120",
+            "120",
+            "120"
           ]
         },
         "loa_aliases": [
           120
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65485,10 +66436,24 @@
             "High-spec newer",
             "High-spec newer",
             "High-spec newer",
+            "High-spec newer",
+            "High-spec newer build",
+            "High-spec",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer build",
+            "High-spec",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer",
+            "High-spec newer",
             "High-spec newer"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65504,7 +66469,10 @@
           "meters": 12.6,
           "raw": "12.6"
         },
-        "year": null,
+        "year": {
+          "value": 2006,
+          "raw": "2006"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -65529,9 +66497,21 @@
           "crew": [
             19,
             18,
+            18,
+            19,
+            18,
+            18,
+            19,
+            18,
             18
           ],
           "features": [
+            "DynaRig sails, helipad; iconic.",
+            "Iconic DynaRig sails, watersports",
+            "DynaRig sails, watersports",
+            "DynaRig sails, helipad; iconic.",
+            "Iconic DynaRig sails, watersports",
+            "DynaRig sails, watersports",
             "DynaRig sails, helipad; iconic.",
             "Iconic DynaRig sails, watersports",
             "DynaRig sails, watersports"
@@ -65597,7 +66577,30 @@
             "Toy-heavy explorer",
             "Toy-heavy explorer",
             "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Two helipads, infinity pool; Med.",
+            "Strong build, toys",
+            "Strong build, extensive toys",
+            "Extensive toys",
+            "Toy-heavy",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Two helipads, infinity pool; Med.",
+            "Strong build, toys",
+            "Strong build, extensive toys",
+            "Extensive toys",
+            "Toy-heavy",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
+            "Toy-heavy explorer",
             "Toy-heavy explorer"
+          ],
+          "year": [
+            "2010"
           ]
         },
         "draft": {
@@ -65637,7 +66640,7 @@
           "nameNorm": "mangusta 92",
           "builderId": "builder:mangusta"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65721,13 +66724,22 @@
         },
         "conflicts": {
           "guests": [
+            16,
+            16,
             16
           ],
           "crew": [
+            8,
+            8,
             8
           ],
           "features": [
+            "Fold-out balconies, beach club",
+            "Fold-out balconies, beach club",
             "Fold-out balconies, beach club"
+          ],
+          "year": [
+            "2018"
           ]
         },
         "draft": {
@@ -65768,7 +66780,7 @@
           "nameNorm": "mar allure",
           "builderId": "builder:motorsailer"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65795,10 +66807,12 @@
         },
         "conflicts": {
           "features": [
+            "Classic",
+            "Classic",
             "Classic"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65835,10 +66849,18 @@
             "Bahamas interiors",
             "Bahamas interiors",
             "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
+            "Bahamas interiors",
             "Bahamas interiors"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65866,7 +66888,7 @@
           "nameNorm": "marquise",
           "builderId": "builder:austal"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65894,7 +66916,7 @@
           "nameNorm": "martita",
           "builderId": "builder:palumbo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -65910,7 +66932,10 @@
           "meters": 12,
           "raw": "12.0"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -65973,7 +66998,12 @@
         "gt": 5650,
         "max_speed": 18,
         "flag": "Cayman Islands",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2014"
+          ]
+        }
       }
     },
     {
@@ -66009,10 +67039,22 @@
             "Beach club/master",
             "Beach club/master",
             "Beach club/master",
+            "Beach club/master",
+            "Full-beam master, beach club",
+            "Beach club",
+            "Beach club/master",
+            "Beach club/master",
+            "Beach club/master",
+            "Beach club/master",
+            "Full-beam master, beach club",
+            "Beach club",
+            "Beach club/master",
+            "Beach club/master",
+            "Beach club/master",
             "Beach club/master"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66028,7 +67070,10 @@
           "meters": 10.2,
           "raw": "10.2"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 79500000,
@@ -66083,7 +67128,7 @@
           "nameNorm": "maximus iii",
           "builderId": "builder:crescent-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66115,7 +67160,7 @@
           "nameNorm": "meme",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66152,6 +67197,8 @@
         },
         "conflicts": {
           "features": [
+            "Outdoor cinema, Jacuzzi",
+            "Outdoor cinema, Jacuzzi",
             "Outdoor cinema, Jacuzzi"
           ]
         },
@@ -66188,7 +67235,7 @@
           "nameNorm": "meridian a",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66216,7 +67263,7 @@
           "nameNorm": "mimtee",
           "builderId": "builder:crn"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66244,7 +67291,7 @@
           "nameNorm": "mimtee",
           "builderId": "builder:crn-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66279,7 +67326,7 @@
           "nameNorm": "mirage iv",
           "builderId": "builder:princess"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66307,7 +67354,7 @@
           "nameNorm": "miredo",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66335,7 +67382,7 @@
           "nameNorm": "mirka",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66363,7 +67410,7 @@
           "nameNorm": "moka",
           "builderId": "builder:overmarine-group"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66391,7 +67438,7 @@
           "nameNorm": "moka",
           "builderId": "builder:overmarine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66419,7 +67466,7 @@
           "nameNorm": "moonlight ii",
           "builderId": "builder:neorion"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66446,7 +67493,10 @@
           "meters": 15.5,
           "raw": "15.5"
         },
-        "year": null,
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -66497,7 +67547,7 @@
           "nameNorm": "morning star",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66530,7 +67580,7 @@
           "builderId": null
         },
         "data_quality": "unverified — no matching real vessel found (2026-07 research pass)",
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66546,7 +67596,10 @@
           "meters": 9.6,
           "raw": "9.6"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -66597,7 +67650,7 @@
           "nameNorm": "mr. k",
           "builderId": "builder:azimut"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66711,6 +67764,8 @@
         },
         "conflicts": {
           "features": [
+            "Japanese-inspired, spa pool; Florida sightings.",
+            "Japanese-inspired, spa pool; Florida sightings.",
             "Japanese-inspired, spa pool; Florida sightings."
           ]
         },
@@ -66739,7 +67794,10 @@
           "meters": 7.39,
           "raw": "7.39"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 10000000,
@@ -66770,7 +67828,9 @@
         "imo": "n/a (not found)",
         "conflicts": {
           "loa": [
-            "109m (superseded — Graph LOA (109m) conflated \"109 ft\" with \"109 m\" (a feet-to-meters conversion bug) — real MYSTERE is a 33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
+            "109m (superseded — Graph LOA (109m) conflated \"109 ft\" with \"109 m\" (a feet-to-meters conversion bug) — real MYSTERE is a 33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)",
+            "109m",
+            "109m"
           ]
         },
         "loa_aliases": [
@@ -66851,7 +67911,7 @@
           "nameNorm": "naia",
           "builderId": "builder:freire-shipyard"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66885,10 +67945,20 @@
             "Modern luxury Picchiotti",
             "Modern luxury Picchiotti",
             "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
+            "Modern luxury Picchiotti",
             "Modern luxury Picchiotti"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66918,13 +67988,19 @@
         },
         "conflicts": {
           "loa": [
-            "68 (superseded — \"68\" is the Absolute Navetta 68 model's foot-based name, not metres — real LOA is 20.52m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
+            "68 (superseded — \"68\" is the Absolute Navetta 68 model's foot-based name, not metres — real LOA is 20.52m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
+            "68",
+            "68",
+            "68",
+            "68",
+            "68",
+            "68"
           ]
         },
         "loa_aliases": [
           68
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -66971,7 +68047,10 @@
           "meters": 12.03,
           "raw": "12.03"
         },
-        "year": null,
+        "year": {
+          "value": 2007,
+          "raw": "2007"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -66991,6 +68070,20 @@
         },
         "conflicts": {
           "features": [
+            "Classic lines, refit",
+            "Classic refit",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic lines, refit",
+            "Classic refit",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
+            "Classic refit value",
             "Classic lines, refit",
             "Classic refit",
             "Classic refit value",
@@ -67035,7 +68128,12 @@
           "nameNorm": "night fury ii",
           "builderId": "builder:columbus-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 49.9m Columbus-built \"Night Fury II\". The only public record is a 43.0m Columbus Atlantique 43 (2024) — 6.9m shorter than this node's recorded length; builder matches but LOA does not. See research/round5/yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -67063,7 +68161,7 @@
           "nameNorm": "no.9",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67100,6 +68198,8 @@
         },
         "conflicts": {
           "features": [
+            "Fast, tenders; Fiji focus.",
+            "Fast, tenders; Fiji focus.",
             "Fast, tenders; Fiji focus."
           ]
         },
@@ -67119,7 +68219,10 @@
           "meters": 11.58,
           "raw": "11.58"
         },
-        "year": null,
+        "year": {
+          "value": 2003,
+          "raw": "2003"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -67186,9 +68289,16 @@
         "conflicts": {
           "year": [
             "2021",
+            "2021",
+            "2021",
+            "2021",
+            "2020/2021",
+            "2021",
             "2021"
           ],
           "features": [
+            "Two helipads, beach club; seized but historically in Caribbean.",
+            "Two helipads, beach club; seized but historically in Caribbean.",
             "Two helipads, beach club; seized but historically in Caribbean."
           ]
         },
@@ -67244,7 +68354,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 1976,
+          "raw": "1976"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -67353,9 +68466,21 @@
           "crew": [
             30,
             30,
+            30,
+            30,
+            30,
+            30,
+            30,
+            30,
             30
           ],
           "features": [
+            "Luxurious cabins, gym, hot tub.",
+            "Luxurious cabins, gym, hot tub",
+            "Spa, helipad",
+            "Luxurious cabins, gym, hot tub.",
+            "Luxurious cabins, gym, hot tub",
+            "Spa, helipad",
             "Luxurious cabins, gym, hot tub.",
             "Luxurious cabins, gym, hot tub",
             "Spa, helipad"
@@ -67415,6 +68540,8 @@
         },
         "conflicts": {
           "features": [
+            "Pool, cinema",
+            "Pool, cinema",
             "Pool, cinema"
           ]
         },
@@ -67454,7 +68581,7 @@
           "nameNorm": "o'ptasia (variant)",
           "builderId": "builder:golden-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67486,10 +68613,22 @@
             "Contemporary stately",
             "Contemporary stately",
             "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately design",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately design",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately",
+            "Contemporary stately",
             "Contemporary stately"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67560,7 +68699,7 @@
           "nameNorm": "oceana",
           "builderId": "builder:ditmar-donaldson"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67590,10 +68729,12 @@
         },
         "conflicts": {
           "features": [
+            "Catamaran",
+            "Catamaran",
             "Catamaran"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67621,7 +68762,7 @@
           "nameNorm": "oceanic 100 shadow",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67670,6 +68811,16 @@
             "$285 million",
             "$285 million",
             "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
+            "$285 million",
             "$285 million"
           ],
           "features": [
@@ -67678,12 +68829,28 @@
             "Expedition capabilities, submarine; Atlantic/Canary transits.",
             "Research sub, helipads; South Pacific expeditions.",
             "Submarine, dive center; Fiji expeditions.",
+            "Submarine, helipads, cinema",
+            "Research/expedition yacht with submarine, helipads, recording studio; occasional Caribbean charters.",
+            "Submarine, ROVs; expedition in Keys.",
+            "Expedition capabilities, submarine; Atlantic/Canary transits.",
+            "Research sub, helipads; South Pacific expeditions.",
+            "Submarine, dive center; Fiji expeditions.",
+            "Submarine, helipads, cinema",
+            "Research/expedition yacht with submarine, helipads, recording studio; occasional Caribbean charters.",
+            "Submarine, ROVs; expedition in Keys.",
+            "Expedition capabilities, submarine; Atlantic/Canary transits.",
+            "Research sub, helipads; South Pacific expeditions.",
+            "Submarine, dive center; Fiji expeditions.",
             "Submarine, helipads, cinema"
           ],
           "guests": [
+            12,
+            12,
             12
           ],
           "crew": [
+            42,
+            42,
             42
           ]
         },
@@ -67769,7 +68936,10 @@
           "meters": 10.5,
           "raw": "10.5–11.0 (sources vary)"
         },
-        "year": null,
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 11,
@@ -67787,6 +68957,22 @@
         },
         "conflicts": {
           "features": [
+            "Refit 2023, stylish",
+            "Refit 2023, stylish",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Refit 2023, stylish",
+            "Refit 2023, stylish",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
+            "Stylish refit",
             "Refit 2023, stylish",
             "Refit 2023, stylish",
             "Stylish refit",
@@ -67832,7 +69018,7 @@
           "nameNorm": "omnia",
           "builderId": "builder:pearl"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67874,6 +69060,8 @@
         },
         "conflicts": {
           "features": [
+            "Transformable pool; Med-based.",
+            "Transformable pool; Med-based.",
             "Transformable pool; Med-based."
           ]
         },
@@ -67912,7 +69100,7 @@
           "nameNorm": "oracle",
           "builderId": "builder:pak-haji-saka"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67940,7 +69128,7 @@
           "nameNorm": "orient star",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -67968,7 +69156,7 @@
           "nameNorm": "orion one",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68042,7 +69230,7 @@
           "nameNorm": "ouranos",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68070,7 +69258,7 @@
           "nameNorm": "ourway",
           "builderId": "builder:tenix-defence"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68098,7 +69286,12 @@
           "nameNorm": "panam",
           "builderId": "builder:ccn"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 49m \"Panam\" attributed (in part) to CCN. The only public \"Panam\" is a 40.2m Baglietto-built, CCN-constructed yacht (2021) — 8.8m shorter than this node's recorded length. See research/round5/yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -68114,7 +69307,10 @@
           "meters": 9.6,
           "raw": "9.6"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -68204,10 +69400,18 @@
             "Last-chance dates",
             "Last-chance dates",
             "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
+            "Last-chance dates",
             "Last-chance dates"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68249,6 +69453,10 @@
         },
         "conflicts": {
           "features": [
+            "Helicopter hangar, spa; Florida charters.",
+            "Explorer styling; Atlantic charters including Canaries.",
+            "Helicopter hangar, spa; Florida charters.",
+            "Explorer styling; Atlantic charters including Canaries.",
             "Helicopter hangar, spa; Florida charters.",
             "Explorer styling; Atlantic charters including Canaries."
           ]
@@ -68311,9 +69519,41 @@
             "Gold/red opulence, piano room",
             "Gold/red opulence, piano room",
             "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Art deco, piano lounge; Med charters.",
+            "3 pools, cinema, gym, helipad",
+            "Opulent gold/red interiors, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Art deco, piano lounge; Med charters.",
+            "3 pools, cinema, gym, helipad",
+            "Opulent gold/red interiors, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
+            "Gold/red opulence, piano room",
             "Gold/red opulence, piano room"
           ],
           "guests": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
             12,
             12,
             12,
@@ -68357,7 +69597,10 @@
           "meters": 11,
           "raw": "11.0"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": {
           "amount": 510000,
@@ -68380,6 +69623,14 @@
         },
         "conflicts": {
           "features": [
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
+            "Award-winning",
             "Award-winning",
             "Award-winning",
             "Award-winning",
@@ -68421,7 +69672,7 @@
           "nameNorm": "plan b",
           "builderId": "builder:hdw"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68449,7 +69700,7 @@
           "nameNorm": "plan b",
           "builderId": "builder:hdw"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68477,7 +69728,7 @@
           "nameNorm": "planet nine",
           "builderId": "builder:admiral-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68505,7 +69756,7 @@
           "nameNorm": "planet nine",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68537,10 +69788,16 @@
           "features": [
             "Explorer, polar capabilities",
             "Expedition",
+            "Expedition",
+            "Explorer, polar capabilities",
+            "Expedition",
+            "Expedition",
+            "Explorer, polar capabilities",
+            "Expedition",
             "Expedition"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68576,10 +69833,24 @@
             "Modern Rossinavi",
             "Modern Rossinavi",
             "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
+            "Modern Rossinavi",
             "Modern Rossinavi"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68595,7 +69866,10 @@
           "meters": 10.2,
           "raw": "10.2"
         },
-        "year": null,
+        "year": {
+          "value": 2006,
+          "raw": "2006"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -68648,7 +69922,7 @@
           "nameNorm": "prana",
           "builderId": "builder:yachtsourcing"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68730,6 +70004,8 @@
         },
         "conflicts": {
           "features": [
+            "Gym, jacuzzi; focused on privacy in Florida Keys.",
+            "Gym, jacuzzi; focused on privacy in Florida Keys.",
             "Gym, jacuzzi; focused on privacy in Florida Keys."
           ]
         },
@@ -68784,7 +70060,10 @@
           "meters": 6.8,
           "raw": "6.8"
         },
-        "year": null,
+        "year": {
+          "value": 1993,
+          "raw": "1993"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -68855,9 +70134,15 @@
         "conflicts": {
           "features": [
             "Helipad, waterfall pool; Med focus.",
+            "Helipad, beach club",
+            "Helipad, waterfall pool; Med focus.",
+            "Helipad, beach club",
+            "Helipad, waterfall pool; Med focus.",
             "Helipad, beach club"
           ],
           "cabins": [
+            6,
+            6,
             6
           ]
         },
@@ -68899,7 +70184,7 @@
           "nameNorm": "pura vida",
           "builderId": "builder:moonen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68930,13 +70215,17 @@
         },
         "conflicts": {
           "guests": [
+            12,
+            12,
             12
           ],
           "features": [
+            "Explorer",
+            "Explorer",
             "Explorer"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -68970,10 +70259,20 @@
             "Versatile value",
             "Versatile value",
             "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
+            "Versatile value",
             "Versatile value"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69001,7 +70300,7 @@
           "nameNorm": "quantum blue",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69038,10 +70337,26 @@
             "Refit, iconic name",
             "Refit, iconic name",
             "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, Bond-inspired",
+            "Refit, iconic name",
+            "Refit iconic",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, Bond-inspired",
+            "Refit, iconic name",
+            "Refit iconic",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, iconic name",
+            "Refit, iconic name",
             "Refit, iconic name"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69057,7 +70372,10 @@
           "meters": 14.4,
           "raw": "14.4"
         },
-        "year": null,
+        "year": {
+          "value": 2004,
+          "raw": "2004"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 36,
@@ -69075,6 +70393,18 @@
         },
         "conflicts": {
           "features": [
+            "Massive capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
+            "Massive guest capacity",
             "Massive capacity",
             "Massive guest capacity",
             "Massive guest capacity",
@@ -69130,7 +70460,15 @@
         },
         "conflicts": {
           "features": [
+            "Water cannon defense; Med sister to Dilbar.",
+            "Water cannon defense; Med sister to Dilbar.",
             "Water cannon defense; Med sister to Dilbar."
+          ],
+          "year": [
+            "2009"
+          ],
+          "gt": [
+            "~5,027 (estimate — not stored as a confirmed value; see source Notes)"
           ]
         },
         "draft": {
@@ -69157,7 +70495,10 @@
           "meters": 14,
           "raw": "14.0"
         },
-        "year": null,
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69208,7 +70549,7 @@
           "nameNorm": "raja²",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69236,7 +70577,7 @@
           "nameNorm": "(ranks 64-100)",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69264,7 +70605,7 @@
           "nameNorm": "regina d'italia",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69301,6 +70642,8 @@
         },
         "conflicts": {
           "features": [
+            "Jacuzzi, water toys, fishing gear; Florida Keys charters.",
+            "Jacuzzi, water toys, fishing gear; Florida Keys charters.",
             "Jacuzzi, water toys, fishing gear; Florida Keys charters."
           ]
         },
@@ -69320,7 +70663,10 @@
           "meters": 9.6,
           "raw": "9.6"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69371,7 +70717,7 @@
           "nameNorm": "... (remaining 44 yachts)",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69402,10 +70748,20 @@
             "Timeless classic elegance",
             "Timeless classic elegance",
             "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
+            "Timeless classic elegance",
             "Timeless classic elegance"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69421,7 +70777,10 @@
           "meters": 18,
           "raw": "~18"
         },
-        "year": null,
+        "year": {
+          "value": 2023,
+          "raw": "2023"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 36,
@@ -69439,7 +70798,12 @@
           "builderId": "builder:freire"
         },
         "gt": 6950,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "beam": [
+            "~18 (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -69455,7 +70819,10 @@
           "meters": 11.5,
           "raw": "11.5–12 (sources vary)"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69509,10 +70876,24 @@
             "Flexible high-end",
             "Flexible high-end",
             "Flexible high-end",
+            "Flexible high-end",
+            "High-end motor, flexible",
+            "High-end, flexible itineraries",
+            "Flexible high-end",
+            "Flexible high-end",
+            "Flexible high-end",
+            "Flexible high-end",
+            "Flexible high-end",
+            "High-end motor, flexible",
+            "High-end, flexible itineraries",
+            "Flexible high-end",
+            "Flexible high-end",
+            "Flexible high-end",
+            "Flexible high-end",
             "Flexible high-end"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69553,7 +70934,12 @@
         },
         "conflicts": {
           "features": [
+            "Research labs, submarine; global eco.",
+            "Research labs, submarine; global eco.",
             "Research labs, submarine; global eco."
+          ],
+          "year": [
+            "2019 (launch); delivery pending"
           ]
         },
         "draft": {
@@ -69610,7 +70996,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 2012,
+          "raw": "2012"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69660,7 +71049,7 @@
           "nameNorm": "reverie",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69693,7 +71082,7 @@
           "builderId": null
         },
         "data_quality": "unverified — no matching real vessel found (2026-07 research pass)",
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69730,7 +71119,12 @@
           "raw": "2.21"
         },
         "gt": 360,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "gt": [
+            "~360–398 (sources vary) (estimate — not stored as a confirmed value; see source Notes)"
+          ]
+        }
       }
     },
     {
@@ -69770,6 +71164,10 @@
         "conflicts": {
           "features": [
             "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
+            "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots.",
+            "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
+            "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots.",
+            "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
             "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots."
           ]
         },
@@ -69806,13 +71204,19 @@
         },
         "conflicts": {
           "loa": [
-            "56 (superseded — \"56\" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
+            "56 (superseded — \"56\" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
+            "56",
+            "56",
+            "56",
+            "56",
+            "56",
+            "56"
           ]
         },
         "loa_aliases": [
           56
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69828,7 +71232,10 @@
           "meters": 10.8,
           "raw": "10.8"
         },
-        "year": null,
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69865,7 +71272,10 @@
           "meters": 11,
           "raw": "11.0"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69904,7 +71314,10 @@
           "meters": 12.6,
           "raw": "12.6"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -69958,7 +71371,7 @@
           "nameNorm": "romea",
           "builderId": "builder:abeking"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -69986,7 +71399,7 @@
           "nameNorm": "s7",
           "builderId": "builder:tansu"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70014,7 +71427,7 @@
           "nameNorm": "safari quest",
           "builderId": "builder:shear-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70093,6 +71506,14 @@
             "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
             "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
             "Underwater pod; Med and global (seized).",
+            "Hybrid, underwater pod; global.",
+            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
+            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
+            "Underwater pod; Med and global (seized).",
+            "Hybrid, underwater pod; global.",
+            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
+            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
+            "Underwater pod; Med and global (seized).",
             "Hybrid, underwater pod; global."
           ]
         },
@@ -70122,7 +71543,10 @@
           "meters": 8.6,
           "raw": "8.6"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025-2026"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 10,
@@ -70161,7 +71585,10 @@
           "meters": 13.8,
           "raw": "13.8"
         },
-        "year": null,
+        "year": {
+          "value": 2003,
+          "raw": "2003"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -70265,6 +71692,26 @@
             "Wellness-focused refit",
             "Wellness-focused refit",
             "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Circular pool, cinema; Canary transits.",
+            "Refit luxury",
+            "Refit luxury, wellness",
+            "Wellness amenities",
+            "Wellness refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Circular pool, cinema; Canary transits.",
+            "Refit luxury",
+            "Refit luxury, wellness",
+            "Wellness amenities",
+            "Wellness refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
+            "Wellness-focused refit",
             "Wellness-focused refit"
           ]
         },
@@ -70296,7 +71743,7 @@
           "nameNorm": "samsara samudra",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70312,7 +71759,10 @@
           "meters": 10.2,
           "raw": "10.2"
         },
-        "year": null,
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -70350,7 +71800,10 @@
           "meters": 10.75,
           "raw": "10.75"
         },
-        "year": null,
+        "year": {
+          "value": 2016,
+          "raw": "2016/2017 (sources vary)"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -70403,10 +71856,22 @@
             "Performance sailing",
             "Performance sailing",
             "Performance sailing",
+            "Performance sailing",
+            "Performance sailing elements",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing elements",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing",
+            "Performance sailing",
             "Performance sailing"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70422,7 +71887,10 @@
           "meters": 12.5,
           "raw": "12.5"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -70442,6 +71910,16 @@
         },
         "conflicts": {
           "features": [
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
+            "Glass-heavy art collection",
             "Glass-heavy art collection",
             "Glass-heavy art collection",
             "Glass-heavy art collection",
@@ -70529,7 +72007,7 @@
           "nameNorm": "sayonara",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70545,7 +72023,10 @@
           "meters": 21.5,
           "raw": "21.5"
         },
-        "year": null,
+        "year": {
+          "value": 2019,
+          "raw": "2019"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -70686,10 +72167,24 @@
             "Jan 2026 discount",
             "Jan 2026 discount",
             "Jan 2026 discount",
+            "Jan 2026 discount",
+            "Discounted",
+            "Discounted",
+            "Discounted Jan 2026",
+            "Jan 2026 discount",
+            "Jan 2026 discount",
+            "Jan 2026 discount",
+            "Jan 2026 discount",
+            "Discounted",
+            "Discounted",
+            "Discounted Jan 2026",
+            "Jan 2026 discount",
+            "Jan 2026 discount",
+            "Jan 2026 discount",
             "Jan 2026 discount"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70731,16 +72226,26 @@
           "features": [
             "Sailing superyacht, eco-friendly; Pacific.",
             "Sailing, eco; Fiji islands.",
+            "Eco-Focused",
+            "Sailing superyacht, eco-friendly; Pacific.",
+            "Sailing, eco; Fiji islands.",
+            "Eco-Focused",
+            "Sailing superyacht, eco-friendly; Pacific.",
+            "Sailing, eco; Fiji islands.",
             "Eco-Focused"
           ],
           "guests": [
+            5,
+            5,
             5
           ],
           "crew": [
+            8,
+            8,
             8
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70773,10 +72278,18 @@
             "Sailing",
             "Sailing",
             "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
+            "Sailing",
             "Sailing"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70817,7 +72330,10 @@
           "meters": 12.2,
           "raw": "12.2"
         },
-        "year": null,
+        "year": {
+          "value": 2013,
+          "raw": "2013"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -70870,10 +72386,14 @@
         "conflicts": {
           "features": [
             "Award features",
+            "Award features",
+            "Award features",
+            "Award features",
+            "Award features",
             "Award features"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70889,7 +72409,10 @@
           "meters": 8.41,
           "raw": "8.41"
         },
-        "year": null,
+        "year": {
+          "value": 1952,
+          "raw": "1952"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -70942,7 +72465,7 @@
           "nameNorm": "seahawk",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -70958,7 +72481,10 @@
           "meters": 11,
           "raw": "11.0"
         },
-        "year": null,
+        "year": {
+          "value": 2009,
+          "raw": "2009"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -71009,7 +72535,7 @@
           "nameNorm": "secret",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71037,7 +72563,7 @@
           "nameNorm": "sensation",
           "builderId": "builder:westport-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71080,6 +72606,8 @@
         },
         "conflicts": {
           "features": [
+            "Indoor climbing wall, submarine, snow room; Caribbean expeditions.",
+            "Indoor climbing wall, submarine, snow room; Caribbean expeditions.",
             "Indoor climbing wall, submarine, snow room; Caribbean expeditions."
           ]
         },
@@ -71118,7 +72646,7 @@
           "nameNorm": "serengeti",
           "builderId": "builder:westport-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71134,7 +72662,10 @@
           "meters": 9.3,
           "raw": "9.3"
         },
-        "year": null,
+        "year": {
+          "value": 2017,
+          "raw": "2017"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -71153,6 +72684,20 @@
         },
         "conflicts": {
           "features": [
+            "Award-winning, indulgent amenities",
+            "Indulgent amenities",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Award-winning, indulgent amenities",
+            "Indulgent amenities",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
+            "Indulgent award-winner",
             "Award-winning, indulgent amenities",
             "Indulgent amenities",
             "Indulgent award-winner",
@@ -71183,7 +72728,10 @@
           "meters": 12,
           "raw": "12.0"
         },
-        "year": null,
+        "year": {
+          "value": 1966,
+          "raw": "1966"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -71234,7 +72782,7 @@
           "nameNorm": "sherakhan",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71264,10 +72812,12 @@
         },
         "conflicts": {
           "features": [
+            "Large",
+            "Large",
             "Large"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71376,7 +72926,7 @@
           "nameNorm": "silver dream",
           "builderId": "builder:warren-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71408,10 +72958,14 @@
         "conflicts": {
           "features": [
             "New 2026, new interiors",
+            "New interiors/renderings",
+            "New 2026, new interiors",
+            "New interiors/renderings",
+            "New 2026, new interiors",
             "New interiors/renderings"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71439,10 +72993,14 @@
         "conflicts": {
           "features": [
             "New interiors",
+            "New interiors",
+            "New interiors",
+            "New interiors",
+            "New interiors",
             "New interiors"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71473,10 +73031,14 @@
         "conflicts": {
           "loa": [
             "60+",
+            "60+",
+            "60+",
+            "60+",
+            "60+",
             "60+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71522,7 +73084,12 @@
         "gt": 499,
         "max_speed": 14.5,
         "range_nm": 5000,
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2026 (delivery)"
+          ]
+        }
       }
     },
     {
@@ -71559,10 +73126,24 @@
             "Classic Nobiskrug",
             "Classic Nobiskrug",
             "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
+            "Classic Nobiskrug",
             "Classic Nobiskrug"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71590,7 +73171,7 @@
           "nameNorm": "sirocco",
           "builderId": "builder:heesen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71606,7 +73187,10 @@
           "meters": 13.8,
           "raw": "13.8"
         },
-        "year": null,
+        "year": {
+          "value": 2013,
+          "raw": "2013"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -71736,6 +73320,8 @@
         },
         "conflicts": {
           "features": [
+            "Sauna, deck Jacuzzi",
+            "Sauna, deck Jacuzzi",
             "Sauna, deck Jacuzzi"
           ]
         },
@@ -71787,6 +73373,8 @@
         },
         "conflicts": {
           "features": [
+            "Residential apartments, spa; global.",
+            "Residential apartments, spa; global.",
             "Residential apartments, spa; global."
           ]
         },
@@ -71819,7 +73407,7 @@
           "nameNorm": "somnium",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71900,7 +73488,10 @@
           "meters": 14.5,
           "raw": "14.5"
         },
-        "year": null,
+        "year": {
+          "value": 2017,
+          "raw": "2017"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -71951,7 +73542,7 @@
           "nameNorm": "soulmate",
           "builderId": "builder:dreamline-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -71967,7 +73558,10 @@
           "meters": 10.8,
           "raw": "10.8"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -72025,10 +73619,22 @@
             "Sun deck/toys",
             "Sun deck/toys",
             "Sun deck/toys",
+            "Sun deck/toys",
+            "Sun deck",
+            "Sun deck",
+            "Sun deck/toys",
+            "Sun deck/toys",
+            "Sun deck/toys",
+            "Sun deck/toys",
+            "Sun deck",
+            "Sun deck",
+            "Sun deck/toys",
+            "Sun deck/toys",
+            "Sun deck/toys",
             "Sun deck/toys"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72044,7 +73650,10 @@
           "meters": 9,
           "raw": "9.0"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -72083,7 +73692,10 @@
           "meters": 10.4,
           "raw": "10.4"
         },
-        "year": null,
+        "year": {
+          "value": 2008,
+          "raw": "2008"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -72143,7 +73755,12 @@
           "nameNorm": "starburst iv",
           "builderId": "builder:bilgin-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 47m Bilgin-built \"Starburst IV\". The only public record found is \"Starburst III\" (47.4m Bilgin, 2017) — no \"Starburst IV\" is documented; likely a naming confusion with Starburst III in the source corpus. See research/round5/yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -72171,7 +73788,7 @@
           "nameNorm": "starburst iv",
           "builderId": "builder:crn"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72208,10 +73825,24 @@
             "High-spec CRN",
             "High-spec CRN",
             "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
+            "High-spec CRN",
             "High-spec CRN"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72239,7 +73870,7 @@
           "nameNorm": "starfire",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72267,7 +73898,7 @@
           "nameNorm": "stargazer",
           "builderId": "builder:lurssen"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72295,7 +73926,7 @@
           "nameNorm": "stavros",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72334,7 +73965,7 @@
           "nameNorm": "stella m",
           "builderId": "builder:feadship"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72362,7 +73993,7 @@
           "nameNorm": "stella maris",
           "builderId": "builder:viareggio-superyachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72378,7 +74009,10 @@
           "meters": 10.6,
           "raw": "10.6"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -72440,10 +74074,30 @@
             "Tri-deck motor",
             "Tri-deck motor",
             "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
+            "Tri-deck motor",
             "Tri-deck motor"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72474,10 +74128,14 @@
         "conflicts": {
           "loa": [
             "60+",
+            "60+",
+            "60+",
+            "60+",
+            "60+",
             "60+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72505,7 +74163,7 @@
           "nameNorm": "summer breeze",
           "builderId": "builder:pearl"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72533,7 +74191,7 @@
           "nameNorm": "summer fun",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72561,7 +74219,7 @@
           "nameNorm": "summertime ii",
           "builderId": "builder:hatteras"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72590,7 +74248,7 @@
           "nameNorm": "sunrays",
           "builderId": "builder:oceanco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72620,13 +74278,19 @@
         },
         "conflicts": {
           "loa": [
-            "65 (superseded — \"65\" is the Sunseeker Manhattan 65 model's (loosely foot-based) name, not metres — real LOA is 69'1\"/21.06m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
+            "65 (superseded — \"65\" is the Sunseeker Manhattan 65 model's (loosely foot-based) name, not metres — real LOA is 69'1\"/21.06m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
+            "65",
+            "65",
+            "65",
+            "65",
+            "65",
+            "65"
           ]
         },
         "loa_aliases": [
           65
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72705,10 +74369,22 @@
             "Family spacious",
             "Family spacious",
             "Family spacious",
+            "Family spacious",
+            "Family",
+            "Spacious family",
+            "Family spacious",
+            "Family spacious",
+            "Family spacious",
+            "Family spacious",
+            "Family",
+            "Spacious family",
+            "Family spacious",
+            "Family spacious",
+            "Family spacious",
             "Family spacious"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72724,7 +74400,10 @@
           "meters": 12.52,
           "raw": "12.52"
         },
-        "year": null,
+        "year": {
+          "value": 2010,
+          "raw": "2010"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -72742,6 +74421,20 @@
         },
         "conflicts": {
           "features": [
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
+            "Refit Nobiskrug",
             "Refit Nobiskrug",
             "Refit Nobiskrug",
             "Refit Nobiskrug",
@@ -72788,7 +74481,7 @@
           "nameNorm": "sylene",
           "builderId": "builder:majesty-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72831,6 +74524,10 @@
         "conflicts": {
           "features": [
             "Outdoor cinema, golf simulator; Caribbean family charters.",
+            "Float-in tender garage; occasional Canary charters.",
+            "Outdoor cinema, golf simulator; Caribbean family charters.",
+            "Float-in tender garage; occasional Canary charters.",
+            "Outdoor cinema, golf simulator; Caribbean family charters.",
             "Float-in tender garage; occasional Canary charters."
           ]
         },
@@ -72870,7 +74567,7 @@
           "nameNorm": "takara one",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -72886,7 +74583,10 @@
           "meters": 12,
           "raw": "12.0"
         },
-        "year": null,
+        "year": {
+          "value": 2011,
+          "raw": "2011"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -72904,6 +74604,22 @@
         },
         "conflicts": {
           "features": [
+            "Refit, reliable",
+            "Reliable refit",
+            "Reliable",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
+            "Refit, reliable",
+            "Reliable refit",
+            "Reliable",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
+            "Reliable refit",
             "Refit, reliable",
             "Reliable refit",
             "Reliable",
@@ -72987,7 +74703,7 @@
           "nameNorm": "tatiana",
           "builderId": "builder:bilgin-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73003,7 +74719,10 @@
           "meters": 14.95,
           "raw": "14.95"
         },
-        "year": null,
+        "year": {
+          "value": 2000,
+          "raw": "2000"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -73061,10 +74780,24 @@
             "Holiday specials",
             "Holiday specials",
             "Holiday specials",
+            "Holiday specials",
+            "Christmas/NY specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Christmas/NY specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
+            "Holiday specials",
             "Holiday specials"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73107,6 +74840,8 @@
         },
         "conflicts": {
           "features": [
+            "Global Cruising",
+            "Global Cruising",
             "Global Cruising"
           ]
         },
@@ -73147,10 +74882,22 @@
             "Ultra-indulgent",
             "Ultra-indulgent",
             "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Indulgent luxury",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Indulgent luxury",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
+            "Ultra-indulgent",
             "Ultra-indulgent"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73178,7 +74925,7 @@
           "nameNorm": "that's amore",
           "builderId": "builder:grandi-yatcilik-mimarlik"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73206,7 +74953,7 @@
           "nameNorm": "that's amore",
           "builderId": "builder:grandi-yatcilik"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73243,10 +74990,12 @@
         },
         "conflicts": {
           "features": [
+            "Fishing expedition; Fiji.",
+            "Fishing expedition; Fiji.",
             "Fishing expedition; Fiji."
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73281,7 +75030,12 @@
           "nameNorm": "the jackson",
           "builderId": "builder:horizon"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment",
+        "conflicts": {
+          "identity": [
+            "Graph describes a 37m Horizon-built \"The Jackson\" (2017). The only \"The Jackson\" with strong web presence is an unrelated 62.5m Sydney Harbour dinner-cruise/event vessel (a commercial function-boat, not a private Horizon yacht) — could not confirm the graph's 37m/Horizon/2017 entry against any source. See research/round5/yacht-specs-35-45m.md and yacht-specs-45-55m.md."
+          ]
+        }
       }
     },
     {
@@ -73297,7 +75051,10 @@
           "meters": 9.1,
           "raw": "9.1"
         },
-        "year": null,
+        "year": {
+          "value": 1993,
+          "raw": "1993 (refit 2016)"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -73352,10 +75109,22 @@
             "Group-versatile layout",
             "Group-versatile layout",
             "Group-versatile layout",
+            "Group-versatile layout",
+            "Versatile group layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Versatile group layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
+            "Group-versatile layout",
             "Group-versatile layout"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73383,7 +75152,7 @@
           "nameNorm": "thumper",
           "builderId": "builder:sunseeker"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73399,7 +75168,10 @@
           "meters": 13.1,
           "raw": "13.1"
         },
-        "year": null,
+        "year": {
+          "value": 2006,
+          "raw": "2006"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -73418,6 +75190,8 @@
         },
         "conflicts": {
           "features": [
+            "Iconic Lurssen",
+            "Iconic Lurssen",
             "Iconic Lurssen"
           ]
         },
@@ -73459,7 +75233,7 @@
           "nameNorm": "tranquility",
           "builderId": "builder:oceanco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73475,7 +75249,10 @@
           "meters": 9.65,
           "raw": "9.65"
         },
-        "year": null,
+        "year": {
+          "value": 2004,
+          "raw": "2004"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -73517,7 +75294,10 @@
           "meters": 11.2,
           "raw": "11.2"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -73565,7 +75345,7 @@
           "nameNorm": "tru north",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73644,13 +75424,31 @@
             "Shallow draft cat",
             "Shallow catamaran",
             "Shallow catamaran",
+            "Shallow catamaran",
+            "Catamaran",
+            "Shallow draft catamaran",
+            "Shallow draft catamaran",
+            "Shallow catamaran",
+            "Shallow draft cat",
+            "Shallow catamaran",
+            "Shallow catamaran",
+            "Shallow catamaran",
+            "Catamaran",
+            "Shallow draft catamaran",
+            "Shallow draft catamaran",
+            "Shallow catamaran",
+            "Shallow draft cat",
+            "Shallow catamaran",
+            "Shallow catamaran",
             "Shallow catamaran"
           ],
           "crew": [
+            3,
+            3,
             3
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73675,7 +75473,7 @@
           "nameNorm": "twin flame",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73745,7 +75543,7 @@
           "nameNorm": "una vida",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73772,10 +75570,12 @@
         },
         "conflicts": {
           "features": [
+            "Freedom cruising",
+            "Freedom cruising",
             "Freedom cruising"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73814,7 +75614,7 @@
           "nameNorm": "various 110-112m",
           "builderId": "builder:mixed"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73842,7 +75642,7 @@
           "nameNorm": "varnobank",
           "builderId": "builder:custom"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73858,7 +75658,10 @@
           "meters": 11.2,
           "raw": "11.2"
         },
-        "year": null,
+        "year": {
+          "value": 2012,
+          "raw": "2012"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -73876,6 +75679,8 @@
         },
         "conflicts": {
           "features": [
+            "Refit",
+            "Refit",
             "Refit"
           ]
         },
@@ -73912,7 +75717,7 @@
           "nameNorm": "vauban",
           "builderId": "builder:sanlorenzo"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -73928,7 +75733,10 @@
           "meters": 17.3,
           "raw": "17.3"
         },
-        "year": null,
+        "year": {
+          "value": 2012,
+          "raw": "2012"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -73979,7 +75787,7 @@
           "nameNorm": "vento",
           "builderId": "builder:turquoise-yachts"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74047,6 +75855,10 @@
         "conflicts": {
           "features": [
             "Minimalist design, iPad controls; Florida and Keys sightings.",
+            "Philippe Starck design; Canary sightings.",
+            "Minimalist design, iPad controls; Florida and Keys sightings.",
+            "Philippe Starck design; Canary sightings.",
+            "Minimalist design, iPad controls; Florida and Keys sightings.",
             "Philippe Starck design; Canary sightings."
           ]
         },
@@ -74089,10 +75901,14 @@
         "conflicts": {
           "loa": [
             "50+",
+            "50+",
+            "50+",
+            "50+",
+            "50+",
             "50+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74108,7 +75924,10 @@
           "meters": 12.53,
           "raw": "12.53"
         },
-        "year": null,
+        "year": {
+          "value": 2011,
+          "raw": "2011"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -74126,6 +75945,22 @@
         },
         "conflicts": {
           "features": [
+            "Sailing yacht performance",
+            "Sailing performance",
+            "Sailing",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing yacht performance",
+            "Sailing performance",
+            "Sailing",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
+            "Sailing performance",
             "Sailing yacht performance",
             "Sailing performance",
             "Sailing",
@@ -74170,7 +76005,7 @@
           "nameNorm": "vespucci",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74198,7 +76033,7 @@
           "nameNorm": "victoria del mar",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74236,10 +76071,28 @@
             "Post-refit market",
             "Post-refit market",
             "Post-refit market",
+            "Post-refit market",
+            "Refit",
+            "Back on market post-refit",
+            "Refit",
+            "Back on market post-refit",
+            "Back on market post-refit",
+            "Post-refit market",
+            "Post-refit market",
+            "Post-refit market",
+            "Post-refit market",
+            "Refit",
+            "Back on market post-refit",
+            "Refit",
+            "Back on market post-refit",
+            "Back on market post-refit",
+            "Post-refit market",
+            "Post-refit market",
+            "Post-refit market",
             "Post-refit market"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74255,7 +76108,10 @@
           "meters": 14.2,
           "raw": "14.2"
         },
-        "year": null,
+        "year": {
+          "value": 2021,
+          "raw": "2021"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -74275,6 +76131,20 @@
         },
         "conflicts": {
           "features": [
+            "High performance",
+            "Performance",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
+            "High performance",
+            "Performance",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
+            "High-performance motor",
             "High performance",
             "Performance",
             "High-performance motor",
@@ -74319,7 +76189,7 @@
           "nameNorm": "victorious",
           "builderId": "builder:ak-yacht"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74347,7 +76217,7 @@
           "nameNorm": "virtuosity",
           "builderId": "builder:various"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74363,7 +76233,10 @@
           "meters": 10.41,
           "raw": "10.41"
         },
-        "year": null,
+        "year": {
+          "value": 2011,
+          "raw": "2011"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -74424,6 +76297,8 @@
         },
         "conflicts": {
           "features": [
+            "Hybrid propulsion, beach club; eco-friendly Caribbean cruises.",
+            "Hybrid propulsion, beach club; eco-friendly Caribbean cruises.",
             "Hybrid propulsion, beach club; eco-friendly Caribbean cruises."
           ]
         },
@@ -74455,7 +76330,7 @@
           "nameNorm": "voyager",
           "builderId": "builder:ocean-alexander"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74511,7 +76386,7 @@
           "nameNorm": "wallywhy200",
           "builderId": "builder:wally"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74558,7 +76433,12 @@
         "max_speed": 23,
         "flag": "Marshall Islands",
         "imo": "9854143",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "2022"
+          ]
+        }
       }
     },
     {
@@ -74609,6 +76489,26 @@
             "Explorer build",
             "Explorer build",
             "Explorer build",
+            "Explorer build",
+            "Support vessel; Fiji support.",
+            "Explorer",
+            "Explorer build",
+            "Explorer build",
+            "Explorer",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Support vessel; Fiji support.",
+            "Explorer",
+            "Explorer build",
+            "Explorer build",
+            "Explorer",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
             "Explorer build"
           ]
         },
@@ -74635,7 +76535,10 @@
           "meters": 11.3,
           "raw": "11.3"
         },
-        "year": null,
+        "year": {
+          "value": 2002,
+          "raw": "2002"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -74686,7 +76589,7 @@
           "nameNorm": "wheels",
           "builderId": "builder:oceanco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74714,7 +76617,7 @@
           "nameNorm": "wheels",
           "builderId": "builder:oceanco"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74758,6 +76661,8 @@
         },
         "conflicts": {
           "features": [
+            "High glamour, guest-centric",
+            "High glamour, guest-centric",
             "High glamour, guest-centric"
           ]
         },
@@ -74795,7 +76700,7 @@
           "nameNorm": "white star",
           "builderId": "builder:overmarine"
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74827,10 +76732,22 @@
             "Racing-to-leisure sail",
             "Racing-to-leisure sail",
             "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing to leisure",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing to leisure",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
+            "Racing-to-leisure sail",
             "Racing-to-leisure sail"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74861,10 +76778,14 @@
         "conflicts": {
           "loa": [
             "90+",
+            "90+",
+            "90+",
+            "90+",
+            "90+",
             "90+"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74880,7 +76801,10 @@
           "meters": 9.2,
           "raw": "9.2"
         },
-        "year": null,
+        "year": {
+          "value": 2025,
+          "raw": "2025"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -74933,10 +76857,12 @@
         },
         "conflicts": {
           "features": [
+            "Schooner",
+            "Schooner",
             "Schooner"
           ]
         },
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -74966,13 +76892,35 @@
         },
         "conflicts": {
           "loa": [
-            "67 (superseded — The graph's 67m LOA mistook the Ferretti 670 model's own model number for a length — real Yamas is a ~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
+            "67 (superseded — The graph's 67m LOA mistook the Ferretti 670 model's own model number for a length — real Yamas is a ~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67",
+            "67"
           ]
         },
         "loa_aliases": [
           67
         ],
-        "identifiability": "identifiable"
+        "identifiability": "fragment"
       }
     },
     {
@@ -75016,7 +76964,12 @@
         "range_nm": 5000,
         "flag": "Cayman Islands",
         "imo": "8652201",
-        "identifiability": "identifiable"
+        "identifiability": "identifiable",
+        "conflicts": {
+          "year": [
+            "1981"
+          ]
+        }
       }
     },
     {
@@ -75032,7 +76985,10 @@
           "meters": 13,
           "raw": "13.0"
         },
-        "year": null,
+        "year": {
+          "value": 2015,
+          "raw": "2015"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": 12,
@@ -75051,6 +77007,24 @@
         },
         "conflicts": {
           "features": [
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Explorer",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer build",
+            "Explorer build",
+            "Explorer build",
+            "Explorer",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
+            "Explorer capabilities",
             "Explorer build",
             "Explorer build",
             "Explorer build",
@@ -75214,7 +77188,10 @@
           "meters": 11.52,
           "raw": "11.52"
         },
-        "year": null,
+        "year": {
+          "value": 2004,
+          "raw": "2004"
+        },
         "value": null,
         "weekly_rate": null,
         "guests": null,
@@ -87615,12 +89592,6 @@
       "attrs": {}
     },
     {
-      "src": "yacht:db9-palmer-johnson",
-      "rel": "built_by",
-      "dst": "builder:palmer-johnson",
-      "attrs": {}
-    },
-    {
       "src": "yacht:de-lisle-iii",
       "rel": "built_by",
       "dst": "builder:gulf-craft",
@@ -94939,7 +96910,6 @@
         "yacht:dar",
         "yacht:dauntless",
         "yacht:db9",
-        "yacht:db9-palmer-johnson",
         "yacht:de-lisle-iii",
         "yacht:deep-blue",
         "yacht:deniki",
@@ -98407,8 +100377,7 @@
         "region:daytona-beach"
       ],
       "db9": [
-        "yacht:db9",
-        "yacht:db9-palmer-johnson"
+        "yacht:db9"
       ],
       "dcyc": [
         "region:dcyc"
