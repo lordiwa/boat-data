@@ -121,7 +121,12 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // there instead.
     const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
 
-    expect(graph.meta.types.yacht).toBe(605);
+    // TASK-020: yacht DROPPED from 605 to 599 — 6 rename/duplicate merges
+    // via graphCleanup.js's YACHT_MERGE_MAP (jubilee->kaos, kaos-custom->
+    // kaos, lana->mar, cc-summer->madsummer, kismet-lurssen->whisper,
+    // prince-abdulaziz-helsingor-vaerft->prince-abdulaziz). yachtSpecMapper.js
+    // itself never mints a yacht node (605 - 6 = 599).
+    expect(graph.meta.types.yacht).toBe(599);
     // TASK-019: builder DROPPED from 186 to 160 (documented deliberately —
     // see graphCleanup.js's own module header for the full ledger): 18
     // duplicate-entity-pair merges (17 pairs + 1 extra leg of the Olympic
@@ -134,7 +139,15 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // existing node (Corsair Marine, Crescent Custom Yachts) = 160.
     expect(graph.meta.types.builder).toBe(160);
     expect(graph.meta.types.club).toBe(368);
-    expect(graph.meta.types.marina).toBe(893);
+    // TASK-020: marina rose from 893 to 930 — the Rybovich duplicate merge
+    // (graphCleanup.js's MARINA_MERGE_MAP, -1) plus marinaMapper.js's new
+    // isMarinaEnrichmentTable pass over knowledge/94's 51 rows: 7 rows
+    // enrich existing nodes as intended, 6 more rows happen to ALSO match
+    // pre-existing nodes from earlier corpus files that this research
+    // pass's own grep-only method (no code-execution tool available to
+    // it) couldn't detect, and the remaining 38 rows mint new marina
+    // nodes (893 - 1 + 38 = 930).
+    expect(graph.meta.types.marina).toBe(930);
     expect(graph.meta.types.person).toBe(110);
     // TASK-019: designer ROSE from 10 (empty-attrs placeholders) to 60 —
     // designerMapper.js enriches the 9 pre-existing nodes it could resolve
@@ -263,5 +276,59 @@ describe('real corpus — numeric attr range-sanity locks', () => {
       }
     }
     db.close();
+  }, 30000);
+
+  // TASK-020: yachtSpecMapper.js's numeric parsing discipline (comma-strip,
+  // "~" strip, letter-adjacency rejection) needs the same real-corpus
+  // range-sanity check as shipyard/engine_model above. Bounds per the
+  // ticket: beam [3,35]m, draft [1,12]m, gt [50,25000], max_speed [5,80]kn,
+  // range_nm [500,20000] — two upper bounds widened after real (not parsing
+  // bugs) research values that exceed the ticket's own suggested bound:
+  // REV Ocean's genuinely-sourced 21,120nm range (an unusually long-legged
+  // expedition/research vessel, not a private motor yacht in the strict
+  // sense) widens range_nm to 22,000; Somnio's genuinely-sourced 33,500 GT
+  // (the world's largest RESIDENTIAL yacht, 222m, an outlier even among
+  // megayachts) widens gt to 35,000 — see knowledge/93's own copies of
+  // both rows.
+  it('every yacht beam/draft/gt/max_speed/range_nm falls within a plausible real-world range', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db.prepare("SELECT id, attrs_json FROM nodes WHERE type = 'yacht'").all();
+    db.close();
+
+    expect(rows.length).toBeGreaterThan(0);
+
+    let checkedAny = false;
+    for (const row of rows) {
+      const attrs = JSON.parse(row.attrs_json || '{}');
+      if (attrs.beam && typeof attrs.beam.meters === 'number') {
+        checkedAny = true;
+        expect(attrs.beam.meters, `${row.id} beam=${attrs.beam.meters}`).toBeGreaterThanOrEqual(3);
+        expect(attrs.beam.meters, `${row.id} beam=${attrs.beam.meters}`).toBeLessThanOrEqual(35);
+      }
+      if (attrs.draft && typeof attrs.draft.meters === 'number') {
+        checkedAny = true;
+        expect(attrs.draft.meters, `${row.id} draft=${attrs.draft.meters}`).toBeGreaterThanOrEqual(1);
+        expect(attrs.draft.meters, `${row.id} draft=${attrs.draft.meters}`).toBeLessThanOrEqual(12);
+      }
+      if (typeof attrs.gt === 'number') {
+        checkedAny = true;
+        expect(attrs.gt, `${row.id} gt=${attrs.gt}`).toBeGreaterThanOrEqual(50);
+        expect(attrs.gt, `${row.id} gt=${attrs.gt}`).toBeLessThanOrEqual(35_000);
+      }
+      if (typeof attrs.max_speed === 'number') {
+        checkedAny = true;
+        expect(attrs.max_speed, `${row.id} max_speed=${attrs.max_speed}`).toBeGreaterThanOrEqual(5);
+        expect(attrs.max_speed, `${row.id} max_speed=${attrs.max_speed}`).toBeLessThanOrEqual(80);
+      }
+      if (typeof attrs.range_nm === 'number') {
+        checkedAny = true;
+        expect(attrs.range_nm, `${row.id} range_nm=${attrs.range_nm}`).toBeGreaterThanOrEqual(500);
+        expect(attrs.range_nm, `${row.id} range_nm=${attrs.range_nm}`).toBeLessThanOrEqual(22_000);
+      }
+    }
+    expect(checkedAny, 'expected at least one yacht to carry a TASK-020 spec field').toBe(true);
   }, 30000);
 });

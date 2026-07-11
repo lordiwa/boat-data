@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T00:58:12.732Z",
-    "node_count": 4299,
-    "edge_count": 2594,
+    "generated_at": "2026-07-11T02:10:16.666Z",
+    "node_count": 4366,
+    "edge_count": 2640,
     "types": {
       "builder": 160,
       "club": 368,
@@ -10,19 +10,19 @@
       "designer": 60,
       "engine": 59,
       "engine_model": 37,
-      "marina": 893,
+      "marina": 930,
       "part": 111,
       "person": 110,
-      "region": 864,
+      "region": 900,
       "shipyard": 236,
       "size_class": 4,
-      "yacht": 605
+      "yacht": 599
     },
     "edge_types": {
       "based_in": 42,
-      "built_by": 553,
+      "built_by": 549,
       "designed_by": 86,
-      "located_in": 1397,
+      "located_in": 1447,
       "made_by": 37,
       "oem_supplies": 5,
       "operated_by": 232,
@@ -148,7 +148,11 @@
       "id": "builder:arcadia",
       "type": "builder",
       "name": "Arcadia",
-      "attrs": {}
+      "attrs": {
+        "provenance": [
+          "graph-cleanup-merge"
+        ]
+      }
     },
     {
       "id": "builder:ares-yachts",
@@ -813,7 +817,11 @@
       "id": "builder:grandi-yatcilik-mimarlik",
       "type": "builder",
       "name": "Grandi Yatcilik Mimarlik",
-      "attrs": {}
+      "attrs": {
+        "provenance": [
+          "graph-cleanup-merge"
+        ]
+      }
     },
     {
       "id": "builder:gulf-craft",
@@ -914,7 +922,11 @@
       "id": "builder:helsingor-vaerft",
       "type": "builder",
       "name": "Helsingor Vaerft",
-      "attrs": {}
+      "attrs": {
+        "provenance": [
+          "graph-cleanup-merge"
+        ]
+      }
     },
     {
       "id": "builder:horizon",
@@ -1271,7 +1283,11 @@
       "id": "builder:olympic-yacht-services",
       "type": "builder",
       "name": "Olympic Yacht Services",
-      "attrs": {}
+      "attrs": {
+        "provenance": [
+          "graph-cleanup-merge"
+        ]
+      }
     },
     {
       "id": "builder:overmarine-group",
@@ -22900,6 +22916,47 @@
       }
     },
     {
+      "id": "marina:aberdeen-marina-club",
+      "type": "marina",
+      "name": "Aberdeen Marina Club",
+      "attrs": {
+        "berths": 170,
+        "max_loa": {
+          "meters": 30,
+          "raw": "30"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "aberdeenmarinaclub.com",
+        "notes": "Private club marina.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:aci-marina-dubrovnik",
+      "type": "marina",
+      "name": "ACI Marina Dubrovnik",
+      "attrs": {
+        "berths": 380,
+        "max_loa": {
+          "meters": 45,
+          "raw": "45–60 (sources vary)"
+        },
+        "max_draft": {
+          "meters": 6,
+          "raw": "6"
+        },
+        "fuel_dock": true,
+        "website": "aci-marinas.com/marina/aci-dubrovnik",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:adelaide-ship-construction-international",
       "type": "marina",
       "name": "Adelaide Ship Construction International",
@@ -23593,6 +23650,25 @@
       }
     },
     {
+      "id": "marina:atlantis-marina",
+      "type": "marina",
+      "name": "Atlantis Marina",
+      "attrs": {
+        "berths": 63,
+        "max_loa": {
+          "meters": 76.2,
+          "raw": "76.2 (250ft)"
+        },
+        "max_draft": null,
+        "fuel_dock": null,
+        "website": "atlantisbahamas.com/rooms/atlantis-marina",
+        "notes": "Largest slips: 220ft finger piers, 37ft beam.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:austal",
       "type": "marina",
       "name": "Austal",
@@ -23775,6 +23851,28 @@
         "notes": "defense shipbuilding, maintenance",
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:bahia-mar-yachting-center",
+      "type": "marina",
+      "name": "Bahia Mar Yachting Center",
+      "attrs": {
+        "berths": 250,
+        "max_loa": {
+          "meters": 91.4,
+          "raw": "~91.4 (300ft)"
+        },
+        "max_draft": {
+          "meters": 4,
+          "raw": "4 (13ft)"
+        },
+        "fuel_dock": true,
+        "website": "bahiamaryachtingcenter.com",
+        "notes": "3,000ft parallel dock + 5,000ft floating docks.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -25164,6 +25262,25 @@
       }
     },
     {
+      "id": "marina:cable-marine-cable-west",
+      "type": "marina",
+      "name": "Cable Marine (Cable West)",
+      "attrs": {
+        "berths": 24,
+        "max_loa": null,
+        "max_draft": {
+          "meters": 12,
+          "raw": "12 (min depth)"
+        },
+        "fuel_dock": null,
+        "website": "cablemarine.com",
+        "notes": "Boatyard/haul-out focus, not a transient marina.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:cabrillo-boat-shop",
       "type": "marina",
       "name": "Cabrillo Boat Shop",
@@ -25379,6 +25496,25 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:camper-nicholsons-port-louis-marina",
+      "type": "marina",
+      "name": "Camper & Nicholsons Port Louis Marina",
+      "attrs": {
+        "berths": 227,
+        "max_loa": {
+          "meters": 91.4,
+          "raw": "91.4 (300ft)"
+        },
+        "max_draft": null,
+        "fuel_dock": null,
+        "website": "cnmarinas.com/cn/marinas/port-louis-marina",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -26782,6 +26918,25 @@
       }
     },
     {
+      "id": "marina:d-albora-marinas-rushcutters-bay",
+      "type": "marina",
+      "name": "d'Albora Marinas Rushcutters Bay",
+      "attrs": {
+        "berths": 106,
+        "max_loa": {
+          "meters": 40,
+          "raw": "40"
+        },
+        "max_draft": null,
+        "fuel_dock": null,
+        "website": "dalbora.com.au/marinas/rushcutters-bay",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:d-albora-marinas-victoria-harbour",
       "type": "marina",
       "name": "d’Albora Marinas Victoria Harbour",
@@ -26796,6 +26951,25 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:d-marin-gocek",
+      "type": "marina",
+      "name": "D-Marin Göcek",
+      "attrs": {
+        "berths": 380,
+        "max_loa": {
+          "meters": 45,
+          "raw": "45–70 (sources vary)"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "d-marin.com/en/marinas/gocek",
+        "notes": "75-ton travelift + 40-ton trailer on-site boatyard.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -27483,6 +27657,25 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:dubai-harbour-marina",
+      "type": "marina",
+      "name": "Dubai Harbour Marina",
+      "attrs": {
+        "berths": 700,
+        "max_loa": {
+          "meters": 160,
+          "raw": "160"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "pnomarinas.com",
+        "notes": "Operated by P&O Marinas.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -28948,6 +29141,25 @@
       }
     },
     {
+      "id": "marina:hebe-haven-yacht-club",
+      "type": "marina",
+      "name": "Hebe Haven Yacht Club",
+      "attrs": {
+        "berths": 53,
+        "max_loa": {
+          "meters": 18,
+          "raw": "18 (22 on visitor pontoons)"
+        },
+        "max_draft": null,
+        "fuel_dock": null,
+        "website": "hhyc.org.hk",
+        "notes": "Small-craft club, not a superyacht destination — included for completeness given HK relevance.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:henderson-boat-lifters",
       "type": "marina",
       "name": "Henderson Boat Lifters",
@@ -29528,6 +29740,47 @@
       }
     },
     {
+      "id": "marina:igy-american-yacht-harbor",
+      "type": "marina",
+      "name": "IGY American Yacht Harbor",
+      "attrs": {
+        "berths": 123,
+        "max_loa": {
+          "meters": 110,
+          "raw": "110–120"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/american-yacht-harbor",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:igy-blue-haven-marina",
+      "type": "marina",
+      "name": "IGY Blue Haven Marina",
+      "attrs": {
+        "berths": 135,
+        "max_loa": {
+          "meters": 67,
+          "raw": "67+ (220ft+)"
+        },
+        "max_draft": {
+          "meters": 1,
+          "raw": "— (12ft access depth)"
+        },
+        "fuel_dock": true,
+        "website": "bluehavenmarina.com",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:igy-ibiza-marina",
       "type": "marina",
       "name": "IGY Ibiza Marina",
@@ -29566,6 +29819,69 @@
         "notes": null,
         "provenance": [
           "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:igy-rodney-bay-marina",
+      "type": "marina",
+      "name": "IGY Rodney Bay Marina",
+      "attrs": {
+        "berths": 253,
+        "max_loa": {
+          "meters": 87,
+          "raw": "87 (285ft)"
+        },
+        "max_draft": {
+          "meters": 3.9,
+          "raw": "3.9 (13ft)"
+        },
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/rodney-bay-marina",
+        "notes": "Max beam 18.3m.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:igy-simpson-bay-marina",
+      "type": "marina",
+      "name": "IGY Simpson Bay Marina",
+      "attrs": {
+        "berths": 122,
+        "max_loa": {
+          "meters": 57.5,
+          "raw": "57.5 (190ft)"
+        },
+        "max_draft": {
+          "meters": 4,
+          "raw": "4"
+        },
+        "fuel_dock": null,
+        "website": "igymarinas.com/marinas/simpson-bay-marina",
+        "notes": "Max beam 10.4m.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:igy-vieux-port-de-cannes",
+      "type": "marina",
+      "name": "IGY Vieux-Port de Cannes",
+      "attrs": {
+        "berths": 635,
+        "max_loa": {
+          "meters": 65,
+          "raw": "65 standard / 140 by special request"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/igy-vieux-port-de-cannes",
+        "notes": "Managed by IGY; undergoing modernization.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -30668,6 +30984,25 @@
       }
     },
     {
+      "id": "marina:limassol-marina",
+      "type": "marina",
+      "name": "Limassol Marina",
+      "attrs": {
+        "berths": 680,
+        "max_loa": {
+          "meters": 110,
+          "raw": "110 (up to 115 on dedicated superyacht berths)"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "limassolmarina.com",
+        "notes": "Tel +357 25 020 020.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:lincoln-cove-recreational-marina",
       "type": "marina",
       "name": "Lincoln Cove Recreational Marina",
@@ -31063,6 +31398,28 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:marina-cabo-san-lucas",
+      "type": "marina",
+      "name": "Marina Cabo San Lucas",
+      "attrs": {
+        "berths": 380,
+        "max_loa": {
+          "meters": 114,
+          "raw": "114 (375ft)"
+        },
+        "max_draft": {
+          "meters": 8.8,
+          "raw": "8.8"
+        },
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/marina-cabo-san-lucas-mexico",
+        "notes": "Max beam 19m.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -31538,6 +31895,25 @@
       }
     },
     {
+      "id": "marina:marina-del-rey-del-rey-landing",
+      "type": "marina",
+      "name": "Marina del Rey / Del Rey Landing",
+      "attrs": {
+        "berths": 4,
+        "max_loa": {
+          "meters": 76,
+          "raw": "76 (250ft, Del Rey Landing)"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "delreylanding.com",
+        "notes": "Largest man-made small-boat harbor claim; Del Rey Landing is the mega-yacht-capable berth within it.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:marina-del-rey-marina",
       "type": "marina",
       "name": "Marina del Rey Marina",
@@ -31552,6 +31928,66 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:marina-di-capri-marina-grande",
+      "type": "marina",
+      "name": "Marina di Capri (Marina Grande)",
+      "attrs": {
+        "berths": 300,
+        "max_loa": {
+          "meters": 40,
+          "raw": "40"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "portoturisticodicapri.com",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:marina-di-porto-cervo",
+      "type": "marina",
+      "name": "Marina di Porto Cervo",
+      "attrs": {
+        "berths": 720,
+        "max_loa": {
+          "meters": 160,
+          "raw": "160"
+        },
+        "max_draft": {
+          "meters": 8,
+          "raw": "8"
+        },
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/marina-di-porto-cervo",
+        "notes": "Managed by IGY Marinas since 2019 acquisition.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:marina-di-portofino",
+      "type": "marina",
+      "name": "Marina di Portofino",
+      "attrs": {
+        "berths": 14,
+        "max_loa": {
+          "meters": 80,
+          "raw": "80"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "portofinoyachtmarina.com",
+        "notes": "Distinct from graph node \"Portofino Hotel & Marina,\" which is in Redondo Beach, California, USA — same-sounding name, unrelated facility.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -31620,17 +32056,23 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
+        "website": "marinaibiza.com / marinaportibiza.com",
         "max_loa": {
           "meters": 110,
           "raw": "110m"
         },
         "travelift_tonnage": null,
         "berths": 425,
-        "notes": null,
+        "notes": "Formerly \"Ibiza Magna.\" Graph node currently holds `max_loa: 110m, berths: 425` — likely refers to the wider port complex including adjacent basins (Club Náutico, Botafoch); the 85-berth/60m figure is specific to the superyacht reception marina per the operator's own site. Flagging discrepancy rather than overwriting.",
         "provenance": [
-          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
-        ]
+          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": {
+          "meters": 10,
+          "raw": "10"
+        },
+        "fuel_dock": true
       }
     },
     {
@@ -31761,17 +32203,23 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
+        "website": "oneoceanportvell.com",
         "max_loa": {
           "meters": 190,
           "raw": "190m"
         },
         "travelift_tonnage": null,
         "berths": 151,
-        "notes": null,
+        "notes": "Operator rebranded as \"OneOcean Port Vell\"; berths/max LOA match the graph's existing values exactly (151 / 190m), corroborating the existing entry.",
         "provenance": [
-          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
-        ]
+          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": {
+          "meters": 10,
+          "raw": "10 (at Spanish Quay)"
+        },
+        "fuel_dock": true
       }
     },
     {
@@ -32332,14 +32780,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
-        "max_loa": null,
+        "website": "miamibeachmarina.com",
+        "max_loa": {
+          "meters": 76,
+          "raw": "76"
+        },
         "travelift_tonnage": null,
-        "berths": null,
-        "notes": null,
+        "berths": 400,
+        "notes": "Address: 300 Alton Rd, Miami Beach FL 33139.",
         "provenance": [
-          "26_Boat_Docking_Options_in_Miami.md"
-        ]
+          "26_Boat_Docking_Options_in_Miami.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -32404,14 +32858,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
-        "max_loa": null,
+        "website": "miltabodrummarina.com",
+        "max_loa": {
+          "meters": 75,
+          "raw": "75"
+        },
         "travelift_tonnage": null,
-        "berths": null,
+        "berths": 450,
         "notes": null,
         "provenance": [
-          "34_Turkey_Yacht_Charter_Data_Sheets.md"
-        ]
+          "34_Turkey_Yacht_Charter_Data_Sheets.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -32756,6 +33216,25 @@
         "notes": "Rentals, lessons; +81 52-654-7890.",
         "provenance": [
           "40_Comprehensive_Data_on_Japanese_Yacht_Clubs.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:nanny-cay-resort-marina",
+      "type": "marina",
+      "name": "Nanny Cay Resort & Marina",
+      "attrs": {
+        "berths": 300,
+        "max_loa": {
+          "meters": 42.7,
+          "raw": "42.7 (140ft, largest inner-marina slips)"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "nannycay.com",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -33573,6 +34052,28 @@
       }
     },
     {
+      "id": "marina:old-bahama-bay-resort-marina",
+      "type": "marina",
+      "name": "Old Bahama Bay Resort & Marina",
+      "attrs": {
+        "berths": 63,
+        "max_loa": {
+          "meters": 36.6,
+          "raw": "36.6–39.6 (120–130ft, sources vary)"
+        },
+        "max_draft": {
+          "meters": 2.4,
+          "raw": "2.4 (8ft MLW)"
+        },
+        "fuel_dock": true,
+        "website": "oldbahamabayresorts.com/marina",
+        "notes": "Only night-navigable port of entry on Grand Bahama.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:old-launceston-seaport-marina",
       "type": "marina",
       "name": "Old Launceston Seaport Marina",
@@ -33616,14 +34117,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
-        "max_loa": null,
+        "website": "one15marina.com",
+        "max_loa": {
+          "meters": 100,
+          "raw": "100"
+        },
         "travelift_tonnage": null,
-        "berths": null,
-        "notes": null,
+        "berths": 272,
+        "notes": "VHF 77.",
         "provenance": [
-          "46_Singapore_Post_WW2_to_Yacht_Culture.md"
-        ]
+          "46_Singapore_Post_WW2_to_Yacht_Culture.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -34158,6 +34665,28 @@
       }
     },
     {
+      "id": "marina:pier-sixty-six-marina",
+      "type": "marina",
+      "name": "Pier Sixty-Six Marina",
+      "attrs": {
+        "berths": 164,
+        "max_loa": {
+          "meters": 122,
+          "raw": "~122 (400ft)"
+        },
+        "max_draft": {
+          "meters": 9,
+          "raw": "9 (30ft alongside)"
+        },
+        "fuel_dock": true,
+        "website": "piersixtysixmarina.com",
+        "notes": "First fuel stop for vessels transiting to/from the Bahamas; zero bridge restrictions.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:pine-harbour-marina",
       "type": "marina",
       "name": "Pine Harbour Marina",
@@ -34357,17 +34886,23 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
+        "website": "portadriano.com",
         "max_loa": {
           "meters": 100,
           "raw": "100m"
         },
         "travelift_tonnage": null,
         "berths": 488,
-        "notes": null,
+        "notes": "250-ton travelift, 11,000m² shipyard.",
         "provenance": [
-          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
-        ]
+          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": {
+          "meters": 7,
+          "raw": "7"
+        },
+        "fuel_dock": true
       }
     },
     {
@@ -34425,6 +34960,50 @@
       }
     },
     {
+      "id": "marina:port-camille-rayon",
+      "type": "marina",
+      "name": "Port Camille Rayon",
+      "attrs": {
+        "berths": 800,
+        "max_loa": {
+          "meters": 75,
+          "raw": "75"
+        },
+        "max_draft": {
+          "meters": 5,
+          "raw": "5"
+        },
+        "fuel_dock": null,
+        "website": null,
+        "notes": "Between Antibes and Cannes.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:port-de-gustavia",
+      "type": "marina",
+      "name": "Port de Gustavia",
+      "attrs": {
+        "berths": 100,
+        "max_loa": {
+          "meters": 60,
+          "raw": "60 (quay); anchorage for 150m+ offshore"
+        },
+        "max_draft": {
+          "meters": 13,
+          "raw": "— (13–16ft depth)"
+        },
+        "fuel_dock": null,
+        "website": null,
+        "notes": "Stern-to anchor-and-quay berthing, not fixed slips.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:port-de-kuto",
       "type": "marina",
       "name": "Port de Kuto",
@@ -34460,6 +35039,28 @@
         "notes": null,
         "provenance": [
           "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:port-de-saint-tropez",
+      "type": "marina",
+      "name": "Port de Saint-Tropez",
+      "attrs": {
+        "berths": 734,
+        "max_loa": {
+          "meters": 90,
+          "raw": "90 (Môle d'Estiennes d'Orves basin)"
+        },
+        "max_draft": {
+          "meters": 4,
+          "raw": "4 (that basin)"
+        },
+        "fuel_dock": null,
+        "website": "portsainttropez.com",
+        "notes": "Old Port berths 25–50m; Jean Lescudier basin to 25m.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -34557,6 +35158,28 @@
       }
     },
     {
+      "id": "marina:port-hercule",
+      "type": "marina",
+      "name": "Port Hercule",
+      "attrs": {
+        "berths": 700,
+        "max_loa": {
+          "meters": 135,
+          "raw": "135–200 (sources vary; 135m commonly cited operational max)"
+        },
+        "max_draft": {
+          "meters": 6.5,
+          "raw": "6.5"
+        },
+        "fuel_dock": true,
+        "website": "— (state-run, no single official site found)",
+        "notes": "Managed by the Monaco government / Direction des Affaires Maritimes; hosts the Monaco Yacht Show.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:port-hinchinbrook-marina",
       "type": "marina",
       "name": "Port Hinchinbrook Marina",
@@ -34589,6 +35212,28 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:port-lympia",
+      "type": "marina",
+      "name": "Port Lympia",
+      "attrs": {
+        "berths": 520,
+        "max_loa": {
+          "meters": 190,
+          "raw": "190"
+        },
+        "max_draft": {
+          "meters": 6,
+          "raw": "6"
+        },
+        "fuel_dock": true,
+        "website": "leportdenice.com",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -34935,6 +35580,28 @@
       }
     },
     {
+      "id": "marina:port-pierre-canto",
+      "type": "marina",
+      "name": "Port Pierre Canto",
+      "attrs": {
+        "berths": 553,
+        "max_loa": {
+          "meters": 80,
+          "raw": "80–90 (sources vary)"
+        },
+        "max_draft": {
+          "meters": 7,
+          "raw": "7"
+        },
+        "fuel_dock": null,
+        "website": "cannes.com/en/boating-beaches/ports-of-cannes/port-canto.html",
+        "notes": null,
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:port-royal-marina",
       "type": "marina",
       "name": "Port Royal Marina",
@@ -35006,6 +35673,28 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:port-vauban",
+      "type": "marina",
+      "name": "Port Vauban",
+      "attrs": {
+        "berths": 1,
+        "max_loa": {
+          "meters": 150,
+          "raw": "150–165"
+        },
+        "max_draft": {
+          "meters": 7,
+          "raw": "7"
+        },
+        "fuel_dock": true,
+        "website": "leportvauban.com",
+        "notes": "Europe's largest yacht harbour by superyacht capacity; home of IYCA.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -35106,6 +35795,28 @@
       }
     },
     {
+      "id": "marina:porto-montenegro",
+      "type": "marina",
+      "name": "Porto Montenegro",
+      "attrs": {
+        "berths": 430,
+        "max_loa": {
+          "meters": 250,
+          "raw": "250 (min 12)"
+        },
+        "max_draft": {
+          "meters": 15,
+          "raw": "15 (at fuel jetty)"
+        },
+        "fuel_dock": true,
+        "website": "portomontenegro.com",
+        "notes": "VHF channel 71.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:portofino-hotel-marina",
       "type": "marina",
       "name": "Portofino Hotel & Marina",
@@ -35185,7 +35896,7 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
+        "website": "puerto-banus.com",
         "max_loa": {
           "meters": 50,
           "raw": "50m"
@@ -35194,8 +35905,14 @@
         "berths": 915,
         "notes": null,
         "provenance": [
-          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
-        ]
+          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": {
+          "meters": 3,
+          "raw": "— (3–6 inside, 7.5 at entrance)"
+        },
+        "fuel_dock": true
       }
     },
     {
@@ -35494,17 +36211,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
+        "website": "— (club site not confirmed)",
         "max_loa": {
           "meters": 40,
           "raw": "40m"
         },
         "travelift_tonnage": null,
         "berths": 971,
-        "notes": null,
+        "notes": "One of the largest marinas in the Balearics by berth count.",
         "provenance": [
-          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md"
-        ]
+          "56_Yacht_Parking_Spots_in_Mediterranean_Spain.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": null
       }
     },
     {
@@ -35815,14 +36535,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
-        "max_loa": null,
+        "website": "rmkmerrill-stevens.com",
+        "max_loa": {
+          "meters": 91,
+          "raw": "91–150 (300–500ft, sources vary widely)"
+        },
         "travelift_tonnage": null,
-        "berths": null,
-        "notes": null,
+        "berths": 100,
+        "notes": "Historic Miami River yard, refit-focused.",
         "provenance": [
-          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md"
-        ]
+          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -36000,27 +36726,6 @@
       }
     },
     {
-      "id": "marina:rybovich-superyacht-marina",
-      "type": "marina",
-      "name": "Rybovich Superyacht Marina",
-      "attrs": {
-        "established": {
-          "value": 1960,
-          "raw": "1960"
-        },
-        "address": "4200 N Flagler Dr, West Palm Beach",
-        "phone": null,
-        "website": null,
-        "max_loa": null,
-        "travelift_tonnage": null,
-        "berths": null,
-        "notes": null,
-        "provenance": [
-          "71_Yachting_Seasons_and_Destinations.md"
-        ]
-      }
-    },
-    {
       "id": "marina:safe-harbor-anacapa-isle-marina",
       "type": "marina",
       "name": "Safe Harbor Anacapa Isle Marina",
@@ -36148,14 +36853,20 @@
         "established": null,
         "address": null,
         "phone": "+1 954-713-0333",
-        "website": null,
-        "max_loa": null,
+        "website": "safeharbor.com/locations/safe-harbor-lauderdale-marine-center",
+        "max_loa": {
+          "meters": 61,
+          "raw": "61 (matches existing graph shipyard-node value)"
+        },
         "travelift_tonnage": null,
         "berths": null,
-        "notes": null,
+        "notes": "Largest yacht refit/repair facility in the US (65 acres) per Safe Harbor's own materials; primarily a refit yard, not a transient berth marina, hence sparse berth data industry-wide.",
         "provenance": [
-          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md"
-        ]
+          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": null
       }
     },
     {
@@ -36166,7 +36877,7 @@
         "established": null,
         "address": "1 Washington Street, Newport, RI 02840",
         "phone": "401-846-6000",
-        "website": null,
+        "website": "safeharbor.com/locations/safe-harbor-newport-shipyard",
         "max_loa": {
           "meters": 91.44,
           "raw": "300+ ft / 36 ft"
@@ -36178,8 +36889,11 @@
         "berths": null,
         "notes": "Full refit, paint, rigging",
         "provenance": [
-          "17_Oldest_Real_Deal_Yacht_Haul_Out_Marinas.md"
-        ]
+          "17_Oldest_Real_Deal_Yacht_Haul_Out_Marinas.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": null
       }
     },
     {
@@ -36187,17 +36901,27 @@
       "type": "marina",
       "name": "Safe Harbor Rybovich",
       "attrs": {
-        "established": null,
-        "address": null,
+        "established": {
+          "value": 1960,
+          "raw": "1960"
+        },
+        "address": "4200 N Flagler Dr, West Palm Beach",
         "phone": "+1 561-840-8190",
-        "website": null,
-        "max_loa": null,
+        "website": "safeharbor.com/locations/safe-harbor-rybovich",
+        "max_loa": {
+          "meters": 100,
+          "raw": "100"
+        },
         "travelift_tonnage": null,
-        "berths": null,
-        "notes": null,
+        "berths": 85,
+        "notes": "(curated Marina cell from \"Safe Harbor Rybovich (= \"Rybovich Superyacht Marina\" dup node)\") Graph carries two duplicate nodes for this yard (`marina:rybovich-superyacht-marina` est. 1960, address 4200 N Flagler Dr; `marina:safe-harbor-rybovich` with phone) — dedup candidate, same facility, acquired by Safe Harbor 2021.",
         "provenance": [
-          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md"
-        ]
+          "16_USA_Superyacht_Haul_Out_Yards_Florida_Focus.md",
+          "94_Marina_Enrichment_Directory.md",
+          "71_Yachting_Seasons_and_Destinations.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -36370,14 +37094,20 @@
         "established": null,
         "address": null,
         "phone": null,
-        "website": null,
-        "max_loa": null,
+        "website": "sanctuarycove.com/marina",
+        "max_loa": {
+          "meters": 50,
+          "raw": "50 (165ft)"
+        },
         "travelift_tonnage": null,
-        "berths": null,
+        "berths": 380,
         "notes": "maintenance",
         "provenance": [
-          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
-        ]
+          "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md",
+          "94_Marina_Enrichment_Directory.md"
+        ],
+        "max_draft": null,
+        "fuel_dock": true
       }
     },
     {
@@ -38425,6 +39155,25 @@
       }
     },
     {
+      "id": "marina:universal-marine-center",
+      "type": "marina",
+      "name": "Universal Marine Center",
+      "attrs": {
+        "berths": 22,
+        "max_loa": {
+          "meters": 61,
+          "raw": "61 (200ft)"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "— (site not directly confirmed)",
+        "notes": "8 acres, 1,250ft waterfront.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:urayasu-marina",
       "type": "marina",
       "name": "Urayasu Marina",
@@ -39196,6 +39945,50 @@
       }
     },
     {
+      "id": "marina:yacht-haven-grande-miami-at-island-gardens",
+      "type": "marina",
+      "name": "Yacht Haven Grande Miami at Island Gardens",
+      "attrs": {
+        "berths": 50,
+        "max_loa": {
+          "meters": 167,
+          "raw": "167 (550ft)"
+        },
+        "max_draft": {
+          "meters": 8.2,
+          "raw": "8.2"
+        },
+        "fuel_dock": true,
+        "website": "islandgardens.com",
+        "notes": "Operated by IGY; 7,000 linear ft of slips.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:yacht-haven-grande-usvi",
+      "type": "marina",
+      "name": "Yacht Haven Grande (USVI)",
+      "attrs": {
+        "berths": 46,
+        "max_loa": {
+          "meters": 200,
+          "raw": "200"
+        },
+        "max_draft": {
+          "meters": 7.6,
+          "raw": "7.6"
+        },
+        "fuel_dock": true,
+        "website": "igymarinas.com/marinas/marina-yacht-haven-grande",
+        "notes": "Not to be confused with the graph's existing \"Yacht Haven Marina\" node (Pacific NW, from the Pacific Coast guide) — unrelated facility despite the similar name.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:yacht-haven-marina",
       "type": "marina",
       "name": "Yacht Haven Marina",
@@ -39268,6 +40061,25 @@
       }
     },
     {
+      "id": "marina:yal-kavak-marina",
+      "type": "marina",
+      "name": "Yalıkavak Marina",
+      "attrs": {
+        "berths": 620,
+        "max_loa": {
+          "meters": 140,
+          "raw": "140"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "yalikavakmarina.com.tr",
+        "notes": "Port of entry with helipad; 1000A/3-phase shore power.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
+        ]
+      }
+    },
+    {
       "id": "marina:yalikavak-marina",
       "type": "marina",
       "name": "Yalikavak Marina",
@@ -39324,6 +40136,25 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:yas-marina",
+      "type": "marina",
+      "name": "Yas Marina",
+      "attrs": {
+        "berths": 227,
+        "max_loa": {
+          "meters": 90,
+          "raw": "90 (inside marina); up to 150–175 on 525m visitor berth"
+        },
+        "max_draft": null,
+        "fuel_dock": true,
+        "website": "yasmarina.ae",
+        "notes": "Air draft max 28m on approach.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -39396,6 +40227,28 @@
         "notes": null,
         "provenance": [
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
+        ]
+      }
+    },
+    {
+      "id": "marina:zea-marina-marina-zeas",
+      "type": "marina",
+      "name": "Zea Marina (Marina Zeas)",
+      "attrs": {
+        "berths": 520,
+        "max_loa": {
+          "meters": 150,
+          "raw": "150"
+        },
+        "max_draft": {
+          "meters": 8,
+          "raw": "8"
+        },
+        "fuel_dock": true,
+        "website": "d-marin.com/en/marinas/zea",
+        "notes": "Operated by D-Marin.",
+        "provenance": [
+          "94_Marina_Enrichment_Directory.md"
         ]
       }
     },
@@ -41953,6 +42806,18 @@
       "attrs": {}
     },
     {
+      "id": "region:aberdeen",
+      "type": "region",
+      "name": "Aberdeen",
+      "attrs": {}
+    },
+    {
+      "id": "region:abu-dhabi-yas-island",
+      "type": "region",
+      "name": "Abu Dhabi (Yas Island)",
+      "attrs": {}
+    },
+    {
       "id": "region:adelaide",
       "type": "region",
       "name": "Adelaide",
@@ -42118,6 +42983,12 @@
       "id": "region:antalya-free-zone",
       "type": "region",
       "name": "Antalya (Free Zone)",
+      "attrs": {}
+    },
+    {
+      "id": "region:antibes",
+      "type": "region",
+      "name": "Antibes",
       "attrs": {}
     },
     {
@@ -42601,6 +43472,12 @@
       "attrs": {}
     },
     {
+      "id": "region:cabo-san-lucas-bcs",
+      "type": "region",
+      "name": "Cabo San Lucas, BCS",
+      "attrs": {}
+    },
+    {
       "id": "region:cabrillo-marina-san-pedro",
       "type": "region",
       "name": "Cabrillo Marina - San Pedro",
@@ -42616,6 +43493,12 @@
       "id": "region:cairns",
       "type": "region",
       "name": "Cairns",
+      "attrs": {}
+    },
+    {
+      "id": "region:calvia-mallorca",
+      "type": "region",
+      "name": "Calvià, Mallorca",
       "attrs": {}
     },
     {
@@ -42637,9 +43520,21 @@
       "attrs": {}
     },
     {
+      "id": "region:cannes",
+      "type": "region",
+      "name": "Cannes",
+      "attrs": {}
+    },
+    {
       "id": "region:cape-town",
       "type": "region",
       "name": "Cape Town",
+      "attrs": {}
+    },
+    {
+      "id": "region:capri",
+      "type": "region",
+      "name": "Capri",
       "attrs": {}
     },
     {
@@ -42730,6 +43625,12 @@
       "id": "region:charleston",
       "type": "region",
       "name": "Charleston",
+      "attrs": {}
+    },
+    {
+      "id": "region:charlotte-amalie-st-thomas",
+      "type": "region",
+      "name": "Charlotte Amalie, St Thomas",
       "attrs": {}
     },
     {
@@ -43093,9 +43994,21 @@
       "attrs": {}
     },
     {
+      "id": "region:dubai-palm-jumeirah-bluewaters",
+      "type": "region",
+      "name": "Dubai (Palm Jumeirah / Bluewaters)",
+      "attrs": {}
+    },
+    {
       "id": "region:dublin-oh",
       "type": "region",
       "name": "Dublin, OH",
+      "attrs": {}
+    },
+    {
+      "id": "region:dubrovnik",
+      "type": "region",
+      "name": "Dubrovnik",
       "attrs": {}
     },
     {
@@ -43495,9 +44408,27 @@
       "attrs": {}
     },
     {
+      "id": "region:gocek-fethiye",
+      "type": "region",
+      "name": "Göcek, Fethiye",
+      "attrs": {}
+    },
+    {
       "id": "region:gold-coast",
       "type": "region",
       "name": "Gold Coast",
+      "attrs": {}
+    },
+    {
+      "id": "region:gold-coast-qld",
+      "type": "region",
+      "name": "Gold Coast, QLD",
+      "attrs": {}
+    },
+    {
+      "id": "region:golfe-juan",
+      "type": "region",
+      "name": "Golfe-Juan",
       "attrs": {}
     },
     {
@@ -43558,6 +44489,12 @@
       "id": "region:gulf-harbour-auckland",
       "type": "region",
       "name": "Gulf Harbour, Auckland",
+      "attrs": {}
+    },
+    {
+      "id": "region:gustavia",
+      "type": "region",
+      "name": "Gustavia",
       "attrs": {}
     },
     {
@@ -44197,6 +45134,12 @@
       "attrs": {}
     },
     {
+      "id": "region:limassol",
+      "type": "region",
+      "name": "Limassol",
+      "attrs": {}
+    },
+    {
       "id": "region:lisbon",
       "type": "region",
       "name": "Lisbon",
@@ -44323,6 +45266,12 @@
       "attrs": {}
     },
     {
+      "id": "region:marbella",
+      "type": "region",
+      "name": "Marbella",
+      "attrs": {}
+    },
+    {
       "id": "region:marbella-costa-del-sol",
       "type": "region",
       "name": "Marbella, Costa del Sol",
@@ -44338,6 +45287,12 @@
       "id": "region:marina-del-rey",
       "type": "region",
       "name": "Marina del Rey",
+      "attrs": {}
+    },
+    {
+      "id": "region:marina-del-rey-ca",
+      "type": "region",
+      "name": "Marina del Rey, CA",
       "attrs": {}
     },
     {
@@ -44449,6 +45404,12 @@
       "attrs": {}
     },
     {
+      "id": "region:miami-beach-fl",
+      "type": "region",
+      "name": "Miami Beach, FL",
+      "attrs": {}
+    },
+    {
       "id": "region:miami-fl",
       "type": "region",
       "name": "Miami, FL",
@@ -44536,6 +45497,12 @@
       "id": "region:monaco",
       "type": "region",
       "name": "Monaco",
+      "attrs": {}
+    },
+    {
+      "id": "region:monaco-la-condamine",
+      "type": "region",
+      "name": "Monaco (La Condamine)",
       "attrs": {}
     },
     {
@@ -44863,6 +45830,12 @@
       "attrs": {}
     },
     {
+      "id": "region:nice",
+      "type": "region",
+      "name": "Nice",
+      "attrs": {}
+    },
+    {
       "id": "region:ninh-hoa-khanh-hoa",
       "type": "region",
       "name": "Ninh Hoa, Khanh Hoa",
@@ -45148,6 +46121,12 @@
       "id": "region:paola-grand-harbour-malta",
       "type": "region",
       "name": "Paola / Grand Harbour, Malta",
+      "attrs": {}
+    },
+    {
+      "id": "region:paradise-island-nassau",
+      "type": "region",
+      "name": "Paradise Island, Nassau",
       "attrs": {}
     },
     {
@@ -45475,6 +46454,18 @@
       "attrs": {}
     },
     {
+      "id": "region:porto-cervo-sardinia-costa-smeralda",
+      "type": "region",
+      "name": "Porto Cervo, Sardinia (Costa Smeralda)",
+      "attrs": {}
+    },
+    {
+      "id": "region:portofino",
+      "type": "region",
+      "name": "Portofino",
+      "attrs": {}
+    },
+    {
       "id": "region:portovaya-20a-kaliningrad",
       "type": "region",
       "name": "Portovaya 20A, Kaliningrad",
@@ -45514,6 +46505,12 @@
       "id": "region:prospect-kruzensterna-18-4",
       "type": "region",
       "name": "Prospect Kruzensterna 18/4",
+      "attrs": {}
+    },
+    {
+      "id": "region:providenciales",
+      "type": "region",
+      "name": "Providenciales",
       "attrs": {}
     },
     {
@@ -45733,6 +46730,12 @@
       "attrs": {}
     },
     {
+      "id": "region:rodney-bay-castries",
+      "type": "region",
+      "name": "Rodney Bay, Castries",
+      "attrs": {}
+    },
+    {
       "id": "region:rotterdam-botlek",
       "type": "region",
       "name": "Rotterdam (Botlek)",
@@ -45805,6 +46808,12 @@
       "attrs": {}
     },
     {
+      "id": "region:sai-kung",
+      "type": "region",
+      "name": "Sai Kung",
+      "attrs": {}
+    },
+    {
       "id": "region:saint-gilles-croix-de-vie",
       "type": "region",
       "name": "Saint-Gilles-Croix-de-Vie",
@@ -45814,6 +46823,12 @@
       "id": "region:saint-nazaire",
       "type": "region",
       "name": "Saint-Nazaire",
+      "attrs": {}
+    },
+    {
+      "id": "region:saint-tropez",
+      "type": "region",
+      "name": "Saint-Tropez",
       "attrs": {}
     },
     {
@@ -45997,6 +47012,12 @@
       "attrs": {}
     },
     {
+      "id": "region:sentosa-cove",
+      "type": "region",
+      "name": "Sentosa Cove",
+      "attrs": {}
+    },
+    {
       "id": "region:seoul",
       "type": "region",
       "name": "Seoul",
@@ -46099,6 +47120,12 @@
       "attrs": {}
     },
     {
+      "id": "region:simpson-bay",
+      "type": "region",
+      "name": "Simpson Bay",
+      "attrs": {}
+    },
+    {
       "id": "region:sines-alentejo",
       "type": "region",
       "name": "Sines, Alentejo",
@@ -46189,6 +47216,12 @@
       "attrs": {}
     },
     {
+      "id": "region:st-george-s",
+      "type": "region",
+      "name": "St George's",
+      "attrs": {}
+    },
+    {
       "id": "region:st-helens",
       "type": "region",
       "name": "St Helens",
@@ -46216,6 +47249,12 @@
       "id": "region:st-petersburg",
       "type": "region",
       "name": "St. Petersburg",
+      "attrs": {}
+    },
+    {
+      "id": "region:st-thomas-vessup-bay",
+      "type": "region",
+      "name": "St Thomas (Vessup Bay)",
       "attrs": {}
     },
     {
@@ -46324,6 +47363,12 @@
       "id": "region:sydney",
       "type": "region",
       "name": "Sydney",
+      "attrs": {}
+    },
+    {
+      "id": "region:sydney-nsw",
+      "type": "region",
+      "name": "Sydney, NSW",
       "attrs": {}
     },
     {
@@ -46471,6 +47516,12 @@
       "attrs": {}
     },
     {
+      "id": "region:tivat",
+      "type": "region",
+      "name": "Tivat",
+      "attrs": {}
+    },
+    {
       "id": "region:tohoku",
       "type": "region",
       "name": "Tohoku",
@@ -46504,6 +47555,12 @@
       "id": "region:toronto-on-lake-ontario",
       "type": "region",
       "name": "Toronto, ON - Lake Ontario",
+      "attrs": {}
+    },
+    {
+      "id": "region:tortola",
+      "type": "region",
+      "name": "Tortola",
       "attrs": {}
     },
     {
@@ -46921,6 +47978,12 @@
       "attrs": {}
     },
     {
+      "id": "region:watson-island-miami-fl",
+      "type": "region",
+      "name": "Watson Island, Miami, FL",
+      "attrs": {}
+    },
+    {
       "id": "region:wellington",
       "type": "region",
       "name": "Wellington",
@@ -46930,6 +47993,12 @@
       "id": "region:west-coast",
       "type": "region",
       "name": "west coast",
+      "attrs": {}
+    },
+    {
+      "id": "region:west-end-grand-bahama",
+      "type": "region",
+      "name": "West End, Grand Bahama",
       "attrs": {}
     },
     {
@@ -53016,12 +54085,16 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "a+",
           "builderId": "builder:lurssen"
-        }
+        },
+        "former_names": [
+          "Topaz"
+        ]
       }
     },
     {
@@ -53527,7 +54600,10 @@
           "meters": 123,
           "raw": "123m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 20,
+          "raw": "20"
+        },
         "year": {
           "value": 2017,
           "raw": "2017"
@@ -53540,11 +54616,26 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "al lusail",
           "builderId": "builder:lurssen"
+        },
+        "draft": {
+          "meters": 5.5,
+          "raw": "5.5"
+        },
+        "gt": 8489,
+        "max_speed": 19,
+        "range_nm": 4500,
+        "flag": "Qatar",
+        "class_society": "Lloyd's Register",
+        "conflicts": {
+          "beam": [
+            "23"
+          ]
         }
       }
     },
@@ -53557,7 +54648,10 @@
           "meters": 133,
           "raw": "133m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 19,
+          "raw": "19.0"
+        },
         "year": {
           "value": 2008,
           "raw": "2008"
@@ -53570,12 +54664,17 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "al mirqab",
           "builderId": "builder:kusch-yachts"
-        }
+        },
+        "gt": 9518,
+        "max_speed": 20.3,
+        "flag": "Cayman Islands",
+        "imo": "1009223"
       }
     },
     {
@@ -53614,7 +54713,10 @@
           "meters": 155,
           "raw": "155m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 24,
+          "raw": "24.0"
+        },
         "year": {
           "value": 2008,
           "raw": "2008"
@@ -53633,7 +54735,8 @@
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "al said",
@@ -53643,7 +54746,15 @@
           "features": [
             "Concert hall, helipad; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.2,
+          "raw": "5.2"
+        },
+        "gt": 15850,
+        "max_speed": 25.2,
+        "flag": "Oman",
+        "imo": "9463774"
       }
     },
     {
@@ -53655,7 +54766,10 @@
           "meters": 139,
           "raw": "139m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 23.5,
+          "raw": "23.5"
+        },
         "year": {
           "value": 1999,
           "raw": "1999"
@@ -53668,12 +54782,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "al salamah",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5,
+          "raw": "5.0"
+        },
+        "gt": 12234,
+        "flag": "Saudi Arabia",
+        "imo": "1007043"
       }
     },
     {
@@ -53893,7 +55015,10 @@
           "meters": 81,
           "raw": "81 m (266 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.2,
+          "raw": "14.2"
+        },
         "year": {
           "value": 2007,
           "raw": "2007"
@@ -53917,7 +55042,8 @@
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "alfa nero",
@@ -53930,7 +55056,16 @@
             "Iconic, recent refit",
             "Iconic design, recent refit"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.9,
+          "raw": "3.9"
+        },
+        "gt": 2500,
+        "max_speed": 21,
+        "range_nm": 6630,
+        "flag": "Cayman Islands",
+        "imo": "1009376"
       }
     },
     {
@@ -54346,7 +55481,10 @@
           "meters": 107,
           "raw": "107"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.01,
+          "raw": "18.01"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -54356,12 +55494,21 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "andromeda",
           "builderId": "builder:various"
-        }
+        },
+        "draft": {
+          "meters": 5.011,
+          "raw": "5.011"
+        },
+        "gt": 5937,
+        "max_speed": 16.4,
+        "flag": "Cayman Islands",
+        "imo": "9692545"
       }
     },
     {
@@ -54625,7 +55772,10 @@
           "meters": 86,
           "raw": "86 m (281 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.3,
+          "raw": "14.3"
+        },
         "year": {
           "value": 2010,
           "raw": "2010 (refit 2016)"
@@ -54644,7 +55794,8 @@
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "aquila",
@@ -54660,7 +55811,15 @@
             "Explorer",
             "Explorer"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.2,
+          "raw": "4.2"
+        },
+        "gt": 2998,
+        "max_speed": 17,
+        "range_nm": 5000,
+        "flag": "Isle of Man"
       }
     },
     {
@@ -55031,7 +56190,10 @@
           "meters": 90,
           "raw": "90m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.2,
+          "raw": "12.20"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -55041,12 +56203,21 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "athena",
           "builderId": "builder:royal-huisman"
-        }
+        },
+        "draft": {
+          "meters": 5.77,
+          "raw": "5.77"
+        },
+        "gt": 1103,
+        "max_speed": 18.9,
+        "range_nm": 4000,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -55358,7 +56529,10 @@
           "meters": 180,
           "raw": "180 m / 591 ft"
         },
-        "beam": null,
+        "beam": {
+          "meters": 20.8,
+          "raw": "20.8"
+        },
         "year": {
           "value": 2013,
           "raw": "2013"
@@ -55379,7 +56553,8 @@
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "28_Superyachts_Definition_Features_Innovations.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "azzam",
@@ -55393,7 +56568,15 @@
             "Bullet-proof suite; Med cruises.",
             "Fastest superyacht, missile defense; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.3,
+          "raw": "4.3"
+        },
+        "gt": 13136,
+        "max_speed": 32,
+        "flag": "Abu Dhabi, UAE",
+        "imo": "9693367"
       }
     },
     {
@@ -55869,7 +57052,10 @@
           "meters": 106.7,
           "raw": "106.7"
         },
-        "beam": null,
+        "beam": {
+          "meters": 15,
+          "raw": "15.0"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -55879,12 +57065,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "28_Superyachts_Definition_Features_Innovations.md"
+          "28_Superyachts_Definition_Features_Innovations.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "black pearl",
           "builderId": null
-        }
+        },
+        "draft": {
+          "meters": 7.23,
+          "raw": "7.23"
+        },
+        "gt": 2864,
+        "max_speed": 17.5,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -56114,7 +57308,10 @@
           "meters": 77,
           "raw": "77m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.3,
+          "raw": "12.3"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -56124,7 +57321,8 @@
         "features": "Resort-style comfort, elegant design",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "boardwalk",
@@ -56137,7 +57335,15 @@
             "Resort-style",
             "Resort-style"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.6,
+          "raw": "3.6"
+        },
+        "gt": 1848,
+        "max_speed": 17.5,
+        "flag": "Cayman Islands",
+        "imo": "9855317"
       }
     },
     {
@@ -56149,7 +57355,10 @@
           "meters": 85,
           "raw": "85 m (279 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 11,
+          "raw": "11.0"
+        },
         "year": {
           "value": 2019,
           "raw": "2019"
@@ -56173,7 +57382,8 @@
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "bold",
@@ -56184,7 +57394,16 @@
             "Explorer capabilities",
             "Helipad, explorer"
           ]
-        }
+        },
+        "draft": {
+          "meters": 2.8,
+          "raw": "2.8"
+        },
+        "gt": 1551,
+        "max_speed": 23,
+        "range_nm": 7000,
+        "flag": "Marshall Islands",
+        "imo": "1013030"
       }
     },
     {
@@ -56250,7 +57469,10 @@
           "meters": 109,
           "raw": "109"
         },
-        "beam": null,
+        "beam": {
+          "meters": 16.3,
+          "raw": "16.3"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -56260,7 +57482,8 @@
         "features": "Luxury transatlantic",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "bravo eugenia",
@@ -56275,7 +57498,15 @@
             "Luxury crossing",
             "Luxury crossing"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4,
+          "raw": "4.0"
+        },
+        "gt": 4500,
+        "max_speed": 18,
+        "range_nm": 4500,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -56297,7 +57528,10 @@
           "meters": 118.8,
           "raw": "118.8m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 19,
+          "raw": "19"
+        },
         "year": {
           "value": 2025,
           "raw": "2025"
@@ -56318,7 +57552,8 @@
           "28_Superyachts_Definition_Features_Innovations.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "breakthrough",
@@ -56331,7 +57566,16 @@
             "Largest new 2025 charter; record-breaker in St Barts",
             "Hydrogen-powered, infinity pool"
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.25,
+          "raw": "5.25"
+        },
+        "gt": 7247,
+        "max_speed": 17,
+        "range_nm": 6500,
+        "flag": "Cayman Islands",
+        "class_society": "Lloyd's Register"
       }
     },
     {
@@ -56476,40 +57720,6 @@
       }
     },
     {
-      "id": "yacht:cc-summer",
-      "type": "yacht",
-      "name": "CC-Summer",
-      "attrs": {
-        "loa": {
-          "meters": 95,
-          "raw": "95/312"
-        },
-        "beam": null,
-        "year": null,
-        "value": null,
-        "weekly_rate": null,
-        "guests": 12,
-        "cabins": 6,
-        "crew": 20,
-        "features": "Cinema, gym, spa",
-        "location": null,
-        "provenance": [
-          "28_Superyachts_Definition_Features_Innovations.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
-        ],
-        "_resolution": {
-          "nameNorm": "cc-summer",
-          "builderId": "builder:lurssen"
-        },
-        "conflicts": {
-          "crew": [
-            30
-          ]
-        }
-      }
-    },
-    {
       "id": "yacht:centurion",
       "type": "yacht",
       "name": "Centurion",
@@ -56545,7 +57755,10 @@
           "meters": 86,
           "raw": "86 m (282 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.5,
+          "raw": "12.5"
+        },
         "year": {
           "value": 1998,
           "raw": "1998 (refit 2016)"
@@ -56562,7 +57775,8 @@
         "features": "Yoga studio, spa, gym, superyacht elevator; available for charter.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "chakra",
@@ -56572,7 +57786,14 @@
           "features": [
             "Yoga studio, elevator; Med charters."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.85,
+          "raw": "4.85"
+        },
+        "gt": 2083,
+        "max_speed": 14,
+        "flag": "St Vincent & Grenadines"
       }
     },
     {
@@ -56666,7 +57887,10 @@
           "meters": 99,
           "raw": "99"
         },
-        "beam": null,
+        "beam": {
+          "meters": 10.97,
+          "raw": "10.97"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -56678,12 +57902,21 @@
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "christina o",
           "builderId": "builder:canadian-vickers"
-        }
+        },
+        "draft": {
+          "meters": 4.27,
+          "raw": "4.27"
+        },
+        "gt": 2250,
+        "max_speed": 19,
+        "flag": "Malta",
+        "imo": "8963818"
       }
     },
     {
@@ -56750,7 +57983,10 @@
           "meters": 74,
           "raw": "74"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12,
+          "raw": "12.0"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -56760,12 +57996,21 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "cocoa bean",
           "builderId": "builder:trinity"
-        }
+        },
+        "draft": {
+          "meters": 4,
+          "raw": "4.0"
+        },
+        "gt": 1590,
+        "max_speed": 15.5,
+        "flag": "Cayman Islands",
+        "class_society": "ABS Maltese Cross A1"
       }
     },
     {
@@ -57008,7 +58253,10 @@
           "meters": 135.5,
           "raw": "135.5m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21,
+          "raw": "21.0"
+        },
         "year": {
           "value": 2018,
           "raw": "2018"
@@ -57021,12 +58269,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "crescent",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.2,
+          "raw": "5.20"
+        },
+        "gt": 9194,
+        "flag": "Cayman Islands",
+        "imo": "9785108"
       }
     },
     {
@@ -57234,7 +58490,10 @@
           "meters": 134.2,
           "raw": "134.2m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 19.8,
+          "raw": "19.8"
+        },
         "year": {
           "value": 2025,
           "raw": "2025"
@@ -57247,12 +58506,19 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "deep blue",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.1,
+          "raw": "5.1"
+        },
+        "gt": 9079,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -57318,7 +58584,10 @@
           "meters": 156,
           "raw": "156 m / 512 ft"
         },
-        "beam": null,
+        "beam": {
+          "meters": 23.5,
+          "raw": "23.5"
+        },
         "year": {
           "value": 2016,
           "raw": "2016"
@@ -57338,7 +58607,8 @@
           "11_Yacht_Data_Collection_500_2000_Pages.md",
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "dilbar",
@@ -57352,7 +58622,15 @@
             "Largest indoor pool; Med sightings (seized).",
             "Pool, helipad; global (seized)."
           ]
-        }
+        },
+        "draft": {
+          "meters": 6,
+          "raw": "6.0"
+        },
+        "gt": 15917,
+        "max_speed": 22.5,
+        "flag": "Cayman Islands",
+        "imo": "9661792"
       }
     },
     {
@@ -57418,7 +58696,10 @@
           "meters": 142,
           "raw": "142m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 20,
+          "raw": "20"
+        },
         "year": {
           "value": 2024,
           "raw": "2024"
@@ -57431,12 +58712,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "dragonfly",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.85,
+          "raw": "5.85"
+        },
+        "gt": 9408,
+        "max_speed": 24,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -57591,7 +58880,10 @@
           "meters": 162,
           "raw": "162m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 22,
+          "raw": "22"
+        },
         "year": {
           "value": 2006,
           "raw": "2006"
@@ -57609,7 +58901,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "dubai",
@@ -57622,7 +58915,16 @@
             "Disco, submarine garage; occasional Florida Keys visits.",
             "Disco, cinema; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5,
+          "raw": "5"
+        },
+        "gt": 13470,
+        "max_speed": 26,
+        "range_nm": 8500,
+        "flag": "Dubai, UAE",
+        "imo": "1006324"
       }
     },
     {
@@ -57661,7 +58963,10 @@
           "meters": 162,
           "raw": "162 m / 531 ft"
         },
-        "beam": null,
+        "beam": {
+          "meters": 22,
+          "raw": "22.0"
+        },
         "year": {
           "value": 2010,
           "raw": "2010"
@@ -57682,7 +58987,8 @@
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "28_Superyachts_Definition_Features_Innovations.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "eclipse",
@@ -57696,7 +59002,15 @@
             "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
             "Anti-paparazzi lasers; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.9,
+          "raw": "5.9"
+        },
+        "gt": 13000,
+        "max_speed": 22,
+        "flag": "Bermuda",
+        "imo": "1009613"
       }
     },
     {
@@ -57766,7 +59080,10 @@
           "meters": 145.7,
           "raw": "145.7m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13,
+          "raw": "13"
+        },
         "year": {
           "value": null,
           "raw": "1865"
@@ -57779,12 +59096,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "el mahrousa",
           "builderId": "builder:samuda-bros"
-        }
+        },
+        "draft": {
+          "meters": 5.3,
+          "raw": "5.3"
+        },
+        "gt": 4561,
+        "max_speed": 16,
+        "flag": "Egypt"
       }
     },
     {
@@ -58645,7 +59970,10 @@
           "meters": 136,
           "raw": "136 m / 446 ft"
         },
-        "beam": null,
+        "beam": {
+          "meters": 22.5,
+          "raw": "22.5"
+        },
         "year": {
           "value": 2019,
           "raw": "2019"
@@ -58668,7 +59996,8 @@
           "28_Superyachts_Definition_Features_Innovations.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "flying fox",
@@ -58683,7 +60012,14 @@
           "crew": [
             55
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.1,
+          "raw": "5.1"
+        },
+        "gt": 9022,
+        "max_speed": 20,
+        "range_nm": 6500
       }
     },
     {
@@ -59277,7 +60613,10 @@
           "meters": 162,
           "raw": "162"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.5,
+          "raw": "18.5"
+        },
         "year": null,
         "value": null,
         "weekly_rate": {
@@ -59292,12 +60631,17 @@
         "location": null,
         "provenance": [
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "golden horizon",
           "builderId": "builder:brodogra-evna-industrija-split"
-        }
+        },
+        "gt": 8770,
+        "max_speed": 20,
+        "flag": "Croatia",
+        "imo": "9793545"
       }
     },
     {
@@ -59309,7 +60653,10 @@
           "meters": 123.2,
           "raw": "123.2m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 20,
+          "raw": "20.0"
+        },
         "year": {
           "value": 2015,
           "raw": "2015"
@@ -59323,12 +60670,20 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "golden odyssey",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.1,
+          "raw": "5.1"
+        },
+        "gt": 7690,
+        "max_speed": 19,
+        "imo": "9648788"
       }
     },
     {
@@ -60522,40 +61877,6 @@
       }
     },
     {
-      "id": "yacht:jubilee",
-      "type": "yacht",
-      "name": "Jubilee",
-      "attrs": {
-        "loa": {
-          "meters": 110,
-          "raw": "110"
-        },
-        "beam": null,
-        "year": null,
-        "value": null,
-        "weekly_rate": null,
-        "guests": 12,
-        "cabins": 7,
-        "crew": 36,
-        "features": "Large, luxurious",
-        "location": null,
-        "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
-        ],
-        "_resolution": {
-          "nameNorm": "jubilee",
-          "builderId": "builder:lurssen"
-        },
-        "conflicts": {
-          "features": [
-            "Large",
-            "Large",
-            "Large"
-          ]
-        }
-      }
-    },
-    {
       "id": "yacht:kai",
       "type": "yacht",
       "name": "Kai",
@@ -60591,7 +61912,10 @@
           "meters": 110,
           "raw": "110 m (361 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 16.4,
+          "raw": "16.4"
+        },
         "year": {
           "value": 2017,
           "raw": "2017 (refit 2020)"
@@ -60602,13 +61926,15 @@
           "raw": "$300 million"
         },
         "weekly_rate": null,
-        "guests": null,
-        "cabins": null,
-        "crew": null,
+        "guests": 12,
+        "cabins": 7,
+        "crew": 36,
         "features": "Largest yacht aquarium, cinema, spa, gym; exterior by Sam Sorgiovanni.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md",
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
         ],
         "_resolution": {
           "nameNorm": "kaos",
@@ -60618,40 +61944,16 @@
           "features": [
             "Largest aquarium, cinema; Atlantic routes."
           ]
-        }
-      }
-    },
-    {
-      "id": "yacht:kaos-custom",
-      "type": "yacht",
-      "name": "Kaos",
-      "attrs": {
-        "loa": {
-          "meters": 110.1,
-          "raw": "110.1"
         },
-        "beam": null,
-        "year": null,
-        "value": null,
-        "weekly_rate": null,
-        "guests": 12,
-        "cabins": 6,
-        "crew": null,
-        "features": "Striking design",
-        "location": null,
-        "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
-        ],
-        "_resolution": {
-          "nameNorm": "kaos",
-          "builderId": "builder:custom"
+        "draft": {
+          "meters": 4.4,
+          "raw": "4.4"
         },
-        "conflicts": {
-          "features": [
-            "Striking",
-            "Striking"
-          ]
-        }
+        "gt": 4523,
+        "former_names": [
+          "Jubilee",
+          "Secret III"
+        ]
       }
     },
     {
@@ -60693,7 +61995,10 @@
           "meters": 124.4,
           "raw": "124.4m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 19.5,
+          "raw": "19.5"
+        },
         "year": {
           "value": 2010,
           "raw": "2010"
@@ -60706,12 +62011,21 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "katara",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.3,
+          "raw": "5.3"
+        },
+        "gt": 8010,
+        "max_speed": 20,
+        "range_nm": 5000,
+        "flag": "Qatar"
       }
     },
     {
@@ -60831,7 +62145,10 @@
           "meters": 75,
           "raw": "75"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.8,
+          "raw": "12.8"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -60843,7 +62160,8 @@
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "kensho",
@@ -60860,7 +62178,16 @@
             "Modern Admiral",
             "Modern Admiral"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.4,
+          "raw": "3.4"
+        },
+        "gt": 1989,
+        "max_speed": 15.9,
+        "range_nm": 4500,
+        "flag": "Cayman Islands",
+        "imo": "9854284"
       }
     },
     {
@@ -61032,7 +62359,10 @@
           "meters": 122,
           "raw": "122m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 17.8,
+          "raw": "17.8"
+        },
         "year": {
           "value": 2024,
           "raw": "2024"
@@ -61053,7 +62383,8 @@
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "28_Superyachts_Definition_Features_Innovations.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "kismet",
@@ -61074,41 +62405,14 @@
           "guests": [
             12
           ]
-        }
-      }
-    },
-    {
-      "id": "yacht:kismet-lurssen",
-      "type": "yacht",
-      "name": "Kismet",
-      "attrs": {
-        "loa": {
-          "meters": 95,
-          "raw": "95 m (312 ft) (previous version)"
         },
-        "beam": null,
-        "year": {
-          "value": 2014,
-          "raw": "2014"
+        "draft": {
+          "meters": 4.8,
+          "raw": "4.8"
         },
-        "value": {
-          "amount": 200000000,
-          "currency": "USD",
-          "raw": "$200+ million"
-        },
-        "weekly_rate": null,
-        "guests": null,
-        "cabins": null,
-        "crew": null,
-        "features": "Art collection, cinema; Florida home port.",
-        "location": null,
-        "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
-        ],
-        "_resolution": {
-          "nameNorm": "kismet",
-          "builderId": "builder:lurssen"
-        }
+        "gt": 4918,
+        "max_speed": 18,
+        "range_nm": 6000
       }
     },
     {
@@ -61208,7 +62512,8 @@
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "koru",
@@ -61218,7 +62523,11 @@
           "features": [
             "Three-masted sailing; Med charters."
           ]
-        }
+        },
+        "gt": 3493,
+        "flag": "Cayman Islands",
+        "class_society": "Lloyd's Register",
+        "imo": "9857298"
       }
     },
     {
@@ -61587,7 +62896,10 @@
           "meters": 91,
           "raw": "91m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.35,
+          "raw": "14.35"
+        },
         "year": null,
         "value": null,
         "weekly_rate": {
@@ -61602,7 +62914,8 @@
         "location": null,
         "provenance": [
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "lady lara",
@@ -61615,7 +62928,14 @@
             "Wellness deck",
             "Wellness deck"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4,
+          "raw": "4.0"
+        },
+        "gt": 2945,
+        "flag": "Cayman Islands",
+        "imo": "1012311"
       }
     },
     {
@@ -61654,7 +62974,10 @@
           "meters": 105,
           "raw": "105 m (344 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.5,
+          "raw": "18.5"
+        },
         "year": {
           "value": 1990,
           "raw": "1990 (refit 2021)"
@@ -61671,12 +62994,20 @@
         "features": "24k gold lettering, helipad, beach club, cinema; one of the first megayachts.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "lady moura",
           "builderId": "builder:blohm-voss"
-        }
+        },
+        "draft": {
+          "meters": 5.5,
+          "raw": "5.5"
+        },
+        "max_speed": 20,
+        "flag": "Nassau",
+        "imo": "1002380"
       }
     },
     {
@@ -61688,7 +63019,10 @@
           "meters": 93,
           "raw": "93 m (305 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.1,
+          "raw": "14.1"
+        },
         "year": {
           "value": 2019,
           "raw": "2019"
@@ -61707,7 +63041,8 @@
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "lady s",
@@ -61719,7 +63054,12 @@
             "Glamorous decks, wellness spa",
             "Glamorous decks, wellness"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.9,
+          "raw": "3.9"
+        },
+        "gt": 2999
       }
     },
     {
@@ -61805,45 +63145,6 @@
       }
     },
     {
-      "id": "yacht:lana",
-      "type": "yacht",
-      "name": "Lana",
-      "attrs": {
-        "loa": {
-          "meters": 107,
-          "raw": "107 m (351 ft)"
-        },
-        "beam": null,
-        "year": {
-          "value": 2020,
-          "raw": "2020"
-        },
-        "value": {
-          "amount": 200000000,
-          "currency": "USD",
-          "raw": "$200 million"
-        },
-        "weekly_rate": null,
-        "guests": null,
-        "cabins": null,
-        "crew": null,
-        "features": "Helipad, pool, cinema, gym; seized in 2022.",
-        "location": null,
-        "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
-        ],
-        "_resolution": {
-          "nameNorm": "lana",
-          "builderId": "builder:benetti"
-        },
-        "conflicts": {
-          "features": [
-            "Helipad, pool; Med charters (seized)."
-          ]
-        }
-      }
-    },
-    {
       "id": "yacht:largo",
       "type": "yacht",
       "name": "Largo",
@@ -61906,7 +63207,10 @@
           "meters": 118,
           "raw": "118m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 15.2,
+          "raw": "~15.2 (50 ft)"
+        },
         "year": {
           "value": 2024,
           "raw": "2024"
@@ -61919,12 +63223,17 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "launchpad",
           "builderId": "builder:feadship"
-        }
+        },
+        "gt": 4999,
+        "max_speed": 24,
+        "range_nm": 6000,
+        "flag": "Marshall Islands"
       }
     },
     {
@@ -62056,12 +63365,14 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "le grand bleu",
           "builderId": "builder:bremer-vulkan"
-        }
+        },
+        "max_speed": 17
       }
     },
     {
@@ -62110,7 +63421,8 @@
         "features": "Sailing yacht, large capacity",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "le ponant",
@@ -62125,7 +63437,9 @@
             "Large-capacity sailing",
             "Large-capacity sailing"
           ]
-        }
+        },
+        "flag": "France",
+        "imo": "8914219"
       }
     },
     {
@@ -62368,7 +63682,8 @@
         "features": "Helipad, pool, gym, cinema; part of Green's fleet.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "lionheart",
@@ -62378,7 +63693,10 @@
           "features": [
             "Helipad, pool; part of fleet in Atlantic."
           ]
-        }
+        },
+        "max_speed": 18,
+        "class_society": "Lloyd's Register",
+        "imo": "1012323"
       }
     },
     {
@@ -62929,21 +64247,42 @@
           "meters": 95,
           "raw": "95"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14,
+          "raw": "14"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
-        "guests": null,
+        "guests": 12,
         "cabins": 10,
-        "crew": null,
-        "features": null,
+        "crew": 20,
+        "features": "Cinema, gym, spa",
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md",
+          "28_Superyachts_Definition_Features_Innovations.md",
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
         ],
         "_resolution": {
           "nameNorm": "madsummer",
           "builderId": "builder:lurssen"
+        },
+        "draft": {
+          "meters": 3.9,
+          "raw": "3.9"
+        },
+        "gt": 3120,
+        "max_speed": 18,
+        "range_nm": 6000,
+        "former_names": [
+          "CC-Summer"
+        ],
+        "conflicts": {
+          "crew": [
+            30
+          ]
         }
       }
     },
@@ -63083,7 +64422,10 @@
           "meters": 88,
           "raw": "88 m / 289 ft"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.6,
+          "raw": "12.6"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -63098,7 +64440,8 @@
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "maltese falcon",
@@ -63115,7 +64458,15 @@
             "Iconic DynaRig sails, watersports",
             "DynaRig sails, watersports"
           ]
-        }
+        },
+        "draft": {
+          "meters": 6,
+          "raw": "6.0–11.0"
+        },
+        "gt": 1157,
+        "flag": "Malta (ex-BVI)",
+        "class_society": "ABS",
+        "imo": "9384552"
       }
     },
     {
@@ -63127,7 +64478,10 @@
           "meters": 86,
           "raw": "86 m (282 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.02,
+          "raw": "14.02"
+        },
         "year": {
           "value": 2008,
           "raw": "2008 (refit 2019)"
@@ -63146,7 +64500,8 @@
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "man of steel",
@@ -63165,7 +64520,16 @@
             "Toy-heavy explorer",
             "Toy-heavy explorer"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.96,
+          "raw": "3.96"
+        },
+        "gt": 2658,
+        "max_speed": 20,
+        "range_nm": 5500,
+        "flag": "Cayman Islands",
+        "imo": "1010777"
       }
     },
     {
@@ -63238,9 +64602,19 @@
           "meters": 108,
           "raw": "108/354"
         },
-        "beam": null,
-        "year": null,
-        "value": null,
+        "beam": {
+          "meters": 14.4,
+          "raw": "14.4"
+        },
+        "year": {
+          "value": 2020,
+          "raw": "2020"
+        },
+        "value": {
+          "amount": 200000000,
+          "currency": "USD",
+          "raw": "$200 million"
+        },
         "weekly_rate": {
           "amount": 195000000,
           "currency": "EUR",
@@ -63255,7 +64629,9 @@
           "28_Superyachts_Definition_Features_Innovations.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md",
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
         ],
         "_resolution": {
           "nameNorm": "mar",
@@ -63271,7 +64647,17 @@
           "features": [
             "Fold-out balconies, beach club"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.5,
+          "raw": "4.5"
+        },
+        "gt": 3900,
+        "max_speed": 18.5,
+        "imo": "1013005",
+        "former_names": [
+          "Lana"
+        ]
       }
     },
     {
@@ -63459,7 +64845,10 @@
           "meters": 125,
           "raw": "125m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 17,
+          "raw": "17.0"
+        },
         "year": {
           "value": 2015,
           "raw": "2015"
@@ -63472,12 +64861,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "maryah",
           "builderId": "builder:elefsis"
-        }
+        },
+        "draft": {
+          "meters": 5.6,
+          "raw": "5.60"
+        },
+        "gt": 5650,
+        "max_speed": 18,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -63911,7 +65308,10 @@
           "meters": 100,
           "raw": "100"
         },
-        "beam": null,
+        "beam": {
+          "meters": 15.5,
+          "raw": "15.5"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -63921,12 +65321,20 @@
         "features": "Modern",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "moonrise",
           "builderId": "builder:feadship"
-        }
+        },
+        "draft": {
+          "meters": 4.2,
+          "raw": "4.2"
+        },
+        "gt": 3945,
+        "max_speed": 19,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -63984,7 +65392,8 @@
         "_resolution": {
           "nameNorm": "mosaique",
           "builderId": null
-        }
+        },
+        "data_quality": "unverified — no matching real vessel found (2026-07 research pass)"
       }
     },
     {
@@ -64050,7 +65459,10 @@
           "meters": 116,
           "raw": "116m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18,
+          "raw": "18.0"
+        },
         "year": {
           "value": 2017,
           "raw": "2017"
@@ -64063,12 +65475,23 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "multiverse",
           "builderId": "builder:kleven"
-        }
+        },
+        "draft": {
+          "meters": 5.7,
+          "raw": "5.7"
+        },
+        "gt": 6862,
+        "max_speed": 12,
+        "class_society": "DNV 1A1",
+        "former_names": [
+          "Ulysses"
+        ]
       }
     },
     {
@@ -64107,7 +65530,10 @@
           "meters": 88,
           "raw": "88 m (288 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.9,
+          "raw": "13.9"
+        },
         "year": {
           "value": 2011,
           "raw": "2011"
@@ -64124,7 +65550,8 @@
         "features": "Japanese-inspired design with art deco elements, spa pool, accommodates 18 guests + 23 crew; one of Ellison's fleet.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "musashi",
@@ -64134,7 +65561,16 @@
           "features": [
             "Japanese-inspired, spa pool; Florida sightings."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.1,
+          "raw": "4.1"
+        },
+        "gt": 2463,
+        "max_speed": 20.9,
+        "range_nm": 6000,
+        "flag": "USA",
+        "class_society": "Lloyd's"
       }
     },
     {
@@ -64177,7 +65613,10 @@
           "meters": 74,
           "raw": "74 m (242 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.2,
+          "raw": "13.2"
+        },
         "year": {
           "value": 2011,
           "raw": "2011 (refit 2019)"
@@ -64195,12 +65634,19 @@
         "location": null,
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "naia",
           "builderId": "builder:freire"
-        }
+        },
+        "draft": {
+          "meters": 3.8,
+          "raw": "3.8"
+        },
+        "gt": 2059,
+        "max_speed": 16
       }
     },
     {
@@ -64333,7 +65779,10 @@
           "meters": 90,
           "raw": "90"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.03,
+          "raw": "12.03"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -64345,7 +65794,8 @@
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "nero",
@@ -64361,7 +65811,14 @@
             "Classic refit value",
             "Classic refit value"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.87,
+          "raw": "4.87"
+        },
+        "gt": 1957,
+        "flag": "Cayman Islands",
+        "imo": "1008449"
       }
     },
     {
@@ -64520,7 +65977,10 @@
           "meters": 142,
           "raw": "142m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 19.5,
+          "raw": "19.5"
+        },
         "year": {
           "value": 2019,
           "raw": "2019"
@@ -64539,7 +65999,8 @@
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "nord",
@@ -64553,7 +66014,15 @@
           "features": [
             "Two helipads, beach club; seized but historically in Caribbean."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.15,
+          "raw": "5.15"
+        },
+        "gt": 9250,
+        "max_speed": 20,
+        "flag": "Russia",
+        "imo": "9853785"
       }
     },
     {
@@ -64703,7 +66172,10 @@
           "meters": 85,
           "raw": "85 m (279 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.8,
+          "raw": "13.8"
+        },
         "year": {
           "value": 2018,
           "raw": "2018"
@@ -64723,7 +66195,8 @@
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "o'ptasia",
@@ -64733,7 +66206,15 @@
           "features": [
             "Pool, cinema"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.6,
+          "raw": "3.6"
+        },
+        "gt": 2350,
+        "max_speed": 20,
+        "range_nm": 10015,
+        "flag": "Malta"
       }
     },
     {
@@ -64806,7 +66287,10 @@
           "meters": 140,
           "raw": "140m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.6,
+          "raw": "18.6"
+        },
         "year": {
           "value": 2014,
           "raw": "2014"
@@ -64819,12 +66303,21 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "ocean victory",
           "builderId": "builder:fincantieri"
-        }
+        },
+        "draft": {
+          "meters": 5.56,
+          "raw": "5.56"
+        },
+        "gt": 8506,
+        "max_speed": 25,
+        "flag": "Cayman Islands",
+        "imo": "1011850"
       }
     },
     {
@@ -64922,7 +66415,10 @@
           "meters": 126,
           "raw": "126m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21,
+          "raw": "21.0"
+        },
         "year": {
           "value": 2003,
           "raw": "2003"
@@ -64943,7 +66439,8 @@
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "28_Superyachts_Definition_Features_Innovations.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "octopus",
@@ -64971,7 +66468,17 @@
           "crew": [
             42
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.76,
+          "raw": "5.76"
+        },
+        "gt": 9932,
+        "max_speed": 19,
+        "range_nm": 12500,
+        "flag": "Cayman Islands",
+        "class_society": "Ice Class 1A",
+        "imo": "1007213"
       }
     },
     {
@@ -65103,7 +66610,10 @@
           "meters": 146.4,
           "raw": "146.4m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21.5,
+          "raw": "21.5"
+        },
         "year": {
           "value": 2023,
           "raw": "2023"
@@ -65121,7 +66631,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "opera",
@@ -65131,7 +66642,14 @@
           "features": [
             "Transformable pool; Med-based."
           ]
-        }
+        },
+        "draft": {
+          "meters": 6,
+          "raw": "6.0"
+        },
+        "gt": 12518,
+        "flag": "Cayman Islands",
+        "imo": "1012933"
       }
     },
     {
@@ -65428,7 +66946,10 @@
           "meters": 115,
           "raw": "115m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 17.2,
+          "raw": "17.2"
+        },
         "year": {
           "value": 2003,
           "raw": "2003"
@@ -65446,7 +66967,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "pelorus",
@@ -65457,7 +66979,14 @@
             "Helicopter hangar, spa; Florida charters.",
             "Explorer styling; Atlantic charters including Canaries."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.66,
+          "raw": "4.66"
+        },
+        "gt": 5403,
+        "flag": "St Vincent & Grenadines",
+        "class_society": "DNV"
       }
     },
     {
@@ -65469,7 +66998,10 @@
           "meters": 90,
           "raw": "90 m (295 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.8,
+          "raw": "13.8"
+        },
         "year": {
           "value": 2010,
           "raw": "2010"
@@ -65488,7 +67020,8 @@
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "phoenix 2",
@@ -65515,7 +67048,14 @@
             12,
             12
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.75,
+          "raw": "3.75"
+        },
+        "gt": 2667,
+        "max_speed": 18,
+        "range_nm": 6000
       }
     },
     {
@@ -65862,7 +67402,10 @@
           "meters": 147,
           "raw": "147m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.3,
+          "raw": "18.3"
+        },
         "year": {
           "value": 1984,
           "raw": "1984"
@@ -65875,39 +67418,19 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
-        ],
-        "_resolution": {
-          "nameNorm": "prince abdulaziz",
-          "builderId": "builder:helsing-r"
-        }
-      }
-    },
-    {
-      "id": "yacht:prince-abdulaziz-helsingor-vaerft",
-      "type": "yacht",
-      "name": "Prince Abdulaziz",
-      "attrs": {
-        "loa": {
-          "meters": 147,
-          "raw": "147"
-        },
-        "beam": null,
-        "year": null,
-        "value": null,
-        "weekly_rate": null,
-        "guests": null,
-        "cabins": null,
-        "crew": null,
-        "features": null,
-        "location": null,
-        "provenance": [
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
         ],
         "_resolution": {
           "nameNorm": "prince abdulaziz",
-          "builderId": "builder:helsingor-vaerft"
-        }
+          "builderId": "builder:helsing-r"
+        },
+        "draft": {
+          "meters": 4.9,
+          "raw": "4.9"
+        },
+        "gt": 8233
       }
     },
     {
@@ -66223,7 +67746,10 @@
           "meters": 92,
           "raw": "92"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.4,
+          "raw": "14.4"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -66233,7 +67759,8 @@
         "features": "Large capacity, classic luxury",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "queen miri",
@@ -66248,7 +67775,13 @@
             "Massive guest capacity",
             "Massive guest capacity"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.2,
+          "raw": "4.2"
+        },
+        "gt": 3367,
+        "flag": "Marshall Islands"
       }
     },
     {
@@ -66260,7 +67793,10 @@
           "meters": 110,
           "raw": "110 m (361 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 16.3,
+          "raw": "16.3"
+        },
         "year": {
           "value": 2010,
           "raw": "2010"
@@ -66277,7 +67813,8 @@
         "features": "Helipad, gym, cinema, water cannon defense system; sister to Dilbar.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "radiant",
@@ -66287,7 +67824,15 @@
           "features": [
             "Water cannon defense; Med sister to Dilbar."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.5,
+          "raw": "4.5"
+        },
+        "gt": 5027,
+        "max_speed": 21,
+        "flag": "Cayman Islands",
+        "class_society": "Germanischer Lloyd"
       }
     },
     {
@@ -66533,7 +68078,10 @@
           "meters": 111.6,
           "raw": "111.6/366"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18,
+          "raw": "~18"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -66544,12 +68092,14 @@
         "location": null,
         "provenance": [
           "28_Superyachts_Definition_Features_Innovations.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "renaissance",
           "builderId": "builder:freire"
-        }
+        },
+        "gt": 6950
       }
     },
     {
@@ -66623,7 +68173,10 @@
           "meters": 194.9,
           "raw": "194.9 m (640 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 22,
+          "raw": "22"
+        },
         "year": {
           "value": 2026,
           "raw": "2026 (expected)"
@@ -66640,7 +68193,8 @@
         "features": "Research-focused with labs, submarine, ROVs, moon pool; eco-friendly design for ocean conservation.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "rev ocean",
@@ -66650,7 +68204,17 @@
           "features": [
             "Research labs, submarine; global eco."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.25,
+          "raw": "5.25"
+        },
+        "gt": 19235,
+        "max_speed": 17,
+        "range_nm": 21120,
+        "flag": "Norway",
+        "class_society": "Polar Class 6",
+        "imo": "9840037"
       }
     },
     {
@@ -66762,7 +68326,8 @@
         "_resolution": {
           "nameNorm": "rio",
           "builderId": null
-        }
+        },
+        "data_quality": "unverified — no matching real vessel found (2026-07 research pass)"
       }
     },
     {
@@ -66819,7 +68384,8 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "rising sun",
@@ -66830,7 +68396,10 @@
             "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
             "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots."
           ]
-        }
+        },
+        "gt": 7841,
+        "max_speed": 28,
+        "imo": "8982307"
       }
     },
     {
@@ -66950,7 +68519,10 @@
           "meters": 82,
           "raw": "82"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.6,
+          "raw": "12.6"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -66961,12 +68533,22 @@
         "location": null,
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "romea",
           "builderId": "builder:abeking-rasmussen"
-        }
+        },
+        "draft": {
+          "meters": 3.45,
+          "raw": "3.45"
+        },
+        "gt": 2312,
+        "max_speed": 16.5,
+        "range_nm": 4500,
+        "flag": "Cayman Islands",
+        "imo": "1012309"
       }
     },
     {
@@ -67093,7 +68675,10 @@
           "meters": 143,
           "raw": "143 m (468 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 24.8,
+          "raw": "24.80"
+        },
         "year": {
           "value": 2017,
           "raw": "2017"
@@ -67110,7 +68695,8 @@
         "features": "Eight decks; underwater observation pod with 1-ft thick glass; crow’s nest at 60m; multiple elevators; rumored personal submarine; four tenders (carbon fiber speedboat, luxury limo, panoramic tender, utility vessel); warmer classic interior with dark woods and copper accents; hybrid diesel-electric propulsion; seized in 2022 due to sanctions.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "sailing yacht a",
@@ -67123,7 +68709,17 @@
             "Underwater pod; Med and global (seized).",
             "Hybrid, underwater pod; global."
           ]
-        }
+        },
+        "draft": {
+          "meters": 8,
+          "raw": "8.00"
+        },
+        "gt": 12558,
+        "max_speed": 21,
+        "range_nm": 5340,
+        "flag": "Sierra Leone (ex-Bermuda, ex-Isle of Man)",
+        "class_society": "Lloyd's Register",
+        "imo": "1012141"
       }
     },
     {
@@ -67387,7 +68983,10 @@
           "meters": 83.5,
           "raw": "83.5"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12.5,
+          "raw": "12.5"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -67399,7 +68998,8 @@
         "provenance": [
           "28_Superyachts_Definition_Features_Innovations.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "savannah",
@@ -67413,7 +69013,15 @@
             "Glass-heavy art collection",
             "Glass-heavy art collection"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.95,
+          "raw": "3.95"
+        },
+        "gt": 2305,
+        "max_speed": 17,
+        "range_nm": 6500,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -67482,7 +69090,10 @@
           "meters": 168,
           "raw": "168"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21.5,
+          "raw": "21.5"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -67492,12 +69103,17 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "scenic eclipse",
           "builderId": "builder:uljanik"
-        }
+        },
+        "gt": 17545,
+        "max_speed": 19.5,
+        "flag": "Bahamas (ex-Malta)",
+        "imo": "9797371"
       }
     },
     {
@@ -67509,7 +69125,10 @@
           "meters": 140,
           "raw": "140m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 23.3,
+          "raw": "23.3"
+        },
         "year": {
           "value": 2020,
           "raw": "2020"
@@ -67523,12 +69142,21 @@
         "location": null,
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "scheherazade",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 5.1,
+          "raw": "5.1"
+        },
+        "gt": 10167,
+        "max_speed": 19.5,
+        "flag": "Cayman Islands",
+        "imo": "9809980"
       }
     },
     {
@@ -67912,7 +69540,10 @@
           "meters": 134,
           "raw": "134m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 18.5,
+          "raw": "18.5"
+        },
         "year": {
           "value": 2011,
           "raw": "2011"
@@ -67931,7 +69562,8 @@
         "provenance": [
           "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "serene",
@@ -67941,7 +69573,14 @@
           "features": [
             "Indoor climbing wall, submarine, snow room; Caribbean expeditions."
           ]
-        }
+        },
+        "draft": {
+          "meters": 5.5,
+          "raw": "5.5"
+        },
+        "gt": 8231,
+        "flag": "Bermuda",
+        "imo": "1010090"
       }
     },
     {
@@ -68019,7 +69658,10 @@
           "meters": 70,
           "raw": "70"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12,
+          "raw": "12.0"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -68029,12 +69671,23 @@
         "features": null,
         "location": null,
         "provenance": [
-          "34_Turkey_Yacht_Charter_Data_Sheets.md"
+          "34_Turkey_Yacht_Charter_Data_Sheets.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "sherakhan",
           "builderId": "builder:vuyk-en-zonen"
-        }
+        },
+        "draft": {
+          "meters": 4.45,
+          "raw": "4.45"
+        },
+        "gt": 1945,
+        "max_speed": 13,
+        "range_nm": 3500,
+        "flag": "Netherlands",
+        "class_society": "Bureau Veritas",
+        "imo": "6618823"
       }
     },
     {
@@ -68404,7 +70057,10 @@
           "meters": 85,
           "raw": "85"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.8,
+          "raw": "13.8"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -68415,12 +70071,19 @@
         "location": null,
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "solandge",
           "builderId": "builder:lurssen"
-        }
+        },
+        "draft": {
+          "meters": 3.9,
+          "raw": "3.9"
+        },
+        "gt": 2899,
+        "max_speed": 18
       }
     },
     {
@@ -68432,7 +70095,10 @@
           "meters": 139,
           "raw": "139m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 21.3,
+          "raw": "21.3"
+        },
         "year": {
           "value": 2021,
           "raw": "2021"
@@ -68445,12 +70111,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "solaris",
           "builderId": "builder:lloyd-werft"
-        }
+        },
+        "draft": {
+          "meters": 5.95,
+          "raw": "5.95"
+        },
+        "gt": 11247,
+        "flag": "Bermuda",
+        "imo": "9819820"
       }
     },
     {
@@ -68524,7 +70198,10 @@
           "meters": 222,
           "raw": "222 m (728 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 27,
+          "raw": "27"
+        },
         "year": {
           "value": 2025,
           "raw": "Expected 2025"
@@ -68541,7 +70218,8 @@
         "features": "World's largest residential yacht with 39 apartments; amenities include spa, gym, cinema, helipad; co-owned by residents.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "somnio",
@@ -68551,7 +70229,8 @@
           "features": [
             "Residential apartments, spa; global."
           ]
-        }
+        },
+        "gt": 33500
       }
     },
     {
@@ -68644,7 +70323,10 @@
           "meters": 97,
           "raw": "97m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.5,
+          "raw": "14.5"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -68655,12 +70337,19 @@
         "location": null,
         "provenance": [
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "sophia",
           "builderId": "builder:feadship"
-        }
+        },
+        "draft": {
+          "meters": 3.7,
+          "raw": "3.7"
+        },
+        "gt": 2999,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -69469,7 +71158,10 @@
           "meters": 101,
           "raw": "101 m (331 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.1,
+          "raw": "14.1"
+        },
         "year": {
           "value": 2015,
           "raw": "2015"
@@ -69487,7 +71179,8 @@
         "location": null,
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "symphony",
@@ -69498,7 +71191,15 @@
             "Outdoor cinema, golf simulator; Caribbean family charters.",
             "Float-in tender garage; occasional Canary charters."
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.1,
+          "raw": "4.1"
+        },
+        "gt": 3463,
+        "max_speed": 22,
+        "flag": "Cayman Islands",
+        "imo": "1012098"
       }
     },
     {
@@ -69537,7 +71238,10 @@
           "meters": 71,
           "raw": "71"
         },
-        "beam": null,
+        "beam": {
+          "meters": 12,
+          "raw": "12.0"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -69547,7 +71251,8 @@
         "features": "Refit",
         "location": null,
         "provenance": [
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "talisman c",
@@ -69564,7 +71269,15 @@
             "Reliable refit",
             "Reliable refit"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.95,
+          "raw": "3.95"
+        },
+        "gt": 1560,
+        "max_speed": 17,
+        "range_nm": 7000,
+        "flag": "Cayman Islands"
       }
     },
     {
@@ -69639,7 +71352,10 @@
           "meters": 92,
           "raw": "92m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.95,
+          "raw": "14.95"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -69649,12 +71365,22 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "tatoosh",
           "builderId": "builder:nobiskrug"
-        }
+        },
+        "draft": {
+          "meters": 5.16,
+          "raw": "5.16"
+        },
+        "gt": 3229,
+        "max_speed": 16,
+        "range_nm": 7846,
+        "flag": "Cayman Islands",
+        "imo": "1006336"
       }
     },
     {
@@ -69991,7 +71717,10 @@
           "meters": 73,
           "raw": "73"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13.1,
+          "raw": "13.1"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -70002,7 +71731,8 @@
         "location": null,
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "titania",
@@ -70012,7 +71742,16 @@
           "features": [
             "Iconic Lurssen"
           ]
-        }
+        },
+        "draft": {
+          "meters": 3.7,
+          "raw": "3.7"
+        },
+        "gt": 1894,
+        "max_speed": 16,
+        "range_nm": 5000,
+        "flag": "UK",
+        "imo": "1008695"
       }
     },
     {
@@ -70130,7 +71869,10 @@
           "meters": 116.4,
           "raw": "116.4m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 17.22,
+          "raw": "17.22"
+        },
         "year": {
           "value": 1990,
           "raw": "1990"
@@ -70143,12 +71885,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "turama",
           "builderId": "builder:rauma"
-        }
+        },
+        "draft": {
+          "meters": 4.38,
+          "raw": "4.38"
+        },
+        "gt": 8343,
+        "flag": "Saudi Arabia",
+        "imo": "8907216"
       }
     },
     {
@@ -70439,7 +72189,10 @@
           "meters": 96,
           "raw": "96"
         },
-        "beam": null,
+        "beam": {
+          "meters": 17.3,
+          "raw": "17.3"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -70449,12 +72202,20 @@
         "features": null,
         "location": null,
         "provenance": [
-          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md"
+          "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "vava ii",
           "builderId": "builder:various"
-        }
+        },
+        "draft": {
+          "meters": 4.8,
+          "raw": "4.8"
+        },
+        "gt": 3933,
+        "flag": "Cayman Islands",
+        "imo": "1010387"
       }
     },
     {
@@ -70517,7 +72278,10 @@
           "meters": 78,
           "raw": "78 m (256 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 11.8,
+          "raw": "11.8"
+        },
         "year": {
           "value": 2012,
           "raw": "2012"
@@ -70535,7 +72299,8 @@
         "location": null,
         "provenance": [
           "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
-          "28_Superyachts_Definition_Features_Innovations.md"
+          "28_Superyachts_Definition_Features_Innovations.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "venus",
@@ -70546,7 +72311,15 @@
             "Minimalist design, iPad controls; Florida and Keys sightings.",
             "Philippe Starck design; Canary sightings."
           ]
-        }
+        },
+        "draft": {
+          "meters": 3,
+          "raw": "3.0"
+        },
+        "gt": 1876,
+        "max_speed": 22,
+        "range_nm": 5500,
+        "class_society": "Lloyd's"
       }
     },
     {
@@ -70724,7 +72497,10 @@
           "meters": 85,
           "raw": "85"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.2,
+          "raw": "14.2"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -70736,7 +72512,8 @@
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "victorious",
@@ -70752,7 +72529,14 @@
             "High-performance motor",
             "High-performance motor"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.4,
+          "raw": "4.4"
+        },
+        "gt": 2291,
+        "flag": "Cayman Islands",
+        "imo": "1009912"
       }
     },
     {
@@ -70966,7 +72750,10 @@
           "meters": 85,
           "raw": "85 m (279 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 11,
+          "raw": "11.0"
+        },
         "year": {
           "value": 2023,
           "raw": "2023"
@@ -70983,12 +72770,21 @@
         "features": "Helipad, gym, spa, swim platform; sister to Bold.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "wanderlust",
           "builderId": "builder:silveryachts"
-        }
+        },
+        "draft": {
+          "meters": 2.3,
+          "raw": "2.3"
+        },
+        "gt": 1561,
+        "max_speed": 23,
+        "flag": "Marshall Islands",
+        "imo": "9854143"
       }
     },
     {
@@ -71130,9 +72926,19 @@
           "meters": 95,
           "raw": "95"
         },
-        "beam": null,
-        "year": null,
-        "value": null,
+        "beam": {
+          "meters": 13.8,
+          "raw": "13.8"
+        },
+        "year": {
+          "value": 2014,
+          "raw": "2014"
+        },
+        "value": {
+          "amount": 200000000,
+          "currency": "USD",
+          "raw": "$200+ million"
+        },
         "weekly_rate": null,
         "guests": 12,
         "cabins": null,
@@ -71142,7 +72948,9 @@
         "provenance": [
           "34_Turkey_Yacht_Charter_Data_Sheets.md",
           "41_Comprehensive_Monaco_Yacht_Charter_Guide.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md",
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
         ],
         "_resolution": {
           "nameNorm": "whisper",
@@ -71152,7 +72960,13 @@
           "features": [
             "High glamour, guest-centric"
           ]
-        }
+        },
+        "gt": 2928,
+        "max_speed": 17,
+        "imo": "1012000",
+        "former_names": [
+          "Kismet"
+        ]
       }
     },
     {
@@ -71344,7 +73158,10 @@
           "meters": 141,
           "raw": "141m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 14.6,
+          "raw": "14.6"
+        },
         "year": {
           "value": 2015,
           "raw": "2015"
@@ -71357,12 +73174,22 @@
         "features": null,
         "location": null,
         "provenance": [
-          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md"
+          "13_Celebrity_Yachts_Billionaires_Fleets_and_Hotspots.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "yas",
           "builderId": "builder:adm-shipyards"
-        }
+        },
+        "draft": {
+          "meters": 4.3,
+          "raw": "4.3"
+        },
+        "gt": 5002,
+        "max_speed": 26,
+        "range_nm": 5000,
+        "flag": "Cayman Islands",
+        "imo": "8652201"
       }
     },
     {
@@ -71374,7 +73201,10 @@
           "meters": 78,
           "raw": "78m"
         },
-        "beam": null,
+        "beam": {
+          "meters": 13,
+          "raw": "13.0"
+        },
         "year": null,
         "value": null,
         "weekly_rate": null,
@@ -71385,7 +73215,8 @@
         "location": null,
         "provenance": [
           "37_Alaska_Yacht_Clubs_and_Charters_Data.md",
-          "42_Monaco_Yacht_Show_Key_Players_Charters.md"
+          "42_Monaco_Yacht_Show_Key_Players_Charters.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "yersin",
@@ -71402,8 +73233,18 @@
             "Explorer capabilities",
             "Explorer capabilities",
             "Explorer capabilities"
+          ],
+          "flag": [
+            "Malta"
           ]
-        }
+        },
+        "draft": {
+          "meters": 4.5,
+          "raw": "4.5"
+        },
+        "gt": 2198,
+        "flag": "Oman",
+        "imo": "9666651"
       }
     },
     {
@@ -71544,7 +73385,10 @@
           "meters": 74.5,
           "raw": "74.5 m (244 ft)"
         },
-        "beam": null,
+        "beam": {
+          "meters": 11.2,
+          "raw": "11.2"
+        },
         "year": {
           "value": 1991,
           "raw": "1991 (refit 2022)"
@@ -71561,12 +73405,23 @@
         "features": "Classic design with modern refit, helipad, pool, gym; known for charter availability.",
         "location": null,
         "provenance": [
-          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md"
+          "20_Mega_Yachts_with_Personal_Websites_Data_Scrape.md",
+          "93_Yacht_Spec_Completion.md"
         ],
         "_resolution": {
           "nameNorm": "zeus",
           "builderId": "builder:blohm-voss"
-        }
+        },
+        "draft": {
+          "meters": 3.2,
+          "raw": "3.2"
+        },
+        "gt": 1150,
+        "max_speed": 32,
+        "flag": "St Vincent & Grenadines",
+        "former_names": [
+          "Eco"
+        ]
       }
     }
   ],
@@ -75352,6 +77207,18 @@
       "attrs": {}
     },
     {
+      "src": "marina:aberdeen-marina-club",
+      "rel": "located_in",
+      "dst": "region:aberdeen",
+      "attrs": {}
+    },
+    {
+      "src": "marina:aci-marina-dubrovnik",
+      "rel": "located_in",
+      "dst": "region:dubrovnik",
+      "attrs": {}
+    },
+    {
       "src": "marina:adelaide-ship-construction-international",
       "rel": "located_in",
       "dst": "region:adelaide",
@@ -75514,6 +77381,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:atlantis-marina",
+      "rel": "located_in",
+      "dst": "region:paradise-island-nassau",
+      "attrs": {}
+    },
+    {
       "src": "marina:austal",
       "rel": "located_in",
       "dst": "region:henderson-perth",
@@ -75565,6 +77438,12 @@
       "src": "marina:bae-systems-australia",
       "rel": "located_in",
       "dst": "region:henderson",
+      "attrs": {}
+    },
+    {
+      "src": "marina:bahia-mar-yachting-center",
+      "rel": "located_in",
+      "dst": "region:fort-lauderdale-fl",
       "attrs": {}
     },
     {
@@ -75916,6 +77795,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:cable-marine-cable-west",
+      "rel": "located_in",
+      "dst": "region:fort-lauderdale-fl",
+      "attrs": {}
+    },
+    {
       "src": "marina:cabrillo-boat-shop",
       "rel": "located_in",
       "dst": "region:long-beach-newport-beach-san-pedro",
@@ -75961,6 +77846,12 @@
       "src": "marina:cambridge-management-services",
       "rel": "located_in",
       "dst": "region:adelaide",
+      "attrs": {}
+    },
+    {
+      "src": "marina:camper-nicholsons-port-louis-marina",
+      "rel": "located_in",
+      "dst": "region:st-george-s",
       "attrs": {}
     },
     {
@@ -76312,6 +78203,18 @@
       "attrs": {}
     },
     {
+      "src": "marina:d-albora-marinas-rushcutters-bay",
+      "rel": "located_in",
+      "dst": "region:sydney-nsw",
+      "attrs": {}
+    },
+    {
+      "src": "marina:d-marin-gocek",
+      "rel": "located_in",
+      "dst": "region:gocek-fethiye",
+      "attrs": {}
+    },
+    {
       "src": "marina:dagmars-marina",
       "rel": "located_in",
       "dst": "region:everett",
@@ -76471,6 +78374,12 @@
       "src": "marina:driscoll-s-mission-bay",
       "rel": "located_in",
       "dst": "region:san-diego",
+      "attrs": {}
+    },
+    {
+      "src": "marina:dubai-harbour-marina",
+      "rel": "located_in",
+      "dst": "region:dubai-palm-jumeirah-bluewaters",
       "attrs": {}
     },
     {
@@ -76882,6 +78791,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:hebe-haven-yacht-club",
+      "rel": "located_in",
+      "dst": "region:sai-kung",
+      "attrs": {}
+    },
+    {
       "src": "marina:henderson-boat-lifters",
       "rel": "located_in",
       "dst": "region:henderson",
@@ -77026,6 +78941,18 @@
       "attrs": {}
     },
     {
+      "src": "marina:igy-american-yacht-harbor",
+      "rel": "located_in",
+      "dst": "region:st-thomas-vessup-bay",
+      "attrs": {}
+    },
+    {
+      "src": "marina:igy-blue-haven-marina",
+      "rel": "located_in",
+      "dst": "region:providenciales",
+      "attrs": {}
+    },
+    {
       "src": "marina:igy-ibiza-marina",
       "rel": "located_in",
       "dst": "region:ibiza-near-old-town-balearic-islands",
@@ -77035,6 +78962,24 @@
       "src": "marina:igy-malaga-marina",
       "rel": "located_in",
       "dst": "region:malaga-costa-del-sol",
+      "attrs": {}
+    },
+    {
+      "src": "marina:igy-rodney-bay-marina",
+      "rel": "located_in",
+      "dst": "region:rodney-bay-castries",
+      "attrs": {}
+    },
+    {
+      "src": "marina:igy-simpson-bay-marina",
+      "rel": "located_in",
+      "dst": "region:simpson-bay",
+      "attrs": {}
+    },
+    {
+      "src": "marina:igy-vieux-port-de-cannes",
+      "rel": "located_in",
+      "dst": "region:cannes",
       "attrs": {}
     },
     {
@@ -77350,6 +79295,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:limassol-marina",
+      "rel": "located_in",
+      "dst": "region:limassol",
+      "attrs": {}
+    },
+    {
       "src": "marina:lincoln-cove-recreational-marina",
       "rel": "located_in",
       "dst": "region:port-lincoln",
@@ -77443,6 +79394,12 @@
       "src": "marina:marina-beach-guest-dock",
       "rel": "located_in",
       "dst": "region:marina-del-rey",
+      "attrs": {}
+    },
+    {
+      "src": "marina:marina-cabo-san-lucas",
+      "rel": "located_in",
+      "dst": "region:cabo-san-lucas-bcs",
       "attrs": {}
     },
     {
@@ -77578,9 +79535,33 @@
       "attrs": {}
     },
     {
+      "src": "marina:marina-del-rey-del-rey-landing",
+      "rel": "located_in",
+      "dst": "region:marina-del-rey-ca",
+      "attrs": {}
+    },
+    {
       "src": "marina:marina-del-rey-marina",
       "rel": "located_in",
       "dst": "region:marina-del-rey",
+      "attrs": {}
+    },
+    {
+      "src": "marina:marina-di-capri-marina-grande",
+      "rel": "located_in",
+      "dst": "region:capri",
+      "attrs": {}
+    },
+    {
+      "src": "marina:marina-di-porto-cervo",
+      "rel": "located_in",
+      "dst": "region:porto-cervo-sardinia-costa-smeralda",
+      "attrs": {}
+    },
+    {
+      "src": "marina:marina-di-portofino",
+      "rel": "located_in",
+      "dst": "region:portofino",
       "attrs": {}
     },
     {
@@ -77635,6 +79616,12 @@
       "src": "marina:marina-port-de-mallorca",
       "rel": "located_in",
       "dst": "region:palma-balearic-islands",
+      "attrs": {}
+    },
+    {
+      "src": "marina:marina-port-vell",
+      "rel": "located_in",
+      "dst": "region:barcelona",
       "attrs": {}
     },
     {
@@ -77782,6 +79769,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:miami-beach-marina",
+      "rel": "located_in",
+      "dst": "region:miami-beach-fl",
+      "attrs": {}
+    },
+    {
       "src": "marina:milford-marina",
       "rel": "located_in",
       "dst": "region:milford-auckland",
@@ -77803,6 +79796,12 @@
       "src": "marina:miller-and-miller-boatyard",
       "rel": "located_in",
       "dst": "region:seattle",
+      "attrs": {}
+    },
+    {
+      "src": "marina:milta-bodrum-marina",
+      "rel": "located_in",
+      "dst": "region:bodrum",
       "attrs": {}
     },
     {
@@ -77875,6 +79874,12 @@
       "src": "marina:nagoya-port-marina",
       "rel": "located_in",
       "dst": "region:chubu",
+      "attrs": {}
+    },
+    {
+      "src": "marina:nanny-cay-resort-marina",
+      "rel": "located_in",
+      "dst": "region:tortola",
       "attrs": {}
     },
     {
@@ -78130,9 +80135,21 @@
       "attrs": {}
     },
     {
+      "src": "marina:old-bahama-bay-resort-marina",
+      "rel": "located_in",
+      "dst": "region:west-end-grand-bahama",
+      "attrs": {}
+    },
+    {
       "src": "marina:old-launceston-seaport-marina",
       "rel": "located_in",
       "dst": "region:launceston",
+      "attrs": {}
+    },
+    {
+      "src": "marina:one-15-marina-sentosa-cove",
+      "rel": "located_in",
+      "dst": "region:sentosa-cove",
       "attrs": {}
     },
     {
@@ -78280,6 +80297,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:pier-sixty-six-marina",
+      "rel": "located_in",
+      "dst": "region:fort-lauderdale-fl",
+      "attrs": {}
+    },
+    {
       "src": "marina:pine-harbour-marina",
       "rel": "located_in",
       "dst": "region:beachlands-auckland",
@@ -78348,6 +80371,12 @@
     {
       "src": "marina:port-adriano",
       "rel": "located_in",
+      "dst": "region:calvia-mallorca",
+      "attrs": {}
+    },
+    {
+      "src": "marina:port-adriano",
+      "rel": "located_in",
       "dst": "region:calvia-mallorca-balearic-islands",
       "attrs": {}
     },
@@ -78364,6 +80393,18 @@
       "attrs": {}
     },
     {
+      "src": "marina:port-camille-rayon",
+      "rel": "located_in",
+      "dst": "region:golfe-juan",
+      "attrs": {}
+    },
+    {
+      "src": "marina:port-de-gustavia",
+      "rel": "located_in",
+      "dst": "region:gustavia",
+      "attrs": {}
+    },
+    {
       "src": "marina:port-de-kuto",
       "rel": "located_in",
       "dst": "region:isle-of-pines",
@@ -78373,6 +80414,12 @@
       "src": "marina:port-de-mataro",
       "rel": "located_in",
       "dst": "region:mataro-costa-brava-barcelona",
+      "attrs": {}
+    },
+    {
+      "src": "marina:port-de-saint-tropez",
+      "rel": "located_in",
+      "dst": "region:saint-tropez",
       "attrs": {}
     },
     {
@@ -78406,9 +80453,21 @@
       "attrs": {}
     },
     {
+      "src": "marina:port-hercule",
+      "rel": "located_in",
+      "dst": "region:monaco-la-condamine",
+      "attrs": {}
+    },
+    {
       "src": "marina:port-ludlow-marina",
       "rel": "located_in",
       "dst": "region:port-ludlow",
+      "attrs": {}
+    },
+    {
+      "src": "marina:port-lympia",
+      "rel": "located_in",
+      "dst": "region:nice",
       "attrs": {}
     },
     {
@@ -78520,6 +80579,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:port-pierre-canto",
+      "rel": "located_in",
+      "dst": "region:cannes",
+      "attrs": {}
+    },
+    {
       "src": "marina:port-royal-marina",
       "rel": "located_in",
       "dst": "region:redondo-beach",
@@ -78541,6 +80606,12 @@
       "src": "marina:port-townsend-shipwrights-co-op",
       "rel": "located_in",
       "dst": "region:port-townsend",
+      "attrs": {}
+    },
+    {
+      "src": "marina:port-vauban",
+      "rel": "located_in",
+      "dst": "region:antibes",
       "attrs": {}
     },
     {
@@ -78568,6 +80639,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:porto-montenegro",
+      "rel": "located_in",
+      "dst": "region:tivat",
+      "attrs": {}
+    },
+    {
       "src": "marina:portofino-hotel-marina",
       "rel": "located_in",
       "dst": "region:redondo-beach",
@@ -78577,6 +80654,12 @@
       "src": "marina:portside-ventura-marina",
       "rel": "located_in",
       "dst": "region:ventura",
+      "attrs": {}
+    },
+    {
+      "src": "marina:puerto-banus",
+      "rel": "located_in",
+      "dst": "region:marbella",
       "attrs": {}
     },
     {
@@ -78652,6 +80735,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:real-club-nautico-de-palma",
+      "rel": "located_in",
+      "dst": "region:palma-de-mallorca",
+      "attrs": {}
+    },
+    {
       "src": "marina:real-club-nautico-de-tenerife",
       "rel": "located_in",
       "dst": "region:rcnt",
@@ -78721,6 +80810,12 @@
       "src": "marina:riverside-drive-marina-2015-ltd",
       "rel": "located_in",
       "dst": "region:whangarei-northland",
+      "attrs": {}
+    },
+    {
+      "src": "marina:rmk-merrill-stevens",
+      "rel": "located_in",
+      "dst": "region:miami-fl",
       "attrs": {}
     },
     {
@@ -78816,6 +80911,12 @@
     {
       "src": "marina:safe-harbor-lauderdale-marine-center",
       "rel": "located_in",
+      "dst": "region:fort-lauderdale-fl",
+      "attrs": {}
+    },
+    {
+      "src": "marina:safe-harbor-lauderdale-marine-center",
+      "rel": "located_in",
       "dst": "region:new-river",
       "attrs": {}
     },
@@ -78832,6 +80933,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:safe-harbor-newport-shipyard",
+      "rel": "located_in",
+      "dst": "region:newport-ri",
+      "attrs": {}
+    },
+    {
       "src": "marina:safe-harbor-rybovich",
       "rel": "located_in",
       "dst": "region:palm-beach-often-grouped-with-fort-lauderdale-due-to-proximity-and-shared-ecosystem",
@@ -78841,6 +80948,12 @@
       "src": "marina:safe-harbor-rybovich",
       "rel": "located_in",
       "dst": "region:west-palm-beach",
+      "attrs": {}
+    },
+    {
+      "src": "marina:safe-harbor-rybovich",
+      "rel": "located_in",
+      "dst": "region:west-palm-beach-fl",
       "attrs": {}
     },
     {
@@ -78895,6 +81008,12 @@
       "src": "marina:sanctuary-cove-marina",
       "rel": "located_in",
       "dst": "region:gold-coast",
+      "attrs": {}
+    },
+    {
+      "src": "marina:sanctuary-cove-marina",
+      "rel": "located_in",
+      "dst": "region:gold-coast-qld",
       "attrs": {}
     },
     {
@@ -79444,6 +81563,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:universal-marine-center",
+      "rel": "located_in",
+      "dst": "region:fort-lauderdale-fl",
+      "attrs": {}
+    },
+    {
       "src": "marina:urayasu-marina",
       "rel": "located_in",
       "dst": "region:kanto",
@@ -79672,6 +81797,18 @@
       "attrs": {}
     },
     {
+      "src": "marina:yacht-haven-grande-miami-at-island-gardens",
+      "rel": "located_in",
+      "dst": "region:watson-island-miami-fl",
+      "attrs": {}
+    },
+    {
+      "src": "marina:yacht-haven-grande-usvi",
+      "rel": "located_in",
+      "dst": "region:charlotte-amalie-st-thomas",
+      "attrs": {}
+    },
+    {
       "src": "marina:yacht-haven-marina",
       "rel": "located_in",
       "dst": "region:wilmington",
@@ -79696,6 +81833,12 @@
       "attrs": {}
     },
     {
+      "src": "marina:yal-kavak-marina",
+      "rel": "located_in",
+      "dst": "region:bodrum",
+      "attrs": {}
+    },
+    {
       "src": "marina:yank-marine-services",
       "rel": "located_in",
       "dst": "region:dorchester-tuckahoe",
@@ -79705,6 +81848,12 @@
       "src": "marina:yarrow-bay-marina",
       "rel": "located_in",
       "dst": "region:kirkland",
+      "attrs": {}
+    },
+    {
+      "src": "marina:yas-marina",
+      "rel": "located_in",
+      "dst": "region:abu-dhabi-yas-island",
       "attrs": {}
     },
     {
@@ -79723,6 +81872,12 @@
       "src": "marina:yonibaru-marina",
       "rel": "located_in",
       "dst": "region:okinawa",
+      "attrs": {}
+    },
+    {
+      "src": "marina:zea-marina-marina-zeas",
+      "rel": "located_in",
+      "dst": "region:piraeus",
       "attrs": {}
     },
     {
@@ -83524,12 +85679,6 @@
       "attrs": {}
     },
     {
-      "src": "yacht:cc-summer",
-      "rel": "built_by",
-      "dst": "builder:lurssen",
-      "attrs": {}
-    },
-    {
       "src": "yacht:centurion",
       "rel": "built_by",
       "dst": "builder:custom",
@@ -84496,33 +86645,21 @@
       "attrs": {}
     },
     {
-      "src": "yacht:jubilee",
-      "rel": "built_by",
-      "dst": "builder:lurssen",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:jubilee",
-      "rel": "designed_by",
-      "dst": "designer:bmt-nigel-gee",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:jubilee",
-      "rel": "designed_by",
-      "dst": "designer:lobanov-design",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:jubilee",
-      "rel": "designed_by",
-      "dst": "designer:sorgiovanni-designs-sam-sorgiovanni",
-      "attrs": {}
-    },
-    {
       "src": "yacht:kai",
       "rel": "built_by",
       "dst": "builder:sunseeker",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:kaos",
+      "rel": "built_by",
+      "dst": "builder:custom",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:kaos",
+      "rel": "built_by",
+      "dst": "builder:lurssen",
       "attrs": {}
     },
     {
@@ -84533,14 +86670,26 @@
     },
     {
       "src": "yacht:kaos",
-      "rel": "owned_by",
-      "dst": "person:nancy-walton-laurie",
+      "rel": "designed_by",
+      "dst": "designer:bmt-nigel-gee",
       "attrs": {}
     },
     {
-      "src": "yacht:kaos-custom",
-      "rel": "built_by",
-      "dst": "builder:custom",
+      "src": "yacht:kaos",
+      "rel": "designed_by",
+      "dst": "designer:lobanov-design",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:kaos",
+      "rel": "designed_by",
+      "dst": "designer:sorgiovanni-designs-sam-sorgiovanni",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:kaos",
+      "rel": "owned_by",
+      "dst": "person:nancy-walton-laurie",
       "attrs": {}
     },
     {
@@ -84653,18 +86802,6 @@
     },
     {
       "src": "yacht:kismet",
-      "rel": "owned_by",
-      "dst": "person:shahid-khan",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:kismet-lurssen",
-      "rel": "built_by",
-      "dst": "builder:lurssen",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:kismet-lurssen",
       "rel": "owned_by",
       "dst": "person:shahid-khan",
       "attrs": {}
@@ -84835,18 +86972,6 @@
       "src": "yacht:laila",
       "rel": "built_by",
       "dst": "builder:sanlorenzo",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:lana",
-      "rel": "built_by",
-      "dst": "builder:benetti",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:lana",
-      "rel": "owned_by",
-      "dst": "person:unknown-previously-imperial-yachts",
       "attrs": {}
     },
     {
@@ -85171,6 +87296,12 @@
       "src": "yacht:mar",
       "rel": "built_by",
       "dst": "builder:benetti",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:mar",
+      "rel": "owned_by",
+      "dst": "person:unknown-previously-imperial-yachts",
       "attrs": {}
     },
     {
@@ -85807,12 +87938,6 @@
       "src": "yacht:prince-abdulaziz",
       "rel": "owned_by",
       "dst": "person:saudi-royal",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:prince-abdulaziz-helsingor-vaerft",
-      "rel": "built_by",
-      "dst": "builder:helsingor-vaerft",
       "attrs": {}
     },
     {
@@ -87031,6 +89156,12 @@
       "src": "yacht:whisper",
       "rel": "built_by",
       "dst": "builder:lurssen",
+      "attrs": {}
+    },
+    {
+      "src": "yacht:whisper",
+      "rel": "owned_by",
+      "dst": "person:shahid-khan",
       "attrs": {}
     },
     {
@@ -88630,6 +90761,8 @@
         "marina:a-dock-floating-house-docks",
         "marina:abbotsford-point-boat-shed",
         "marina:abell-point-marina",
+        "marina:aberdeen-marina-club",
+        "marina:aci-marina-dubrovnik",
         "marina:adelaide-ship-construction-international",
         "marina:agios-kosmas-marina",
         "marina:agios-nikolaos-marina",
@@ -88668,6 +90801,7 @@
         "marina:ashiya-marina",
         "marina:astypalaia-marina",
         "marina:atakoy-marina-yacht-club",
+        "marina:atlantis-marina",
         "marina:austal",
         "marina:austal-cairns-shipyard",
         "marina:avalon-harbor",
@@ -88678,6 +90812,7 @@
         "marina:awaji-koryu-no-tsubasa",
         "marina:babcock-nz-ltd",
         "marina:bae-systems-australia",
+        "marina:bahia-mar-yachting-center",
         "marina:bair-island-marina",
         "marina:balboa-boat-yard-of-california",
         "marina:balboa-yacht-basin-marina",
@@ -88752,6 +90887,7 @@
         "marina:burraneer-bay-marina",
         "marina:burrard-civic-marina",
         "marina:burton-chace-park-guest-dock",
+        "marina:cable-marine-cable-west",
         "marina:cabrillo-boat-shop",
         "marina:cabrillo-way-marina",
         "marina:cabrillo-yacht-marina",
@@ -88764,6 +90900,7 @@
         "marina:cambridge-management-services",
         "marina:cameron-s-marina",
         "marina:cammeray-marina",
+        "marina:camper-nicholsons-port-louis-marina",
         "marina:campland-on-the-bay",
         "marina:canal-boatyard",
         "marina:cannery-village-marina",
@@ -88840,7 +90977,9 @@
         "marina:csr-marine",
         "marina:cullen-bay-marina",
         "marina:d-albora-marinas-pier-35",
+        "marina:d-albora-marinas-rushcutters-bay",
         "marina:d-albora-marinas-victoria-harbour",
+        "marina:d-marin-gocek",
         "marina:d-marin-gocek-marina",
         "marina:d-marin-gouvia",
         "marina:d-marin-lefkas",
@@ -88878,6 +91017,7 @@
         "marina:driscoll-mission-bay",
         "marina:driscoll-mission-bay-boat-yard-and-marina",
         "marina:driscoll-s-mission-bay",
+        "marina:dubai-harbour-marina",
         "marina:eagle-harbor-marina",
         "marina:east-coast-marina",
         "marina:eastland-port-marina",
@@ -88958,6 +91098,7 @@
         "marina:hayden-bay-marina",
         "marina:hayman-island-marina",
         "marina:heather-civic-marina",
+        "marina:hebe-haven-yacht-club",
         "marina:henderson-boat-lifters",
         "marina:henderson-boat-lifters-marine",
         "marina:heraklion-marina",
@@ -88989,8 +91130,13 @@
         "marina:hyannis-marina",
         "marina:hyatt-regency-mission-bay-spa-marina",
         "marina:hylebos-marina",
+        "marina:igy-american-yacht-harbor",
+        "marina:igy-blue-haven-marina",
         "marina:igy-ibiza-marina",
         "marina:igy-malaga-marina",
+        "marina:igy-rodney-bay-marina",
+        "marina:igy-simpson-bay-marina",
+        "marina:igy-vieux-port-de-cannes",
         "marina:incat",
         "marina:innisfail-marina",
         "marina:intrepid-boat-works",
@@ -89051,6 +91197,7 @@
         "marina:lido-yacht-anchorage",
         "marina:lieb-marine-services",
         "marina:lighthouse-yacht-landing",
+        "marina:limassol-marina",
         "marina:lincoln-cove-recreational-marina",
         "marina:lloyd-stevenson-boatbuilders-ltd",
         "marina:loch-sport-marina",
@@ -89073,6 +91220,7 @@
         "marina:marina-adelaide",
         "marina:marina-at-keppel-bay",
         "marina:marina-beach-guest-dock",
+        "marina:marina-cabo-san-lucas",
         "marina:marina-cortez",
         "marina:marina-country-club",
         "marina:marina-da-horta",
@@ -89096,7 +91244,11 @@
         "marina:marina-de-we",
         "marina:marina-del-este",
         "marina:marina-del-ray",
+        "marina:marina-del-rey-del-rey-landing",
         "marina:marina-del-rey-marina",
+        "marina:marina-di-capri-marina-grande",
+        "marina:marina-di-porto-cervo",
+        "marina:marina-di-portofino",
         "marina:marina-east-cycsa",
         "marina:marina-greenwich",
         "marina:marina-harbor-anchorage",
@@ -89162,6 +91314,7 @@
         "marina:myrina-marina",
         "marina:nagasaki-marina",
         "marina:nagoya-port-marina",
+        "marina:nanny-cay-resort-marina",
         "marina:napa-valley-marina",
         "marina:napier-marina",
         "marina:nawi-island-marina",
@@ -89206,6 +91359,7 @@
         "marina:oceanside-harbormaster",
         "marina:oceanside-marine-centre",
         "marina:okinawa-marina",
+        "marina:old-bahama-bay-resort-marina",
         "marina:old-launceston-seaport-marina",
         "marina:olympic-marine-lavrion",
         "marina:one-15-marina-sentosa-cove",
@@ -89238,6 +91392,7 @@
         "marina:pier-21-marina-centre",
         "marina:pier-32-marina",
         "marina:pier-73-marina",
+        "marina:pier-sixty-six-marina",
         "marina:pine-harbour-marina",
         "marina:pine-harbour-marine-services",
         "marina:pitt-meadows-marina",
@@ -89252,15 +91407,20 @@
         "marina:port-azure-gocek",
         "marina:port-brunelet",
         "marina:port-calypso-marina",
+        "marina:port-camille-rayon",
+        "marina:port-de-gustavia",
         "marina:port-de-kuto",
         "marina:port-de-mataro",
+        "marina:port-de-saint-tropez",
         "marina:port-denarau-marina",
         "marina:port-dock-marina",
         "marina:port-du-sud",
         "marina:port-ginesta",
         "marina:port-golden-bay-tarakohe-harbour",
+        "marina:port-hercule",
         "marina:port-hinchinbrook-marina",
         "marina:port-ludlow-marina",
+        "marina:port-lympia",
         "marina:port-moresby-marina",
         "marina:port-moselle",
         "marina:port-nikau",
@@ -89280,15 +91440,18 @@
         "marina:port-of-the-dalles-marina",
         "marina:port-of-toledo-boat-yard",
         "marina:port-ouenghi",
+        "marina:port-pierre-canto",
         "marina:port-royal-marina",
         "marina:port-tarraco",
         "marina:port-townsend-boat-haven",
         "marina:port-townsend-shipwrights-co-op",
+        "marina:port-vauban",
         "marina:port-vila-boatyard",
         "marina:port-vincent-marina-cycsa",
         "marina:port-whangarei-marine-centre",
         "marina:portland-marina",
         "marina:porto-carras",
+        "marina:porto-montenegro",
         "marina:portofino-hotel-marina",
         "marina:portside-ventura-marina",
         "marina:preveza-marina",
@@ -89336,7 +91499,6 @@
         "marina:royal-melbourne-yacht-squadron",
         "marina:royal-queensland-yacht-squadron",
         "marina:royal-south-australian-yacht-squadron",
-        "marina:rybovich-superyacht-marina",
         "marina:safe-harbor-anacapa-isle-marina",
         "marina:safe-harbor-bayfront",
         "marina:safe-harbor-cabrillo-isle",
@@ -89468,6 +91630,7 @@
         "marina:umatilla-marina-park",
         "marina:undine-bay-marina-estates-boat-harbour",
         "marina:unforgettable-houseboats-marina",
+        "marina:universal-marine-center",
         "marina:urayasu-marina",
         "marina:valencia-mar",
         "marina:van-isle-marina",
@@ -89509,17 +91672,22 @@
         "marina:whyalla-marina",
         "marina:windward-yacht-repair-center",
         "marina:wyndham-harbour",
+        "marina:yacht-haven-grande-miami-at-island-gardens",
+        "marina:yacht-haven-grande-usvi",
         "marina:yacht-haven-marina",
         "marina:yacht-masters-northwest",
         "marina:yachtfish-marine",
         "marina:yachting-world-marina",
+        "marina:yal-kavak-marina",
         "marina:yalikavak-marina",
         "marina:yank-marine-services",
         "marina:yarrow-bay-marina",
+        "marina:yas-marina",
         "marina:yi-sun-sin-marina",
         "marina:yokohama-bayside-marina",
         "marina:yonibaru-marina",
-        "marina:york-cove-marina"
+        "marina:york-cove-marina",
+        "marina:zea-marina-marina-zeas"
       ],
       "part": [
         "part:ais-automatic-identification-system",
@@ -89749,6 +91917,8 @@
       "region": [
         "region:aalsmeer",
         "region:aalsmeer-kaag-royal-van-lent-koninklijke-de-vries-yards",
+        "region:aberdeen",
+        "region:abu-dhabi-yas-island",
         "region:adelaide",
         "region:admiralty",
         "region:adriatic-sheltered-port-venice-area",
@@ -89777,6 +91947,7 @@
         "region:anping-marina-tainan",
         "region:antalya",
         "region:antalya-free-zone",
+        "region:antibes",
         "region:apia",
         "region:apyc",
         "region:aracruz-es",
@@ -89857,13 +92028,17 @@
         "region:bursa",
         "region:busan",
         "region:byc",
+        "region:cabo-san-lucas-bcs",
         "region:cabrillo-marina-san-pedro",
         "region:cadiz",
         "region:cairns",
+        "region:calvia-mallorca",
         "region:calvia-mallorca-balearic-islands",
         "region:campbell-river",
         "region:canical-madeira",
+        "region:cannes",
         "region:cape-town",
+        "region:capri",
         "region:captiva",
         "region:captiva-island",
         "region:carnarvon",
@@ -89879,6 +92054,7 @@
         "region:certosa-island",
         "region:chalkida",
         "region:charleston",
+        "region:charlotte-amalie-st-thomas",
         "region:chennai",
         "region:cherbourg-en-cotentin",
         "region:chicago-il",
@@ -89939,7 +92115,9 @@
         "region:dorsoduro",
         "region:dsc",
         "region:dubai",
+        "region:dubai-palm-jumeirah-bluewaters",
         "region:dublin-oh",
+        "region:dubrovnik",
         "region:duluth-mn",
         "region:duncan",
         "region:dunedin-otago",
@@ -90006,7 +92184,10 @@
         "region:giudecca-211-f",
         "region:gladstone",
         "region:glen-lake-mi",
+        "region:gocek-fethiye",
         "region:gold-coast",
+        "region:gold-coast-qld",
+        "region:golfe-juan",
         "region:goolwa",
         "region:goolwa-south",
         "region:gorinchem",
@@ -90017,6 +92198,7 @@
         "region:grosse-pointe-shores-mi-lake-st-clair-lake-huron",
         "region:groton-ct",
         "region:gulf-harbour-auckland",
+        "region:gustavia",
         "region:gyc",
         "region:half-moon-bay-auckland",
         "region:hamburg",
@@ -90123,6 +92305,7 @@
         "region:lemwerder",
         "region:levis-qc",
         "region:lifou-island",
+        "region:limassol",
         "region:lisbon",
         "region:livorno",
         "region:location-not-specified",
@@ -90144,9 +92327,11 @@
         "region:malolo-lailai-island",
         "region:maragojipe-ba",
         "region:marathon",
+        "region:marbella",
         "region:marbella-costa-del-sol",
         "region:marco-island",
         "region:marina-del-rey",
+        "region:marina-del-rey-ca",
         "region:marina-del-rey-oxnard",
         "region:marina-di-carrara-la-spezia",
         "region:marine-mile-new-river",
@@ -90165,6 +92350,7 @@
         "region:metung",
         "region:mhyc",
         "region:miami",
+        "region:miami-beach-fl",
         "region:miami-fl",
         "region:miami-river",
         "region:miami-river-2-6-miles-upriver",
@@ -90180,6 +92366,7 @@
         "region:mississauga-on",
         "region:mobile-al",
         "region:monaco",
+        "region:monaco-la-condamine",
         "region:mondolfo",
         "region:montauk-ny",
         "region:monterey",
@@ -90234,6 +92421,7 @@
         "region:newport-rhode-island",
         "region:newport-ri",
         "region:niagara-on-the-lake-on",
+        "region:nice",
         "region:ninh-hoa-khanh-hoa",
         "region:noank",
         "region:noosaville",
@@ -90282,6 +92470,7 @@
         "region:palmetto",
         "region:panama-city-operated-by-j-a-jones-construction-co",
         "region:paola-grand-harbour-malta",
+        "region:paradise-island-nassau",
         "region:parksville",
         "region:patawalonga-frontage-glenelg-north",
         "region:pauanui-coromandel",
@@ -90336,6 +92525,8 @@
         "region:portimao-algarve",
         "region:portland",
         "region:portland-or",
+        "region:porto-cervo-sardinia-costa-smeralda",
+        "region:portofino",
         "region:portovaya-20a-kaliningrad",
         "region:portsmouth-middletown",
         "region:portsmouth-southampton-woolston",
@@ -90343,6 +92534,7 @@
         "region:portsmouth-va",
         "region:primary-stuart-treasure-coast-area",
         "region:prospect-kruzensterna-18-4",
+        "region:providenciales",
         "region:puerto-calero-lanzarote-canary-islands",
         "region:pula",
         "region:punta-gorda",
@@ -90379,6 +92571,7 @@
         "region:robe",
         "region:rockaway-beach",
         "region:rocky-river-oh",
+        "region:rodney-bay-castries",
         "region:rotterdam-botlek",
         "region:rpayc",
         "region:rpyc",
@@ -90391,8 +92584,10 @@
         "region:safe-harbor",
         "region:safety-beach",
         "region:safyc",
+        "region:sai-kung",
         "region:saint-gilles-croix-de-vie",
         "region:saint-nazaire",
+        "region:saint-tropez",
         "region:saint-tropez-cogolin",
         "region:salt-spring-island",
         "region:san-diego",
@@ -90423,6 +92618,7 @@
         "region:seattle",
         "region:seattle-wa",
         "region:sebastian-fl",
+        "region:sentosa-cove",
         "region:seoul",
         "region:sequim",
         "region:sesimbra-setubal",
@@ -90440,6 +92636,7 @@
         "region:shorncliffe",
         "region:sibenik",
         "region:sidney",
+        "region:simpson-bay",
         "region:sines-alentejo",
         "region:skaramangas-athens",
         "region:soldiers-point",
@@ -90455,11 +92652,13 @@
         "region:split",
         "region:st-augustine",
         "region:st-clair-shores-mi",
+        "region:st-george-s",
         "region:st-helens",
         "region:st-kilda",
         "region:st-paul-s-parish",
         "region:st-pete-beach",
         "region:st-petersburg",
+        "region:st-thomas-vessup-bay",
         "region:stamford",
         "region:stanley",
         "region:steiglitz",
@@ -90478,6 +92677,7 @@
         "region:syc-queensland",
         "region:syc-victoria",
         "region:sydney",
+        "region:sydney-nsw",
         "region:syros-ermoupolis",
         "region:tacoma",
         "region:tainan",
@@ -90502,12 +92702,14 @@
         "region:thunderbolt-ga",
         "region:tiburon",
         "region:tillamook",
+        "region:tivat",
         "region:tohoku",
         "region:toledo",
         "region:toledo-oh",
         "region:toll-place-vancouver-peninsula",
         "region:toronto-on",
         "region:toronto-on-lake-ontario",
+        "region:tortola",
         "region:toulon",
         "region:traverse-city-mi",
         "region:trieste",
@@ -90577,8 +92779,10 @@
         "region:warren",
         "region:warwick-stratford-upon-avon-origin",
         "region:waterport-ny",
+        "region:watson-island-miami-fl",
         "region:wellington",
         "region:west-coast",
+        "region:west-end-grand-bahama",
         "region:west-palm-beach",
         "region:west-palm-beach-fl",
         "region:west-sumatra",
@@ -90973,7 +93177,6 @@
         "yacht:calex",
         "yacht:capri-i",
         "yacht:carinthia-vii",
-        "yacht:cc-summer",
         "yacht:centurion",
         "yacht:chakra",
         "yacht:chakra-scheepswerf-gebr-van-der-werf",
@@ -91105,10 +93308,8 @@
         "yacht:joia-the-crown-jewel",
         "yacht:joy",
         "yacht:joy-me",
-        "yacht:jubilee",
         "yacht:kai",
         "yacht:kaos",
-        "yacht:kaos-custom",
         "yacht:katana",
         "yacht:katara",
         "yacht:kathleen-anne",
@@ -91123,7 +93324,6 @@
         "yacht:kijo",
         "yacht:kinda",
         "yacht:kismet",
-        "yacht:kismet-lurssen",
         "yacht:kogo",
         "yacht:koju",
         "yacht:koru",
@@ -91146,7 +93346,6 @@
         "yacht:lady-vera",
         "yacht:lady-victory",
         "yacht:laila",
-        "yacht:lana",
         "yacht:largo",
         "yacht:last-call",
         "yacht:launchpad",
@@ -91277,7 +93476,6 @@
         "yacht:prana",
         "yacht:prana-yachtsourcing",
         "yacht:prince-abdulaziz",
-        "yacht:prince-abdulaziz-helsingor-vaerft",
         "yacht:privacy",
         "yacht:project-master",
         "yacht:project-steel",
@@ -91609,6 +93807,12 @@
       "abell point marina": [
         "marina:abell-point-marina"
       ],
+      "aberdeen": [
+        "region:aberdeen"
+      ],
+      "aberdeen marina club": [
+        "marina:aberdeen-marina-club"
+      ],
       "aberton-yachts.com": [
         "company:aberton-yachts-com"
       ],
@@ -91621,6 +93825,9 @@
       "absoluteyacht.com.sg": [
         "company:absoluteyacht-com-sg"
       ],
+      "abu dhabi (yas island)": [
+        "region:abu-dhabi-yas-island"
+      ],
       "abys yachting": [
         "company:abys-yachting"
       ],
@@ -91629,6 +93836,9 @@
       ],
       "achille salvagni architetti": [
         "designer:achille-salvagni-architetti"
+      ],
+      "aci marina dubrovnik": [
+        "marina:aci-marina-dubrovnik"
       ],
       "acquired by neorion (1997)": [
         "company:acquired-by-neorion-1997"
@@ -92073,6 +94283,9 @@
       "antheya iii": [
         "yacht:antheya-iii"
       ],
+      "antibes": [
+        "region:antibes"
+      ],
       "antigua slipway boatyard & marina": [
         "marina:antigua-slipway-boatyard-marina"
       ],
@@ -92365,6 +94578,9 @@
       "atlantis ii": [
         "yacht:atlantis-ii"
       ],
+      "atlantis marina": [
+        "marina:atlantis-marina"
+      ],
       "atlantis submarines aruba": [
         "shipyard:atlantis-submarines-aruba"
       ],
@@ -92537,6 +94753,9 @@
       ],
       "baglietto varazze": [
         "shipyard:baglietto-varazze"
+      ],
+      "bahia mar yachting center": [
+        "marina:bahia-mar-yachting-center"
       ],
       "bahrain royal": [
         "person:bahrain-royal"
@@ -93446,6 +95665,12 @@
       "bytescraper.com": [
         "company:bytescraper-com"
       ],
+      "cable marine (cable west)": [
+        "marina:cable-marine-cable-west"
+      ],
+      "cabo san lucas, bcs": [
+        "region:cabo-san-lucas-bcs"
+      ],
       "cabrillo beach yacht club": [
         "club:cabrillo-beach-yacht-club"
       ],
@@ -93492,6 +95717,9 @@
       "calumet yacht club": [
         "club:calumet-yacht-club"
       ],
+      "calvià, mallorca": [
+        "region:calvia-mallorca"
+      ],
       "calvià, mallorca, balearic islands": [
         "region:calvia-mallorca-balearic-islands"
       ],
@@ -93528,6 +95756,9 @@
       "camper & nicholsons monaco": [
         "company:camper-nicholsons-monaco"
       ],
+      "camper & nicholsons port louis marina": [
+        "marina:camper-nicholsons-port-louis-marina"
+      ],
       "camper and nicholsons": [
         "company:camper-and-nicholsons"
       ],
@@ -93551,6 +95782,9 @@
       ],
       "cannery village marina": [
         "marina:cannery-village-marina"
+      ],
+      "cannes": [
+        "region:cannes"
       ],
       "canoe cove marina ltd.": [
         "marina:canoe-cove-marina-ltd"
@@ -93587,6 +95821,9 @@
       ],
       "cape town": [
         "region:cape-town"
+      ],
+      "capri": [
+        "region:capri"
       ],
       "capri i": [
         "yacht:capri-i"
@@ -93695,8 +95932,7 @@
         "marina:cay-marine-services"
       ],
       "cc-summer": [
-        "company:cc-summer",
-        "yacht:cc-summer"
+        "company:cc-summer"
       ],
       "ccn": [
         "builder:ccn"
@@ -93786,6 +96022,9 @@
       ],
       "charleston marina complex": [
         "marina:charleston-marina-complex"
+      ],
+      "charlotte amalie, st thomas": [
+        "region:charlotte-amalie-st-thomas"
       ],
       "charlotte harbor yacht club": [
         "club:charlotte-harbor-yacht-club"
@@ -94362,11 +96601,17 @@
       "d'albora marinas pier 35": [
         "marina:d-albora-marinas-pier-35"
       ],
+      "d'albora marinas rushcutters bay": [
+        "marina:d-albora-marinas-rushcutters-bay"
+      ],
       "d-marin gocek marina": [
         "marina:d-marin-gocek-marina"
       ],
       "d-marin gouvia": [
         "marina:d-marin-gouvia"
+      ],
+      "d-marin göcek": [
+        "marina:d-marin-gocek"
       ],
       "d-marin lefkas": [
         "marina:d-marin-lefkas"
@@ -94803,6 +97048,12 @@
         "region:dubai",
         "yacht:dubai"
       ],
+      "dubai (palm jumeirah / bluewaters)": [
+        "region:dubai-palm-jumeirah-bluewaters"
+      ],
+      "dubai harbour marina": [
+        "marina:dubai-harbour-marina"
+      ],
       "dubai maritime city superyacht service centre": [
         "shipyard:dubai-maritime-city-superyacht-service-centre"
       ],
@@ -94814,6 +97065,9 @@
       ],
       "dubois naval architects": [
         "designer:dubois-naval-architects"
+      ],
+      "dubrovnik": [
+        "region:dubrovnik"
       ],
       "duluth boat club": [
         "club:duluth-boat-club"
@@ -95856,6 +98110,9 @@
       "gold coast city marina & shipyard (gccm)": [
         "shipyard:gold-coast-city-marina-shipyard-gccm"
       ],
+      "gold coast, qld": [
+        "region:gold-coast-qld"
+      ],
       "gold star marine": [
         "marina:gold-star-marine"
       ],
@@ -95873,6 +98130,9 @@
       ],
       "goldeneye": [
         "company:goldeneye"
+      ],
+      "golfe-juan": [
+        "region:golfe-juan"
       ],
       "goolwa": [
         "region:goolwa"
@@ -96019,6 +98279,9 @@
       "gunwale (gunnel)": [
         "part:gunwale-gunnel"
       ],
+      "gustavia": [
+        "region:gustavia"
+      ],
       "guzelce marina": [
         "marina:guzelce-marina"
       ],
@@ -96027,6 +98290,9 @@
       ],
       "gyro stabiliser": [
         "part:gyro-stabiliser"
+      ],
+      "göcek, fethiye": [
+        "region:gocek-fethiye"
       ],
       "h&co": [
         "yacht:h-co"
@@ -96231,6 +98497,9 @@
       ],
       "heavenly": [
         "yacht:heavenly"
+      ],
+      "hebe haven yacht club": [
+        "marina:hebe-haven-yacht-club"
       ],
       "heesen": [
         "builder:heesen"
@@ -96564,11 +98833,26 @@
       "igor sechin": [
         "person:igor-sechin"
       ],
+      "igy american yacht harbor": [
+        "marina:igy-american-yacht-harbor"
+      ],
+      "igy blue haven marina": [
+        "marina:igy-blue-haven-marina"
+      ],
       "igy ibiza marina": [
         "marina:igy-ibiza-marina"
       ],
       "igy málaga marina": [
         "marina:igy-malaga-marina"
+      ],
+      "igy rodney bay marina": [
+        "marina:igy-rodney-bay-marina"
+      ],
+      "igy simpson bay marina": [
+        "marina:igy-simpson-bay-marina"
+      ],
+      "igy vieux-port de cannes": [
+        "marina:igy-vieux-port-de-cannes"
       ],
       "ije": [
         "company:ije",
@@ -96896,9 +99180,6 @@
       "jpagency.co.th": [
         "company:jpagency-co-th"
       ],
-      "jubilee": [
-        "yacht:jubilee"
-      ],
       "juneau sailing club": [
         "club:juneau-sailing-club"
       ],
@@ -96972,8 +99253,7 @@
         "region:kaohsiung-usa-facilities"
       ],
       "kaos": [
-        "yacht:kaos",
-        "yacht:kaos-custom"
+        "yacht:kaos"
       ],
       "karadeniz yachting": [
         "club:karadeniz-yachting"
@@ -97126,8 +99406,7 @@
       ],
       "kismet": [
         "company:kismet",
-        "yacht:kismet",
-        "yacht:kismet-lurssen"
+        "yacht:kismet"
       ],
       "kitsilano yacht club": [
         "club:kitsilano-yacht-club"
@@ -97373,9 +99652,6 @@
       "lamda nafs shipyards": [
         "builder:lamda-nafs-shipyards"
       ],
-      "lana": [
-        "yacht:lana"
-      ],
       "landnsea.com": [
         "company:landnsea-com"
       ],
@@ -97515,6 +99791,12 @@
       ],
       "lightning (ke-7)": [
         "engine_model:lightning-ke-7"
+      ],
+      "limassol": [
+        "region:limassol"
+      ],
+      "limassol marina": [
+        "marina:limassol-marina"
       ],
       "lincoln cove recreational marina": [
         "marina:lincoln-cove-recreational-marina"
@@ -97872,6 +100154,9 @@
       "marathon yacht club": [
         "club:marathon-yacht-club"
       ],
+      "marbella": [
+        "region:marbella"
+      ],
       "marbella, costa del sol": [
         "region:marbella-costa-del-sol"
       ],
@@ -97895,6 +100180,9 @@
       ],
       "marina beach guest dock": [
         "marina:marina-beach-guest-dock"
+      ],
+      "marina cabo san lucas": [
+        "marina:marina-cabo-san-lucas"
       ],
       "marina cortez": [
         "marina:marina-cortez"
@@ -97968,14 +100256,29 @@
       "marina del rey": [
         "region:marina-del-rey"
       ],
+      "marina del rey / del rey landing": [
+        "marina:marina-del-rey-del-rey-landing"
+      ],
       "marina del rey marina": [
         "marina:marina-del-rey-marina"
+      ],
+      "marina del rey, ca": [
+        "region:marina-del-rey-ca"
       ],
       "marina del rey/oxnard": [
         "region:marina-del-rey-oxnard"
       ],
+      "marina di capri (marina grande)": [
+        "marina:marina-di-capri-marina-grande"
+      ],
       "marina di carrara / la spezia": [
         "region:marina-di-carrara-la-spezia"
+      ],
+      "marina di porto cervo": [
+        "marina:marina-di-porto-cervo"
+      ],
+      "marina di portofino": [
+        "marina:marina-di-portofino"
       ],
       "marina east cycsa": [
         "marina:marina-east-cycsa"
@@ -98376,6 +100679,9 @@
       "miami beach marina": [
         "marina:miami-beach-marina"
       ],
+      "miami beach, fl": [
+        "region:miami-beach-fl"
+      ],
       "miami river": [
         "region:miami-river"
       ],
@@ -98504,6 +100810,9 @@
       ],
       "monaco": [
         "region:monaco"
+      ],
+      "monaco (la condamine)": [
+        "region:monaco-la-condamine"
       ],
       "monaco boat group": [
         "company:monaco-boat-group"
@@ -98817,6 +101126,9 @@
       "nanni industries": [
         "company:nanni-industries"
       ],
+      "nanny cay resort & marina": [
+        "marina:nanny-cay-resort-marina"
+      ],
       "nanoose bay": [
         "region:nanoose-bay"
       ],
@@ -99098,6 +101410,9 @@
       ],
       "niagara-on-the-lake, on": [
         "region:niagara-on-the-lake-on"
+      ],
+      "nice": [
+        "region:nice"
       ],
       "nicholson yacht charters": [
         "company:nicholson-yacht-charters"
@@ -99428,6 +101743,9 @@
       ],
       "okto": [
         "yacht:okto"
+      ],
+      "old bahama bay resort & marina": [
+        "marina:old-bahama-bay-resort-marina"
       ],
       "old launceston seaport marina": [
         "marina:old-launceston-seaport-marina"
@@ -99775,6 +102093,9 @@
       "para bellvm": [
         "yacht:para-bellvm"
       ],
+      "paradise island, nassau": [
+        "region:paradise-island-nassau"
+      ],
       "pardo": [
         "builder:pardo"
       ],
@@ -99985,6 +102306,9 @@
       "pier 73 marina": [
         "marina:pier-73-marina"
       ],
+      "pier sixty-six marina": [
+        "marina:pier-sixty-six-marina"
+      ],
       "pine harbour marina": [
         "marina:pine-harbour-marina"
       ],
@@ -100127,6 +102451,9 @@
       "port calypso marina": [
         "marina:port-calypso-marina"
       ],
+      "port camille rayon": [
+        "marina:port-camille-rayon"
+      ],
       "port charlotte": [
         "region:port-charlotte"
       ],
@@ -100142,11 +102469,17 @@
       "port credit yacht club": [
         "club:port-credit-yacht-club"
       ],
+      "port de gustavia": [
+        "marina:port-de-gustavia"
+      ],
       "port de kuto": [
         "marina:port-de-kuto"
       ],
       "port de mataró": [
         "marina:port-de-mataro"
+      ],
+      "port de saint-tropez": [
+        "marina:port-de-saint-tropez"
       ],
       "port denarau marina": [
         "marina:port-denarau-marina"
@@ -100169,6 +102502,9 @@
       "port golden bay tarakohe harbour": [
         "marina:port-golden-bay-tarakohe-harbour"
       ],
+      "port hercule": [
+        "marina:port-hercule"
+      ],
       "port hinchinbrook marina": [
         "marina:port-hinchinbrook-marina"
       ],
@@ -100186,6 +102522,9 @@
       ],
       "port ludlow marina": [
         "marina:port-ludlow-marina"
+      ],
+      "port lympia": [
+        "marina:port-lympia"
       ],
       "port melbourne yacht club": [
         "club:port-melbourne-yacht-club"
@@ -100256,6 +102595,9 @@
       "port ouenghi": [
         "marina:port-ouenghi"
       ],
+      "port pierre canto": [
+        "marina:port-pierre-canto"
+      ],
       "port royal marina": [
         "marina:port-royal-marina"
       ],
@@ -100270,6 +102612,9 @@
       ],
       "port townsend shipwrights co-op": [
         "marina:port-townsend-shipwrights-co-op"
+      ],
+      "port vauban": [
+        "marina:port-vauban"
       ],
       "port vila": [
         "region:port-vila"
@@ -100311,6 +102656,15 @@
       ],
       "porto carras": [
         "marina:porto-carras"
+      ],
+      "porto cervo, sardinia (costa smeralda)": [
+        "region:porto-cervo-sardinia-costa-smeralda"
+      ],
+      "porto montenegro": [
+        "marina:porto-montenegro"
+      ],
+      "portofino": [
+        "region:portofino"
       ],
       "portofino hotel & marina": [
         "marina:portofino-hotel-marina"
@@ -100362,8 +102716,7 @@
         "region:primary-stuart-treasure-coast-area"
       ],
       "prince abdulaziz": [
-        "yacht:prince-abdulaziz",
-        "yacht:prince-abdulaziz-helsingor-vaerft"
+        "yacht:prince-abdulaziz"
       ],
       "prince of wales bay marina": [
         "marina:prince-of-wales-bay-marina"
@@ -100413,6 +102766,9 @@
       ],
       "proteksan-turquoise": [
         "builder:proteksan-turquoise"
+      ],
+      "providenciales": [
+        "region:providenciales"
       ],
       "publicly listed (asx: asb)": [
         "company:publicly-listed-asx-asb"
@@ -100847,6 +103203,9 @@
       "rocky river, oh": [
         "region:rocky-river-oh"
       ],
+      "rodney bay, castries": [
+        "region:rodney-bay-castries"
+      ],
       "rodolfogrimaldi.com": [
         "company:rodolfogrimaldi-com"
       ],
@@ -101006,9 +103365,6 @@
       "rwmarine.com.sg": [
         "company:rwmarine-com-sg"
       ],
-      "rybovich superyacht marina": [
-        "marina:rybovich-superyacht-marina"
-      ],
       "ryck-yachts.com": [
         "company:ryck-yachts-com"
       ],
@@ -101099,6 +103455,9 @@
       "sahana": [
         "yacht:sahana"
       ],
+      "sai kung": [
+        "region:sai-kung"
+      ],
       "sailboatlistings.com": [
         "company:sailboatlistings-com"
       ],
@@ -101122,6 +103481,9 @@
       ],
       "saint-nazaire": [
         "region:saint-nazaire"
+      ],
+      "saint-tropez": [
+        "region:saint-tropez"
       ],
       "saint-tropez / cogolin": [
         "region:saint-tropez-cogolin"
@@ -101552,6 +103914,9 @@
       "sensation": [
         "yacht:sensation"
       ],
+      "sentosa cove": [
+        "region:sentosa-cove"
+      ],
       "seoul": [
         "region:seoul"
       ],
@@ -101788,6 +104153,9 @@
       ],
       "simena": [
         "yacht:simena"
+      ],
+      "simpson bay": [
+        "region:simpson-bay"
       ],
       "simpsonmarine.com": [
         "company:simpsonmarine-com"
@@ -102035,6 +104403,9 @@
         "yacht:st-david",
         "yacht:st-david-custom"
       ],
+      "st george's": [
+        "region:st-george-s"
+      ],
       "st helens": [
         "region:st-helens"
       ],
@@ -102043,6 +104414,9 @@
       ],
       "st kilda": [
         "region:st-kilda"
+      ],
+      "st thomas (vessup bay)": [
+        "region:st-thomas-vessup-bay"
       ],
       "st. augustine": [
         "region:st-augustine"
@@ -102392,6 +104766,9 @@
       ],
       "sydney": [
         "region:sydney"
+      ],
+      "sydney, nsw": [
+        "region:sydney-nsw"
       ],
       "sylene": [
         "yacht:sylene"
@@ -102749,6 +105126,9 @@
       "titania": [
         "yacht:titania"
       ],
+      "tivat": [
+        "region:tivat"
+      ],
       "tjb superyachts": [
         "company:tjb-superyachts"
       ],
@@ -102801,6 +105181,9 @@
       ],
       "torqeedo": [
         "engine:torqeedo"
+      ],
+      "tortola": [
+        "region:tortola"
       ],
       "toulon": [
         "region:toulon"
@@ -102996,6 +105379,9 @@
       ],
       "unitedyacht.com": [
         "company:unitedyacht-com"
+      ],
+      "universal marine center": [
+        "marina:universal-marine-center"
       ],
       "unknown (charter-focused)": [
         "person:unknown-charter-focused"
@@ -103500,6 +105886,9 @@
       "waterport, ny": [
         "region:waterport-ny"
       ],
+      "watson island, miami, fl": [
+        "region:watson-island-miami-fl"
+      ],
       "wavemarinegroup.com": [
         "company:wavemarinegroup-com"
       ],
@@ -103535,6 +105924,9 @@
       ],
       "west coast": [
         "region:west-coast"
+      ],
+      "west end, grand bahama": [
+        "region:west-end-grand-bahama"
       ],
       "west istanbul marina": [
         "marina:west-istanbul-marina"
@@ -103829,6 +106221,12 @@
       "yacht clube de ilhabela": [
         "club:yacht-clube-de-ilhabela"
       ],
+      "yacht haven grande (usvi)": [
+        "marina:yacht-haven-grande-usvi"
+      ],
+      "yacht haven grande miami at island gardens": [
+        "marina:yacht-haven-grande-miami-at-island-gardens"
+      ],
       "yacht haven marina": [
         "marina:yacht-haven-marina"
       ],
@@ -103982,6 +106380,9 @@
       "yalova": [
         "region:yalova"
       ],
+      "yalıkavak marina": [
+        "marina:yal-kavak-marina"
+      ],
       "yalıkavak marina (doğuş group)": [
         "company:yal-kavak-marina-dogus-group"
       ],
@@ -104017,6 +106418,9 @@
       ],
       "yas": [
         "yacht:yas"
+      ],
+      "yas marina": [
+        "marina:yas-marina"
       ],
       "yasawa islands": [
         "region:yasawa-islands"
@@ -104069,6 +106473,9 @@
       ],
       "zazou": [
         "yacht:zazou"
+      ],
+      "zea marina (marina zeas)": [
+        "marina:zea-marina-marina-zeas"
       ],
       "zen": [
         "yacht:zen"

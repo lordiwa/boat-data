@@ -344,10 +344,14 @@ describe('real graph.json regression checks', () => {
   const raw: GraphExport = JSON.parse(readFileSync(graphJsonPath, 'utf8'));
   const graph = buildGraphIndex(raw.nodes, raw.edges);
 
-  it('R1: top builder after placeholder exclusion is Lurssen with 45 yachts', () => {
+  it('R1: top builder after placeholder exclusion is Lurssen with 43 yachts', () => {
+    // TASK-020: dropped from 45 to 43 — graphCleanup.js's YACHT_MERGE_MAP
+    // merges 2 same-hull duplicate pairs that were both attributed to
+    // Lürssen under different names/ids (CC-Summer/Madsummer,
+    // Kismet(95m)/Whisper), each collapsing 2 built_by-Lürssen edges into 1.
     const result = reportTopBuilders(graph);
     if (result.chart.kind !== 'bar-h') throw new Error('unreachable');
-    expect(result.chart.items[0]).toMatchObject({ label: 'Lurssen', value: 45 });
+    expect(result.chart.items[0]).toMatchObject({ label: 'Lurssen', value: 43 });
   });
 
   it('R1: excludes Custom and Various entirely', () => {
@@ -366,9 +370,13 @@ describe('real graph.json regression checks', () => {
     expect(total).toBe(12);
   });
 
-  it('R3: description states real coverage — 12 of 605 yachts have a usable charter rate', () => {
+  it('R3: description states real coverage — 12 of 599 yachts have a usable charter rate', () => {
+    // TASK-020: total yacht count dropped from 605 to 599 (6 rename/
+    // duplicate merges — see graphCleanup.js's YACHT_MERGE_MAP); the 12
+    // yachts with a usable charter rate figure is unaffected (none of the
+    // 6 merged pairs had a weekly_rate attr).
     const result = reportCharterRateDistribution(graph);
-    expect(result.description).toContain('Only 12 of 605 yachts have a usable charter rate.');
+    expect(result.description).toContain('Only 12 of 599 yachts have a usable charter rate.');
   });
 
   it('R5: top owner by fleet size is Saudi Royal with 3 yachts', () => {

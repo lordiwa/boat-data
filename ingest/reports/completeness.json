@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T00:58:51.084Z",
+  "generated_at": "2026-07-11T02:10:17.358Z",
   "byType": [
     {
       "type": "yacht",
-      "count": 605,
-      "attrPct": 32.53,
-      "edgePct": 93.22,
-      "score": 5.07
+      "count": 599,
+      "attrPct": 19.45,
+      "edgePct": 93.16,
+      "score": 4.16
     },
     {
       "type": "shipyard",
@@ -24,10 +24,10 @@
     },
     {
       "type": "marina",
-      "count": 893,
-      "attrPct": 26.32,
-      "edgePct": 79.84,
-      "score": 4.24
+      "count": 930,
+      "attrPct": 30.05,
+      "edgePct": 81.08,
+      "score": 4.54
     },
     {
       "type": "company",
@@ -38,7 +38,7 @@
     },
     {
       "type": "region",
-      "count": 864,
+      "count": 900,
       "attrPct": 100,
       "edgePct": 100,
       "score": 10
@@ -93,5 +93,5 @@
       "score": 7
     }
   ],
-  "overall": 6.67
+  "overall": 6.53
 }
