@@ -6,9 +6,10 @@
 // tables, and routes every table to exactly one entity mapper by schema
 // guard, in precedence order: yacht > club > marina > company > engine >
 // shipyard > engine-manufacturer > engine-model > part > size-class >
-// builder-enrichment > designer > yacht-spec > marina-enrichment. A table
-// that matches none of the fourteen schemas is skipped and counted
-// (diagnostic only — never silently dropped from the log).
+// builder-enrichment > designer > yacht-spec > marina-enrichment >
+// person-enrichment > club-enrichment. A table that matches none of the
+// sixteen schemas is skipped and counted (diagnostic only — never
+// silently dropped from the log).
 //
 // TASK-016 adds shipyardMapper LAST in precedence (a highly specific guard
 // per its own module header — see shipyardMapper.js for the full
@@ -47,14 +48,20 @@
 // graphCleanup.js's own module header for the full per-node rationale.
 //
 // TASK-020 adds two more guards (yachtSpecMapper.js, marinaMapper.js's
-// second guard isMarinaEnrichmentTable — see each module's own header for
-// the full guard-collision analysis, now a 14x14 matrix in
-// ingest/tests/guardCollisions.spec.js) and extends graphCleanup.js with a
+// second guard isMarinaEnrichmentTable) and extends graphCleanup.js with a
 // yacht rename/duplicate merge map, a Rybovich marina merge, and a small
-// RIO/MOSAIQUE data-quality-flag map. graphCleanup.js's applyGraphCleanup()
-// is deliberately run LAST (after every other hook), since it deletes/
-// retypes/flags nodes that earlier hooks (and every mapper) must still see
-// intact.
+// RIO/MOSAIQUE data-quality-flag map.
+//
+// TASK-021 adds two more guards (personMapper.js, clubMapper.js's third
+// guard isClubEnrichmentTable — see each module's own header for the full
+// guard-collision analysis, now a 16x16 matrix in
+// ingest/tests/guardCollisions.spec.js) and extends graphCleanup.js with a
+// person dedupe/retype/flag pass, two bespoke ownership corrections
+// (Tatiana, Sergey Brin (rumored)), a club dedupe pass, and a yacht LOA
+// quality-correction map (EIV, MYSTERE). graphCleanup.js's
+// applyGraphCleanup() is deliberately run LAST (after every other hook),
+// since it deletes/retypes/flags/corrects nodes that earlier hooks (and
+// every mapper) must still see intact.
 //
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
@@ -88,7 +95,7 @@ import { openDb, initSchema, resolveDbPath, upsertNode, upsertEdge } from './db.
 import { parseTables } from './parsers/tableParser.js';
 import { detectProseSheets } from './parsers/proseParser.js';
 import { mapYachtTables } from './mappers/yachtMapper.js';
-import { mapClubTables, isClubTable } from './mappers/clubMapper.js';
+import { mapClubTables, isClubTable, mapClubEnrichmentTables, isClubEnrichmentTable } from './mappers/clubMapper.js';
 import { mapMarinaTables, isMarinaTable, mapMarinaEnrichmentTables, isMarinaEnrichmentTable } from './mappers/marinaMapper.js';
 import { mapCompanyTables, isCompanyTable } from './mappers/companyMapper.js';
 import {
@@ -105,6 +112,7 @@ import { mapSizeClassTables, isSizeClassTable } from './mappers/sizeClassMapper.
 import { mapBuilderEnrichmentTables, isBuilderEnrichmentTable } from './mappers/builderEnrichmentMapper.js';
 import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js';
 import { mapYachtSpecTables, isYachtSpecTable } from './mappers/yachtSpecMapper.js';
+import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/personMapper.js';
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
@@ -201,6 +209,8 @@ function routeTables(tables) {
     designer: [],
     yachtSpec: [],
     marinaEnrichment: [],
+    personEnrichment: [],
+    clubEnrichment: [],
   };
   let skipped = 0;
 
@@ -219,6 +229,8 @@ function routeTables(tables) {
     else if (isDesignerTable(table)) buckets.designer.push(table);
     else if (isYachtSpecTable(table)) buckets.yachtSpec.push(table);
     else if (isMarinaEnrichmentTable(table)) buckets.marinaEnrichment.push(table);
+    else if (isPersonEnrichmentTable(table)) buckets.personEnrichment.push(table);
+    else if (isClubEnrichmentTable(table)) buckets.clubEnrichment.push(table);
     else skipped += 1;
   }
 
@@ -402,6 +414,10 @@ export function runIngest() {
       yachtSpecUnresolved: 0,
       marinaEnrichmentMatched: 0,
       marinaEnrichmentCreated: 0,
+      personEnrichmentMatched: 0,
+      personEnrichmentUnresolved: 0,
+      clubEnrichmentMatched: 0,
+      clubEnrichmentUnresolved: 0,
       edges: 0,
       skippedProseSheets: 0,
     };
@@ -499,6 +515,20 @@ export function runIngest() {
       totals.marinaEnrichmentMatched += marinaEnrichmentResult.matched;
       totals.marinaEnrichmentCreated += marinaEnrichmentResult.created;
       totals.edges += marinaEnrichmentResult.edges;
+
+      // TASK-021: NEVER mints a person node (see personMapper.js's own
+      // module header) — an unresolved row is counted separately.
+      const personEnrichmentResult = mapPersonEnrichmentTables(db, buckets.personEnrichment, fileName);
+      totals.personEnrichmentMatched += personEnrichmentResult.matched;
+      totals.personEnrichmentUnresolved += personEnrichmentResult.unresolved;
+      totals.edges += personEnrichmentResult.edgesTagged;
+
+      // TASK-021: NEVER mints a club node (see clubMapper.js's
+      // isClubEnrichmentTable module header) — an unresolved row is
+      // counted separately.
+      const clubEnrichmentResult = mapClubEnrichmentTables(db, buckets.clubEnrichment, fileName);
+      totals.clubEnrichmentMatched += clubEnrichmentResult.matched;
+      totals.clubEnrichmentUnresolved += clubEnrichmentResult.unresolved;
 
       // Independent side-pass: does not consume from `buckets` / does not
       // affect `skipped` accounting (see module header).

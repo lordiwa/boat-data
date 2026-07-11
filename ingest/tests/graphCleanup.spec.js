@@ -475,6 +475,163 @@ describe('mergeNode — provenance handling (TASK-019 LOW carry-forwards)', () =
   });
 });
 
+// --- TASK-021 additions ------------------------------------------------
+
+describe('applyGraphCleanup — person dedupe (TASK-021)', () => {
+  it('merges name-variant duplicates onto the canonical person, preserving owned_by edges', () => {
+    upsertNode(db, { id: 'person:alisher-usmanov', type: 'person', name: 'Alisher Usmanov' });
+    upsertNode(db, {
+      id: 'person:alisher-usmanov-via-sister',
+      type: 'person',
+      name: 'Alisher Usmanov (via sister)',
+    });
+    upsertNode(db, { id: 'yacht:dilbar', type: 'yacht', name: 'Dilbar' });
+    upsertEdge(db, { src: 'yacht:dilbar', rel: 'owned_by', dst: 'person:alisher-usmanov' });
+    upsertEdge(db, { src: 'yacht:dilbar', rel: 'owned_by', dst: 'person:alisher-usmanov-via-sister' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('person:alisher-usmanov-via-sister')).toBe(false);
+    expect(edgeExists('yacht:dilbar', 'owned_by', 'person:alisher-usmanov')).toBe(true);
+  });
+
+  it('merges the Sheikh Mansour 4-way name-variant group onto the fullest name', () => {
+    upsertNode(db, { id: 'person:sheikh-mansour', type: 'person', name: 'Sheikh Mansour' });
+    upsertNode(db, {
+      id: 'person:sheikh-mansour-bin-zayed-al-nahyan',
+      type: 'person',
+      name: 'Sheikh Mansour bin Zayed Al Nahyan',
+    });
+    upsertNode(db, { id: 'person:uae-mansour-bin-zayed', type: 'person', name: 'UAE (Mansour bin Zayed)' });
+    upsertNode(db, {
+      id: 'person:uae-mansour-bin-zayed-al-nahyan',
+      type: 'person',
+      name: 'UAE (Mansour bin Zayed Al Nahyan)',
+    });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('person:sheikh-mansour')).toBe(false);
+    expect(nodeExists('person:uae-mansour-bin-zayed')).toBe(false);
+    expect(nodeExists('person:uae-mansour-bin-zayed-al-nahyan')).toBe(false);
+    expect(nodeExists('person:sheikh-mansour-bin-zayed-al-nahyan')).toBe(true);
+  });
+});
+
+describe('applyGraphCleanup — person retype/flag (TASK-021)', () => {
+  it('retypes an institutional entity (Turkish Republic) from person to company, CARRYING its owned_by edge (unlike TASK-019 builder retypes, which dropped edges with no valid target)', () => {
+    upsertNode(db, { id: 'person:turkish-republic', type: 'person', name: 'Turkish Republic' });
+    upsertNode(db, { id: 'yacht:savarona', type: 'yacht', name: 'Savarona' });
+    upsertEdge(db, { src: 'yacht:savarona', rel: 'owned_by', dst: 'person:turkish-republic' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('person:turkish-republic')).toBe(false);
+    const company = getNode('company:turkish-republic');
+    expect(company).not.toBeNull();
+    expect(company.type).toBe('company');
+    expect(edgeExists('yacht:savarona', 'owned_by', 'company:turkish-republic')).toBe(true);
+  });
+
+  it('flags a generic placeholder person node (e.g. "Saudi Royal") with placeholder:true, keeping its edges intact', () => {
+    upsertNode(db, { id: 'person:saudi-royal', type: 'person', name: 'Saudi Royal' });
+    upsertNode(db, { id: 'yacht:turama', type: 'yacht', name: 'Turama' });
+    upsertEdge(db, { src: 'yacht:turama', rel: 'owned_by', dst: 'person:saudi-royal' });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('person:saudi-royal');
+    expect(node.type).toBe('person');
+    expect(node.attrs.placeholder).toBe(true);
+    expect(edgeExists('yacht:turama', 'owned_by', 'person:saudi-royal')).toBe(true);
+  });
+});
+
+describe('applyGraphCleanup — ownership corrections (TASK-021)', () => {
+  it('re-points Tatiana\'s owned_by edge from the contradicted Bilal Hydrie to a newly-grounded Shapoor Mistry node', () => {
+    upsertNode(db, { id: 'person:bilal-hydrie', type: 'person', name: 'Bilal Hydrie' });
+    upsertNode(db, { id: 'yacht:tatiana', type: 'yacht', name: 'Tatiana' });
+    upsertEdge(db, { src: 'yacht:tatiana', rel: 'owned_by', dst: 'person:bilal-hydrie' });
+
+    applyGraphCleanup(db);
+
+    expect(edgeExists('yacht:tatiana', 'owned_by', 'person:bilal-hydrie')).toBe(false);
+    const shapoor = getNode('person:shapoor-mistry');
+    expect(shapoor).not.toBeNull();
+    expect(edgeExists('yacht:tatiana', 'owned_by', 'person:shapoor-mistry')).toBe(true);
+  });
+
+  it('drops the Sergey Brin (rumored) -> Dragonfly (Silveryachts) edge (builder-mismatch data artifact) while merging the person nodes normally', () => {
+    upsertNode(db, { id: 'person:sergey-brin', type: 'person', name: 'Sergey Brin' });
+    upsertNode(db, { id: 'person:sergey-brin-rumored', type: 'person', name: 'Sergey Brin (rumored)' });
+    upsertNode(db, { id: 'yacht:dragonfly', type: 'yacht', name: 'Dragonfly' });
+    upsertNode(db, { id: 'yacht:dragonfly-silveryachts', type: 'yacht', name: 'Dragonfly (Silveryachts)' });
+    upsertEdge(db, { src: 'yacht:dragonfly', rel: 'owned_by', dst: 'person:sergey-brin' });
+    upsertEdge(db, { src: 'yacht:dragonfly-silveryachts', rel: 'owned_by', dst: 'person:sergey-brin-rumored' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('person:sergey-brin-rumored')).toBe(false);
+    expect(edgeExists('yacht:dragonfly', 'owned_by', 'person:sergey-brin')).toBe(true);
+    // The mismatched-builder edge must be DROPPED, not carried onto the real Sergey Brin.
+    expect(
+      db.prepare("SELECT 1 FROM edges WHERE dst = 'person:sergey-brin' AND src = 'yacht:dragonfly-silveryachts'").get()
+    ).toBeFalsy();
+    expect(
+      db.prepare("SELECT 1 FROM edges WHERE src = 'yacht:dragonfly-silveryachts' AND rel = 'owned_by'").get()
+    ).toBeFalsy();
+  });
+});
+
+describe('applyGraphCleanup — yacht LOA quality corrections (EIV, MYSTERE)', () => {
+  it('corrects EIV\'s LOA from the 160m data error to the real 48.8m, preserving the old value in conflicts for transparency', () => {
+    upsertNode(db, { id: 'yacht:eiv', type: 'yacht', name: 'EIV', attrs: { loa: { meters: 160, raw: '160m' } } });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:eiv');
+    expect(node.attrs.loa.meters).toBe(48.8);
+    expect(JSON.stringify(node.attrs.conflicts.loa)).toContain('160');
+  });
+
+  it('corrects MYSTERE\'s LOA from the 109m feet-to-meters conversion bug to the real 33.29m', () => {
+    upsertNode(db, { id: 'yacht:mystere', type: 'yacht', name: 'MYSTERE', attrs: { loa: { meters: 109, raw: '109m' } } });
+
+    applyGraphCleanup(db);
+
+    const node = getNode('yacht:mystere');
+    expect(node.attrs.loa.meters).toBe(33.29);
+  });
+});
+
+describe('applyGraphCleanup — club dedupe (TASK-021)', () => {
+  it('merges the Florida Yacht Club 3-way duplicate group onto the canonical node', () => {
+    upsertNode(db, { id: 'club:florida-yacht-club', type: 'club', name: 'Florida Yacht Club' });
+    upsertNode(db, { id: 'club:first-yacht-club-in-florida', type: 'club', name: 'First Yacht Club in Florida' });
+    upsertNode(db, {
+      id: 'club:the-florida-yacht-club-duplicate-entry-in-sources',
+      type: 'club',
+      name: 'The Florida Yacht Club (duplicate entry in sources)',
+    });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('club:first-yacht-club-in-florida')).toBe(false);
+    expect(nodeExists('club:the-florida-yacht-club-duplicate-entry-in-sources')).toBe(false);
+    expect(nodeExists('club:florida-yacht-club')).toBe(true);
+  });
+
+  it('merges Cleveland Yacht Club into Cleveland Yachting Club (the club\'s own sourced/current name)', () => {
+    upsertNode(db, { id: 'club:cleveland-yacht-club', type: 'club', name: 'Cleveland Yacht Club' });
+    upsertNode(db, { id: 'club:cleveland-yachting-club', type: 'club', name: 'Cleveland Yachting Club' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('club:cleveland-yacht-club')).toBe(false);
+    expect(nodeExists('club:cleveland-yachting-club')).toBe(true);
+  });
+});
+
 describe('module importability', () => {
   it('exposes applyGraphCleanup as a named export', async () => {
     const mod = await import('../src/mappers/graphCleanup.js');

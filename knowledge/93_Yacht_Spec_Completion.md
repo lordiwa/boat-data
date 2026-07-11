@@ -1,9 +1,12 @@
 # Yacht Spec Completion
 
-Curated from `research/round3/yacht-specs.md` for TASK-020. Closes the
-beam/draft/GT/max-speed/range/flag/class-society/IMO gap for the graph's
-largest, best-documented yachts, via `yachtSpecMapper.js`'s
-`isYachtSpecTable`/`mapYachtSpecTables`.
+Curated from `research/round3/yacht-specs.md` for TASK-020, and extended
+in TASK-021 with `research/round4/person-enrichment.md`'s "Suspect
+yachts" table (9 rows the Round 4 person-enrichment pass independently
+grounded/resolved — see the "TASK-021: suspect-yacht resolutions" section
+below). Closes the beam/draft/GT/max-speed/range/flag/class-society/IMO
+gap for the graph's largest, best-documented yachts, via
+`yachtSpecMapper.js`'s `isYachtSpecTable`/`mapYachtSpecTables`.
 
 Unlike every other enrichment mapper in this project, this mapper
 **never** mints a new yacht node — it resolves onto EXISTING yacht nodes
@@ -192,6 +195,35 @@ Zeus←Eco, Multiverse←Ulysses, Whisper←Kismet).
 | Cocoa Bean | Trinity Yachts | 2014 | 73.76 (graph: 74) | 12.0 | 4.0 | 1,590 | 15.5 max / 14.5 cruise |  | Cayman Islands | ABS Maltese Cross A1 |  |  |
 | Talisman C | Turquoise Yachts | 2011 | 70.54 | 12.0 | 3.95 | 1,560 | 17 max / 15 cruise | 7,000 | Cayman Islands |  |  |  |
 | Sherakhan | A. Vuyk & Zonen | 1966 | 69.65 (graph: 70) | 12.0 | 4.45 | 1,945 | 13 max / 11 cruise | 3,500 | Netherlands | Bureau Veritas | 6618823 | Classic explorer conversion. |
+
+## TASK-021: suspect-yacht resolutions (research/round4/person-enrichment.md)
+
+The Round 4 person-enrichment research pass independently investigated 9
+yachts TASK-020's own research had flagged as suspect/unresolved (Fulk Al
+Salamah, Blue, EIV, Luminance, Savarona, MYSTERE, Project Steel, H3, Dar)
+while cross-checking yacht ownership claims. Verdicts: **Fulk Al Salamah,
+Blue, Luminance, Savarona, Project Steel, H3, and Dar are all real,
+confirmed vessels** with no LOA issue — their rows below simply add the
+same beam/draft/GT/etc spec coverage as every other row in this file.
+**EIV and MYSTERE both had a confirmed, quantified LOA data error** in the
+graph (160m and 109m respectively) — the LOA cells below are curated to
+the clean corrected values (48.8m and 33.29m); the graph node's own
+`loa` attr is fixed by a SEPARATE mechanism,
+`graphCleanup.js`'s `YACHT_QUALITY_CORRECTIONS` map (this
+mapper never touches/stores the LOA column itself — see this file's own
+intro).
+
+| Yacht | Builder | Year | LOA (m) | Beam (m) | Draft (m) | GT | Max Speed (kn) | Range (nm) | Flag | Class Society | IMO | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Fulk Al Salamah | Mariotti Yachts (Italy) | 2016 | 164 | 21.04 | 6.01 | 11,000 | 16–22 (sources vary) | 3,000+ | Oman | n/a (not found) | 9714460 (unverified independently) | Oman Royal Yacht Squadron flagship, designer Studio de Jorio; value ~$500M. |
+| Blue | Lürssen (Germany) | 2022 | 160.6 | 22.5 | 5.7 | 14,785 | n/a (not found; diesel‑electric hybrid) | n/a (not found) | n/a (not found) | n/a (not found) | n/a (not found) | Design by Terence Disdale; replaces Sheikh Mansour's earlier yacht Topaz; value ~$600M. |
+| EIV | Rossinavi (Italy) | 2020 | 48.8 | 8.9 | n/a | 498 | 19 | 3,600 @ 10kn | n/a | n/a | n/a | (curated LOA cell to the clean corrected value; graph previously had 160m, a confirmed ~3.3x data error) Graph's 160m LOA is wrong by a factor of ~3.3x; real EIV is a 48.8m Rossinavi, guests/crew ~10/9, consistent with the sale-price figure the corpus carried over. |
+| Luminance | Lürssen (Germany) | 2024 | 138.8 | 21 | 5.3 | 9,400 | 20+ | n/a (not found) | n/a (not found) | n/a (not found) | n/a (not found) | Exterior Espen Øino, interior Zuretti Design; owner "believed" (not self-confirmed) to be Rinat Akhmetov; value ~$500M. |
+| Savarona | Blohm & Voss (Germany) | 1931 | 135.94 | 16 | 6.1 | 4,701 | 18 | n/a (not found) | Turkey | n/a (not found) | n/a (not found) | Turkish Republic presidential/state yacht; built for Emily Roebling Cadwalader, acquired by Turkey 1938. |
+| MYSTERE | Mangusta / Overmarine Group (Italy) | 2023 | 33.29 | 7.39 | 1.9 | 247 | 25 | n/a (not found) | n/a (not found) | n/a (not found) | n/a (not found) | (curated LOA cell to the clean corrected value; graph previously had 109m, a confirmed feet-to-meters conversion bug — real figure is 109ft) Graph conflated "109 ft" with "109 m"; correct figure is 33.29m/109ft. Multiple other unrelated yachts also share the name "Mystere" (Vitters 43.2m sailing yacht 2006; Lloyds Ships 45.96m 1987) — none is a megayacht. |
+| Project Steel | Bugari (Italy) | 1993 | 34 | 6.8 | 2.5 | 190 | 14 | 2,750 | Greece | n/a (not found) | n/a (not found) | Currently a Greek charter yacht (Istion Luxury Yachts); no connection found to any billionaire in this dataset — the "Steel" in the name appears coincidental to Barry Zekelman's "Man of Steel." |
+| H3 | Oceanco (Netherlands) | 2000 (rebuilt 2023) | 105.26 | 14.78 | n/a | 3,521 | 18 | 6,000 | n/a | n/a (not found) | n/a (not found) | Real, well-documented vessel, but the graph's Eike Batista ownership link is **not corroborated** — public sources instead name Qatar's former PM, Vijay Mallya, and the Saudi Royal Family as prior owners. |
+| Dar | Oceanco (Netherlands) | 2018 | 90.13 | 14.2 | 3.95 | n/a | 20 | n/a (not found) | n/a | n/a (not found) | n/a (not found) | Shark-inspired exterior by Luiz de Basto, interior by Nuvolari Lenard. Note: some brokers list this hull as later renamed "Luna" — a **different, smaller** vessel from the much more famous 115m Lloyd Werft Luna owned by Farkhad Akhmedov; do not conflate the two in the graph. |
 
 ## Sources
 

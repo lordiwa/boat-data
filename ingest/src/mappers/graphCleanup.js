@@ -269,8 +269,21 @@ export const SUSPECT_NODE_ACTIONS = [
   },
 ];
 
-function applySuspectNodeActions(db) {
-  for (const entry of SUSPECT_NODE_ACTIONS) {
+/**
+ * Generic executor for a NODE_ACTIONS-shaped array (remove / mergeInto /
+ * flag / retype) — shared by TASK-019's builder-focused
+ * SUSPECT_NODE_ACTIONS and TASK-021's person-focused PERSON_NODE_ACTIONS,
+ * so both reuse the exact same, already-tested mechanics rather than two
+ * parallel copies.
+ *
+ * TASK-021 addition: `retype` entries may set `carryEdges: true` (e.g. a
+ * yacht's owned_by edge to an institutional entity like "Turkish
+ * Republic" should follow the node to its correct type, `company`, not be
+ * dropped the way TASK-019's builder retypes intentionally dropped their
+ * built_by edges, which had no valid target to re-point to).
+ */
+function applyNodeActions(db, actions) {
+  for (const entry of actions) {
     if (!nodeExists(db, entry.id)) continue;
 
     if (entry.action === 'remove') {
@@ -294,8 +307,20 @@ function applySuspectNodeActions(db) {
 
     if (entry.action === 'retype') {
       const row = getFullNode(db, entry.id);
-      const attrs = { ...entry.extraAttrs, notes: entry.notes, provenance: ['builder-enrichment-cleanup'] };
+      const attrs = { ...entry.extraAttrs, notes: entry.notes, provenance: entry.provenance || ['builder-enrichment-cleanup'] };
       upsertNode(db, { id: entry.newId, type: entry.newType, name: row.name, attrs });
+
+      if (entry.carryEdges) {
+        const srcEdges = db.prepare('SELECT rel, dst, attrs_json FROM edges WHERE src = ?').all(entry.id);
+        for (const e of srcEdges) {
+          upsertEdge(db, { src: entry.newId, rel: e.rel, dst: e.dst, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
+        }
+        const dstEdges = db.prepare('SELECT src, rel, attrs_json FROM edges WHERE dst = ?').all(entry.id);
+        for (const e of dstEdges) {
+          upsertEdge(db, { src: e.src, rel: e.rel, dst: entry.newId, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
+        }
+      }
+
       removeNodeAndEdges(db, entry.id);
       continue;
     }
@@ -445,22 +470,296 @@ function applyDataQualityFlags(db) {
   }
 }
 
+// --- 7. TASK-021: person dedupe (name-variant duplicates) -----------------
+// research/round4/person-enrichment.md's Coverage notes: "the 110 nodes
+// represent roughly 70-75 distinct real individuals" — the rest are name-
+// variant duplicates of the same person (four nodes for Sheikh Mansour,
+// three for Sheikh Mohammed, three for Alisher Usmanov's ownership
+// structure, etc). Canonical side = the fullest proper name, per the same
+// "keep the fuller name" rule as BUILDER_MERGE_MAP. All owned_by edges
+// (yacht -> person) carry over via the shared mergeNode().
+export const PERSON_MERGE_MAP = [
+  { from: 'person:alisher-usmanov-legally-owned-by-sister-gulbahor-ismailova', to: 'person:alisher-usmanov' },
+  { from: 'person:alisher-usmanov-via-sister', to: 'person:alisher-usmanov' },
+  { from: 'person:alisher-usmanov-via-sister-gulbahor-ismailova', to: 'person:alisher-usmanov' },
+  { from: 'person:bill-gates-support-vessel', to: 'person:bill-gates' },
+  { from: 'person:dubai-royal-mohammed-bin-rashid-al-maktoum', to: 'person:sheikh-mohammed-bin-rashid-al-maktoum' },
+  { from: 'person:sheikh-mohammed', to: 'person:sheikh-mohammed-bin-rashid-al-maktoum' },
+  { from: 'person:eike-batista-previously', to: 'person:eike-batista-previous' },
+  // Jeff Bezos (rumored)'s Flying Fox claim carries over with its
+  // 'rumored' confidence tier intact (set by personMapper.js before this
+  // hook runs) — not asserted as fact, just not silently dropped either;
+  // Dmitry Kamenshchik's separate, more-credible Flying Fox claim is left
+  // untouched (both claims coexist on the yacht, appropriately hedged).
+  { from: 'person:jeff-bezos-rumored', to: 'person:jeff-bezos' },
+  // Same real individual — the mismatched-builder Dragonfly (Silveryachts)
+  // edge is dropped BEFORE this merge runs (see
+  // fixSergeyBrinRumoredArtifact), so nothing incorrect carries over.
+  { from: 'person:sergey-brin-rumored', to: 'person:sergey-brin' },
+  { from: 'person:laurene-powell-jobs-steve-jobs-family', to: 'person:laurene-powell-jobs' },
+  { from: 'person:liu-qiangdong-jd-com', to: 'person:liu-qiangdong' },
+  // Four nodes, one fact ("Octopus now belongs to Roger Samuelsson, ex-
+  // Paul-Allen-estate") recorded four different ways across the corpus.
+  { from: 'person:estate-of-paul-allen-now-roger-samuelsson', to: 'person:roger-samuelsson' },
+  { from: 'person:previously-paul-allen-now-others', to: 'person:roger-samuelsson' },
+  { from: 'person:roger-samuelsson-ex-paul-allen-estate', to: 'person:roger-samuelsson' },
+  { from: 'person:sheikh-mansour', to: 'person:sheikh-mansour-bin-zayed-al-nahyan' },
+  { from: 'person:uae-mansour-bin-zayed', to: 'person:sheikh-mansour-bin-zayed-al-nahyan' },
+  { from: 'person:uae-mansour-bin-zayed-al-nahyan', to: 'person:sheikh-mansour-bin-zayed-al-nahyan' },
+  { from: 'person:oman-royal-sultan-haitham', to: 'person:sultan-haitham-bin-tariq' },
+  { from: 'person:oman-royal-sultan-haitham-bin-tariq', to: 'person:sultan-haitham-bin-tariq' },
+  { from: 'person:saudi-royal-mohammed-bin-salman', to: 'person:mohammed-bin-salman' },
+  // The node's own name ("... estate") is a graph labeling error — MBZ is
+  // alive and UAE's current President (research/round4/
+  // person-enrichment.md, row 113) — not a genuine ownership-chain node.
+  { from: 'person:uae-royal-mohammed-bin-zayed-al-nahyan-estate', to: 'person:mohammed-bin-zayed-al-nahyan' },
+  { from: 'person:various-residential-superyacht', to: 'person:various-residential' },
+];
+
+// --- 8. TASK-021: person retype/flag -------------------------------------
+// research/round4/person-enrichment.md's Coverage notes: "institutional/
+// state placeholders that are not people at all." Reuses the SAME
+// action-executor mechanics as TASK-019's SUSPECT_NODE_ACTIONS (see
+// applyNodeActions) — retype for identifiable institutional entities
+// (carrying their owned_by edge, since it's real institutional ownership,
+// not a data error with no valid target), flag for purely generic
+// "we don't know who" filler.
+export const PERSON_NODE_ACTIONS = [
+  {
+    id: 'person:indonesian-corporate',
+    action: 'retype',
+    newId: 'company:indonesian-corporate',
+    newType: 'company',
+    extraAttrs: { kind: 'anonymous corporate entity' },
+    carryEdges: true,
+    provenance: ['person-enrichment-cleanup'],
+    notes: 'Linked to J7 Explorer; "not an individual" per research — an anonymous corporate owner, not a real person.',
+  },
+  {
+    id: 'person:egyptian-presidential-yacht',
+    action: 'retype',
+    newId: 'company:egyptian-presidential-yacht',
+    newType: 'company',
+    extraAttrs: { kind: 'state institution' },
+    carryEdges: true,
+    provenance: ['person-enrichment-cleanup'],
+    notes: 'Institutional (Egyptian state) owner of El Mahrousa — not a real person.',
+  },
+  {
+    id: 'person:turkish-republic',
+    action: 'retype',
+    newId: 'company:turkish-republic',
+    newType: 'company',
+    extraAttrs: { kind: 'state institution' },
+    carryEdges: true,
+    provenance: ['person-enrichment-cleanup'],
+    notes: 'Institutional (Turkish state) owner of Savarona (presidential/state yacht) — not a real person.',
+  },
+  {
+    id: 'person:bahrain-royal',
+    action: 'flag',
+    notes: 'Generic royal-family placeholder (Al Salamah) — no single named individual confirmed.',
+  },
+  {
+    id: 'person:omani-royal-family',
+    action: 'flag',
+    notes: 'Generic royal-family placeholder (Fulk Al Salamah) — distinct from the specifically-named Sultan Haitham bin Tariq, who also has his own confirmed edge to the same yacht.',
+  },
+  {
+    id: 'person:qatar-royal',
+    action: 'flag',
+    notes: 'Generic royal-family placeholder (Al Mirqab, Katara) — no single named individual confirmed.',
+  },
+  {
+    id: 'person:saudi-royal',
+    action: 'flag',
+    notes: 'Generic royal-family placeholder (Alexander, Prince Abdulaziz, Turama) — no single named individual confirmed.',
+  },
+  {
+    id: 'person:mixed-e-g-more-lurssen-feadship',
+    action: 'flag',
+    notes: 'Aggregate placeholder for "Various 110-112m" filler yachts in a top-50 list — not a real owner.',
+  },
+  {
+    id: 'person:unknown-charter-focused',
+    action: 'flag',
+    notes: 'Generic placeholder (Loon) — no owner identified.',
+  },
+  {
+    id: 'person:unknown-custom-build',
+    action: 'flag',
+    notes: 'Generic placeholder (Mansion Yacht) — no owner identified.',
+  },
+  {
+    id: 'person:unknown-disputed',
+    action: 'flag',
+    notes: 'Generic placeholder (Alfa Nero, pre-2024-sale ownership dispute) — no owner identified.',
+  },
+  {
+    id: 'person:unknown-previously-imperial-yachts',
+    action: 'flag',
+    notes: 'Generic placeholder (Mar, managed via Imperial Yachts) — beneficial owner undisclosed.',
+  },
+  {
+    id: 'person:various-residential',
+    action: 'flag',
+    notes: 'Generic placeholder for Somnio\'s multiple unit "owners" — not a single real owner.',
+  },
+  {
+    id: 'person:previously-david-geffen-now-others',
+    action: 'flag',
+    notes: 'Ownership-chain placeholder (Pelorus) — Geffen\'s link to Pelorus specifically (vs. his confirmed Rising Sun) was not corroborated; likely a graph placeholder error, not a real ownership fact to merge elsewhere.',
+  },
+];
+
+// --- 9. TASK-021: ownership corrections -----------------------------------
+// The 4 contradicted/unsupported attributions research/round4/
+// person-enrichment.md flagged. Two of the four (Eike Batista -> H3
+// "Unconfirmed"; the Opera dual claim, both sides "Disputed") are handled
+// simply by personMapper.js's own ownership_confidence tagging once
+// knowledge/95 carries those exact tiers verbatim — no special-case code
+// needed. The other two need bespoke handling:
+
+// Tatiana's owned_by edge names Bilal Hydrie; public sources instead name
+// Shapoor Mistry (Shapoorji Pallonji Group) as the real owner. Shapoor
+// Mistry has no existing graph node (not one of the 110 researched
+// persons) — minting one is a deliberate, narrow exception to "never mint
+// a person" (this is a factual CORRECTION with a real, named replacement,
+// not speculative new data).
+function fixTatianaOwnership(db) {
+  const yachtId = 'yacht:tatiana';
+  const wrongOwnerId = 'person:bilal-hydrie';
+  if (!nodeExists(db, yachtId)) return;
+  if (!edgeExistsInternal(db, yachtId, 'owned_by', wrongOwnerId)) return;
+
+  const correctOwnerId = 'person:shapoor-mistry';
+  if (!nodeExists(db, correctOwnerId)) {
+    upsertNode(db, {
+      id: correctOwnerId,
+      type: 'person',
+      name: 'Shapoor Mistry',
+      attrs: {
+        nationality: 'Indian',
+        industry: 'Real estate/construction conglomerate (Shapoorji Pallonji Group)',
+        role: 'Chairman, Shapoorji Pallonji Group',
+        status: 'Living',
+        notes:
+          'Real owner of Tatiana (80m Bilgin, 2021) per public sources — corrects a misattribution to Bilal Hydrie ' +
+          'inherited from the source corpus. See research/round4/person-enrichment.md.',
+        provenance: ['person-enrichment-cleanup'],
+      },
+    });
+  }
+
+  db.prepare("DELETE FROM edges WHERE src = ? AND rel = 'owned_by' AND dst = ?").run(yachtId, wrongOwnerId);
+  upsertEdge(db, { src: yachtId, rel: 'owned_by', dst: correctOwnerId, attrs: { ownership_confidence: 'confirmed' } });
+}
+
+// Sergey Brin (rumored) links to "Dragonfly (Silveryachts)" (yacht:
+// dragonfly-silveryachts) — a DIFFERENT, smaller yacht node whose builder
+// doesn't match the real Dragonfly (Lürssen) Brin actually owns. Merging
+// the rumored node's PERSON identity onto the real Sergey Brin is correct
+// (same individual), but the mismatched-builder edge itself must be
+// DROPPED first — carrying it over would incorrectly attribute a second,
+// unrelated yacht to Brin.
+function fixSergeyBrinRumoredArtifact(db) {
+  db.prepare(
+    "DELETE FROM edges WHERE src = 'yacht:dragonfly-silveryachts' AND rel = 'owned_by' AND dst = 'person:sergey-brin-rumored'"
+  ).run();
+}
+
+function edgeExistsInternal(db, src, rel, dst) {
+  return !!db.prepare('SELECT 1 FROM edges WHERE src = ? AND rel = ? AND dst = ?').get(src, rel, dst);
+}
+
+// --- 10. TASK-021: club dedupe --------------------------------------------
+// research/round4/club-enrichment.md's Coverage notes: "Likely duplicate
+// nodes worth a dedup pass." Canonical side = the fuller/more-current
+// name per the club's own published history (see each entry's comment).
+export const CLUB_MERGE_MAP = [
+  // Same institution recorded three times from different source docs.
+  { from: 'club:first-yacht-club-in-florida', to: 'club:florida-yacht-club' },
+  { from: 'club:the-florida-yacht-club-duplicate-entry-in-sources', to: 'club:florida-yacht-club' },
+  { from: 'club:royal-vancouver-yacht-club-rvyc', to: 'club:royal-vancouver-yacht-club' },
+  // "Cleveland Yachting Club" carries the club's own sourced founding year
+  // (1878, cycrr.org) — kept canonical over "Cleveland Yacht Club" (graph
+  // 1904, no independent source of its own).
+  { from: 'club:cleveland-yacht-club', to: 'club:cleveland-yachting-club' },
+  { from: 'club:nautical-club-of-vouliagmeni-nov', to: 'club:nautical-club-of-vouliagmeni' },
+  { from: 'club:west-vancouver-yacht-club-wvyc', to: 'club:west-vancouver-yacht-club' },
+  { from: 'club:the-royal-yacht-club-of-tasmania', to: 'club:royal-yacht-club-of-tasmania' },
+  { from: 'club:deep-cove-yacht-club-sports-club', to: 'club:deep-cove-yacht-club' },
+];
+
+// --- 11. TASK-021: yacht LOA quality corrections (EIV, MYSTERE) -----------
+// research/round4/person-enrichment.md's Suspect yachts table: EIV's graph
+// LOA (160m) is a confirmed data error (real EIV is 48.8m, Rossinavi
+// 2020); MYSTERE's graph LOA (109m) is a confirmed feet-to-meters
+// conversion bug (real MYSTERE is 33.29m/109ft, Mangusta 2023). Same
+// "small curated mechanism, never a hand-edit" discipline as QUALITY_FLAGS
+// above — the WRONG value is preserved in attrs.conflicts (with the
+// correction's own rationale) rather than silently discarded, so the
+// mistake stays traceable.
+export const YACHT_QUALITY_CORRECTIONS = [
+  {
+    id: 'yacht:eiv',
+    field: 'loa',
+    correctedValue: { meters: 48.8, raw: '48.8m' },
+    note:
+      'Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). ' +
+      'Corrected per research/round4/person-enrichment.md\'s Suspect yachts table.',
+  },
+  {
+    id: 'yacht:mystere',
+    field: 'loa',
+    correctedValue: { meters: 33.29, raw: '33.29m (109ft)' },
+    note:
+      'Graph LOA (109m) conflated "109 ft" with "109 m" (a feet-to-meters conversion bug) — real MYSTERE is a ' +
+      '33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md\'s Suspect yachts table.',
+  },
+];
+
+function applyYachtQualityCorrections(db) {
+  for (const { id, field, correctedValue, note } of YACHT_QUALITY_CORRECTIONS) {
+    if (!nodeExists(db, id)) continue;
+    const row = getFullNode(db, id);
+    const attrs = parseAttrsJson(row.attrs_json);
+    const oldValue = attrs[field];
+
+    attrs[field] = correctedValue;
+
+    if (oldValue) {
+      const oldRaw = (oldValue && oldValue.raw) || JSON.stringify(oldValue);
+      const conflicts = { ...(attrs.conflicts || {}) };
+      const entry = `${oldRaw} (superseded — ${note})`;
+      const existingList = conflicts[field] || [];
+      conflicts[field] = existingList.includes(entry) ? existingList : [...existingList, entry];
+      attrs.conflicts = conflicts;
+    }
+
+    upsertNode(db, { id, type: row.type, name: row.name, attrs });
+  }
+}
+
 /**
  * Runs the full graph cleanup pass (see module header): duplicate builder
  * merges, suspect-node reclassification/removal/flagging, the two special
  * cross-type fixes, the Weichai company merge, TASK-020's yacht rename/
- * duplicate merges, the Rybovich marina merge, and the RIO/MOSAIQUE
- * data-quality flags. Idempotent — safe to call after every ingest run (a
- * repeat call is a no-op: every merge source/suspect id has already been
- * deleted, and re-flagging an already-flagged node is a harmless no-op
- * overwrite of the same string).
+ * duplicate merges, the Rybovich marina merge, the RIO/MOSAIQUE data-
+ * quality flags, and TASK-021's person/club dedupe, person retype/flag,
+ * ownership corrections, and yacht LOA quality corrections. Idempotent —
+ * safe to call after every ingest run (a repeat call is a no-op: every
+ * merge source/suspect id has already been deleted, and re-flagging/re-
+ * correcting an already-handled node is a harmless no-op overwrite of the
+ * same values).
  */
 export function applyGraphCleanup(db) {
   for (const { from, to } of BUILDER_MERGE_MAP) {
     mergeNode(db, from, to);
   }
 
-  applySuspectNodeActions(db);
+  applyNodeActions(db, SUSPECT_NODE_ACTIONS);
+  applyNodeActions(db, PERSON_NODE_ACTIONS);
   fixWinchDesignVard(db);
   fixNavalInspiredArtifact(db);
   fixWeichaiMerge(db);
@@ -474,4 +773,21 @@ export function applyGraphCleanup(db) {
   }
 
   applyDataQualityFlags(db);
+
+  // TASK-021: ownership corrections run BEFORE the generic person merge
+  // map, so Sergey Brin (rumored)'s mismatched edge is dropped before its
+  // node (and any remaining edges) would otherwise be carried over by the
+  // generic merge.
+  fixTatianaOwnership(db);
+  fixSergeyBrinRumoredArtifact(db);
+
+  for (const { from, to } of PERSON_MERGE_MAP) {
+    mergeNode(db, from, to);
+  }
+
+  for (const { from, to } of CLUB_MERGE_MAP) {
+    mergeNode(db, from, to);
+  }
+
+  applyYachtQualityCorrections(db);
 }

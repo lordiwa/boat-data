@@ -1,13 +1,13 @@
 // ingest/tests/guardCollisions.spec.js
 //
-// TASK-017/TASK-019/TASK-020: a cross-guard collision matrix. Every
-// mapper's schema guard must claim ONLY its own real-shaped table — never
-// a table shaped for one of the other entity types. Each individual mapper
-// spec file already spot-checks a couple of these pairs; this file is the
-// single place that proves the FULL matrix (TASK-020: 14 guards x 14 real-
-// shaped fixtures), so a new guard added in the future has an obvious
-// place to add its own row/column rather than requiring every existing
-// spec file to be hunted down and updated by hand.
+// TASK-017/TASK-019/TASK-020/TASK-021: a cross-guard collision matrix.
+// Every mapper's schema guard must claim ONLY its own real-shaped table —
+// never a table shaped for one of the other entity types. Each individual
+// mapper spec file already spot-checks a couple of these pairs; this file
+// is the single place that proves the FULL matrix (TASK-021: 16 guards x
+// 16 real-shaped fixtures), so a new guard added in the future has an
+// obvious place to add its own row/column rather than requiring every
+// existing spec file to be hunted down and updated by hand.
 //
 // yachtMapper.js doesn't export its own guard function (ingest.js keeps a
 // small private duplicate — see ingest.js's own module-header comment on
@@ -28,6 +28,8 @@ import { isBuilderEnrichmentTable } from '../src/mappers/builderEnrichmentMapper
 import { isDesignerTable } from '../src/mappers/designerMapper.js';
 import { isYachtSpecTable } from '../src/mappers/yachtSpecMapper.js';
 import { isMarinaEnrichmentTable } from '../src/mappers/marinaMapper.js';
+import { isPersonEnrichmentTable } from '../src/mappers/personMapper.js';
+import { isClubEnrichmentTable } from '../src/mappers/clubMapper.js';
 
 // Mirrors ingest.js's own private isYachtTable exactly (see that file's
 // module header for why it can't import yachtMapper's internal check).
@@ -53,6 +55,8 @@ const GUARDS = {
   designer: isDesignerTable,
   yachtSpec: isYachtSpecTable,
   marinaEnrichment: isMarinaEnrichmentTable,
+  personEnrichment: isPersonEnrichmentTable,
+  clubEnrichment: isClubEnrichmentTable,
 };
 
 // One real-shaped, single-table fixture per entity type (verbatim/close-to
@@ -128,6 +132,16 @@ const FIXTURES = {
 | Marina | Country | City | Berths | Max LOA (m) | Max Draft (m) | Fuel Dock | Website | Notes |
 |---|---|---|---|---|---|---|---|---|
 | Marina Ibiza | Spain | Ibiza Town, Balearic Islands | 85 | 60 | 10 | Yes | marinaibiza.com | Formerly "Ibiza Magna." |
+`,
+  personEnrichment: `
+| Person | Nationality | Industry | Role/Title | Status | Ownership Confidence | Notes |
+|---|---|---|---|---|---|---|
+| Bernard Arnault | French | Luxury goods (LVMH) | Chairman/CEO, LVMH | Living | Confirmed | Owns Symphony (101.5m Feadship). |
+`,
+  clubEnrichment: `
+| Club | City | Country | Founded | Website | Notes |
+|---|---|---|---|---|---|
+| Chicago Yacht Club | Chicago, IL | USA | 1875 | chicagoyachtclub.org | Organized by 37 yachtsmen. |
 `,
 };
 
