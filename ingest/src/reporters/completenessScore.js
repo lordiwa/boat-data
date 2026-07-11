@@ -67,7 +67,12 @@ export const REQUIRED_ATTRS = {
   marina: ['berths', 'max_loa', { anyOf: ['city', { edge: 'located_in' }] }, 'website'],
   club: ['city', 'founded', 'website'],
   company: ['kind', 'website', 'notes'],
-  designer: ['country', 'notes'],
+  // TASK-019: designerMapper.js's real schema (country, discipline,
+  // notable_yachts) replaces the old placeholder pair — 'notes' dropped (not
+  // every row has one; discipline/notable_yachts are the meaningful signal
+  // per the ticket's own acceptance criterion: ">=55 nodes with discipline +
+  // notable_yachts attrs").
+  designer: ['country', 'discipline', 'notable_yachts'],
   person: ['notes', 'provenance'],
   engine: ['tier', 'parent_brand', 'power_range'],
   // TASK-017: engine_model's own attrs, plus its MADE_BY edge to the brand
