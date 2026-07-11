@@ -116,17 +116,29 @@ function extractEmail(raw) {
 }
 
 // Best-effort kind classification (broker | charter | management |
-// platform) from table context: a dedicated "platform"/"website" identifier
-// column means this is a listing site, not a brokerage firm; otherwise
-// scan the description text for the strongest signal, in priority order
-// (a firm offering "management" services is more specifically described
-// than a generic "charters" mention).
-function classifyKind(row, hasPlatformColumn) {
+// platform | yacht services) from table context: a dedicated "platform"/
+// "website" identifier column means this is a listing site, not a
+// brokerage firm; otherwise scan the description text for the strongest
+// signal, in priority order (a firm offering "management" services is more
+// specifically described than a generic "charters" mention).
+//
+// TASK-017: knowledge/87's Service companies table (paint, rigging, teak,
+// electronics, engine-service, classification-society-survey businesses —
+// 22+ real yacht-trade service companies) has no single unifying keyword in
+// its description text, so none of the checks above would ever fire for
+// most of them. Its real, distinctive header is a 'specialty' column (no
+// other corpus table uses this header) — `hasSpecialtyColumn` defaults
+// those rows to 'yacht services' as a last resort, AFTER every other more
+// specific keyword check (so e.g. KRM Yacht's "refit/rebuild project
+// management" specialty still correctly resolves to 'management', not
+// 'yacht services').
+function classifyKind(row, hasPlatformColumn, hasSpecialtyColumn) {
   const text = String(pickFirstPresent(row, DESCRIPTION_KEYS) ?? '').toLowerCase();
   if (text.includes('management')) return 'management';
   if (text.includes('broker')) return 'broker';
   if (text.includes('charter')) return 'charter';
   if (hasPlatformColumn) return 'platform';
+  if (hasSpecialtyColumn) return 'yacht services';
   return null;
 }
 
@@ -165,6 +177,7 @@ export function mapCompanyTables(db, tables, sourceFile) {
 
     const present = new Set(table.normalizedHeaders);
     const hasPlatformColumn = present.has('platform');
+    const hasSpecialtyColumn = present.has('specialty');
     // Review fix (HIGH 2b): only fall back to the website column as the
     // identifier when the table genuinely has NO name-like column at all
     // (file 21's "Website | Description | Global Reach" directories) —
@@ -193,7 +206,7 @@ export function mapCompanyTables(db, tables, sourceFile) {
       const websiteRaw = pickFirstPresent(row, WEBSITE_KEYS);
 
       const incoming = {
-        kind: classifyKind(row, hasPlatformColumn),
+        kind: classifyKind(row, hasPlatformColumn, hasSpecialtyColumn),
         address: addressRaw ?? null,
         phone: extractPhone(contactRaw),
         website: websiteRaw ?? extractEmail(contactRaw),

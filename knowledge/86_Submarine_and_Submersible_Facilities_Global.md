@@ -13,6 +13,12 @@ See "## Curation notes" for cross-file dedup decisions made against
 
 ## Curation notes
 
+**Review carry-forward (TASK-016 review, applied in TASK-017):** Norfolk Naval
+Shipyard's Max Tonnage cell originally read "Nimitz-class capable (Dry Dock
+8)" — prose, not a number — which `shipyardMapper.js`'s numeric parser read
+back as tonnage=8. Blanked per the "never guess" rule; the Nimitz-class detail
+now lives in the row's Notes cell instead.
+
 Four rows from this file's original "Naval submarine dry docks" section turned
 out to be the SAME overall shipyard entity as a row already kept (and now
 enriched) in another file, and were removed here (per the "one facility = one
@@ -80,7 +86,7 @@ SEPARATE (not merged) — see the fuller reasoning in
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Pearl Harbor Naval Shipyard & IMF | USA | Pearl Harbor, HI | US Navy (NAVSEA) | submarine dry dock | | | | Dry Dock 5 (new): ~200 m long | graving dry dock | service, refit, repair | 1908 | navsea.navy.mil | New Dry Dock 5 ($3.42B, under construction, due 2027) sized for Virginia-class; legacy Dry Dock 3 too small for current classes. |
 | Portsmouth Naval Shipyard | USA | Kittery, ME | US Navy (NAVSEA) | submarine dry dock | | | | | graving dry dock | service, refit, repair | 1800 | navsea.navy.mil | $1.73B Dry Dock 1 expansion project to hold up to 5 Los Angeles/Virginia-class boats simultaneously. |
-| Norfolk Naval Shipyard | USA | Portsmouth, VA | US Navy (NAVSEA) | submarine dry dock | | | Nimitz-class capable (Dry Dock 8) | Dry Dock 8: 335 x 45.7 x 16.8 m; Dry Dock 4: ~308 x 43.9 x 12.2 m | graving dry dock | service, refit, repair | | navsea.navy.mil | Dry Dock 4 used today to overhaul submarines; Dry Dock 8 handles carriers and larger work. |
+| Norfolk Naval Shipyard | USA | Portsmouth, VA | US Navy (NAVSEA) | submarine dry dock | | | | Dry Dock 8: 335 x 45.7 x 16.8 m; Dry Dock 4: ~308 x 43.9 x 12.2 m | graving dry dock | service, refit, repair | | navsea.navy.mil | Dry Dock 4 used today to overhaul submarines; Dry Dock 8 handles carriers and larger work (Nimitz-class capable). CURATION FIX (TASK-016 review carry-forward): the Max Tonnage cell previously read "Nimitz-class capable (Dry Dock 8)" — prose, not a number — which parsed as tonnage=8; blanked per the "never guess" rule and moved into this Notes cell instead. |
 | Puget Sound Naval Shipyard & IMF | USA | Bremerton, WA | US Navy (NAVSEA) | submarine dry dock | | | | | graving dry dock | service, refit, repair | 1891 | navsea.navy.mil | One of the Navy's four public shipyards handling nuclear submarine maintenance; part of Shipyard Infrastructure Optimization Program. |
 | General Dynamics Electric Boat – Groton | USA | Groton, CT | General Dynamics Electric Boat | submarine dry dock | | | | Floating dry dock "Atlas": 188 x 42.7 m, 27.4 m tall | floating dry dock + graving dock/pontoon | newbuild, service, refit | 1899 | gdeb.com | New floating dry dock Atlas (2026) supports Columbia-class final assembly/float-off at the South Yard. |
 | Devonport Royal Dockyard | UK | Plymouth | Babcock International | submarine dry dock | | | | | graving dry dock | service, refit, repair | | babcockinternational.com | UK's submarine maintenance/refit yard (Babcock); does not build new submarines. |

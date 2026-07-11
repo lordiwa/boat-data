@@ -76,6 +76,19 @@ const FIXTURE_SYNTHETIC_NAME_COLUMN_WITH_WEBSITE = `
 | Not available | https://should-not-become-a-name.example.com | Row with no real company name. |
 `;
 
+// --- Synthetic fixture (TASK-017): the real reshaped header shape from
+// knowledge/87's Service companies table (Company Name | Specialty | HQ
+// Country | HQ City | Address (if available) | Focus Areas | Website |
+// Brief Description/Notes) — a 'specialty' column marks a yacht-trade
+// service business with no single unifying kind keyword in its
+// description text. ---
+const FIXTURE_87_SERVICE_COMPANY = `
+| Company Name | Specialty | HQ Country | HQ City | Address (if available) | Focus Areas | Website | Brief Description/Notes |
+|---|---|---|---|---|---|---|---|
+| Pinmar | Paint application, new-build & refit | Spain | Palma de Mallorca | Palma de Mallorca, Spain | Palma (STP), Barcelona (MB92) | [pinmar.com](https://www.pinmar.com/) | Paint application, new-build & refit. Founded 1975. |
+| KRM Yacht | Refit/rebuild project management | — | — | | Global (yard-agnostic) | [krmyacht.com](https://krmyacht.com/) | Refit/rebuild project management. 200+ projects delivered since 2010. |
+`;
+
 let tmpDbPath;
 let db;
 
@@ -215,6 +228,42 @@ describe('mapCompanyTables — website is never used as a name when a name colum
     expect(getNode('company:real-broker-co')).not.toBeNull();
     expect(getNode('company:https-should-not-become-a-name-example-com')).toBeNull();
     expect(countByType('company')).toBe(1);
+  });
+});
+
+// TASK-017: knowledge/87's reshaped Service companies table has a
+// 'specialty' column (its real, distinctive header — no other corpus table
+// uses it) marking a yacht-trade service business (paint, rigging, teak,
+// electronics, engine service, project management, ...) that has no single
+// unifying keyword in its description text. classifyKind() now defaults
+// these to 'yacht services' rather than leaving kind null, UNLESS the
+// description text already matches an existing keyword (management/
+// broker/charter), which still takes priority.
+describe('mapCompanyTables — kind="yacht services" (TASK-017, "specialty" column)', () => {
+  it('classifies a specialty-column company as "yacht services" when no other kind keyword matches', () => {
+    const tables = parseTables(FIXTURE_87_SERVICE_COMPANY);
+    mapCompanyTables(db, tables, '87_Dry_Dock_Rankings_and_Refit_Services.md');
+
+    const pinmar = getNode('company:pinmar');
+    expect(pinmar).not.toBeNull();
+    expect(pinmar.attrs.kind).toBe('yacht services');
+  });
+
+  it('still classifies as "management" when the description text says so, even with a specialty column present', () => {
+    const tables = parseTables(FIXTURE_87_SERVICE_COMPANY);
+    mapCompanyTables(db, tables, '87_Dry_Dock_Rankings_and_Refit_Services.md');
+
+    const krm = getNode('company:krm-yacht');
+    expect(krm).not.toBeNull();
+    expect(krm.attrs.kind).toBe('management');
+  });
+
+  it('does not affect kind classification for tables without a specialty column (existing behavior locked)', () => {
+    const tables = parseTables(FIXTURE_41_BROKERS);
+    mapCompanyTables(db, tables, '41_Comprehensive_Monaco_Yacht_Charter_Guide.md');
+
+    const edmiston = getNode('company:edmiston-and-company');
+    expect(edmiston.attrs.kind).toBe('broker');
   });
 });
 
