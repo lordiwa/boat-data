@@ -14,18 +14,36 @@ function edge(src, rel, dst) {
 
 describe('computeCompleteness — per-type attr%/edge%/score', () => {
   it('yacht: 0.7 * avg-required-attr-fraction + 0.3 * edge-fraction', () => {
-    // yacht requires 6 attrs (loa, year, guests, cabins, crew, value).
-    // Node A: all 6 present (fraction 1) + has an edge.
-    // Node B: 3 of 6 present (fraction 0.5) + no edge.
-    // avg attr fraction = 0.75, edge fraction = 0.5.
-    // score = 0.7*0.75 + 0.3*0.5 = 0.675 -> *10 = 6.75.
+    // TASK-020: yacht now requires 14 attrs (the original loa, year,
+    // guests, cabins, crew, value PLUS beam, draft, gt, max_speed,
+    // range_nm, flag, class_society, imo).
+    // Node A: all 14 present (fraction 1) + has an edge.
+    // Node B: 3 of 14 present (loa, year, guests only; fraction 3/14) + no edge.
+    // avg attr fraction = (1 + 3/14) / 2 = 0.6071428571...
+    // edge fraction = 0.5.
+    // score = 0.7*0.6071428571 + 0.3*0.5 = 0.575 -> *10 = 5.75.
     const graph = {
       nodes: [
         {
           id: 'yacht:a',
           type: 'yacht',
           name: 'A',
-          attrs: { loa: 50, year: 2020, guests: 10, cabins: 5, crew: 8, value: 1000000 },
+          attrs: {
+            loa: 50,
+            year: 2020,
+            guests: 10,
+            cabins: 5,
+            crew: 8,
+            value: 1000000,
+            beam: { meters: 10, raw: '10m' },
+            draft: { meters: 3, raw: '3m' },
+            gt: 500,
+            max_speed: 20,
+            range_nm: 3000,
+            flag: 'Cayman Islands',
+            class_society: "Lloyd's Register",
+            imo: '1234567',
+          },
         },
         {
           id: 'yacht:b',
@@ -41,9 +59,9 @@ describe('computeCompleteness — per-type attr%/edge%/score', () => {
     const yacht = byType.find((r) => r.type === 'yacht');
 
     expect(yacht.count).toBe(2);
-    expect(yacht.attrPct).toBeCloseTo(75, 4);
+    expect(yacht.attrPct).toBeCloseTo(60.71, 2);
     expect(yacht.edgePct).toBeCloseTo(50, 4);
-    expect(yacht.score).toBeCloseTo(6.75, 4);
+    expect(yacht.score).toBeCloseTo(5.75, 4);
   });
 
   it('shipyard: an OR-group (dry_docks OR lift_type) is satisfied by either attr alone', () => {
@@ -175,8 +193,9 @@ describe('computeCompleteness — per-type attr%/edge%/score', () => {
 
 describe('computeCompleteness — overall weighted average', () => {
   it('weights each type\'s score by TYPE_WEIGHTS and normalizes by the total weight actually applied', () => {
-    // Only yacht (score 6.75, weight 20) and region (score 8.5, weight 10)
-    // have any nodes; every other type is zero-count (score 0) but still
+    // Only yacht (score 5.75, weight 20 — see the 14-attr yacht test above
+    // for the TASK-020 math) and region (score 8.5, weight 10) have any
+    // nodes; every other type is zero-count (score 0) but still
     // contributes its full weight to the denominator (see module header:
     // an empty type drags the overall average down, by design).
     const graph = {
@@ -185,7 +204,22 @@ describe('computeCompleteness — overall weighted average', () => {
           id: 'yacht:a',
           type: 'yacht',
           name: 'A',
-          attrs: { loa: 50, year: 2020, guests: 10, cabins: 5, crew: 8, value: 1000000 },
+          attrs: {
+            loa: 50,
+            year: 2020,
+            guests: 10,
+            cabins: 5,
+            crew: 8,
+            value: 1000000,
+            beam: { meters: 10, raw: '10m' },
+            draft: { meters: 3, raw: '3m' },
+            gt: 500,
+            max_speed: 20,
+            range_nm: 3000,
+            flag: 'Cayman Islands',
+            class_society: "Lloyd's Register",
+            imo: '1234567',
+          },
         },
         { id: 'yacht:b', type: 'yacht', name: 'B', attrs: { loa: 40, year: 2019, guests: 8 } },
         { id: 'region:connected', type: 'region', name: 'Connected', attrs: {} },
@@ -196,7 +230,7 @@ describe('computeCompleteness — overall weighted average', () => {
 
     const { overall } = computeCompleteness(graph);
     const totalWeight = Object.values(TYPE_WEIGHTS).reduce((a, b) => a + b, 0);
-    const expected = (6.75 * TYPE_WEIGHTS.yacht + 8.5 * TYPE_WEIGHTS.region) / totalWeight;
+    const expected = (5.75 * TYPE_WEIGHTS.yacht + 8.5 * TYPE_WEIGHTS.region) / totalWeight;
 
     expect(overall).toBeCloseTo(expected, 2);
   });
@@ -213,7 +247,9 @@ describe('REQUIRED_ATTRS config', () => {
       expect(REQUIRED_ATTRS).toHaveProperty(type);
     }
     expect(REQUIRED_ATTRS.region).toEqual([]);
-    expect(REQUIRED_ATTRS.yacht.length).toBe(6);
+    // TASK-020: 6 original attrs + 8 new spec fields (beam, draft, gt,
+    // max_speed, range_nm, flag, class_society, imo).
+    expect(REQUIRED_ATTRS.yacht.length).toBe(14);
   });
 });
 

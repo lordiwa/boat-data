@@ -44,7 +44,7 @@ import {
   pickFirstPresent,
   isPlausibleEntityName,
 } from './normalize.js';
-import { upsertRegion } from './regions.js';
+import { upsertRegion, resolveRegion } from './regions.js';
 
 // Review fix (HIGH 2a): 'marina_name' is the real header slug for file 56's
 // Spain marina tables ("Marina Name | Location | Max Yacht Length | Total
@@ -256,3 +256,216 @@ export function mapMarinaTables(db, tables, sourceFile) {
 }
 
 export { isMarinaTable };
+
+// --- TASK-020: Famous-marina enrichment table (knowledge/94) -------------
+//
+// Curated from research/round3/marina-enrichment.md. Real header shape:
+//   Marina | Country | City | Berths | Max LOA (m) | Max Draft (m) | Fuel
+//   Dock | Website | Notes
+// "Marina" is a BARE header (not aliased to 'name'/'facility'/'marina_name'
+// by tableParser's ALIAS_MAP), so this guard's identifier ('marina') is
+// deliberately distinct from mapMarinaTables' own NAME_KEYS above — no
+// collision either direction (see ingest/tests/guardCollisions.spec.js).
+//
+// UNLIKE mapMarinaTables/mapMarinaRows above (which always mints a node
+// when none exists at the naive slug id), this mapper's resolution is
+// COUNTRY-AWARE: a row can share an EXACT name with an existing marina
+// node that is a completely different real-world place (the graph's
+// "Portofino Hotel & Marina" is in Redondo Beach, California; its
+// "Yacht Haven Marina" is a Pacific-Northwest entry — neither is the
+// famous Mediterranean/Caribbean facility of the same name this research
+// pass covers). resolveMarinaId() below requires the existing candidate's
+// located_in region to be compatible with the incoming row's own City/
+// Country (via the same regions.js canonicalization every mapper already
+// shares) before treating it as a match; an incompatible or absent
+// existing candidate falls through to minting a NEW, disambiguated node
+// instead of overwriting the wrong one.
+
+const ME_NAME_KEYS = ['marina'];
+const ME_COUNTRY_KEYS = ['region']; // "Country" aliases to 'region' — see shipyardMapper.js's identical note.
+const ME_CITY_KEYS = ['city'];
+const ME_BERTHS_KEYS = ['berths'];
+const ME_MAX_LOA_KEYS = ['max_loa_m'];
+const ME_MAX_DRAFT_KEYS = ['max_draft_m'];
+const ME_FUEL_DOCK_KEYS = ['fuel_dock'];
+const ME_WEBSITE_KEYS = ['website'];
+const ME_NOTES_KEYS = ['notes'];
+
+// A table must have the marina identifier column PLUS at least 2 of these
+// marina-enrichment-specific signals to be trusted as this shape (same
+// "highly specific" 2-of-N pattern as every other enrichment guard).
+const ME_SPECIFIC_SIGNAL_KEYS = [...ME_BERTHS_KEYS, ...ME_MAX_LOA_KEYS, ...ME_MAX_DRAFT_KEYS];
+const ME_MIN_SPECIFIC_SIGNALS = 2;
+
+function isMarinaEnrichmentTable(table) {
+  const present = new Set(table.normalizedHeaders);
+  if (!ME_NAME_KEYS.some((key) => present.has(key))) return false;
+
+  const signalCount = ME_SPECIFIC_SIGNAL_KEYS.reduce((count, key) => count + (present.has(key) ? 1 : 0), 0);
+  return signalCount >= ME_MIN_SPECIFIC_SIGNALS;
+}
+
+function nodeExists(db, id) {
+  return !!db.prepare('SELECT 1 FROM nodes WHERE id = ?').get(id);
+}
+
+const NUMBER_RE = /(?<![a-zA-Z])(\d+(?:\.\d+)?)(?![a-zA-Z])/;
+
+function parseNumeric(raw) {
+  if (isEmptyValue(raw)) return null;
+  const cleaned = String(raw).replace(/,/g, '').replace(/~/g, '');
+  const m = cleaned.match(NUMBER_RE);
+  return m ? parseFloat(m[1]) : null;
+}
+
+function buildLengthAttr(raw) {
+  if (isEmptyValue(raw)) return null;
+  const value = parseNumeric(raw);
+  return value === null ? null : { meters: value, raw: String(raw).trim() };
+}
+
+// "Yes" / "Yes (bunker service)" -> true; "—" / "not confirmed" -> null
+// (never guessed as false — absence of confirmation isn't confirmation of
+// absence, same spirit as every other omitted-when-unknown attr in this
+// codebase).
+function parseFuelDock(raw) {
+  if (isEmptyValue(raw)) return null;
+  return /^yes\b/i.test(String(raw).trim()) ? true : null;
+}
+
+const ME_MERGE_FIELDS = ['berths', 'max_loa', 'max_draft', 'fuel_dock', 'website', 'notes'];
+
+/**
+ * Resolves the existing marina node (if any) whose located_in region is
+ * compatible with the incoming row's own City/Country — returns true when
+ * there's nothing to disagree with (no located_in edge on the existing
+ * node, or no City/Country on the incoming row), so a real match is never
+ * rejected for lack of evidence; returns false only on an ACTUAL
+ * disagreement (e.g. existing region "Redondo Beach" vs incoming "Italy").
+ */
+// Generic marina/geographic filler words that recur across totally
+// unrelated real places — excluded from the word-overlap check below so
+// e.g. two different "Port ..." facilities don't falsely read as the same
+// place merely for sharing the word "Port".
+const LOCATION_STOPWORDS = new Set(['marina', 'port', 'yacht', 'club', 'harbor', 'harbour', 'bay', 'the', 'and']);
+
+// Existing marina nodes' located_in region NAME is sometimes a fuller/
+// messier real-world string than the simple City cell this research pass
+// provides (e.g. "Barcelona, Catalonia" vs "Barcelona"; or, worst case,
+// a genuinely garbled pre-existing region name like "Palm Beach; often
+// grouped with Fort Lauderdale due to proximity and shared ecosystem" vs
+// "West Palm Beach, FL") — a strict canonical-region-id equality check
+// would reject all of these as "incompatible" even though they plainly
+// describe the SAME place. Word-overlap (>=1 shared, non-stopword,
+// >=4-letter token) is robust to this granularity mismatch while still
+// correctly rejecting two places with NO shared vocabulary at all
+// (Portofino vs Redondo Beach; Charlotte Amalie vs Wilmington).
+function significantWords(text) {
+  return normalizeName(text)
+    .split(/[^a-z0-9]+/)
+    .filter((w) => w.length >= 4 && !LOCATION_STOPWORDS.has(w));
+}
+
+function locationCompatible(db, existingNodeId, cityRaw, countryRaw) {
+  const edge = db.prepare("SELECT dst FROM edges WHERE src = ? AND rel = 'located_in'").get(existingNodeId);
+  if (!edge) return true;
+
+  const locationRaw = !isEmptyValue(cityRaw) ? cityRaw : countryRaw;
+  if (isEmptyValue(locationRaw)) return true;
+
+  const resolved = resolveRegion(locationRaw);
+  if (resolved && resolved.id === edge.dst) return true;
+
+  const regionNode = db.prepare('SELECT name FROM nodes WHERE id = ?').get(edge.dst);
+  if (!regionNode) return true;
+
+  const incomingWords = significantWords(locationRaw);
+  const existingWords = new Set(significantWords(regionNode.name));
+  return incomingWords.some((w) => existingWords.has(w));
+}
+
+/**
+ * Resolves a Marina cell to an existing node id (exact name AND
+ * location-compatible), or a fresh id to mint at (disambiguated with a
+ * city/country suffix when the naive slug id is already occupied by an
+ * incompatible node). Returns { id, isNew }.
+ */
+function resolveMarinaId(db, nameRaw, cityRaw, countryRaw) {
+  const trimmed = String(nameRaw).trim();
+  const candidates = db.prepare("SELECT id FROM nodes WHERE type = 'marina' AND LOWER(name) = LOWER(?)").all(trimmed);
+
+  for (const { id } of candidates) {
+    if (locationCompatible(db, id, cityRaw, countryRaw)) return { id, isNew: false };
+  }
+
+  const baseId = `marina:${slug(normalizeName(trimmed))}`;
+  if (!nodeExists(db, baseId)) return { id: baseId, isNew: true };
+
+  const suffix = slug(normalizeName(cityRaw || countryRaw || 'unknown'));
+  return { id: `${baseId}-${suffix}`, isNew: true };
+}
+
+/**
+ * Maps every marina-enrichment-shaped table found in `tables` into Marina
+ * nodes (enriching a location-compatible existing node, or minting a new
+ * one — see resolveMarinaId) plus LOCATED_IN edges. Tables that don't look
+ * like this shape are skipped and reported in `skippedTables`.
+ *
+ * Returns { matched, created, edges, skippedTables }.
+ */
+export function mapMarinaEnrichmentTables(db, tables, sourceFile) {
+  const skippedTables = [];
+  let matched = 0;
+  let created = 0;
+  let edges = 0;
+
+  tables.forEach((table, index) => {
+    if (!isMarinaEnrichmentTable(table)) {
+      skippedTables.push({ index, headers: table.headers });
+      return;
+    }
+
+    for (const row of table.rows) {
+      const nameRaw = pickFirstPresent(row, ME_NAME_KEYS);
+      if (isEmptyValue(nameRaw) || !isPlausibleEntityName(nameRaw)) continue;
+
+      const cityRaw = pickFirstPresent(row, ME_CITY_KEYS);
+      const countryRaw = pickFirstPresent(row, ME_COUNTRY_KEYS);
+
+      const { id: marinaId, isNew } = resolveMarinaId(db, nameRaw, cityRaw, countryRaw);
+      const existingRow = db.prepare('SELECT name, attrs_json FROM nodes WHERE id = ?').get(marinaId);
+      const existingAttrs = existingRow ? parseAttrsJson(existingRow.attrs_json) : {};
+      const existingName = existingRow ? existingRow.name : null;
+
+      const incoming = {
+        berths: parseIntSafe(pickFirstPresent(row, ME_BERTHS_KEYS)),
+        max_loa: buildLengthAttr(pickFirstPresent(row, ME_MAX_LOA_KEYS)),
+        max_draft: buildLengthAttr(pickFirstPresent(row, ME_MAX_DRAFT_KEYS)),
+        fuel_dock: parseFuelDock(pickFirstPresent(row, ME_FUEL_DOCK_KEYS)),
+        website: pickFirstPresent(row, ME_WEBSITE_KEYS) ?? null,
+        notes: pickFirstPresent(row, ME_NOTES_KEYS) ?? null,
+      };
+
+      const merged = mergeFirstNonEmptyWins(existingAttrs, incoming, ME_MERGE_FIELDS);
+      merged.provenance = appendProvenance(existingAttrs.provenance, sourceFile);
+
+      const finalName = !isEmptyValue(existingName) ? existingName : String(nameRaw).trim();
+      upsertNode(db, { id: marinaId, type: 'marina', name: finalName, attrs: merged });
+      if (isNew) created += 1;
+      else matched += 1;
+
+      const locationRaw = !isEmptyValue(cityRaw) ? cityRaw : countryRaw;
+      if (!isEmptyValue(locationRaw)) {
+        const regionId = upsertRegion(db, locationRaw);
+        if (regionId) {
+          upsertEdge(db, { src: marinaId, rel: 'located_in', dst: regionId });
+          edges += 1;
+        }
+      }
+    }
+  });
+
+  return { matched, created, edges, skippedTables };
+}
+
+export { isMarinaEnrichmentTable };

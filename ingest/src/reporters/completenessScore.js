@@ -61,7 +61,31 @@ export function resolveCompletenessReportPath() {
 }
 
 export const REQUIRED_ATTRS = {
-  yacht: ['loa', 'year', 'guests', 'cabins', 'crew', 'value'],
+  // TASK-020: extends the original 6-attr yacht schema with
+  // yachtSpecMapper.js's 8 new spec fields (beam, draft, gt, max_speed,
+  // range_nm, flag, class_society, imo). This makes yacht scoring
+  // noticeably STRICTER — only the ~88 researched yachts (of 599) carry
+  // any of these — a deliberate, ticket-mandated change; see
+  // ingest/reports/completeness.json's own commit message for the
+  // before/after numbers under both the old (6-attr) and new (14-attr)
+  // yacht schema, so the score's downward jump reads as "yacht is scored
+  // more honestly now," not "the graph regressed."
+  yacht: [
+    'loa',
+    'year',
+    'guests',
+    'cabins',
+    'crew',
+    'value',
+    'beam',
+    'draft',
+    'gt',
+    'max_speed',
+    'range_nm',
+    'flag',
+    'class_society',
+    'imo',
+  ],
   builder: ['country', 'founded', 'website', 'specialty'],
   shipyard: ['country', 'city', 'facility_type', ['dry_docks', 'lift_type'], ['max_loa', 'max_tonnage'], 'services', 'website'],
   marina: ['berths', 'max_loa', { anyOf: ['city', { edge: 'located_in' }] }, 'website'],
