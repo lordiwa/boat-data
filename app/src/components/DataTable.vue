@@ -205,22 +205,19 @@ function cellText(col: ColumnDef, row: any): string {
         <table class="data-table__table">
           <thead>
             <tr>
-              <th
-                v-for="col in columns"
-                :key="col.key"
-                scope="col"
-                :aria-sort="ariaSort(col)"
-                class="data-table__th"
-                tabindex="0"
-                role="button"
-                @click="onHeaderClick(col)"
-                @keydown.enter="onHeaderClick(col)"
-                @keydown.space.prevent="onHeaderClick(col)"
-              >
-                {{ col.label }}
-                <span v-if="sortState.key === col.key" class="data-table__sort-indicator" aria-hidden="true">
-                  {{ sortState.dir === 1 ? '▲' : '▼' }}
-                </span>
+              <th v-for="col in columns" :key="col.key" scope="col" :aria-sort="ariaSort(col)" class="data-table__th">
+                <!-- TASK-018: a real <button> inside an untouched <th scope="col">,
+                     not role="button" on the <th> itself — overriding a th's
+                     implicit columnheader role with "button" loses the column
+                     semantics screen readers rely on when navigating the table
+                     by column. A native button also gets Enter/Space activation
+                     and focus styling for free, so no keydown handlers here. -->
+                <button type="button" class="data-table__th-btn" @click="onHeaderClick(col)">
+                  {{ col.label }}
+                  <span v-if="sortState.key === col.key" class="data-table__sort-indicator" aria-hidden="true">
+                    {{ sortState.dir === 1 ? '▲' : '▼' }}
+                  </span>
+                </button>
               </th>
             </tr>
             <tr v-if="!printMode" class="data-table__filter-row">
@@ -388,21 +385,37 @@ function cellText(col: ColumnDef, row: any): string {
 
 .data-table__th {
   text-align: left;
-  padding: 0.6rem 0.85rem;
+  padding: 0;
   background: var(--color-brand-light);
   color: var(--color-text);
   font-weight: 700;
   white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
   border-bottom: 1px solid var(--color-border);
 }
 
-.data-table__th:hover {
+/* TASK-018: the button fills the th and is styled to look exactly like the
+   old clickable th did — padding/font/colors moved here from .data-table__th
+   above, which now only carries table-cell-level styling. */
+.data-table__th-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.data-table__th-btn:hover {
   background: var(--color-border);
 }
 
-.data-table__th:focus-visible {
+.data-table__th-btn:focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: -2px;
 }
@@ -432,9 +445,14 @@ function cellText(col: ColumnDef, row: any): string {
   background: var(--color-bg);
 }
 
-.data-table__filter-input:focus {
-  outline: none;
+.data-table__filter-input:focus-visible {
+  /* TASK-018: was outline: none + border-color only — a 1px border-color
+     swap alone is too subtle a focus indicator (WCAG 2.4.7); pair it with a
+     visible outline, matching the ring style every other focusable control
+     in the app uses. */
   border-color: var(--color-brand);
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
 }
 
 .data-table__range {
@@ -493,7 +511,9 @@ function cellText(col: ColumnDef, row: any): string {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: var(--color-accent);
+  /* TASK-018: --color-accent-text (not --color-accent) — see style.css's
+     comment on that token; plain --color-accent only reaches ~4.2:1 here. */
+  color: var(--color-accent-text);
   background: rgba(179, 84, 30, 0.12);
   border-radius: 999px;
   padding: 0.1rem 0.5rem;

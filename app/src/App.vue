@@ -5,10 +5,15 @@ import GlobalSearch from '@/components/GlobalSearch.vue';
 
 <template>
   <div class="app-shell">
+    <!-- TASK-018: keyboard/screen-reader users can jump straight past the
+         header/search/nav chrome to the page's actual content. Visually
+         hidden until it receives focus (see .skip-link below). -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <header class="app-header">
       <div class="container app-header__row">
         <RouterLink to="/" class="brand">
-          <span class="brand__mark">⚓</span>
+          <span class="brand__mark" aria-hidden="true">⚓</span>
           <span class="brand__name">DataYacht</span>
         </RouterLink>
         <GlobalSearch class="app-header__search" />
@@ -21,13 +26,17 @@ import GlobalSearch from '@/components/GlobalSearch.vue';
       </div>
     </header>
 
-    <main class="app-main">
+    <!-- tabindex="-1": not part of the normal tab order (it's a landmark,
+         not a control) but focusable programmatically so the skip link
+         above actually moves keyboard focus here, not just the viewport. -->
+    <main id="main-content" class="app-main" tabindex="-1">
       <RouterView />
     </main>
 
     <footer class="app-footer">
-      <div class="container">
+      <div class="container app-footer__row">
         <p>DataYacht &mdash; a personal Wikipedia for yachts, builders, marinas and the people behind them.</p>
+        <RouterLink to="/accessibility" class="app-footer__link">Accessibility</RouterLink>
       </div>
     </footer>
   </div>
@@ -38,6 +47,27 @@ import GlobalSearch from '@/components/GlobalSearch.vue';
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/* TASK-018: visually hidden until focused (Tab from the top of the page),
+   then pinned in view so sighted keyboard users can see where focus is. */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 0.75rem;
+  z-index: 100;
+  background: var(--color-brand);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  transition: top 0.1s ease;
+}
+
+.skip-link:focus-visible {
+  top: 0;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .app-header {

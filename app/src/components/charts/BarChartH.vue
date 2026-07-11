@@ -58,6 +58,19 @@ const visibleItems = computed(() => props.items.slice(0, props.maxBars));
 const maxValue = computed(() => Math.max(1, ...visibleItems.value.map((i) => i.value)));
 const totalHeight = computed(() => Math.max(1, visibleItems.value.length) * ROW_HEIGHT + 8);
 
+// TASK-018: role="img" tells assistive tech "treat this whole subtree as one
+// atomic, non-interactive picture" — appropriate when every bar is
+// non-interactive (a plain histogram/ranking with no drill-down), but a
+// genuine conflict (axe: nested-interactive) once any bar is a real,
+// keyboard-focusable link: an "image" isn't supposed to expose focusable
+// descendants at all, so those links could be announced inconsistently or
+// skipped entirely depending on the screen reader. When any bar links
+// somewhere, the figure is a labelled *group* instead — group semantics
+// don't collapse their children, so each linked bar's own role="link" and
+// accessible name (rowAriaLabel) are exposed normally, while the SVG's
+// <title>/<desc> still provide the chart's overall description.
+const hasLinks = computed(() => visibleItems.value.some((i) => !!i.link));
+
 function barWidth(value: number): number {
   return (value / maxValue.value) * CHART_WIDTH;
 }
@@ -67,7 +80,12 @@ function valueLabel(item: BarChartHItem): string {
 }
 
 function rowAriaLabel(item: BarChartHItem): string {
-  return `${item.label}: ${valueLabel(item)}${item.link ? ' — view matching entries' : ''}`;
+  // TASK-018: no colon between label and value — the row's two visible SVG
+  // <text> nodes render as "{label}" then "{value}" back to back with
+  // nothing between them, and WCAG 2.5.3 (Label in Name) / axe's
+  // label-content-name-mismatch expects the accessible name to contain that
+  // visible text verbatim, not a punctuated paraphrase of it.
+  return `${item.label} ${valueLabel(item)}${item.link ? ' — view matching entries' : ''}`;
 }
 
 function activate(item: BarChartHItem) {
@@ -77,7 +95,7 @@ function activate(item: BarChartHItem) {
 </script>
 
 <template>
-  <figure class="bar-chart-h" role="img" :aria-label="title || 'Bar chart'">
+  <figure class="bar-chart-h" :role="hasLinks ? 'group' : 'img'" :aria-label="title || 'Bar chart'">
     <svg
       :viewBox="`0 0 ${TOTAL_WIDTH} ${totalHeight}`"
       :width="TOTAL_WIDTH"
@@ -102,6 +120,16 @@ function activate(item: BarChartHItem) {
         @keydown.space.prevent="activate(item)"
       >
         <title>{{ rowAriaLabel(item) }}</title>
+        <!-- TASK-018: the "&#32;" right after this <text>'s closing tag is a
+             single literal space *text node*, deliberately not inside any
+             <text>/<tspan> — SVG never paints text nodes outside those, so
+             it's visually inert — sitting between the label and value text
+             so axe-core's (real, DOM-walking, not layout-based)
+             visible-text extraction sees "{label} {value}" with a space,
+             matching rowAriaLabel below. Vue's whitespace condensing would
+             otherwise collapse/drop the newline-formatted whitespace that's
+             actually in this template, joining the two into "labelvalue"
+             with nothing between them (axe: label-content-name-mismatch). -->
         <text
           :x="LABEL_WIDTH - 8"
           :y="BAR_H / 2 + 4"
@@ -109,8 +137,7 @@ function activate(item: BarChartHItem) {
           class="bar-chart-h__label"
         >
           {{ item.label }}
-        </text>
-        <rect
+        </text>&#32;<rect
           :x="LABEL_WIDTH"
           y="0"
           :width="Math.max(1, barWidth(item.value))"

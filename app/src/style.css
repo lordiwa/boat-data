@@ -13,6 +13,13 @@
   --color-brand: #0b5d63;
   --color-brand-light: #e4f2f1;
   --color-accent: #b3541e;
+  /* TASK-018: same hue as --color-accent, darkened so accent-colored *text*
+     sitting on the accent's own light tinted backgrounds (badges, the
+     conflicting-data-source summary chip) reaches the WCAG AA 4.5:1 text
+     contrast ratio — --color-accent itself only measures ~4.2:1 on those
+     tints, just under AA. Don't use this for accent used as a plain
+     background/border color; it's specifically for text-on-accent-tint. */
+  --color-accent-text: #8a4216;
   --font-serif: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --radius: 10px;
@@ -64,6 +71,22 @@ a:hover {
 
 p {
   margin: 0 0 1em;
+}
+
+/* TASK-018: visually hides content while keeping it in the accessibility
+   tree — e.g. a <table>'s <caption> that restates a heading already shown
+   on screen, or any other text that's redundant for sighted users but is
+   the only way a screen reader announces a table's purpose. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .container {

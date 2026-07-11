@@ -373,7 +373,9 @@ function highlightParts(name: string, q: string): NamePart[] {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: var(--color-accent);
+  /* TASK-018: --color-accent-text (not --color-accent) — see style.css's
+     comment on that token; plain --color-accent only reaches ~4.2:1 here. */
+  color: var(--color-accent-text);
   background: rgba(179, 84, 30, 0.12);
   border-radius: 999px;
   padding: 0.1rem 0.5rem;

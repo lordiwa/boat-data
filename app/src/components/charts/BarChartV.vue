@@ -46,6 +46,13 @@ const totalWidth = computed(() => AXIS_GUTTER_LEFT + Math.max(1, props.buckets.l
 const totalHeight = CHART_HEIGHT + AXIS_GUTTER_BOTTOM;
 const plotHeight = CHART_HEIGHT - VALUE_LABEL_GAP;
 
+// TASK-018: see BarChartH.vue's identical comment — role="img" and a real
+// focusable, role="link" descendant are a genuine conflict (axe:
+// nested-interactive), not just a lint nit: an "image" role isn't supposed
+// to expose interactive children to assistive tech at all. Use a labelled
+// group instead whenever any bucket links somewhere.
+const hasLinks = computed(() => props.buckets.some((b) => !!b.link));
+
 function barHeight(value: number): number {
   if (value === 0) return 0;
   return (value / maxValue.value) * (plotHeight - 4);
@@ -56,7 +63,9 @@ function valueLabel(bucket: BarChartVBucket): string {
 }
 
 function bucketAriaLabel(bucket: BarChartVBucket): string {
-  return `${bucket.label}: ${valueLabel(bucket)}${bucket.link ? ' — view matching entries' : ''}`;
+  // TASK-018: no colon — see the matching comment on the <text> elements
+  // above and BarChartH.vue's identical rowAriaLabel fix.
+  return `${bucket.label} ${valueLabel(bucket)}${bucket.link ? ' — view matching entries' : ''}`;
 }
 
 function activate(bucket: BarChartVBucket) {
@@ -66,7 +75,7 @@ function activate(bucket: BarChartVBucket) {
 </script>
 
 <template>
-  <figure class="bar-chart-v" role="img" :aria-label="title || 'Histogram'">
+  <figure class="bar-chart-v" :role="hasLinks ? 'group' : 'img'" :aria-label="title || 'Histogram'">
     <svg
       :viewBox="`0 0 ${totalWidth} ${totalHeight}`"
       :width="totalWidth"
@@ -110,15 +119,25 @@ function activate(bucket: BarChartVBucket) {
         @keydown.space.prevent="activate(bucket)"
       >
         <title>{{ bucketAriaLabel(bucket) }}</title>
+        <!-- TASK-018: label <text> before the value <text> in document order
+             (was value-then-label) so the two visible text nodes read
+             contiguously as "{label} {value}", matching bucketAriaLabel
+             below — WCAG 2.5.3 / axe's label-content-name-mismatch expects
+             the accessible name to contain the element's visible text
+             verbatim, in DOM order. Reordering these two absolutely
+             positioned (x/y) elements doesn't move either one on screen.
+             The "&#32;" after this <text>'s closing tag is a literal space
+             *text node*, deliberately outside any <text>/<tspan> (so SVG
+             never paints it) — see BarChartH.vue's identical comment for
+             why it's needed for axe to see "{label} {value}" as one run. -->
         <text
           :x="BAR_AREA_WIDTH / 2 - 4"
-          :y="CHART_HEIGHT - barHeight(bucket.value) - 6"
+          :y="CHART_HEIGHT + 18"
           text-anchor="middle"
-          class="bar-chart-v__value"
+          class="bar-chart-v__label"
         >
-          {{ formatNumber(bucket.value) }}
-        </text>
-        <rect
+          {{ bucket.label }}
+        </text>&#32;<rect
           :x="8"
           :y="CHART_HEIGHT - barHeight(bucket.value)"
           :width="BAR_AREA_WIDTH - 16"
@@ -128,11 +147,11 @@ function activate(bucket: BarChartVBucket) {
         />
         <text
           :x="BAR_AREA_WIDTH / 2 - 4"
-          :y="CHART_HEIGHT + 18"
+          :y="CHART_HEIGHT - barHeight(bucket.value) - 6"
           text-anchor="middle"
-          class="bar-chart-v__label"
+          class="bar-chart-v__value"
         >
-          {{ bucket.label }}
+          {{ formatNumber(bucket.value) }}
         </text>
       </g>
     </svg>

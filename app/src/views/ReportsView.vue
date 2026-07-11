@@ -214,7 +214,10 @@ function onPrintReports() {
 }
 
 .report-card__note {
-  color: var(--color-accent);
+  /* TASK-018: --color-accent-text (not --color-accent) — see style.css's
+     comment on that token; plain --color-accent only reaches ~4.5:1 here,
+     right at the AA boundary with no safety margin. */
+  color: var(--color-accent-text);
   font-size: 0.85rem;
   font-weight: 600;
   margin: 0;
@@ -277,15 +280,5 @@ function onPrintReports() {
   font-weight: 600;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+/* .sr-only is now a global utility class (see src/style.css) — TASK-018. */
 </style>
