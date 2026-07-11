@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T09:30:16.938Z",
+  "generated_at": "2026-07-11T19:28:09.367Z",
   "byType": [
     {
       "type": "yacht",
-      "count": 580,
-      "attrPct": 28.13,
-      "edgePct": 93.79,
-      "score": 4.78
+      "count": 581,
+      "attrPct": 29.63,
+      "edgePct": 98.62,
+      "score": 5.03
     },
     {
       "type": "shipyard",
@@ -31,9 +31,9 @@
     },
     {
       "type": "company",
-      "count": 795,
+      "count": 796,
       "attrPct": 61.01,
-      "edgePct": 35.85,
+      "edgePct": 35.93,
       "score": 5.35
     },
     {
@@ -47,8 +47,8 @@
       "type": "person",
       "count": 86,
       "attrPct": 89.24,
-      "edgePct": 90.7,
-      "score": 8.97
+      "edgePct": 98.84,
+      "score": 9.21
     },
     {
       "type": "club",
@@ -82,26 +82,26 @@
       "type": "part",
       "count": 111,
       "attrPct": 100,
-      "edgePct": 0,
-      "score": 7
+      "edgePct": 0.9,
+      "score": 7.03
     },
     {
       "type": "size_class",
       "count": 4,
       "attrPct": 100,
-      "edgePct": 0,
-      "score": 7
+      "edgePct": 100,
+      "score": 10
     }
   ],
-  "overall_all_nodes": 6.9,
-  "overall_identifiable_only": 7.22,
+  "overall_all_nodes": 7.03,
+  "overall_identifiable_only": 7.36,
   "yacht_identifiable_only": {
     "type": "yacht",
-    "count": 232,
-    "attrPct": 53.17,
-    "edgePct": 96.98,
-    "score": 6.63
+    "count": 238,
+    "attrPct": 55.85,
+    "edgePct": 100,
+    "score": 6.91
   },
-  "yacht_fragments": 348,
-  "overall": 6.9
+  "yacht_fragments": 343,
+  "overall": 7.03
 }
