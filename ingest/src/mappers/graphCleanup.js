@@ -66,14 +66,39 @@ function getFullNode(db, id) {
 }
 
 /**
+ * Unions two provenance arrays (dedupe-preserving order: canonical's
+ * entries first, then any new ones from the duplicate) — TASK-019 LOW
+ * carry-forward: a whole-key first-non-empty-wins merge (the generic rule
+ * every other attr uses) would silently DROP the duplicate's entire
+ * provenance trail whenever the canonical already had one of its own.
+ */
+function unionProvenance(a, b) {
+  const listA = Array.isArray(a) ? a : [];
+  const listB = Array.isArray(b) ? b : [];
+  const merged = [...listA];
+  for (const entry of listB) {
+    if (!merged.includes(entry)) merged.push(entry);
+  }
+  return merged;
+}
+
+/**
  * Re-points every edge referencing `fromId` (as src OR dst) onto `toId`,
  * merges `fromId`'s attrs onto `toId` (first-non-empty-wins, `toId`'s own
- * values take precedence on conflict), then deletes `fromId`. No-op
- * (returns false) if `fromId` is absent (already merged, or never existed
- * in a smaller/synthetic graph) or `toId` is absent (the canonical target
- * must already exist — this hook runs after all files are processed, so a
- * missing canonical means the corpus doesn't have that builder at all,
- * and merging into a non-existent node would just create dangling edges).
+ * values take precedence on conflict, EXCEPT `provenance` which is always
+ * UNIONED rather than first-wins — see unionProvenance above), then
+ * deletes `fromId`. No-op (returns false) if `fromId` is absent (already
+ * merged, or never existed in a smaller/synthetic graph) or `toId` is
+ * absent (the canonical target must already exist — this hook runs after
+ * all files are processed, so a missing canonical means the corpus
+ * doesn't have that node at all, and merging into a non-existent node
+ * would just create dangling edges).
+ *
+ * TASK-019 LOW carry-forward: if the canonical node ends the merge with NO
+ * provenance trace at all (neither side ever recorded one — e.g. both
+ * nodes were minted directly by a test or a hand-seeded fixture rather
+ * than a mapper), it is stamped with `['graph-cleanup-merge']` rather than
+ * silently left without any provenance.
  */
 function mergeNode(db, fromId, toId) {
   if (fromId === toId) return false;
@@ -98,8 +123,12 @@ function mergeNode(db, fromId, toId) {
   const toAttrs = parseAttrsJson(toRow.attrs_json);
   const mergedAttrs = { ...toAttrs };
   for (const key of Object.keys(fromAttrs)) {
+    if (key === 'provenance') continue; // handled separately below (union, not first-wins)
     if (mergedAttrs[key] === null || mergedAttrs[key] === undefined) mergedAttrs[key] = fromAttrs[key];
   }
+
+  const unionedProvenance = unionProvenance(toAttrs.provenance, fromAttrs.provenance);
+  mergedAttrs.provenance = unionedProvenance.length > 0 ? unionedProvenance : ['graph-cleanup-merge'];
 
   upsertNode(db, { id: toId, type: toRow.type, name: toRow.name, attrs: mergedAttrs });
   db.prepare('DELETE FROM nodes WHERE id = ?').run(fromId);
@@ -342,12 +371,89 @@ function fixWeichaiMerge(db) {
   upsertNode(db, { id: canonicalId, type: row.type, name: 'Weichai Holding Group Co., Ltd.', attrs });
 }
 
+// --- 4. TASK-020: yacht rename/duplicate merges --------------------------
+// Grounded in research/round3/yacht-specs.md's "Renames found" section
+// (the first 4 pairs — same real hull, old-name and current-name nodes
+// both already existed separately in the graph) plus two further
+// ingestion-artifact duplicates the same research pass flagged by name
+// ("Graph has 2 duplicate nodes for this yacht" / a `-<builder-slug>`
+// id-collision suffix on an identical-LOA same-name pair). The renamed
+// hull's `former_names` attr (populated by yachtSpecMapper.js's
+// FORMER_NAMES_MAP) always lands on the CANONICAL (`to`) side.
+//
+// Deliberately NOT merged this round (see knowledge/93's own Curation
+// notes for the full reasoning): the two "Kismet" nodes for DIFFERENT real
+// yachts (122m current vs the 95m ex-Kismet/now-Whisper hull — only the
+// LATTER is merged below, onto Whisper, never onto the 122m node); the two
+// "Ulysses"-adjacent nodes (Multiverse's former identity has no separate
+// existing node to merge); "Sophia" (108m vs 97m) — flagged as only
+// "likely" the same mis-scaled hull, not a "confirmed" rename, left for a
+// future pass.
+export const YACHT_MERGE_MAP = [
+  { from: 'yacht:jubilee', to: 'yacht:kaos' },
+  // Same hull, two ids from an id-collision suffix (yachtMapper.js mints a
+  // `-<builder-slug>` suffix when a same-named row looks like a possibly-
+  // different yacht) — 110m vs 110.1m, well within realistic cross-source
+  // rounding drift for the same 2017 Oceanco hull.
+  { from: 'yacht:kaos-custom', to: 'yacht:kaos' },
+  { from: 'yacht:lana', to: 'yacht:mar' },
+  { from: 'yacht:cc-summer', to: 'yacht:madsummer' },
+  // The GRAPH's 95m "Kismet" node (Lürssen 2014) is the SAME hull as its
+  // separately-existing "Whisper" node (renamed 2023) — NOT the current,
+  // unrelated 122m "Kismet" (Shahid Khan's new yacht), which this merge
+  // map never references and leaves completely untouched.
+  { from: 'yacht:kismet-lurssen', to: 'yacht:whisper' },
+  // "Graph has 2 duplicate nodes for this yacht" (research/round3/
+  // yacht-specs.md, Prince Abdulaziz row) — same 147m Helsingør Værft hull.
+  { from: 'yacht:prince-abdulaziz-helsingor-vaerft', to: 'yacht:prince-abdulaziz' },
+];
+
+// --- 5. TASK-020: Rybovich marina merge -----------------------------------
+// research/round3/marina-enrichment.md's own enrichment-table row:
+// "Safe Harbor Rybovich (= 'Rybovich Superyacht Marina' dup node)" — same
+// West Palm Beach facility, acquired by Safe Harbor in 2021. Canonical =
+// the current post-acquisition operating name.
+export const MARINA_MERGE_MAP = [{ from: 'marina:rybovich-superyacht-marina', to: 'marina:safe-harbor-rybovich' }];
+
+// --- 6. TASK-020: data-quality flags (RIO, MOSAIQUE) ----------------------
+// research/round3/yacht-specs.md's Coverage notes: "The RIO node (203m in
+// the graph) could not be matched to any real 203m yacht — every source
+// found for 'RIO' describes a 62m CRN motor yacht... looks like a data/
+// parsing error" and "the only well-documented 'Mosaique' found is a
+// 49.9m Turquoise Yachts vessel... The 164m graph value could not be
+// corroborated; likely a data/parse error." Per the ticket: flag, don't
+// delete (no grounding to justify removal, only suspicion) — a small,
+// curated mechanism (this map), never a hand-edit of graph.json.
+export const QUALITY_FLAGS = [
+  {
+    id: 'yacht:rio',
+    dataQuality: 'unverified — no matching real vessel found (2026-07 research pass)',
+  },
+  {
+    id: 'yacht:mosaique',
+    dataQuality: 'unverified — no matching real vessel found (2026-07 research pass)',
+  },
+];
+
+function applyDataQualityFlags(db) {
+  for (const { id, dataQuality } of QUALITY_FLAGS) {
+    if (!nodeExists(db, id)) continue;
+    const row = getFullNode(db, id);
+    const attrs = parseAttrsJson(row.attrs_json);
+    attrs.data_quality = dataQuality;
+    upsertNode(db, { id, type: row.type, name: row.name, attrs });
+  }
+}
+
 /**
  * Runs the full graph cleanup pass (see module header): duplicate builder
  * merges, suspect-node reclassification/removal/flagging, the two special
- * cross-type fixes, and the Weichai company merge. Idempotent — safe to
- * call after every ingest run (a repeat call is a no-op: every merge
- * source/suspect id has already been deleted).
+ * cross-type fixes, the Weichai company merge, TASK-020's yacht rename/
+ * duplicate merges, the Rybovich marina merge, and the RIO/MOSAIQUE
+ * data-quality flags. Idempotent — safe to call after every ingest run (a
+ * repeat call is a no-op: every merge source/suspect id has already been
+ * deleted, and re-flagging an already-flagged node is a harmless no-op
+ * overwrite of the same string).
  */
 export function applyGraphCleanup(db) {
   for (const { from, to } of BUILDER_MERGE_MAP) {
@@ -358,4 +464,14 @@ export function applyGraphCleanup(db) {
   fixWinchDesignVard(db);
   fixNavalInspiredArtifact(db);
   fixWeichaiMerge(db);
+
+  for (const { from, to } of YACHT_MERGE_MAP) {
+    mergeNode(db, from, to);
+  }
+
+  for (const { from, to } of MARINA_MERGE_MAP) {
+    mergeNode(db, from, to);
+  }
+
+  applyDataQualityFlags(db);
 }

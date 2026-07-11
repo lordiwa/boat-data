@@ -339,6 +339,142 @@ describe('applyGraphCleanup — idempotency', () => {
   });
 });
 
+// --- TASK-020 additions ----------------------------------------------
+
+describe('applyGraphCleanup — yacht rename/duplicate merges (TASK-020)', () => {
+  it('merges Jubilee (old name) into Kaos (current name), preserving edges', () => {
+    upsertNode(db, { id: 'yacht:jubilee', type: 'yacht', name: 'Jubilee' });
+    upsertNode(db, { id: 'yacht:kaos', type: 'yacht', name: 'Kaos', attrs: { former_names: ['Jubilee', 'Secret III'] } });
+    upsertNode(db, { id: 'builder:oceanco', type: 'builder', name: 'Oceanco' });
+    upsertEdge(db, { src: 'yacht:jubilee', rel: 'built_by', dst: 'builder:oceanco' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:jubilee')).toBe(false);
+    expect(edgeExists('yacht:kaos', 'built_by', 'builder:oceanco')).toBe(true);
+    expect(getNode('yacht:kaos').attrs.former_names).toEqual(['Jubilee', 'Secret III']);
+  });
+
+  it('merges the Kaos/Kaos-custom id-collision duplicate into the canonical Kaos node', () => {
+    upsertNode(db, { id: 'yacht:kaos', type: 'yacht', name: 'Kaos' });
+    upsertNode(db, { id: 'yacht:kaos-custom', type: 'yacht', name: 'Kaos' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:kaos-custom')).toBe(false);
+    expect(nodeExists('yacht:kaos')).toBe(true);
+  });
+
+  it('merges Lana into Mar, CC-Summer into Madsummer, and Kismet(95m)/kismet-lurssen into Whisper', () => {
+    upsertNode(db, { id: 'yacht:lana', type: 'yacht', name: 'Lana' });
+    upsertNode(db, { id: 'yacht:mar', type: 'yacht', name: 'Mar' });
+    upsertNode(db, { id: 'yacht:cc-summer', type: 'yacht', name: 'CC-Summer' });
+    upsertNode(db, { id: 'yacht:madsummer', type: 'yacht', name: 'Madsummer' });
+    upsertNode(db, { id: 'yacht:kismet-lurssen', type: 'yacht', name: 'Kismet' });
+    upsertNode(db, { id: 'yacht:whisper', type: 'yacht', name: 'Whisper' });
+    upsertNode(db, { id: 'yacht:kismet', type: 'yacht', name: 'Kismet' }); // the OTHER, current, unrelated 122m Kismet
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:lana')).toBe(false);
+    expect(nodeExists('yacht:mar')).toBe(true);
+    expect(nodeExists('yacht:cc-summer')).toBe(false);
+    expect(nodeExists('yacht:madsummer')).toBe(true);
+    expect(nodeExists('yacht:kismet-lurssen')).toBe(false);
+    expect(nodeExists('yacht:whisper')).toBe(true);
+    // The CURRENT, unrelated 122m "Kismet" must be left completely untouched.
+    expect(nodeExists('yacht:kismet')).toBe(true);
+  });
+
+  it('merges the Prince Abdulaziz duplicate pair', () => {
+    upsertNode(db, { id: 'yacht:prince-abdulaziz', type: 'yacht', name: 'Prince Abdulaziz' });
+    upsertNode(db, { id: 'yacht:prince-abdulaziz-helsingor-vaerft', type: 'yacht', name: 'Prince Abdulaziz' });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:prince-abdulaziz-helsingor-vaerft')).toBe(false);
+    expect(nodeExists('yacht:prince-abdulaziz')).toBe(true);
+  });
+});
+
+describe('applyGraphCleanup — Rybovich marina merge (TASK-020)', () => {
+  it('merges marina:rybovich-superyacht-marina into marina:safe-harbor-rybovich with provenance', () => {
+    upsertNode(db, {
+      id: 'marina:rybovich-superyacht-marina',
+      type: 'marina',
+      name: 'Rybovich Superyacht Marina',
+      attrs: { address: '4200 N Flagler Dr, West Palm Beach', provenance: ['71_file.md'] },
+    });
+    upsertNode(db, {
+      id: 'marina:safe-harbor-rybovich',
+      type: 'marina',
+      name: 'Safe Harbor Rybovich',
+      attrs: { phone: '+1 561-840-8190', provenance: ['16_file.md'] },
+    });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('marina:rybovich-superyacht-marina')).toBe(false);
+    const canonical = getNode('marina:safe-harbor-rybovich');
+    expect(canonical.attrs.address).toBe('4200 N Flagler Dr, West Palm Beach');
+    expect(canonical.attrs.phone).toBe('+1 561-840-8190');
+    // Provenance UNION (TASK-019 LOW carry-forward), not first-non-empty-wins.
+    expect(canonical.attrs.provenance).toEqual(expect.arrayContaining(['71_file.md', '16_file.md']));
+  });
+});
+
+describe('applyGraphCleanup — data quality flags (RIO, MOSAIQUE)', () => {
+  it('flags yacht:rio and yacht:mosaique with a data_quality attr, without deleting either node', () => {
+    upsertNode(db, { id: 'yacht:rio', type: 'yacht', name: 'RIO', attrs: { loa: { meters: 203, raw: '203m' } } });
+    upsertNode(db, { id: 'yacht:mosaique', type: 'yacht', name: 'MOSAIQUE', attrs: { loa: { meters: 164, raw: '164m' } } });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:rio')).toBe(true);
+    expect(nodeExists('yacht:mosaique')).toBe(true);
+    expect(getNode('yacht:rio').attrs.data_quality).toMatch(/unverified/i);
+    expect(getNode('yacht:mosaique').attrs.data_quality).toMatch(/unverified/i);
+    // The pre-existing loa attr must survive untouched.
+    expect(getNode('yacht:rio').attrs.loa.meters).toBe(203);
+  });
+
+  it('is a no-op (does not throw) when RIO/MOSAIQUE are absent from a smaller/synthetic graph', () => {
+    expect(() => applyGraphCleanup(db)).not.toThrow();
+  });
+});
+
+describe('mergeNode — provenance handling (TASK-019 LOW carry-forwards)', () => {
+  it('unions provenance arrays from both sides rather than first-non-empty-wins clobbering the duplicate\'s trail', () => {
+    upsertNode(db, {
+      id: 'builder:crn',
+      type: 'builder',
+      name: 'CRN',
+      attrs: { provenance: ['91_builder_enrichment.md'] },
+    });
+    upsertNode(db, {
+      id: 'builder:crn-yachts',
+      type: 'builder',
+      name: 'CRN Yachts',
+      attrs: { provenance: ['some_other_file.md'] },
+    });
+
+    applyGraphCleanup(db);
+
+    const canonical = getNode('builder:crn-yachts');
+    expect(canonical.attrs.provenance).toEqual(expect.arrayContaining(['91_builder_enrichment.md', 'some_other_file.md']));
+  });
+
+  it('stamps provenance [\'graph-cleanup-merge\'] on a canonical node that ends a merge with no provenance trace at all', () => {
+    upsertNode(db, { id: 'builder:crn', type: 'builder', name: 'CRN' }); // no attrs at all
+    upsertNode(db, { id: 'builder:crn-yachts', type: 'builder', name: 'CRN Yachts' }); // no attrs at all
+
+    applyGraphCleanup(db);
+
+    const canonical = getNode('builder:crn-yachts');
+    expect(canonical.attrs.provenance).toEqual(['graph-cleanup-merge']);
+  });
+});
+
 describe('module importability', () => {
   it('exposes applyGraphCleanup as a named export', async () => {
     const mod = await import('../src/mappers/graphCleanup.js');

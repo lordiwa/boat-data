@@ -1,13 +1,13 @@
 // ingest/tests/guardCollisions.spec.js
 //
-// TASK-017/TASK-019: a cross-guard collision matrix. Every mapper's schema
-// guard must claim ONLY its own real-shaped table — never a table shaped
-// for one of the other entity types. Each individual mapper spec file
-// already spot-checks a couple of these pairs; this file is the single
-// place that proves the FULL matrix (TASK-019: 12 guards x 12 real-shaped
-// fixtures), so a new guard added in the future has an obvious place to
-// add its own row/column rather than requiring every existing spec file to
-// be hunted down and updated by hand.
+// TASK-017/TASK-019/TASK-020: a cross-guard collision matrix. Every
+// mapper's schema guard must claim ONLY its own real-shaped table — never
+// a table shaped for one of the other entity types. Each individual mapper
+// spec file already spot-checks a couple of these pairs; this file is the
+// single place that proves the FULL matrix (TASK-020: 14 guards x 14 real-
+// shaped fixtures), so a new guard added in the future has an obvious
+// place to add its own row/column rather than requiring every existing
+// spec file to be hunted down and updated by hand.
 //
 // yachtMapper.js doesn't export its own guard function (ingest.js keeps a
 // small private duplicate — see ingest.js's own module-header comment on
@@ -26,6 +26,8 @@ import { isPartTable } from '../src/mappers/partMapper.js';
 import { isSizeClassTable } from '../src/mappers/sizeClassMapper.js';
 import { isBuilderEnrichmentTable } from '../src/mappers/builderEnrichmentMapper.js';
 import { isDesignerTable } from '../src/mappers/designerMapper.js';
+import { isYachtSpecTable } from '../src/mappers/yachtSpecMapper.js';
+import { isMarinaEnrichmentTable } from '../src/mappers/marinaMapper.js';
 
 // Mirrors ingest.js's own private isYachtTable exactly (see that file's
 // module header for why it can't import yachtMapper's internal check).
@@ -49,6 +51,8 @@ const GUARDS = {
   sizeClass: isSizeClassTable,
   builderEnrichment: isBuilderEnrichmentTable,
   designer: isDesignerTable,
+  yachtSpec: isYachtSpecTable,
+  marinaEnrichment: isMarinaEnrichmentTable,
 };
 
 // One real-shaped, single-table fixture per entity type (verbatim/close-to
@@ -114,6 +118,16 @@ const FIXTURES = {
 | Designer | Country | City | Founded | Discipline | Notable Yachts | Status | Website | Notes |
 |---|---|---|---|---|---|---|---|---|
 | Bannenberg & Rowell | UK | London | 2003 | exterior design, interior design | Joy, Elandess 2 | active | bannenbergandrowell.com | Direct descendant studio |
+`,
+  yachtSpec: `
+| Yacht | Builder | Year | LOA (m) | Beam (m) | Draft (m) | GT | Max Speed (kn) | Range (nm) | Flag | Class Society | IMO | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Azzam | Lürssen | 2013 | 180 | 20.8 | 4.3 | 13,136 | 32+ | | Abu Dhabi, UAE | | 9693367 | World's longest private motor yacht. |
+`,
+  marinaEnrichment: `
+| Marina | Country | City | Berths | Max LOA (m) | Max Draft (m) | Fuel Dock | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Marina Ibiza | Spain | Ibiza Town, Balearic Islands | 85 | 60 | 10 | Yes | marinaibiza.com | Formerly "Ibiza Magna." |
 `,
 };
 

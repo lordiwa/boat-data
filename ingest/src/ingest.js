@@ -6,9 +6,9 @@
 // tables, and routes every table to exactly one entity mapper by schema
 // guard, in precedence order: yacht > club > marina > company > engine >
 // shipyard > engine-manufacturer > engine-model > part > size-class >
-// builder-enrichment > designer. A table that matches none of the twelve
-// schemas is skipped and counted (diagnostic only — never silently dropped
-// from the log).
+// builder-enrichment > designer > yacht-spec > marina-enrichment. A table
+// that matches none of the fourteen schemas is skipped and counted
+// (diagnostic only — never silently dropped from the log).
 //
 // TASK-016 adds shipyardMapper LAST in precedence (a highly specific guard
 // per its own module header — see shipyardMapper.js for the full
@@ -38,17 +38,23 @@
 // a hand-grounded handful of OEM_SUPPLIES edges between engine brands.
 //
 // TASK-019 adds two more guards (builderEnrichmentMapper.js,
-// designerMapper.js — see each module's own header for the full guard-
-// collision analysis, now a 12x12 matrix in
-// ingest/tests/guardCollisions.spec.js) PLUS a graph-cleanup retrofit hook
-// (graphCleanup.js's applyGraphCleanup(), same "run once after every file"
-// pattern as linkYachtRegions/linkEngineOemSupplies): merges ~15 duplicate
-// builder-entity pairs, reclassifies/removes/flags 13 suspect non-builder
-// nodes, fixes the Winch Design/Vard conflated node and the "(Naval-
-// inspired)" designer artifact, and merges the Weichai company duplicate —
-// see graphCleanup.js's own module header for the full per-node rationale.
-// Deliberately run LAST (after every other hook), since it deletes/retypes
-// nodes that earlier hooks (and every mapper) must still see intact.
+// designerMapper.js) PLUS a graph-cleanup retrofit hook (graphCleanup.js's
+// applyGraphCleanup(), same "run once after every file" pattern as
+// linkYachtRegions/linkEngineOemSupplies): merges ~15 duplicate builder-
+// entity pairs, reclassifies/removes/flags 13 suspect non-builder nodes,
+// fixes the Winch Design/Vard conflated node and the "(Naval-inspired)"
+// designer artifact, and merges the Weichai company duplicate — see
+// graphCleanup.js's own module header for the full per-node rationale.
+//
+// TASK-020 adds two more guards (yachtSpecMapper.js, marinaMapper.js's
+// second guard isMarinaEnrichmentTable — see each module's own header for
+// the full guard-collision analysis, now a 14x14 matrix in
+// ingest/tests/guardCollisions.spec.js) and extends graphCleanup.js with a
+// yacht rename/duplicate merge map, a Rybovich marina merge, and a small
+// RIO/MOSAIQUE data-quality-flag map. graphCleanup.js's applyGraphCleanup()
+// is deliberately run LAST (after every other hook), since it deletes/
+// retypes/flags nodes that earlier hooks (and every mapper) must still see
+// intact.
 //
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
@@ -83,7 +89,7 @@ import { parseTables } from './parsers/tableParser.js';
 import { detectProseSheets } from './parsers/proseParser.js';
 import { mapYachtTables } from './mappers/yachtMapper.js';
 import { mapClubTables, isClubTable } from './mappers/clubMapper.js';
-import { mapMarinaTables, isMarinaTable } from './mappers/marinaMapper.js';
+import { mapMarinaTables, isMarinaTable, mapMarinaEnrichmentTables, isMarinaEnrichmentTable } from './mappers/marinaMapper.js';
 import { mapCompanyTables, isCompanyTable } from './mappers/companyMapper.js';
 import {
   mapEngineTables,
@@ -98,6 +104,7 @@ import { mapPartTables, isPartTable } from './mappers/partMapper.js';
 import { mapSizeClassTables, isSizeClassTable } from './mappers/sizeClassMapper.js';
 import { mapBuilderEnrichmentTables, isBuilderEnrichmentTable } from './mappers/builderEnrichmentMapper.js';
 import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js';
+import { mapYachtSpecTables, isYachtSpecTable } from './mappers/yachtSpecMapper.js';
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
@@ -192,6 +199,8 @@ function routeTables(tables) {
     sizeClass: [],
     builderEnrichment: [],
     designer: [],
+    yachtSpec: [],
+    marinaEnrichment: [],
   };
   let skipped = 0;
 
@@ -208,6 +217,8 @@ function routeTables(tables) {
     else if (isSizeClassTable(table)) buckets.sizeClass.push(table);
     else if (isBuilderEnrichmentTable(table)) buckets.builderEnrichment.push(table);
     else if (isDesignerTable(table)) buckets.designer.push(table);
+    else if (isYachtSpecTable(table)) buckets.yachtSpec.push(table);
+    else if (isMarinaEnrichmentTable(table)) buckets.marinaEnrichment.push(table);
     else skipped += 1;
   }
 
@@ -387,6 +398,10 @@ export function runIngest() {
       builderEnrichmentMatched: 0,
       builderEnrichmentCreated: 0,
       designedBy: 0,
+      yachtSpecMatched: 0,
+      yachtSpecUnresolved: 0,
+      marinaEnrichmentMatched: 0,
+      marinaEnrichmentCreated: 0,
       edges: 0,
       skippedProseSheets: 0,
     };
@@ -472,6 +487,18 @@ export function runIngest() {
       totals.designers += designerResult.matched + designerResult.created;
       totals.designedBy += designerResult.designedByEdges;
       totals.edges += designerResult.designedByEdges;
+
+      // TASK-020: NEVER mints a yacht node (see yachtSpecMapper.js's own
+      // module header) — an unresolved row is counted separately, not
+      // folded into totals.yachts (which tracks yachtMapper's own minting).
+      const yachtSpecResult = mapYachtSpecTables(db, buckets.yachtSpec, fileName);
+      totals.yachtSpecMatched += yachtSpecResult.matched;
+      totals.yachtSpecUnresolved += yachtSpecResult.unresolved;
+
+      const marinaEnrichmentResult = mapMarinaEnrichmentTables(db, buckets.marinaEnrichment, fileName);
+      totals.marinaEnrichmentMatched += marinaEnrichmentResult.matched;
+      totals.marinaEnrichmentCreated += marinaEnrichmentResult.created;
+      totals.edges += marinaEnrichmentResult.edges;
 
       // Independent side-pass: does not consume from `buckets` / does not
       // affect `skipped` accounting (see module header).
