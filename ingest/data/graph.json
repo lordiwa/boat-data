@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T19:28:08.645Z",
+    "generated_at": "2026-07-11T19:46:15.398Z",
     "node_count": 4278,
-    "edge_count": 3108,
+    "edge_count": 3107,
     "types": {
       "builder": 160,
       "club": 360,
@@ -20,7 +20,7 @@
     },
     "edge_types": {
       "based_in": 42,
-      "built_by": 537,
+      "built_by": 536,
       "classified_as": 498,
       "designed_by": 88,
       "located_in": 1436,
@@ -1287,7 +1287,12 @@
       "attrs": {
         "provenance": [
           "graph-cleanup-merge"
-        ]
+        ],
+        "conflicts": {
+          "identity": [
+            "Distinct from marina:olympic-marine-lavrion (Olympic Marine S.A., a separate marina/boatyard complex in the same Lavrio, Greece waterfront cluster) — STAY-SPLIT: related-but-distinct roles (refit yard vs berthing facility); one secondary source hints at shared historical lineage but grounding is insufficient to assert they are the identical legal entity today. See research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1(f)."
+          ]
+        }
       }
     },
     {
@@ -34238,7 +34243,12 @@
         "notes": "Fuel, repairs, crane, Wi-Fi, shops",
         "provenance": [
           "35_Comprehensive_Greece_Yachting_Data_Report.md"
-        ]
+        ],
+        "conflicts": {
+          "identity": [
+            "Distinct from builder:olympic-yacht-services (Olympic Yacht Shipyard/OYS, a separate refit yard in the same Lavrio, Greece waterfront cluster) — STAY-SPLIT: related-but-distinct roles (berthing facility vs refit yard); one secondary source hints at shared historical lineage but grounding is insufficient to assert they are the identical legal entity today. See research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1(f)."
+          ]
+        }
       }
     },
     {
@@ -59910,6 +59920,12 @@
           "features": [
             "Modern amenities",
             "Modern"
+          ],
+          "gt": [
+            "2443"
+          ],
+          "range_nm": [
+            "8000"
           ]
         },
         "draft": {
@@ -64477,6 +64493,9 @@
           ],
           "beam": [
             "14.44"
+          ],
+          "gt": [
+            "2991"
           ]
         },
         "draft": {
@@ -70517,6 +70536,9 @@
           ],
           "loa": [
             "88 m (290 ft) (superseded — Confirmed exact LOA for the real Oceanco-built hull (Y710, delivered 2015 as Infinity) is 88.5m — the previously-stored 88m was a rounded figure. Corrected per research/round7/01_weakest_tier_yacht_specs.md's headline finding and research/round7/02_dupe_pairs_loa_carryover.md's Sub-task 1(a).)"
+          ],
+          "range_nm": [
+            "~6700 (estimate — not stored as a confirmed value; see source Notes)"
           ]
         },
         "draft": {
@@ -90325,12 +90347,6 @@
       "src": "yacht:lady-azul",
       "rel": "classified_as",
       "dst": "size_class:superyacht",
-      "attrs": {}
-    },
-    {
-      "src": "yacht:lady-beth",
-      "rel": "built_by",
-      "dst": "builder:custom",
       "attrs": {}
     },
     {
