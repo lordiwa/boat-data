@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T23:58:37.870Z",
+  "generated_at": "2026-07-11T00:20:49.469Z",
   "byType": [
     {
       "type": "yacht",
@@ -31,9 +31,9 @@
     },
     {
       "type": "company",
-      "count": 743,
-      "attrPct": 62.72,
-      "edgePct": 31.49,
+      "count": 740,
+      "attrPct": 62.84,
+      "edgePct": 31.22,
       "score": 5.34
     },
     {
@@ -74,9 +74,9 @@
     {
       "type": "engine_model",
       "count": 37,
-      "attrPct": 97.3,
+      "attrPct": 96.76,
       "edgePct": 100,
-      "score": 9.81
+      "score": 9.77
     },
     {
       "type": "part",

@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-07-10T23:56:46.019Z",
-    "node_count": 4188,
+    "generated_at": "2026-07-11T00:19:48.400Z",
+    "node_count": 4185,
     "edge_count": 2399,
     "types": {
       "builder": 186,
       "club": 368,
-      "company": 743,
+      "company": 740,
       "designer": 10,
       "engine": 59,
       "engine_model": 37,
@@ -8820,17 +8820,6 @@
       }
     },
     {
-      "id": "company:brunswick-corporation-mercury-marine",
-      "type": "company",
-      "name": "Brunswick Corporation (Mercury Marine)",
-      "attrs": {
-        "kind": "engine parent company",
-        "provenance": [
-          "89_Global_Marine_Engine_Manufacturer_Directory.md"
-        ]
-      }
-    },
-    {
       "id": "company:bsibroker-co-th",
       "type": "company",
       "name": "bsibroker.co.th",
@@ -9405,20 +9394,9 @@
       }
     },
     {
-      "id": "company:correct-craft-liberty-technologies",
+      "id": "company:correct-craft",
       "type": "company",
-      "name": "Correct Craft (Liberty Technologies)",
-      "attrs": {
-        "kind": "engine parent company",
-        "provenance": [
-          "89_Global_Marine_Engine_Manufacturer_Directory.md"
-        ]
-      }
-    },
-    {
-      "id": "company:correct-craft-via-subsidiary-liberty-technologies",
-      "type": "company",
-      "name": "Correct Craft (via subsidiary Liberty Technologies)",
+      "name": "Correct Craft",
       "attrs": {
         "kind": "engine parent company",
         "provenance": [
@@ -16294,9 +16272,9 @@
       }
     },
     {
-      "id": "company:tohatsu-corporation-jv-with-brunswick-since-1988",
+      "id": "company:tohatsu",
       "type": "company",
-      "name": "Tohatsu Corporation (JV with Brunswick since 1988)",
+      "name": "Tohatsu",
       "attrs": {
         "kind": "engine parent company",
         "provenance": [
@@ -16305,9 +16283,9 @@
       }
     },
     {
-      "id": "company:tohatsu-rebadge-program",
+      "id": "company:tohatsu-corporation-jv-with-brunswick-since-1988",
       "type": "company",
-      "name": "Tohatsu (rebadge program)",
+      "name": "Tohatsu Corporation (JV with Brunswick since 1988)",
       "attrs": {
         "kind": "engine parent company",
         "provenance": [
@@ -16677,17 +16655,6 @@
       }
     },
     {
-      "id": "company:volvo-group-volvo-penta-formerly-independent",
-      "type": "company",
-      "name": "Volvo Group (Volvo Penta), formerly independent",
-      "attrs": {
-        "kind": "engine parent company",
-        "provenance": [
-          "89_Global_Marine_Engine_Manufacturer_Directory.md"
-        ]
-      }
-    },
-    {
       "id": "company:vscomm-co-th",
       "type": "company",
       "name": "vscomm.co.th",
@@ -16843,9 +16810,9 @@
       }
     },
     {
-      "id": "company:weichai-group-acquired-2009",
+      "id": "company:weichai-group",
       "type": "company",
-      "name": "Weichai Group (acquired 2009)",
+      "name": "Weichai Group",
       "attrs": {
         "kind": "engine parent company",
         "provenance": [
@@ -17995,7 +17962,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "~350–2,600 hp",
-        "notes": "Founded by Charles Baudouin in Marseille (HQ later moved to Cassis); built low-speed diesels for fishing fleets from the outset; Weichai bought the company for $3.8M in 2009 and invested in a new Cassis R&D center; developing LNG/diesel marine engines post-acquisition",
+        "notes": "Acquired by Weichai in 2009. Founded by Charles Baudouin in Marseille (HQ later moved to Cassis); built low-speed diesels for fishing fleets from the outset; Weichai bought the company for $3.8M in 2009 and invested in a new Cassis R&D center; developing LNG/diesel marine engines post-acquisition",
         "country": "France",
         "founded": "1918",
         "engine_types": [
@@ -18526,7 +18493,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "~220–575+ hp (LS-based)",
-        "notes": "Founded by Dick Rowe (Marine Corps veteran) in Millington, TN; world's largest privately-held gasoline inboard maker before the 2022 Correct Craft acquisition; first inboard maker with fuel injection and with a catalyzed exhaust (now industry standard)",
+        "notes": "Held via Correct Craft's Liberty Technologies subsidiary. Founded by Dick Rowe (Marine Corps veteran) in Millington, TN; world's largest privately-held gasoline inboard maker before the 2022 Correct Craft acquisition; first inboard maker with fuel injection and with a catalyzed exhaust (now industry standard)",
         "country": "USA",
         "founded": "1971",
         "engine_types": [
@@ -18727,7 +18694,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "~135–430+ hp (gas)",
-        "notes": "Took the lead in sterndrives within a year of entering the segment; MerCruiser line later held 80%+ world sterndrive share per company/industry accounts",
+        "notes": "Marketed under Mercury Marine. Took the lead in sterndrives within a year of entering the segment; MerCruiser line later held 80%+ world sterndrive share per company/industry accounts",
         "country": "USA",
         "founded": "~1961 (sterndrive line)",
         "engine_types": [
@@ -18899,7 +18866,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "2.5–140 hp (same as Tohatsu)",
-        "notes": "All Nissan-branded outboards sold in North America/Australia were rebadged Tohatsus, differing only in decals/cowling color",
+        "notes": "Rebadge program (not a corporate subsidiary): all Nissan-branded outboards sold in North America/Australia were rebadged Tohatsus, differing only in decals/cowling color",
         "country": "Japan/USA",
         "founded": "1980s–2010s",
         "engine_types": [
@@ -18975,7 +18942,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "~220–500+ hp",
-        "notes": "Now managed alongside Indmar, Crusader, Levitator Engines and Velvet Drive Transmissions under Correct Craft's Liberty Technologies subsidiary",
+        "notes": "Held via Correct Craft's Liberty Technologies subsidiary. Now managed alongside Indmar, Crusader, Levitator Engines and Velvet Drive Transmissions under that same subsidiary",
         "country": "USA",
         "founded": null,
         "engine_types": [
@@ -19080,7 +19047,7 @@
         "tier": null,
         "parent_brand": null,
         "power_range": "527–627 hp",
-        "notes": "Founded by Rick Davis and sons in Germantown, WI; sold to Volvo Penta 2017, production moved to Lexington, TN; Volvo Penta cited its 2050 net-zero strategy (favoring IPS/sterndrive R&D) as the reason for discontinuation; warranty/parts support continued post-shutdown",
+        "notes": "Formerly independent; founded by Rick Davis and sons in Germantown, WI; sold to Volvo Penta (Volvo Group) 2017, production moved to Lexington, TN; Volvo Penta cited its 2050 net-zero strategy (favoring IPS/sterndrive R&D) as the reason for discontinuation; warranty/parts support continued post-shutdown",
         "country": "USA",
         "founded": "2010",
         "engine_types": [
@@ -19705,9 +19672,9 @@
         "brand": "Mercury Racing",
         "years": "1988-",
         "type": "surface-piercing racing outdrive",
-        "power_hp": 8,
+        "power_hp": null,
         "segment": "racing sterndrive",
-        "notes": "Originally the Kiekhaefer Aeromarine surface drive; came to dominate offshore racing after 1988 introduction; the Kiekhaefer Aeromarine division became Mercury Racing after Brunswick's 1990 acquisition (see Timeline).",
+        "notes": "Drive only — paired to various V8 racing engines, no rated hp of its own. Originally the Kiekhaefer Aeromarine surface drive; came to dominate offshore racing after 1988 introduction; the Kiekhaefer Aeromarine division became Mercury Racing after Brunswick's 1990 acquisition (see Timeline).",
         "provenance": [
           "88_Mercury_Marine_History_and_Racing_Engines.md"
         ]
@@ -70972,7 +70939,7 @@
     {
       "src": "engine:baudouin-moteurs-baudouin",
       "rel": "owned_by",
-      "dst": "company:weichai-group-acquired-2009",
+      "dst": "company:weichai-group",
       "attrs": {}
     },
     {
@@ -71092,7 +71059,7 @@
     {
       "src": "engine:indmar-marine-engines",
       "rel": "owned_by",
-      "dst": "company:correct-craft-via-subsidiary-liberty-technologies",
+      "dst": "company:correct-craft",
       "attrs": {}
     },
     {
@@ -71134,7 +71101,7 @@
     {
       "src": "engine:mercruiser",
       "rel": "owned_by",
-      "dst": "company:brunswick-corporation-mercury-marine",
+      "dst": "company:brunswick-corporation",
       "attrs": {}
     },
     {
@@ -71170,7 +71137,7 @@
     {
       "src": "engine:nissan-marine",
       "rel": "owned_by",
-      "dst": "company:tohatsu-rebadge-program",
+      "dst": "company:tohatsu",
       "attrs": {}
     },
     {
@@ -71188,7 +71155,7 @@
     {
       "src": "engine:pcm-pleasurecraft-marine-engine-co",
       "rel": "owned_by",
-      "dst": "company:correct-craft-liberty-technologies",
+      "dst": "company:correct-craft",
       "attrs": {}
     },
     {
@@ -71212,7 +71179,7 @@
     {
       "src": "engine:seven-marine",
       "rel": "owned_by",
-      "dst": "company:volvo-group-volvo-penta-formerly-independent",
+      "dst": "company:volvo-group",
       "attrs": {}
     },
     {
@@ -83646,7 +83613,6 @@
         "company:brp-bombardier-recreational-products",
         "company:brunswick-com",
         "company:brunswick-corporation",
-        "company:brunswick-corporation-mercury-marine",
         "company:bsibroker-co-th",
         "company:bureau-veritas",
         "company:burgess",
@@ -83685,8 +83651,7 @@
         "company:compass24-com",
         "company:concord-marine-electronics",
         "company:copemarine-com",
-        "company:correct-craft-liberty-technologies",
-        "company:correct-craft-via-subsidiary-liberty-technologies",
+        "company:correct-craft",
         "company:cosco-shipping-heavy-industry",
         "company:cove2coastmarine-com",
         "company:cox-powertrain-ltd",
@@ -84154,8 +84119,8 @@
         "company:thyssenkrupp-marine-systems-tkms",
         "company:tjb-superyachts",
         "company:tk-tuzla-shipyard",
+        "company:tohatsu",
         "company:tohatsu-corporation-jv-with-brunswick-since-1988",
-        "company:tohatsu-rebadge-program",
         "company:tourism-co-th",
         "company:triton-submarines-llc",
         "company:tropical-yachts",
@@ -84182,7 +84147,6 @@
         "company:virginislandsailing-com",
         "company:volkswagen-ag",
         "company:volvo-group",
-        "company:volvo-group-volvo-penta-formerly-independent",
         "company:vscomm-co-th",
         "company:wadventures-com-sg",
         "company:walczakyachtbrokerage-com",
@@ -84193,7 +84157,7 @@
         "company:wavemarinegroup-com",
         "company:weberyachts-com",
         "company:websterassociates-com",
-        "company:weichai-group-acquired-2009",
+        "company:weichai-group",
         "company:weichai-holding-group",
         "company:wellingtonyachtpartners-com",
         "company:weshipboats-com",
@@ -89056,9 +89020,6 @@
       "brunswick corporation": [
         "company:brunswick-corporation"
       ],
-      "brunswick corporation (mercury marine)": [
-        "company:brunswick-corporation-mercury-marine"
-      ],
       "brunswick.com": [
         "company:brunswick-com"
       ],
@@ -89849,11 +89810,8 @@
       "coronado cays yacht club": [
         "club:coronado-cays-yacht-club"
       ],
-      "correct craft (liberty technologies)": [
-        "company:correct-craft-liberty-technologies"
-      ],
-      "correct craft (via subsidiary liberty technologies)": [
-        "company:correct-craft-via-subsidiary-liberty-technologies"
+      "correct craft": [
+        "company:correct-craft"
       ],
       "corroboree": [
         "yacht:corroboree"
@@ -98185,10 +98143,8 @@
         "part:toe-rail"
       ],
       "tohatsu": [
+        "company:tohatsu",
         "engine:tohatsu"
-      ],
-      "tohatsu (rebadge program)": [
-        "company:tohatsu-rebadge-program"
       ],
       "tohatsu corporation (jv with brunswick since 1988)": [
         "company:tohatsu-corporation-jv-with-brunswick-since-1988"
@@ -98756,9 +98712,6 @@
       "volvo group": [
         "company:volvo-group"
       ],
-      "volvo group (volvo penta), formerly independent": [
-        "company:volvo-group-volvo-penta-formerly-independent"
-      ],
       "volvo penta": [
         "engine:volvo-penta"
       ],
@@ -98913,8 +98866,8 @@
       "wedge too": [
         "yacht:wedge-too"
       ],
-      "weichai group (acquired 2009)": [
-        "company:weichai-group-acquired-2009"
+      "weichai group": [
+        "company:weichai-group"
       ],
       "weichai holding group": [
         "company:weichai-holding-group"
