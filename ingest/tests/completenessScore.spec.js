@@ -335,4 +335,25 @@ describe('computeCompleteness — dual scoring (TASK-023 item 4)', () => {
     expect(yachtIdentifiable.count).toBe(0);
     expect(yachtIdentifiable.score).toBe(0);
   });
+
+  // TASK-024 AC4: an explicit fragment count, not just derivable by
+  // subtracting two other fields.
+  it('reports yachtFragmentCount as the plain count of fragment-tagged yacht nodes', () => {
+    const { yachtFragmentCount } = computeCompleteness(graph);
+    expect(yachtFragmentCount).toBe(2); // fragment-a, fragment-b
+  });
+
+  it('yachtFragmentCount is 0 when every yacht node is identifiable (or none carry the attr at all)', () => {
+    const legacyGraph = {
+      nodes: [{ id: 'yacht:legacy', type: 'yacht', name: 'Legacy', attrs: { loa: 50, year: 2020 } }],
+      edges: [],
+    };
+    const { yachtFragmentCount } = computeCompleteness(legacyGraph);
+    expect(yachtFragmentCount).toBe(0);
+  });
+
+  it('yachtFragmentCount is 0 for a graph with zero yacht nodes', () => {
+    const { yachtFragmentCount } = computeCompleteness({ nodes: [], edges: [] });
+    expect(yachtFragmentCount).toBe(0);
+  });
 });

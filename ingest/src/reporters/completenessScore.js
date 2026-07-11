@@ -232,7 +232,11 @@ function isFragmentYacht(node) {
  * (the SAME weighted average as `overall` but substituting yacht's
  * identifiable-only score for its all-nodes score — this is the number the
  * project's 8.5 loop target is measured against, see runCompletenessScore's
- * own "target metric" labeling below).
+ * own "target metric" labeling below), yachtFragmentCount (TASK-024 AC4: the
+ * plain count of yacht nodes tagged attrs.identifiability === 'fragment' —
+ * always equal to byType's yacht.count minus yachtIdentifiable.count, but
+ * exposed explicitly so a consumer never has to re-derive it by
+ * subtraction).
  */
 export function computeCompleteness(graph) {
   const nodes = graph?.nodes || [];
@@ -270,6 +274,8 @@ export function computeCompleteness(graph) {
   const yachtNodesAll = nodesByType.get('yacht') || [];
   const yachtNodesIdentifiable = yachtNodesAll.filter((n) => !isFragmentYacht(n));
   const yachtIdentifiable = computeTypeStats('yacht', yachtNodesIdentifiable, edgesBySrc, connectedNodeIds);
+  // TASK-024 AC4: explicit fragment count, not just derivable by subtraction.
+  const yachtFragmentCount = yachtNodesAll.length - yachtNodesIdentifiable.length;
 
   let weightedSumIdentifiable = 0;
   for (const entry of byType) {
@@ -279,7 +285,7 @@ export function computeCompleteness(graph) {
   }
   const overallIdentifiable = totalWeight > 0 ? round2(weightedSumIdentifiable / totalWeight) : 0;
 
-  return { byType, overall, yachtIdentifiable, overallIdentifiable };
+  return { byType, overall, yachtIdentifiable, overallIdentifiable, yachtFragmentCount };
 }
 
 function renderTable(byType, yachtIdentifiable) {
@@ -323,12 +329,13 @@ export function runCompletenessScore() {
   const raw = fs.readFileSync(graphJsonPath, 'utf8');
   const graph = JSON.parse(raw);
 
-  const { byType, overall, yachtIdentifiable, overallIdentifiable } = computeCompleteness(graph);
+  const { byType, overall, yachtIdentifiable, overallIdentifiable, yachtFragmentCount } = computeCompleteness(graph);
 
   console.log(`[score] graph: ${graphJsonPath}`);
   console.log(renderTable(byType, yachtIdentifiable));
   console.log(`[score] overall (all-nodes): ${overall.toFixed(2)} / 10`);
   console.log(`[score] overall (identifiable-only, TARGET METRIC): ${overallIdentifiable.toFixed(2)} / 10`);
+  console.log(`[score] yacht fragments: ${yachtFragmentCount}`);
 
   const report = {
     generated_at: new Date().toISOString(),
@@ -336,6 +343,11 @@ export function runCompletenessScore() {
     overall_all_nodes: overall,
     overall_identifiable_only: overallIdentifiable,
     yacht_identifiable_only: yachtIdentifiable,
+    // TASK-024 AC4: explicit fragment count alongside yacht_identifiable_only
+    // (always == yacht_identifiable_only's own sibling all-nodes yacht.count
+    // minus yacht_identifiable_only.count, but a consumer shouldn't have to
+    // re-derive that from two other fields).
+    yacht_fragments: yachtFragmentCount,
     // Back-compat alias: earlier rounds' tooling/consumers read `overall`
     // as the all-nodes score — kept equal to overall_all_nodes so nothing
     // downstream silently breaks; new consumers should prefer the two
