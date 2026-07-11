@@ -125,6 +125,7 @@ import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js'
 import { mapYachtSpecTables, isYachtSpecTable } from './mappers/yachtSpecMapper.js';
 import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/personMapper.js';
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
+import { classifyYachtIdentifiability } from './mappers/identifiability.js';
 import { applyRegionCanonicalization } from './mappers/regionCanonicalization.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
@@ -432,6 +433,10 @@ export function runIngest() {
       clubEnrichmentUnresolved: 0,
       edges: 0,
       skippedProseSheets: 0,
+      // TASK-023 item 4: filled in AFTER file processing by
+      // classifyYachtIdentifiability() (see its own call site below).
+      yachtIdentifiable: 0,
+      yachtFragment: 0,
     };
     const skippedProseEntries = [];
     // TASK-006: filename bookkeeping for the ingestion-summary report's
@@ -592,6 +597,17 @@ export function runIngest() {
     // graphCleanup.js's own module header for the full merge/reclassify/
     // remove/flag ledger). Idempotent; safe to run on every ingest.
     applyGraphCleanup(db);
+
+    // TASK-023 item 4: yacht identifiability classification — runs AFTER
+    // applyGraphCleanup() so it sees every yacht node's FINAL, post-merge/
+    // post-correction state (a merged-away duplicate's data has already
+    // landed on its canonical node; a quality-corrected node's
+    // attrs.data_quality flag, if any, is already set). Idempotent and
+    // non-accumulating (see identifiability.js's own module header) — safe
+    // to run on every ingest.
+    const identifiabilityResult = classifyYachtIdentifiability(db);
+    totals.yachtIdentifiable = identifiabilityResult.identifiable;
+    totals.yachtFragment = identifiabilityResult.fragment;
 
     const skippedProseReportPath = writeSkippedProseReport(skippedProseEntries);
 

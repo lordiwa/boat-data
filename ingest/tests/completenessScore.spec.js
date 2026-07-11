@@ -260,3 +260,79 @@ describe('module importability', () => {
     expect(typeof mod.runCompletenessScore).toBe('function');
   });
 });
+
+// TASK-023 item 4: dual scoring — yacht nodes carry
+// attrs.identifiability ('identifiable' | 'fragment', set by
+// identifiability.js's classifyYachtIdentifiability()). The scorer must
+// report BOTH an all-nodes score (unchanged behavior, every yacht node
+// counted) AND an identifiable-only score (fragment yacht nodes excluded
+// from yacht's own denominator; every other type is untouched by this
+// distinction). The loop's 8.5 target is measured on the identifiable
+// score.
+describe('computeCompleteness — dual scoring (TASK-023 item 4)', () => {
+  const graph = {
+    nodes: [
+      {
+        id: 'yacht:identifiable-full',
+        type: 'yacht',
+        name: 'Full',
+        attrs: {
+          identifiability: 'identifiable',
+          loa: 50,
+          year: 2020,
+          guests: 10,
+          cabins: 5,
+          crew: 8,
+          value: 1000000,
+          beam: { meters: 10, raw: '10m' },
+          draft: { meters: 3, raw: '3m' },
+          gt: 500,
+          max_speed: 20,
+          range_nm: 3000,
+          flag: 'Cayman Islands',
+          class_society: "Lloyd's Register",
+          imo: '1234567',
+        },
+      },
+      // A fragment: no attrs at all beyond identifiability + loa, and no edge.
+      { id: 'yacht:fragment-a', type: 'yacht', name: 'Fragment A', attrs: { identifiability: 'fragment', loa: 40 } },
+      { id: 'yacht:fragment-b', type: 'yacht', name: 'Fragment B', attrs: { identifiability: 'fragment', loa: 35 } },
+    ],
+    edges: [edge('yacht:identifiable-full', 'built_by', 'builder:x')],
+  };
+
+  it('byType (all-nodes) still counts every yacht node, fragments included', () => {
+    const { byType } = computeCompleteness(graph);
+    const yacht = byType.find((r) => r.type === 'yacht');
+    expect(yacht.count).toBe(3);
+  });
+
+  it('reports a separate identifiable-only yacht stat that excludes fragment nodes from count/attrPct/edgePct', () => {
+    const { yachtIdentifiable } = computeCompleteness(graph);
+    expect(yachtIdentifiable.count).toBe(1); // only the identifiable node
+    expect(yachtIdentifiable.attrPct).toBe(100); // the one identifiable node has all 14 attrs
+    expect(yachtIdentifiable.edgePct).toBe(100);
+    expect(yachtIdentifiable.score).toBeCloseTo(10, 4);
+  });
+
+  it('reports both overall (all-nodes) and overallIdentifiable, and they differ when fragments drag the all-nodes yacht score down', () => {
+    const { overall, overallIdentifiable } = computeCompleteness(graph);
+    expect(overallIdentifiable).toBeGreaterThan(overall);
+  });
+
+  it('treats every yacht node as identifiable when none carry attrs.identifiability at all (back-compat: pre-item-4 graphs / non-yacht types unaffected)', () => {
+    const legacyGraph = {
+      nodes: [{ id: 'yacht:legacy', type: 'yacht', name: 'Legacy', attrs: { loa: 50, year: 2020 } }],
+      edges: [],
+    };
+    const { yachtIdentifiable, byType } = computeCompleteness(legacyGraph);
+    const yacht = byType.find((r) => r.type === 'yacht');
+    expect(yachtIdentifiable.count).toBe(yacht.count);
+  });
+
+  it('a graph with zero yacht nodes reports yachtIdentifiable as a zero/empty stat rather than throwing', () => {
+    const { yachtIdentifiable } = computeCompleteness({ nodes: [], edges: [] });
+    expect(yachtIdentifiable.count).toBe(0);
+    expect(yachtIdentifiable.score).toBe(0);
+  });
+});

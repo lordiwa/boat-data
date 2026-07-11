@@ -207,14 +207,32 @@ function computeTypeStats(type, typeNodes, edgesBySrc, connectedNodeIds) {
 
 const EMPTY_SET = new Set();
 
+// TASK-023 item 4: a yacht node is excluded from the "identifiable-only"
+// denominator ONLY when identifiability.js's classifyYachtIdentifiability()
+// has explicitly tagged it attrs.identifiability === 'fragment'. Any other
+// value (including the attr being entirely absent — e.g. a graph exported
+// before item 4's classification pass ran) counts as identifiable, so this
+// stays backward-compatible with graphs that predate the identifiability
+// pass rather than silently zeroing out the identifiable score.
+function isFragmentYacht(node) {
+  return Boolean(node.attrs) && node.attrs.identifiability === 'fragment';
+}
+
 /**
  * Pure function: computes per-type and overall completeness stats from an
  * already-parsed graph export ({ nodes, edges }, the same shape as
  * graph.json). No file I/O here — see runCompletenessScore() below for the
  * CLI wrapper that reads graph.json and writes the report.
  *
- * Returns { byType: [...one entry per TYPE_WEIGHTS key, in that order...],
- * overall }.
+ * Returns { byType: [...one entry per TYPE_WEIGHTS key, in that order,
+ * ALL-NODES basis...], overall (all-nodes weighted average, unchanged from
+ * before item 4), yachtIdentifiable (yacht's OWN stats recomputed with
+ * fragment-tagged yacht nodes excluded from the denominator — every other
+ * type is untouched by this distinction, per the ticket), overallIdentifiable
+ * (the SAME weighted average as `overall` but substituting yacht's
+ * identifiable-only score for its all-nodes score — this is the number the
+ * project's 8.5 loop target is measured against, see runCompletenessScore's
+ * own "target metric" labeling below).
  */
 export function computeCompleteness(graph) {
   const nodes = graph?.nodes || [];
@@ -249,12 +267,35 @@ export function computeCompleteness(graph) {
   }
   const overall = totalWeight > 0 ? round2(weightedSum / totalWeight) : 0;
 
-  return { byType, overall };
+  const yachtNodesAll = nodesByType.get('yacht') || [];
+  const yachtNodesIdentifiable = yachtNodesAll.filter((n) => !isFragmentYacht(n));
+  const yachtIdentifiable = computeTypeStats('yacht', yachtNodesIdentifiable, edgesBySrc, connectedNodeIds);
+
+  let weightedSumIdentifiable = 0;
+  for (const entry of byType) {
+    const weight = TYPE_WEIGHTS[entry.type] || 0;
+    const scoreToUse = entry.type === 'yacht' ? yachtIdentifiable.score : entry.score;
+    weightedSumIdentifiable += scoreToUse * weight;
+  }
+  const overallIdentifiable = totalWeight > 0 ? round2(weightedSumIdentifiable / totalWeight) : 0;
+
+  return { byType, overall, yachtIdentifiable, overallIdentifiable };
 }
 
-function renderTable(byType) {
+function renderTable(byType, yachtIdentifiable) {
   const header = ['Type', 'Count', 'Attr %', 'Edge %', 'Score /10'];
   const rows = byType.map((r) => [r.type, String(r.count), `${r.attrPct}%`, `${r.edgePct}%`, r.score.toFixed(2)]);
+  // TASK-023 item 4: an extra footer row (not a TYPE_WEIGHTS member, so it
+  // never affects `overall`'s weighted average) showing yacht's
+  // identifiable-only stats alongside the all-nodes "yacht" row above, for
+  // direct visual comparison.
+  rows.push([
+    'yacht (identifiable only)',
+    String(yachtIdentifiable.count),
+    `${yachtIdentifiable.attrPct}%`,
+    `${yachtIdentifiable.edgePct}%`,
+    yachtIdentifiable.score.toFixed(2),
+  ]);
   const widths = header.map((h, i) => Math.max(h.length, ...rows.map((r) => r[i].length)));
 
   const renderRow = (cells) => cells.map((c, i) => c.padEnd(widths[i])).join('  ');
@@ -267,22 +308,40 @@ function renderTable(byType) {
 /**
  * CLI entry point: reads graph.json (resolveGraphJsonPath, same
  * resolution as the exporter), computes completeness, prints a table plus
- * the overall score, and writes ingest/reports/completeness.json (or
+ * BOTH overall scores, and writes ingest/reports/completeness.json (or
  * COMPLETENESS_REPORT_PATH) with the same data plus a generated_at
  * timestamp. Returns the written report object.
+ *
+ * TASK-023 item 4: prints/persists both `overall` (all-nodes basis,
+ * unchanged from before this ticket) and `overallIdentifiable` (yacht
+ * fragments excluded from yacht's own denominator) — the project's 8.5
+ * loop target is explicitly measured against `overallIdentifiable`,
+ * labeled as such in both the console output and the JSON report.
  */
 export function runCompletenessScore() {
   const graphJsonPath = resolveGraphJsonPath();
   const raw = fs.readFileSync(graphJsonPath, 'utf8');
   const graph = JSON.parse(raw);
 
-  const { byType, overall } = computeCompleteness(graph);
+  const { byType, overall, yachtIdentifiable, overallIdentifiable } = computeCompleteness(graph);
 
   console.log(`[score] graph: ${graphJsonPath}`);
-  console.log(renderTable(byType));
-  console.log(`[score] overall: ${overall.toFixed(2)} / 10`);
+  console.log(renderTable(byType, yachtIdentifiable));
+  console.log(`[score] overall (all-nodes): ${overall.toFixed(2)} / 10`);
+  console.log(`[score] overall (identifiable-only, TARGET METRIC): ${overallIdentifiable.toFixed(2)} / 10`);
 
-  const report = { generated_at: new Date().toISOString(), byType, overall };
+  const report = {
+    generated_at: new Date().toISOString(),
+    byType,
+    overall_all_nodes: overall,
+    overall_identifiable_only: overallIdentifiable,
+    yacht_identifiable_only: yachtIdentifiable,
+    // Back-compat alias: earlier rounds' tooling/consumers read `overall`
+    // as the all-nodes score — kept equal to overall_all_nodes so nothing
+    // downstream silently breaks; new consumers should prefer the two
+    // explicit, clearly-labeled keys above.
+    overall,
+  };
   const outPath = resolveCompletenessReportPath();
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(report, null, 2), 'utf8');

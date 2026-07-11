@@ -630,3 +630,51 @@ describe('real corpus — yacht long-tail spec completion (TASK-023 item 1)', ()
     expect(attrs.gt).toBe(499);
   }, 30000);
 });
+
+// TASK-023 item 4: identifiability classification + dual scoring, exercised
+// against the full real corpus (identifiability.spec.js/completenessScore.spec.js
+// already cover the pure-function logic in isolation).
+describe('real corpus — yacht identifiability + dual scoring (TASK-023 item 4)', () => {
+  it('tags every yacht node with attrs.identifiability, counts summing to the total yacht count', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    const result = runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db.prepare("SELECT attrs_json FROM nodes WHERE type = 'yacht'").all();
+    db.close();
+
+    const counts = { identifiable: 0, fragment: 0, other: 0 };
+    for (const row of rows) {
+      const attrs = JSON.parse(row.attrs_json || '{}');
+      if (attrs.identifiability === 'identifiable') counts.identifiable += 1;
+      else if (attrs.identifiability === 'fragment') counts.fragment += 1;
+      else counts.other += 1;
+    }
+
+    expect(counts.other).toBe(0); // every yacht node gets a definite classification
+    expect(counts.identifiable + counts.fragment).toBe(rows.length);
+    expect(counts.fragment).toBeGreaterThan(0); // the real corpus genuinely has bare charter fragments
+    expect(counts.identifiable).toBeGreaterThan(0);
+    expect(result.totals.yachtIdentifiable).toBe(counts.identifiable);
+    expect(result.totals.yachtFragment).toBe(counts.fragment);
+  }, 30000);
+
+  it('computeCompleteness on the real exported graph reports both overall scores, with the identifiable-only yacht count strictly less than the all-nodes count', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+    const { computeCompleteness } = await import('../src/reporters/completenessScore.js');
+
+    const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
+    const { byType, overall, overallIdentifiable, yachtIdentifiable } = computeCompleteness(graph);
+    const yachtAllNodes = byType.find((r) => r.type === 'yacht');
+
+    expect(typeof overall).toBe('number');
+    expect(typeof overallIdentifiable).toBe('number');
+    expect(yachtIdentifiable.count).toBeLessThan(yachtAllNodes.count);
+    expect(yachtIdentifiable.count).toBeGreaterThan(0);
+    // Identifiable-only excludes low-attr fragments from yacht's own
+    // denominator, so its score should be at least as high as the
+    // all-nodes yacht score on the real corpus.
+    expect(yachtIdentifiable.score).toBeGreaterThanOrEqual(yachtAllNodes.score);
+  }, 30000);
+});
