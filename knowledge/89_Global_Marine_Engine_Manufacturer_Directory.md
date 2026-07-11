@@ -43,15 +43,52 @@ misleading as of today's date):
   per Yamaha's completed 2024 acquisition, already stated in this row's own
   Notes). The Deutz AG 2017-2024 ownership window is preserved in Notes.
 
-Every other Parent Company cell (several of which carry a parenthetical
-qualifier, e.g. "Tohatsu Corporation (JV with Brunswick since 1988)", "BRP
-(Bombardier Recreational Products)") was left exactly as researched — none of
-them narrate an ownership CHANGE in prose the way the three TASK-016-review
-junk-node examples did, so `engineMapper.js`'s `isPlausibleParentName()` guard
-(same defensive check as shipyardMapper.js's `isPlausibleOperatorName()`)
-accepts them as-is, consistent with the reviewer-endorsed precedent that a
+**Review fix (MEDIUM 1, post-ship):** six further Parent Company cells were
+normalized to bare legal/parent names after re-ingest surfaced junk/duplicate
+company nodes — `engineMapper.js`'s `isPlausibleParentName()` guard (the same
+defensive check as shipyardMapper.js's `isPlausibleOperatorName()`) doesn't
+reject a short parenthetical-qualified cell the way it rejects full-sentence
+ownership-history prose, so each of these silently minted its own node
+instead of resolving to the real parent's existing node:
+
+- **Nissan Marine**: Parent Company "Tohatsu (rebadge program)" → **"Tohatsu"**
+  (was minting `company:tohatsu-rebadge-program` — a program, not a company;
+  the rebadge-program detail moved to this row's Notes).
+- **Seven Marine**: "Volvo Group (Volvo Penta), formerly independent" →
+  **"Volvo Group"** (was minting a THIRD distinct node,
+  `company:volvo-group-volvo-penta-formerly-independent`, alongside the
+  `company:volvo-group` node Volvo Penta/Volvo Penta IPS's own rows already
+  create — now all three Volvo-family rows converge on one parent node).
+- **Baudouin**: "Weichai Group (acquired 2009)" → **"Weichai Group"** (moved
+  the acquisition year to Notes).
+- **MerCruiser**: "Brunswick Corporation (Mercury Marine)" →
+  **"Brunswick Corporation"** (was minting
+  `company:brunswick-corporation-mercury-marine`, a duplicate of the
+  `company:brunswick-corporation` node Mercury Marine/Mercury Avator/Mercury
+  Zeus's own rows already create).
+- **Indmar Marine Engines**: "Correct Craft (via subsidiary Liberty
+  Technologies)" → **"Correct Craft"**.
+- **PCM (Pleasurecraft Marine Engine Co.)**: "Correct Craft (Liberty
+  Technologies)" → **"Correct Craft"** (Indmar's and PCM's Parent Company
+  cells previously differed by wording alone — "via subsidiary Liberty
+  Technologies" vs. "Liberty Technologies" — minting TWO separate parent
+  nodes, `company:correct-craft-via-subsidiary-liberty-technologies` and
+  `company:correct-craft-liberty-technologies`, for what is the same real
+  parent company; both rows now converge on one `company:correct-craft`
+  node, with the Liberty Technologies subsidiary detail preserved in each
+  row's own Notes).
+
+Every remaining Parent Company cell that still carries a parenthetical
+qualifier (e.g. "Tohatsu Corporation (JV with Brunswick since 1988)", "BRP
+(Bombardier Recreational Products)", "MAN SE (TRATON Group)" — the last of
+these appears identically on both MAN Engines' and MAN Energy Solutions' rows
+and so already converges on one node with no dedup risk) was deliberately
+left as researched: each appears only ONCE across this table, so there is no
+second row spelling the same real parent differently for it to fail to
+converge with — consistent with the reviewer-endorsed precedent that a
 parenthetical-qualified name (e.g. TASK-016's "NVL Group (Rheinmetall)") is
-acceptable when it isn't narrating history in full-sentence prose.
+acceptable when it isn't narrating history in full-sentence prose and isn't
+creating a duplicate.
 
 The **Market structure** and **History highlights** sections stay unclaimed
 doc prose this round — `mapEngineManufacturerTables` only claims the
@@ -72,7 +109,7 @@ the exact quoted cell backing each pair.
 | Honda | Honda Motor Co. | Japan | 1964 | outboard (4-stroke only) | 2–250 hp | BF250, BF350 | recreational, commercial | active | [marine.honda.com](https://marine.honda.com) | Sold under the "Honda Marine" brand. Only major outboard maker that has never sold a 2-stroke; first 4-stroke powerhead 1964; co-launched first V6 4-stroke with Yamaha 2001 |
 | Suzuki | Suzuki Motor Corporation | Japan | 1965 (brand 1977) | outboard | 2.5–350 hp | DF350A, DT/DF series | recreational, commercial | active | [suzukimarine.com](https://www.suzukimarine.com) | Sold under the "Suzuki Marine" brand. Founded by Michio Suzuki 1909 (parent co.); first outboard 1965, "Suzuki Marine" brand adopted 1977 with DT5 export; first 4-stroke (DF9.9/DF15) 1994 |
 | Tohatsu | Tohatsu Corporation (JV with Brunswick since 1988) | Japan | 1922 (Takata Motor Research Inst.); first outboard 1956 | outboard | 2.5–140 hp | MFS9.9, M18E | recreational, commercial | active | [tohatsu.co.jp](https://www.tohatsumarine.co.jp) | Builds all Mercury/Mariner 4–30 hp four-strokes (M-series) under the 1988 Tohatsu Marine Corp JV; produces 170,000–180,000 units/yr combined; also supplied Nissan Marine (rebadge) and small Evinrude-branded units 2011+ |
-| Nissan Marine | Tohatsu (rebadge program) | Japan/USA | 1980s–2010s | outboard | 2.5–140 hp (same as Tohatsu) | ME9.9TLE | recreational | defunct (brand retired; badge-engineered Tohatsu only) | — | All Nissan-branded outboards sold in North America/Australia were rebadged Tohatsus, differing only in decals/cowling color |
+| Nissan Marine | Tohatsu | Japan/USA | 1980s–2010s | outboard | 2.5–140 hp (same as Tohatsu) | ME9.9TLE | recreational | defunct (brand retired; badge-engineered Tohatsu only) | — | Rebadge program (not a corporate subsidiary): all Nissan-branded outboards sold in North America/Australia were rebadged Tohatsus, differing only in decals/cowling color |
 | Evinrude | BRP (Bombardier Recreational Products) | USA / Canada | 1907 | outboard | 25–300+ hp (E-TEC/G2 era) | E-TEC, E-TEC G2 | recreational | defunct (BRP wound down production May 27, 2020) | [brp.com](https://www.brp.com) | Founded by Ole Evinrude in Milwaukee; merged with Johnson 1936 to form Outboard Marine Corp (OMC); OMC bankruptcy 2000, BRP bought motor assets (~$350M); BRP cited COVID-19 impact plus prior segment struggles for the 2020 shutdown, ~$134M wind-down cost (Sturtevant, WI plant repurposed) |
 | Johnson | Outboard Marine Corp / BRP | USA | 1921–1922 (Johnson brothers, Terre Haute IN roots to 1903/1908) | outboard | up to 235–275 hp (V6/V8 era) | Sea-Horse, V6 235 (1978, most powerful production outboard at launch) | recreational, racing | defunct (phased out by BRP ~2007, pre-dating Evinrude's 2020 exit) | — | Johnson brothers built inboard experimental V-engines 1903–1913 (destroyed by a 1913 tornado) before pivoting to the 1921 "Light Twin" outboard; merged into OMC 1936 alongside Evinrude |
 | Selva Marine | Selva S.p.A. | Italy | 1959 (parent automotive-parts business since 1945) | outboard | ~2.5–300 hp | Selva Marine 2-stroke/4-stroke range | recreational | active | [selvamarine.com](https://www.selvamarine.com) | Family business based in Tirano, on the Italian–Swiss border; one of the few remaining independent European outboard builders |
@@ -80,7 +117,7 @@ the exact quoted cell backing each pair.
 | Hidea | Hangzhou Hidea Power Machinery Co. | China | — (2000s) | outboard | 2.5–300 hp | Hidea 2-stroke/4-stroke range | recreational | active | [hideaoutboardmotors.com](https://www.hideaoutboardmotors.com) | Second major budget Chinese outboard exporter alongside Parsun; exact founding year not corroborated this pass |
 | Cox Marine (Cox Powertrain) | Cox Powertrain Ltd | UK | 2010 (concept work from 2008; idea traces to designer David Cox) | outboard diesel | 300 hp (CXO300, V8) | CXO300 | commercial, military, recreational | active | [coxmarine.com](https://coxmarine.com) | Blank-sheet diesel outboard, ~$200M over a decade+ of development, $130M+ raised; entered full production May 2020; first diesel outboard to set an outright speed record |
 | OXE Marine (OXE Diesel) | OXE Marine AB | Sweden | 2012 | outboard diesel | 125, 150, 175, 200, 300 hp | OXE300 (BMW-sourced I6 3.0L turbodiesel), OXE125–200 (I4 2.0L) | commercial, military, recreational | active | [oxemarine.com](https://www.oxemarine.com) | Listed on Nasdaq First North (Sweden) 2017; uses patented belt-drive torque transfer from automotive-derived diesel blocks to a horizontally-mounted powerhead; only diesel outboard maker spanning 150–200 hp; OXE150–200 assembled in Albany, GA (USA); OXE300 assembled in Tczew, Poland |
-| Seven Marine | Volvo Group (Volvo Penta), formerly independent | USA | 2010 | outboard gas (high-hp) | 527–627 hp | Seven Marine 527, 627 | recreational (large center consoles/yachts) | defunct (Volvo Penta ended sales/production Jan 1, 2021) | — | Founded by Rick Davis and sons in Germantown, WI; sold to Volvo Penta 2017, production moved to Lexington, TN; Volvo Penta cited its 2050 net-zero strategy (favoring IPS/sterndrive R&D) as the reason for discontinuation; warranty/parts support continued post-shutdown |
+| Seven Marine | Volvo Group | USA | 2010 | outboard gas (high-hp) | 527–627 hp | Seven Marine 527, 627 | recreational (large center consoles/yachts) | defunct (Volvo Penta ended sales/production Jan 1, 2021) | — | Formerly independent; founded by Rick Davis and sons in Germantown, WI; sold to Volvo Penta (Volvo Group) 2017, production moved to Lexington, TN; Volvo Penta cited its 2050 net-zero strategy (favoring IPS/sterndrive R&D) as the reason for discontinuation; warranty/parts support continued post-shutdown |
 | Torqeedo | Yamaha Motor Co. | Germany | 2005 | electric outboard, electric inboard, hybrid | ~1–100 kW+ (Cruise, Deep Blue lines) | Travel, Cruise, Deep Blue | recreational, commercial | active | [torqeedo.com](https://www.torqeedo.com) | Founded by Christoph Ballin and Friedrich Böbel near Munich; first product (Travel) shown at Boot Düsseldorf 2006; was a Deutz AG subsidiary 2017-2024; Yamaha completed acquisition in 2024 and now sells Torqeedo through Yamaha dealer networks |
 | ePropulsion | ePropulsion (Shenzhen) | Hong Kong (founded) / China (HQ) | 2012 | electric outboard | ~1–40 kW | Spirit, Navy, E-series | recreational | active | [epropulsion.com](https://www.epropulsion.com) | Founded by Danny Tao and three co-founders from HKUST; uses a direct-drive motor (no gearbox), positioned as lower-cost alternative to Torqeedo |
 | Mercury Avator | Brunswick Corporation | USA | 2022 (product line) | electric outboard | 7.5e–35e hp-equivalent range at launch (expanding) | Avator 7.5e, 20e, 35e | recreational | active | [mercurymarine.com](https://www.mercurymarine.com) | Mercury's electric outboard line, positioned to lead the segment on range-per-charge per comparative reviews |
@@ -96,7 +133,7 @@ the exact quoted cell backing each pair.
 | John Deere | Deere & Company | USA | Marine engine line 30+ years old; PowerTech branding from 1996 | inboard diesel | ~90–1,200+ hp (PowerTech range) | PowerTech 6068, 4045 | yacht (auxiliary/genset), commercial | active | [deere.com](https://www.deere.com) | Marine division sold as "John Deere Marine." PowerTech line introduced 1996 to meet Tier 1 emissions; Deere's marine range spans propulsion, auxiliary/genset, and industrial-marine variants; some smaller John Deere diesels are Yanmar- or FPT-sourced |
 | FPT Industrial | Iveco Group (spun off from Fiat Powertrain Technologies) | Italy | FPT established 2005 (Fiat Powertrain Technologies) | inboard diesel | ~60–1,000 hp | N67, C13 marine variants | yacht, commercial | active | [fptindustrial.com](https://www.fptindustrial.com) | FPT = Fiat Powertrain Technologies; some smaller John Deere marine diesels are FPT-built under supply agreement |
 | Scania | Scania AB (TRATON Group) | Sweden | Scania marine engines derived from truck platform | inboard diesel | ~450–1,150 hp (DI13/DI16) | DI13, DI16 | yacht, commercial | active | [scania.com](https://www.scania.com) | Marine division sold as "Scania Marine." DI13 uses compacted-graphite-iron block construction and common-rail injection; positioned as strong low-end-torque commercial/yacht diesel |
-| Baudouin (Moteurs Baudouin) | Weichai Group (acquired 2009) | France | 1918 | inboard diesel | ~350–2,600 hp | 6M26, 12M26 | yacht, commercial | active (acquired by Weichai) | [baudouin.com](https://baudouin.com) | Founded by Charles Baudouin in Marseille (HQ later moved to Cassis); built low-speed diesels for fishing fleets from the outset; Weichai bought the company for $3.8M in 2009 and invested in a new Cassis R&D center; developing LNG/diesel marine engines post-acquisition |
+| Baudouin (Moteurs Baudouin) | Weichai Group | France | 1918 | inboard diesel | ~350–2,600 hp | 6M26, 12M26 | yacht, commercial | active (acquired by Weichai) | [baudouin.com](https://baudouin.com) | Acquired by Weichai in 2009. Founded by Charles Baudouin in Marseille (HQ later moved to Cassis); built low-speed diesels for fishing fleets from the outset; Weichai bought the company for $3.8M in 2009 and invested in a new Cassis R&D center; developing LNG/diesel marine engines post-acquisition |
 | Weichai Marine | Weichai Holding Group | China | Weichai founded 1946; marine diesel from 1968 (6200 engine for fishing vessels) | inboard diesel | ~100–4,000 hp (WP series) | WP series | commercial, yacht (value segment) | active | [en.weichai.com](https://en.weichai.com) | State-owned Chinese diesel conglomerate; also owns Baudouin (France) as its Western/premium marine brand since 2009 |
 | Doosan Engine | Doosan Group | South Korea | — | inboard diesel, 2-stroke ship (licensed builds) | ~300–2,600+ hp (propulsion); larger under license for ship engines | Doosan V222, L series | commercial, ship | active | [tontekpower.com](https://www.tontekpower.com/doosan-marine-propulsion-engine-product/) (distributor) | Described in industry sources as the second-largest marine diesel engine maker after Hyundai Heavy Industries; corporate lineage (Doosan Infracore vs. post-2021 "HD Hyundai Infracore" ownership) not independently confirmed this pass — flagged in Coverage notes |
 | Hyundai SeasAll | Hyundai Kia Motors (marine engine subsidiary) | South Korea | 2009 (US market debut 2008 at boat shows) | inboard diesel, sterndrive, waterjet | ~150 hp–1,000+ hp (estimated from range coverage; exact ceiling unconfirmed) | Seasall 270P and range | recreational, commercial | active | [hyundaiseasall.com.au](https://www.hyundaiseasall.com.au) | "SeasAll" = "All of the Oceans"; built on Hyundai's automotive graphite-infused block/piston technology with common-rail injection, marinized specifically (not a straight automotive-to-marine conversion) |
@@ -116,12 +153,12 @@ the exact quoted cell backing each pair.
 | Kongsberg Kamewa | Kongsberg Maritime | Sweden (mfg.) / Norway (parent) | Kamewa lineage from 1860 (Karlstad); waterjet business from ~1980 | waterjet | 260 kW–36,000 kW | Kamewa FF-series (aluminium), Steel Series | ship, commercial, military, recreational | active | [kongsberg.com/maritime](https://www.kongsberg.com/maritime) | First Kamewa waterjet contract 1980 (Hongkong Macau Hydrofoil catamaran ferry Apollo Jet); acquired FF Jet (Finland, aluminium waterjets since 1985) in 1994 under then-owner Vickers plc |
 | Arneson Surface Drives | Twin Disc, Inc. | USA | 1980 (product launch; development from mid-late 1970s) | surface drive | paired to high-performance gas/diesel engines (historically 300–2,000+ hp) | Arneson ASD8, ASD14 | recreational, racing | active (under Twin Disc ownership) | [twindisc.com/arneson](https://twindisc.com/arneson/) | Invented by Howard Arneson (also inventor of the automatic pool sweep); prop runs half-in/half-out of the water to cut drag; propelled a 1983 Cougar Cat race boat to 9 straight offshore-racing wins and a world championship |
 | France Hélices (SDS) | France Hélices SAS | France | 1977 | surface drive, propellers/shaftlines | for planing hulls 8–40 m, 45+ knots | SDS (Surface Drive System, introduced 1993) | commercial, military, yacht, recreational | active | [surfacedrivesystem.fr](https://www.surfacedrivesystem.fr) | Founded in Cannes by Paul Bezzi; SDS launched 1993; daughter Laetitia Bezzi took over as president in 2014; 3,000+ SDS units delivered over 30 years |
-| MerCruiser | Brunswick Corporation (Mercury Marine) | USA | ~1961 (sterndrive line) | sterndrive | ~135–430+ hp (gas) | Bravo One/Two/Three, Alpha | recreational | active | [mercurymarine.com](https://www.mercurymarine.com) | Took the lead in sterndrives within a year of entering the segment; MerCruiser line later held 80%+ world sterndrive share per company/industry accounts |
+| MerCruiser | Brunswick Corporation | USA | ~1961 (sterndrive line) | sterndrive | ~135–430+ hp (gas) | Bravo One/Two/Three, Alpha | recreational | active | [mercurymarine.com](https://www.mercurymarine.com) | Marketed under Mercury Marine. Took the lead in sterndrives within a year of entering the segment; MerCruiser line later held 80%+ world sterndrive share per company/industry accounts |
 | Konrad Marine | Konrad Marine, Inc. | USA | 1991 | sterndrive | performance-oriented, paired to high-hp gas/diesel | Konrad 520, 500-series, ACE | recreational, racing | active | [konradmarine.com](http://www.konradmarine.com) | Started as an aftermarket supplier of Mercury Alpha-compatible sterndrive parts (sold under the "Omega" name); launched its own first full drive (Konrad 520) in 1997; introduced PRS retrofit for discontinued Mercury TRS drives in 2004, ACE drive for racing in 2006 |
 | Ilmor Marine | Ilmor Engineering | USA (marine division) / UK (parent) | Ilmor Engineering founded 1983–84; marine racing/production engines from ~2000s, MasterCraft partnership 2010 | inboard gas, sterndrive components | high-performance V8, ~500–1,600 hp | Ilmor MV8, 5.7 GDI | recreational, racing | active | [ilmor.com](https://www.ilmor.com) | Ilmor Engineering founded by Mario Illien and Paul Morgan with Roger Penske/GM backing to build IndyCar turbo engines; marine division applies racing-derived engineering to wakeboard/ski and performance-boat inboards |
-| Indmar Marine Engines | Correct Craft (via subsidiary Liberty Technologies) | USA | 1971 | inboard gas | ~220–575+ hp (LS-based) | Raptor, Ford-based and GM LS-based inboards | recreational (wake/ski/inboard) | active (acquired by Correct Craft, 2022) | [indmar.com](https://indmar.com) | Founded by Dick Rowe (Marine Corps veteran) in Millington, TN; world's largest privately-held gasoline inboard maker before the 2022 Correct Craft acquisition; first inboard maker with fuel injection and with a catalyzed exhaust (now industry standard) |
+| Indmar Marine Engines | Correct Craft | USA | 1971 | inboard gas | ~220–575+ hp (LS-based) | Raptor, Ford-based and GM LS-based inboards | recreational (wake/ski/inboard) | active (acquired by Correct Craft, 2022) | [indmar.com](https://indmar.com) | Held via Correct Craft's Liberty Technologies subsidiary. Founded by Dick Rowe (Marine Corps veteran) in Millington, TN; world's largest privately-held gasoline inboard maker before the 2022 Correct Craft acquisition; first inboard maker with fuel injection and with a catalyzed exhaust (now industry standard) |
 | Crusader Engines | Pleasurecraft Engine Group | USA | acquired by Pleasurecraft 1998 | inboard gas | ~320–750 hp | Crusader XR-series | recreational | active | [crusaderengines.com](https://www.crusaderengines.com) | 1998 Pleasurecraft acquisition created the Pleasurecraft Engine Group, described as the world's leading gasoline-inboard manufacturer group |
-| PCM (Pleasurecraft Marine Engine Co.) | Correct Craft (Liberty Technologies) | USA | — | inboard gas | ~220–500+ hp | PCM Predator, ZZ series | recreational | active | [indmar.com](https://indmar.com) (Liberty Technologies portfolio page) | Now managed alongside Indmar, Crusader, Levitator Engines and Velvet Drive Transmissions under Correct Craft's Liberty Technologies subsidiary |
+| PCM (Pleasurecraft Marine Engine Co.) | Correct Craft | USA | — | inboard gas | ~220–500+ hp | PCM Predator, ZZ series | recreational | active | [indmar.com](https://indmar.com) (Liberty Technologies portfolio page) | Held via Correct Craft's Liberty Technologies subsidiary. Now managed alongside Indmar, Crusader, Levitator Engines and Velvet Drive Transmissions under that same subsidiary |
 
 ## Market structure
 
