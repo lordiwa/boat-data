@@ -122,11 +122,29 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
 
     expect(graph.meta.types.yacht).toBe(605);
-    expect(graph.meta.types.builder).toBe(186);
+    // TASK-019: builder DROPPED from 186 to 160 (documented deliberately —
+    // see graphCleanup.js's own module header for the full ledger): 18
+    // duplicate-entity-pair merges (17 pairs + 1 extra leg of the Olympic
+    // 3-way merge) + 10 suspect-node removals/retypes (Y.CO -> company,
+    // Hoek Design -> designer, Philip Zepter/Sportiva 55/Cies - Oassive/
+    // Kolotura/Viareggio (bare)/Bali Catamarans removed, Arcadia Sherpa
+    // merged into Arcadia, Winch Design/Vard removed) = 28 nodes removed
+    // (186 - 28 = 158), + 2 new nodes minted by builderEnrichmentMapper.js
+    // for research rows deliberately NOT curated onto a same-first-word
+    // existing node (Corsair Marine, Crescent Custom Yachts) = 160.
+    expect(graph.meta.types.builder).toBe(160);
     expect(graph.meta.types.club).toBe(368);
     expect(graph.meta.types.marina).toBe(893);
     expect(graph.meta.types.person).toBe(110);
-    expect(graph.meta.types.designer).toBe(10);
+    // TASK-019: designer ROSE from 10 (empty-attrs placeholders) to 60 —
+    // designerMapper.js enriches the 9 pre-existing nodes it could resolve
+    // by exact name (the 10th, "(Naval-inspired)", is excluded from
+    // knowledge/92 — see its own Curation notes and graphCleanup.js's
+    // fixNavalInspiredArtifact, which deletes that node) and creates 50 new
+    // ones (9 + 50 = 59 rows processed), plus the graph-cleanup pass's
+    // Hoek Design retype (builder -> designer) adds one more = 60, well
+    // over the ticket's >=55 target.
+    expect(graph.meta.types.designer).toBe(60);
     expect(graph.meta.types.shipyard).toBe(236);
     // TASK-017: engine grew from 16 (file-07 tier table only) to 59 after
     // knowledge/89's manufacturer directory merged into/created brand

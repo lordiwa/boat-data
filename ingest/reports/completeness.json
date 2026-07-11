@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T00:20:49.469Z",
+  "generated_at": "2026-07-11T00:58:51.084Z",
   "byType": [
     {
       "type": "yacht",
       "count": 605,
       "attrPct": 32.53,
-      "edgePct": 94.21,
-      "score": 5.1
+      "edgePct": 93.22,
+      "score": 5.07
     },
     {
       "type": "shipyard",
@@ -17,10 +17,10 @@
     },
     {
       "type": "builder",
-      "count": 186,
-      "attrPct": 0,
+      "count": 160,
+      "attrPct": 42.66,
       "edgePct": 100,
-      "score": 3
+      "score": 5.99
     },
     {
       "type": "marina",
@@ -31,14 +31,14 @@
     },
     {
       "type": "company",
-      "count": 740,
-      "attrPct": 62.84,
-      "edgePct": 31.22,
+      "count": 792,
+      "attrPct": 60.98,
+      "edgePct": 35.61,
       "score": 5.34
     },
     {
       "type": "region",
-      "count": 826,
+      "count": 864,
       "attrPct": 100,
       "edgePct": 100,
       "score": 10
@@ -59,10 +59,10 @@
     },
     {
       "type": "designer",
-      "count": 10,
-      "attrPct": 0,
-      "edgePct": 100,
-      "score": 3
+      "count": 60,
+      "attrPct": 98.89,
+      "edgePct": 60,
+      "score": 8.72
     },
     {
       "type": "engine",
@@ -93,5 +93,5 @@
       "score": 7
     }
   ],
-  "overall": 6.02
+  "overall": 6.67
 }
