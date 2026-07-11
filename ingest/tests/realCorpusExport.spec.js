@@ -133,7 +133,10 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // Shadow x3 -> 1, Loewe, Amevi->Batello, Al Mirqab, H3 — see that
     // module's own comment for the full per-cluster citation) — 599 - 18 =
     // 581.
-    expect(graph.meta.types.yacht).toBe(581);
+    // TASK-024 review LOW 1: yacht DROPS once more, 581 -> 580 — the DB9/
+    // DB9 (Palmer Johnson) duplicate pair merges (grounded by research/
+    // round5/yacht-specs-45-55m.md's own DB9 row) — 581 - 1 = 580.
+    expect(graph.meta.types.yacht).toBe(580);
     // TASK-019: builder DROPPED from 186 to 160 (documented deliberately —
     // see graphCleanup.js's own module header for the full ledger): 18
     // duplicate-entity-pair merges (17 pairs + 1 extra leg of the Olympic
@@ -576,7 +579,7 @@ describe('real corpus — full-graph double-ingest idempotency (TASK-023 item 0)
     // yacht) gets a disambiguated "-2"/"-3"/... sibling minted on re-ingest.
     const dupSuffixed = nodeCountsByType.find((r) => r.type === 'yacht');
     expect(dupSuffixed).toBeTruthy();
-    expect(dupSuffixed.count).toBe(581); // TASK-023 item 3: 599 - 18 duplicate-hull merges = 581 (see baseline lock above)
+    expect(dupSuffixed.count).toBe(580); // TASK-024 review LOW 1: 581 - 1 (DB9 merge) = 580 (see baseline lock above)
   }, 60000);
 
   it('never mints yacht:eiv-2 or yacht:mystere-2 on a second ingest, and both corrected yachts keep their fixed loa', async () => {

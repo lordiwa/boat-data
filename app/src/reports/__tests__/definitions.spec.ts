@@ -370,7 +370,7 @@ describe('real graph.json regression checks', () => {
     expect(total).toBe(12);
   });
 
-  it('R3: description states real coverage — 12 of 581 yachts have a usable charter rate', () => {
+  it('R3: description states real coverage — 12 of 580 yachts have a usable charter rate', () => {
     // TASK-020: total yacht count dropped from 605 to 599 (6 rename/
     // duplicate merges — see graphCleanup.js's YACHT_MERGE_MAP); the 12
     // yachts with a usable charter rate figure is unaffected (none of the
@@ -379,8 +379,11 @@ describe('real graph.json regression checks', () => {
     // grounded duplicate-hull merges — see graphCleanup.js's
     // YACHT_MERGE_MAP's new entries); the 12-yacht charter-rate figure is
     // again unaffected (none of the 18 merged pairs had a weekly_rate attr).
+    // TASK-024 review LOW 1: yacht count drops once more, 581 -> 580 (the
+    // DB9/DB9 (Palmer Johnson) merge); again unaffected (neither DB9 node
+    // had a weekly_rate attr).
     const result = reportCharterRateDistribution(graph);
-    expect(result.description).toContain('Only 12 of 581 yachts have a usable charter rate.');
+    expect(result.description).toContain('Only 12 of 580 yachts have a usable charter rate.');
   });
 
   it('R5: top owner by fleet size is Saudi Royal with 3 yachts', () => {

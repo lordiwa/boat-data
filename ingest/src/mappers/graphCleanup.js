@@ -529,7 +529,98 @@ export const YACHT_MERGE_MAP = [
   // own H3 row), double-counted alongside a thin `various`/`loa: "70+"`
   // placeholder duplicate with no other data.
   { from: 'yacht:h3-various', to: 'yacht:h3' },
+
+  // --- TASK-024 review LOW 1: DB9 merge -----------------------------------
+  // Palmer Johnson's first PJ170 SportYacht hull, recorded twice: a
+  // 52.36m node (`yacht:db9`, correctly gap-filled by knowledge/97's own
+  // "DB9" spec row — LOA matches to the centimetre) and a thin duplicate
+  // (`yacht:db9-palmer-johnson`, LOA rounded to 50m by a different source
+  // doc, no other spec data). research/round5/yacht-specs-45-55m.md's own
+  // DB9 row documents this exact pair as "the same real vessel ... left
+  // unmerged this round ... documented here for a future pass" — grounded
+  // by that citation, this ticket closes it. `to` is the already-spec'd
+  // node so no data is lost either way.
+  { from: 'yacht:db9-palmer-johnson', to: 'yacht:db9' },
 ];
+
+// --- TASK-024 review LOW 2: same-name-conflict identity notes -----------
+// research/round5's band files flag 7 yacht nodes where a same-named REAL
+// public vessel exists, but its documented builder/LOA/hull-number
+// contradicts THIS graph node's own recorded combination (see each entry's
+// own citation) — not a data value to correct (no single alternate value
+// is confidently grounded), so recorded as a node-level identity-mismatch
+// note in `attrs.conflicts.identity` rather than guessed at or silently
+// left implicit. Same "small curated mechanism, never a hand-edit of
+// graph.json" discipline as QUALITY_FLAGS/YACHT_QUALITY_CORRECTIONS above.
+// These same 7 names are also carried into identifiability.js's
+// NEGATIVE_EVIDENCE_TABLE (Rule B's negative-evidence skip list) — the two
+// mechanisms are independent (this one annotates the node; that one
+// affects scoring) but grounded in the same research citations.
+export const YACHT_CONFLICT_NOTES = [
+  {
+    id: 'yacht:aqa',
+    note:
+      'Graph describes a 49m Inace-built expedition yacht (2022). Public yacht databases only show an unrelated ' +
+      '28.01m "AQA" (Export Yachts, 1996) — no record of a 49m Inace-built AQA found. Likely a very new/private ' +
+      'build not yet indexed, or a data-extraction mismatch. See research/round5/yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:grace-australian-yacht-builders',
+    note:
+      'Graph describes a 52.4m Australian Yacht Builders "Grace". Public records show two distinct "Grace" yachts ' +
+      '(a 58.5m Australian Yacht Builders vessel, 1991, and an unrelated 52.3m Amels, 2009) — neither matches this ' +
+      'node\'s exact 52.4m + Australian Yacht Builders combination. See research/round5/yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:panam',
+    note:
+      'Graph describes a 49m "Panam" attributed (in part) to CCN. The only public "Panam" is a 40.2m Baglietto-' +
+      'built, CCN-constructed yacht (2021) — 8.8m shorter than this node\'s recorded length. See research/round5/' +
+      'yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:starburst-iv',
+    note:
+      'Graph describes a 47m Bilgin-built "Starburst IV". The only public record found is "Starburst III" (47.4m ' +
+      'Bilgin, 2017) — no "Starburst IV" is documented; likely a naming confusion with Starburst III in the source ' +
+      'corpus. See research/round5/yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:night-fury-ii',
+    note:
+      'Graph describes a 49.9m Columbus-built "Night Fury II". The only public record is a 43.0m Columbus ' +
+      'Atlantique 43 (2024) — 6.9m shorter than this node\'s recorded length; builder matches but LOA does not. ' +
+      'See research/round5/yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:little-perle',
+    note:
+      'Graph describes a 50m "Little Perle". The only public "Little Perle" is a 30m Moonen (2008) — no 50m ' +
+      'vessel of this name exists in yacht databases; probably a graph misattribution during ingestion. See ' +
+      'research/round5/yacht-specs-45-55m.md.',
+  },
+  {
+    id: 'yacht:the-jackson',
+    note:
+      'Graph describes a 37m Horizon-built "The Jackson" (2017). The only "The Jackson" with strong web presence ' +
+      'is an unrelated 62.5m Sydney Harbour dinner-cruise/event vessel (a commercial function-boat, not a private ' +
+      'Horizon yacht) — could not confirm the graph\'s 37m/Horizon/2017 entry against any source. See research/' +
+      'round5/yacht-specs-35-45m.md and yacht-specs-45-55m.md.',
+  },
+];
+
+function applyYachtConflictNotes(db) {
+  for (const { id, note } of YACHT_CONFLICT_NOTES) {
+    if (!nodeExists(db, id)) continue;
+    const row = getFullNode(db, id);
+    const attrs = parseAttrsJson(row.attrs_json);
+    const conflicts = { ...(attrs.conflicts || {}) };
+    const existing = conflicts.identity || [];
+    conflicts.identity = existing.includes(note) ? existing : [...existing, note];
+    attrs.conflicts = conflicts;
+    upsertNode(db, { id, type: row.type, name: row.name, attrs });
+  }
+}
 
 // TASK-023 item 3: research/round5/yacht-specs-under35m.md's own Suspect
 // entries flag Al Mirqab's two graph nodes as carrying "no reconciliation
@@ -1012,8 +1103,9 @@ function applyYachtQualityCorrections(db) {
  * merges, suspect-node reclassification/removal/flagging, the two special
  * cross-type fixes, the Weichai company merge, TASK-020's yacht rename/
  * duplicate merges, the Rybovich marina merge, the RIO/MOSAIQUE data-
- * quality flags, and TASK-021's person/club dedupe, person retype/flag,
- * ownership corrections, and yacht LOA quality corrections. Idempotent —
+ * quality flags, TASK-021's person/club dedupe, person retype/flag,
+ * ownership corrections, and yacht LOA quality corrections, and TASK-024's
+ * DB9 merge plus the 7 same-name-conflict identity notes. Idempotent —
  * safe to call after every ingest run (a repeat call is a no-op: every
  * merge source/suspect id has already been deleted, and re-flagging/re-
  * correcting an already-handled node is a harmless no-op overwrite of the
@@ -1061,4 +1153,11 @@ export function applyGraphCleanup(db) {
   }
 
   applyYachtQualityCorrections(db);
+
+  // TASK-024 review LOW 2: same-name-conflict identity notes — runs last,
+  // after every merge above, so it always targets the FINAL canonical node
+  // id for each of the 7 flagged yachts (none of the 7 is itself a merge
+  // source/target this round, but this ordering keeps the invariant true
+  // for any future round that changes that).
+  applyYachtConflictNotes(db);
 }

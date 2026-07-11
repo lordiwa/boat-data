@@ -35,7 +35,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { openDb, initSchema, upsertNode, upsertEdge } from '../src/db.js';
-import { applyGraphCleanup } from '../src/mappers/graphCleanup.js';
+import { applyGraphCleanup, YACHT_CONFLICT_NOTES } from '../src/mappers/graphCleanup.js';
 
 let tmpDbPath;
 let db;
@@ -583,6 +583,109 @@ describe('applyGraphCleanup — duplicate-hull merges (TASK-023 item 3)', () => 
     applyGraphCleanup(db);
 
     expect(orphanEdgeCount()).toBe(0);
+  });
+});
+
+// TASK-024 review LOW 1: DB9 merge — Palmer Johnson's first PJ170
+// SportYacht hull, recorded twice (a fully-spec'd 52.36m node and a thin
+// 50m duplicate) — grounded by research/round5/yacht-specs-45-55m.md's own
+// DB9 row.
+describe('applyGraphCleanup — DB9 merge (TASK-024 review LOW 1)', () => {
+  it('merges yacht:db9-palmer-johnson into yacht:db9, preserving the canonical node\'s spec data', () => {
+    upsertNode(db, {
+      id: 'yacht:db9',
+      type: 'yacht',
+      name: 'DB9',
+      attrs: { loa: { meters: 52.36, raw: '52.36' }, gt: 495, max_speed: 30 },
+    });
+    upsertNode(db, {
+      id: 'yacht:db9-palmer-johnson',
+      type: 'yacht',
+      name: 'DB9',
+      attrs: { loa: { meters: 50, raw: '50' } },
+    });
+
+    applyGraphCleanup(db);
+
+    expect(nodeExists('yacht:db9-palmer-johnson')).toBe(false);
+    expect(nodeExists('yacht:db9')).toBe(true);
+    expect(getNode('yacht:db9').attrs.gt).toBe(495);
+  });
+
+  it('re-points any built_by edge on the duplicate node onto the canonical DB9 node without orphaning it', () => {
+    upsertNode(db, { id: 'yacht:db9', type: 'yacht', name: 'DB9' });
+    upsertNode(db, { id: 'yacht:db9-palmer-johnson', type: 'yacht', name: 'DB9' });
+    upsertNode(db, { id: 'builder:palmer-johnson', type: 'builder', name: 'Palmer Johnson' });
+    upsertEdge(db, { src: 'yacht:db9-palmer-johnson', rel: 'built_by', dst: 'builder:palmer-johnson' });
+
+    applyGraphCleanup(db);
+
+    expect(edgeExists('yacht:db9', 'built_by', 'builder:palmer-johnson')).toBe(true);
+    expect(orphanEdgeCount()).toBe(0);
+  });
+});
+
+// TASK-024 review LOW 2: the 7 same-name-conflict yachts flagged by
+// research/round5's band files each get a node-level attrs.conflicts.identity
+// entry recording the researched-vessel mismatch (never a value correction —
+// no single confidently-grounded alternate value exists for any of them).
+describe('applyGraphCleanup — same-name-conflict identity notes (TASK-024 review LOW 2)', () => {
+  it('YACHT_CONFLICT_NOTES lists exactly the 7 flagged yachts', () => {
+    const ids = YACHT_CONFLICT_NOTES.map((e) => e.id).sort();
+    expect(ids).toEqual(
+      [
+        'yacht:aqa',
+        'yacht:grace-australian-yacht-builders',
+        'yacht:little-perle',
+        'yacht:night-fury-ii',
+        'yacht:panam',
+        'yacht:starburst-iv',
+        'yacht:the-jackson',
+      ].sort()
+    );
+  });
+
+  it('stamps attrs.conflicts.identity on each of the 7 flagged yachts without deleting them', () => {
+    for (const { id } of YACHT_CONFLICT_NOTES) {
+      upsertNode(db, { id, type: 'yacht', name: id });
+    }
+
+    applyGraphCleanup(db);
+
+    for (const { id, note } of YACHT_CONFLICT_NOTES) {
+      expect(nodeExists(id)).toBe(true);
+      const attrs = getNode(id).attrs;
+      expect(attrs.conflicts.identity).toContain(note);
+    }
+  });
+
+  it('is idempotent: running twice does not duplicate the identity note', () => {
+    upsertNode(db, { id: 'yacht:aqa', type: 'yacht', name: 'AQA' });
+
+    applyGraphCleanup(db);
+    applyGraphCleanup(db);
+
+    const attrs = getNode('yacht:aqa').attrs;
+    expect(attrs.conflicts.identity).toHaveLength(1);
+  });
+
+  it('is a no-op for a flagged id absent from a smaller/synthetic graph', () => {
+    expect(() => applyGraphCleanup(db)).not.toThrow();
+  });
+
+  it('preserves any pre-existing per-field conflicts alongside the new identity note', () => {
+    upsertNode(db, {
+      id: 'yacht:panam',
+      type: 'yacht',
+      name: 'Panam',
+      attrs: { conflicts: { beam: ['some other conflict'] } },
+    });
+
+    applyGraphCleanup(db);
+
+    const attrs = getNode('yacht:panam').attrs;
+    expect(attrs.conflicts.beam).toEqual(['some other conflict']);
+    expect(attrs.conflicts.identity.length).toBeGreaterThan(0);
   });
 });
 
