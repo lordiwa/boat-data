@@ -5,9 +5,10 @@
 // ingestion-order-dependent, see yachtMapper.js), parses each file's pipe
 // tables, and routes every table to exactly one entity mapper by schema
 // guard, in precedence order: yacht > club > marina > company > engine >
-// shipyard > engine-manufacturer > engine-model > part > size-class. A
-// table that matches none of the ten schemas is skipped and counted
-// (diagnostic only — never silently dropped from the log).
+// shipyard > engine-manufacturer > engine-model > part > size-class >
+// builder-enrichment > designer. A table that matches none of the twelve
+// schemas is skipped and counted (diagnostic only — never silently dropped
+// from the log).
 //
 // TASK-016 adds shipyardMapper LAST in precedence (a highly specific guard
 // per its own module header — see shipyardMapper.js for the full
@@ -35,6 +36,19 @@
 // linkEngineOemSupplies() is a small retrofit hook (same pattern as
 // linkYachtRegions() below) run once after all files are processed, adding
 // a hand-grounded handful of OEM_SUPPLIES edges between engine brands.
+//
+// TASK-019 adds two more guards (builderEnrichmentMapper.js,
+// designerMapper.js — see each module's own header for the full guard-
+// collision analysis, now a 12x12 matrix in
+// ingest/tests/guardCollisions.spec.js) PLUS a graph-cleanup retrofit hook
+// (graphCleanup.js's applyGraphCleanup(), same "run once after every file"
+// pattern as linkYachtRegions/linkEngineOemSupplies): merges ~15 duplicate
+// builder-entity pairs, reclassifies/removes/flags 13 suspect non-builder
+// nodes, fixes the Winch Design/Vard conflated node and the "(Naval-
+// inspired)" designer artifact, and merges the Weichai company duplicate —
+// see graphCleanup.js's own module header for the full per-node rationale.
+// Deliberately run LAST (after every other hook), since it deletes/retypes
+// nodes that earlier hooks (and every mapper) must still see intact.
 //
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
@@ -82,6 +96,9 @@ import { mapShipyardTables, isShipyardTable } from './mappers/shipyardMapper.js'
 import { mapEngineModelTables, isEngineModelTable } from './mappers/engineModelMapper.js';
 import { mapPartTables, isPartTable } from './mappers/partMapper.js';
 import { mapSizeClassTables, isSizeClassTable } from './mappers/sizeClassMapper.js';
+import { mapBuilderEnrichmentTables, isBuilderEnrichmentTable } from './mappers/builderEnrichmentMapper.js';
+import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js';
+import { applyGraphCleanup } from './mappers/graphCleanup.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -173,6 +190,8 @@ function routeTables(tables) {
     engineModel: [],
     part: [],
     sizeClass: [],
+    builderEnrichment: [],
+    designer: [],
   };
   let skipped = 0;
 
@@ -187,6 +206,8 @@ function routeTables(tables) {
     else if (isEngineModelTable(table)) buckets.engineModel.push(table);
     else if (isPartTable(table)) buckets.part.push(table);
     else if (isSizeClassTable(table)) buckets.sizeClass.push(table);
+    else if (isBuilderEnrichmentTable(table)) buckets.builderEnrichment.push(table);
+    else if (isDesignerTable(table)) buckets.designer.push(table);
     else skipped += 1;
   }
 
@@ -363,6 +384,9 @@ export function runIngest() {
       sizeClasses: 0,
       designers: 0,
       poweredBy: 0,
+      builderEnrichmentMatched: 0,
+      builderEnrichmentCreated: 0,
+      designedBy: 0,
       edges: 0,
       skippedProseSheets: 0,
     };
@@ -434,6 +458,21 @@ export function runIngest() {
       const sizeClassResult = mapSizeClassTables(db, buckets.sizeClass, fileName);
       totals.sizeClasses += sizeClassResult.classes;
 
+      // TASK-019: resolves onto EXISTING builder nodes (mints new ones only
+      // when no match — see builderEnrichmentMapper.js's own module
+      // header), so its node count is folded into totals.builders via its
+      // own matched/created counters rather than the shared `builders`
+      // total (which tracks yachtMapper's own minting).
+      const builderEnrichmentResult = mapBuilderEnrichmentTables(db, buckets.builderEnrichment, fileName);
+      totals.builderEnrichmentMatched += builderEnrichmentResult.matched;
+      totals.builderEnrichmentCreated += builderEnrichmentResult.created;
+      totals.edges += builderEnrichmentResult.edges;
+
+      const designerResult = mapDesignerTables(db, buckets.designer, fileName);
+      totals.designers += designerResult.matched + designerResult.created;
+      totals.designedBy += designerResult.designedByEdges;
+      totals.edges += designerResult.designedByEdges;
+
       // Independent side-pass: does not consume from `buckets` / does not
       // affect `skipped` accounting (see module header).
       const attributionResult = linkYachtAttributions(db, tables, fileName);
@@ -466,6 +505,12 @@ export function runIngest() {
     // are guaranteed to exist already.
     const oemSuppliesResult = linkEngineOemSupplies(db);
     totals.edges += oemSuppliesResult.edges;
+
+    // TASK-019: graph cleanup — deliberately LAST, after every mapper/hook
+    // above has had a chance to create or enrich a node (see
+    // graphCleanup.js's own module header for the full merge/reclassify/
+    // remove/flag ledger). Idempotent; safe to run on every ingest.
+    applyGraphCleanup(db);
 
     const skippedProseReportPath = writeSkippedProseReport(skippedProseEntries);
 

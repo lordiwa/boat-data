@@ -90,6 +90,21 @@ parenthetical-qualified name (e.g. TASK-016's "NVL Group (Rheinmetall)") is
 acceptable when it isn't narrating history in full-sentence prose and isn't
 creating a duplicate.
 
+**Curation-pass note (TASK-019):** Tohatsu's own Parent Company cell —
+"Tohatsu Corporation (JV with Brunswick since 1988)" — was curated to the
+bare brand name **"Tohatsu"** (the JV qualifier moved into this row's own
+Notes cell, which already documented the same 1988 JV in prose, making the
+qualifier redundant in Parent Company). Verified computationally before
+curating: `resolveParentCompanyId()`'s self-reference guard
+(`normalizeName(parentRaw) === normalizeName(brandRaw)`) means a bare
+"Tohatsu" Parent Company cell on Tohatsu's OWN row now resolves to itself
+and correctly produces NO owned_by edge (a brand isn't its own parent) —
+this is the correct behavior, not a regression: it eliminates the
+`company:tohatsu-corporation-jv-with-brunswick-since-1988` node the
+pre-curation cell used to mint (a duplicate of `company:tohatsu`, which
+Nissan Marine's own Parent Company cell, "Tohatsu", already resolves onto).
+After this fix, only one Tohatsu-parent company node exists in the graph.
+
 The **Market structure** and **History highlights** sections stay unclaimed
 doc prose this round — `mapEngineManufacturerTables` only claims the
 Manufacturers table itself (a different, incompatible column shape). A small,
@@ -108,7 +123,7 @@ the exact quoted cell backing each pair.
 | Yamaha | Yamaha Motor Co. | Japan | 1960 | outboard | 2.5–450 hp | F425, F350, SHO series | recreational, commercial | active | [yamahamotor.com](https://www.yamahamotor.com) | Sold under the "Yamaha Marine" brand. First outboard was the P-7 (1960); first 4-stroke line began 1980, F9.9A launched 1984; co-launched first V6 4-stroke (225 hp) with Honda in 2001 |
 | Honda | Honda Motor Co. | Japan | 1964 | outboard (4-stroke only) | 2–250 hp | BF250, BF350 | recreational, commercial | active | [marine.honda.com](https://marine.honda.com) | Sold under the "Honda Marine" brand. Only major outboard maker that has never sold a 2-stroke; first 4-stroke powerhead 1964; co-launched first V6 4-stroke with Yamaha 2001 |
 | Suzuki | Suzuki Motor Corporation | Japan | 1965 (brand 1977) | outboard | 2.5–350 hp | DF350A, DT/DF series | recreational, commercial | active | [suzukimarine.com](https://www.suzukimarine.com) | Sold under the "Suzuki Marine" brand. Founded by Michio Suzuki 1909 (parent co.); first outboard 1965, "Suzuki Marine" brand adopted 1977 with DT5 export; first 4-stroke (DF9.9/DF15) 1994 |
-| Tohatsu | Tohatsu Corporation (JV with Brunswick since 1988) | Japan | 1922 (Takata Motor Research Inst.); first outboard 1956 | outboard | 2.5–140 hp | MFS9.9, M18E | recreational, commercial | active | [tohatsu.co.jp](https://www.tohatsumarine.co.jp) | Builds all Mercury/Mariner 4–30 hp four-strokes (M-series) under the 1988 Tohatsu Marine Corp JV; produces 170,000–180,000 units/yr combined; also supplied Nissan Marine (rebadge) and small Evinrude-branded units 2011+ |
+| Tohatsu | Tohatsu | Japan | 1922 (Takata Motor Research Inst.); first outboard 1956 | outboard | 2.5–140 hp | MFS9.9, M18E | recreational, commercial | active | [tohatsu.co.jp](https://www.tohatsumarine.co.jp) | Builds all Mercury/Mariner 4–30 hp four-strokes (M-series) under the 1988 Tohatsu Marine Corp JV (JV with Brunswick since 1988); produces 170,000–180,000 units/yr combined; also supplied Nissan Marine (rebadge) and small Evinrude-branded units 2011+ |
 | Nissan Marine | Tohatsu | Japan/USA | 1980s–2010s | outboard | 2.5–140 hp (same as Tohatsu) | ME9.9TLE | recreational | defunct (brand retired; badge-engineered Tohatsu only) | — | Rebadge program (not a corporate subsidiary): all Nissan-branded outboards sold in North America/Australia were rebadged Tohatsus, differing only in decals/cowling color |
 | Evinrude | BRP (Bombardier Recreational Products) | USA / Canada | 1907 | outboard | 25–300+ hp (E-TEC/G2 era) | E-TEC, E-TEC G2 | recreational | defunct (BRP wound down production May 27, 2020) | [brp.com](https://www.brp.com) | Founded by Ole Evinrude in Milwaukee; merged with Johnson 1936 to form Outboard Marine Corp (OMC); OMC bankruptcy 2000, BRP bought motor assets (~$350M); BRP cited COVID-19 impact plus prior segment struggles for the 2020 shutdown, ~$134M wind-down cost (Sturtevant, WI plant repurposed) |
 | Johnson | Outboard Marine Corp / BRP | USA | 1921–1922 (Johnson brothers, Terre Haute IN roots to 1903/1908) | outboard | up to 235–275 hp (V6/V8 era) | Sea-Horse, V6 235 (1978, most powerful production outboard at launch) | recreational, racing | defunct (phased out by BRP ~2007, pre-dating Evinrude's 2020 exit) | — | Johnson brothers built inboard experimental V-engines 1903–1913 (destroyed by a 1913 tornado) before pivoting to the 1921 "Light Twin" outboard; merged into OMC 1936 alongside Evinrude |

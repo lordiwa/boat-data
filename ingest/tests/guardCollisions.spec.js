@@ -1,13 +1,13 @@
 // ingest/tests/guardCollisions.spec.js
 //
-// TASK-017: a cross-guard collision matrix. Every mapper's schema guard
-// must claim ONLY its own real-shaped table — never a table shaped for one
-// of the other nine entity types. Each individual mapper spec file already
-// spot-checks a couple of these pairs; this file is the single place that
-// proves the FULL matrix (10 guards x 10 real-shaped fixtures), so a new
-// guard added in the future has an obvious place to add its own row/column
-// rather than requiring every existing spec file to be hunted down and
-// updated by hand.
+// TASK-017/TASK-019: a cross-guard collision matrix. Every mapper's schema
+// guard must claim ONLY its own real-shaped table — never a table shaped
+// for one of the other entity types. Each individual mapper spec file
+// already spot-checks a couple of these pairs; this file is the single
+// place that proves the FULL matrix (TASK-019: 12 guards x 12 real-shaped
+// fixtures), so a new guard added in the future has an obvious place to
+// add its own row/column rather than requiring every existing spec file to
+// be hunted down and updated by hand.
 //
 // yachtMapper.js doesn't export its own guard function (ingest.js keeps a
 // small private duplicate — see ingest.js's own module-header comment on
@@ -24,6 +24,8 @@ import { isShipyardTable } from '../src/mappers/shipyardMapper.js';
 import { isEngineModelTable } from '../src/mappers/engineModelMapper.js';
 import { isPartTable } from '../src/mappers/partMapper.js';
 import { isSizeClassTable } from '../src/mappers/sizeClassMapper.js';
+import { isBuilderEnrichmentTable } from '../src/mappers/builderEnrichmentMapper.js';
+import { isDesignerTable } from '../src/mappers/designerMapper.js';
 
 // Mirrors ingest.js's own private isYachtTable exactly (see that file's
 // module header for why it can't import yachtMapper's internal check).
@@ -45,6 +47,8 @@ const GUARDS = {
   engineModel: isEngineModelTable,
   part: isPartTable,
   sizeClass: isSizeClassTable,
+  builderEnrichment: isBuilderEnrichmentTable,
+  designer: isDesignerTable,
 };
 
 // One real-shaped, single-table fixture per entity type (verbatim/close-to
@@ -100,6 +104,16 @@ const FIXTURES = {
 | Class      | Length Threshold          | GT Range                | Typical Crew            | Definition Used By         | Example Vessels        | Notes |
 |------------|---------------------------|--------------------------|--------------------------|------------------------------|--------------------------|-------|
 | Superyacht | 24m+ (79ft+)              | ~500-3,000 GT (varies)   | 3-16 depending on size  | Most common convention      | Amels 60, Heesen 50m    | Conflict noted. |
+`,
+  builderEnrichment: `
+| Builder | Country | City | Founded | Specialty | Status | Parent Company | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Lurssen | Germany | Bremen-Vegesack | 1875 | custom steel/aluminium megayachts | active | family-owned | lurssen.com | 51 yachts in graph |
+`,
+  designer: `
+| Designer | Country | City | Founded | Discipline | Notable Yachts | Status | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Bannenberg & Rowell | UK | London | 2003 | exterior design, interior design | Joy, Elandess 2 | active | bannenbergandrowell.com | Direct descendant studio |
 `,
 };
 
