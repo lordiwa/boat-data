@@ -89,6 +89,40 @@ verified), so `builder:olympic-yacht-services` is left unenriched rather
 than acted on with only "most likely corresponds to" confidence. Flagged
 here as an open follow-up, not silently dropped.
 
+**Review fix (MEDIUM, post-ship): Sheikh Mansour/Sheikh Mohammed
+column-shift.** The ORIGINAL research doc's own rows for "Sheikh
+Mansour," "Sheikh Mohammed," and "Sheikh Mohammed bin Rashid Al Maktoum"
+put the real Nationality value ("Emirati") one column right, into
+Industry, while Nationality itself held the generic
+"— duplicate node —" marker meant only for the columns that genuinely
+had nothing else to say. Because `personMapper.js` faithfully transcribes
+whatever text sits in each column, the shipped result was
+`industry: 'Emirati'` and **no `nationality` at all** on the canonical
+`person:sheikh-mansour-bin-zayed-al-nahyan` and
+`person:sheikh-mohammed-bin-rashid-al-maktoum` nodes (the duplicate rows'
+`industry` value survived the graphCleanup.js merge via first-non-empty-
+wins, but nothing had ever populated `nationality` on either side).
+Fixed by moving "Emirati" back to the Nationality column on all three
+affected rows and leaving Industry as `n/a` (neither of these two heads-
+of-state-adjacent rows has a distinct industry description anywhere in
+the source research beyond what's already captured in their own
+Role/Title column).
+
+**Review fix (MEDIUM, post-ship): A+'s owned_by edge had no
+ownership_confidence.** Same root cause as above, one level deeper: the
+graph's `yacht:a` (A+, ex-Topaz — Sheikh Mansour's *earlier* yacht, before
+Blue) owned_by edge is carried by the pre-merge node
+`person:uae-mansour-bin-zayed` ("UAE (Mansour bin Zayed)"), not by
+"Sheikh Mansour" itself — and that row's own Ownership Confidence cell
+was blank ("—"), so `personMapper.js` had nothing to tag that edge with
+before graphCleanup.js's `PERSON_MERGE_MAP` carried it, untagged, onto
+the canonical node. Fixed by setting "UAE (Mansour bin Zayed)"'s own
+Ownership Confidence cell to `Confirmed` (Sheikh Mansour's ownership of
+his own earlier yacht is exactly as confirmed as his ownership of Blue) —
+`personMapper.js` tags every one of a row's resolved person id's
+EXISTING owned_by edges, so this is the row that must carry the
+confidence for the A+ edge specifically, not the "Sheikh Mansour" row.
+
 ## Persons
 
 | Person | Nationality | Industry | Role/Title | Status | Ownership Confidence | Notes |
@@ -176,17 +210,17 @@ here as an open follow-up, not silently dropped.
 | Sergey Brin (rumored) | — duplicate/likely-erroneous node — | — | — | — | Rumored | Linked in graph to "Dragonfly (Silveryachts)" — inconsistent with Dragonfly's actual builder (Lürssen, not Silveryachts); flag as a probable data artifact. |
 | Shahid Khan | American (Pakistani‑born) | Auto parts manufacturing (Flex‑N‑Gate); sports (Jacksonville Jaguars, Fulham FC) | Owner | Living | Confirmed | Owns Kismet (122m Lürssen); available for occasional charter. |
 | Sheikh Abdullah Al Thani | Qatari | n/a (royal family, banking background) | Sheikh | Living | **Disputed** | Graph also attributes Opera to "UAE Royal (Abdullah bin Zayed)" — a different person from a different royal family (Al Thani/Qatar vs. Al Nahyan/UAE). This looks like a source conflation; which claim is correct was not resolved this session. |
-| Sheikh Mansour | — duplicate node — | Emirati | Deputy PM UAE; Chairman, Mubadala; owner, Manchester City FC | Living | Confirmed | Owns Blue (160.6m Lürssen), which replaced his earlier yacht Topaz. |
+| Sheikh Mansour | Emirati | n/a | Deputy PM UAE; Chairman, Mubadala; owner, Manchester City FC | Living | Confirmed | Owns Blue (160.6m Lürssen), which replaced his earlier yacht Topaz (now A+ — see the "UAE (Mansour bin Zayed)" row below, which carries that earlier owned_by edge and its own confidence tag). |
 | Sheikh Mansour bin Zayed Al Nahyan | — duplicate node — | — | — | — | — | Same individual as above (full name variant). |
-| Sheikh Mohammed | — duplicate node — | Emirati | Ruler of Dubai / UAE PM & VP | Living | Confirmed | Same individual as "Dubai Royal" and the full-name variant below. |
-| Sheikh Mohammed bin Rashid Al Maktoum | — duplicate node — | Emirati | Ruler of Dubai / UAE PM & VP | Living | Confirmed | Owns Dubai (162m). |
+| Sheikh Mohammed | Emirati | n/a | Ruler of Dubai / UAE PM & VP | Living | Confirmed | Same individual as "Dubai Royal" and the full-name variant below. |
+| Sheikh Mohammed bin Rashid Al Maktoum | Emirati | n/a | Ruler of Dubai / UAE PM & VP | Living | Confirmed | Owns Dubai (162m). |
 | Sir Michael Hill | New Zealander | Retail (Michael Hill Jeweller, founder) | Founder | Living | Widely reported | Owns The Beast; not independently re-verified via fresh web search this session. |
 | Stephen Orenstein | German‑born, US citizen (Dubai‑based) | Logistics (Supreme Group, military logistics contractor) | Founder | Living | Widely reported | Owns Liva O (118m Abeking & Rasmussen, delivered 2023, ~$250M); one source described the owner only as "a mystery billionaire from Dubai," another names Orenstein directly. |
 | Suleiman Kerimov | Russian | Mining/finance (Polyus Gold, Nafta Moskva) | Businessman, Federation Council senator | Living (US sanctioned) | Confirmed | No `owned_by` edge in graph (orphan node). Owns Amadea (348ft), seized in Fiji May 2022 in a high-profile US case; Eduard Khudaynatov has separately claimed ownership. |
 | Sultan Haitham bin Tariq | Omani | n/a (head of state) | Sultan of Oman | Living | Confirmed | See Oman Royal duplicates above; owns Al Said and Fulk Al Salamah. |
 | Tiger Woods | American | Sports (professional golfer) | Athlete | Living | Confirmed | Owns Privacy (~155ft). |
 | Turkish Republic | — not an individual — | n/a | Institutional (Turkish state) | n/a | N/A | Savarona (state/presidential yacht). |
-| UAE (Mansour bin Zayed) | — duplicate node — | — | — | — | — | Same individual as Sheikh Mansour above. |
+| UAE (Mansour bin Zayed) | — duplicate node — | — | — | — | Confirmed | Same individual as Sheikh Mansour above. This node carries the owned_by edge to A+ (147m Lürssen, ex-Topaz — Sheikh Mansour's earlier yacht before Blue); confidence set here so that edge is tagged before this node merges into the canonical Sheikh Mansour bin Zayed Al Nahyan node. |
 | UAE (Mansour bin Zayed Al Nahyan) | — duplicate node — | — | — | — | — | Same individual as Sheikh Mansour above. |
 | UAE Royal (Abdullah bin Zayed) | Emirati | n/a (politics) | Deputy PM & Foreign Minister, UAE | Living | **Disputed** | See Sheikh Abdullah Al Thani note above — conflicting Opera attribution. |
 | UAE Royal (Hamdan bin Zayed) | Emirati | n/a (politics) | Ruler's Representative, Al Dhafra Region | Living | Widely reported | Owns Yas (converted former Navy frigate). |
