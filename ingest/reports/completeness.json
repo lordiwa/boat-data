@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T07:29:56.363Z",
+  "generated_at": "2026-07-11T09:30:16.938Z",
   "byType": [
     {
       "type": "yacht",
       "count": 580,
-      "attrPct": 28.24,
+      "attrPct": 28.13,
       "edgePct": 93.79,
-      "score": 4.79
+      "score": 4.78
     },
     {
       "type": "shipyard",
@@ -94,13 +94,14 @@
     }
   ],
   "overall_all_nodes": 6.9,
-  "overall_identifiable_only": 7.23,
+  "overall_identifiable_only": 7.22,
   "yacht_identifiable_only": {
     "type": "yacht",
     "count": 232,
-    "attrPct": 53.45,
+    "attrPct": 53.17,
     "edgePct": 96.98,
-    "score": 6.65
+    "score": 6.63
   },
+  "yacht_fragments": 348,
   "overall": 6.9
 }

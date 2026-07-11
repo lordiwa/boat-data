@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T07:29:55.671Z",
+    "generated_at": "2026-07-11T09:30:16.214Z",
     "node_count": 4276,
     "edge_count": 2606,
     "types": {
@@ -18283,7 +18283,7 @@
         "provenance": [
           "89_Global_Marine_Engine_Manufacturer_Directory.md"
         ],
-        "notes": "\"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section. \"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section. \"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section."
+        "notes": "\"Weichai Group\" is the informal name of this legal entity. Chain: Shandong Heavy Industry Group -> Weichai Holding Group Co., Ltd. (\"Weichai Group\") -> Weichai Power Co., Ltd. (2002) -> acquired Moteurs Baudouin (2009). See research/round3/marina-enrichment.md's \"Weichai equivalence\" section."
       }
     },
     {
@@ -54665,8 +54665,6 @@
         },
         "conflicts": {
           "features": [
-            "Explorer",
-            "Explorer",
             "Explorer"
           ]
         },
@@ -54786,14 +54784,13 @@
           "meters": 3.7,
           "raw": "3.7"
         },
-        "gt": 425,
         "max_speed": 12,
-        "identifiability": "identifiable",
         "conflicts": {
           "gt": [
             "~425 (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -54834,12 +54831,12 @@
         },
         "gt": 988,
         "max_speed": 15.5,
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2015"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -54949,8 +54946,6 @@
         },
         "conflicts": {
           "features": [
-            "Nature-themed, salt sauna; Canary area.",
-            "Nature-themed, salt sauna; Canary area.",
             "Nature-themed, salt sauna; Canary area."
           ]
         },
@@ -55188,8 +55183,6 @@
         },
         "conflicts": {
           "features": [
-            "Concert hall, helipad; global.",
-            "Concert hall, helipad; global.",
             "Concert hall, helipad; global."
           ]
         },
@@ -55465,12 +55458,12 @@
         },
         "gt": 1184,
         "max_speed": 15,
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2004"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -55518,14 +55511,6 @@
         },
         "conflicts": {
           "features": [
-            "Iconic design; at anchor during MYS.",
-            "Antibes-based luxury",
-            "Iconic, recent refit",
-            "Iconic design, recent refit",
-            "Iconic design; at anchor during MYS.",
-            "Antibes-based luxury",
-            "Iconic, recent refit",
-            "Iconic design, recent refit",
             "Iconic design; at anchor during MYS.",
             "Antibes-based luxury",
             "Iconic, recent refit",
@@ -55609,28 +55594,6 @@
             "Refit-enhanced toys",
             "Refit-enhanced toys",
             "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Toys",
-            "Kayaks, paddleboards, wave runners",
-            "Refit-enhanced toys",
-            "Refit toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Toys",
-            "Kayaks, paddleboards, wave runners",
-            "Refit-enhanced toys",
-            "Refit toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
-            "Refit-enhanced toys",
             "Refit-enhanced toys"
           ]
         },
@@ -55671,20 +55634,6 @@
             "Brand-new Feadship",
             "Brand-new Feadship",
             "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand new Feadship",
-            "New Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand new Feadship",
-            "New Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
-            "Brand-new Feadship",
             "Brand-new Feadship"
           ]
         },
@@ -55718,12 +55667,6 @@
         },
         "conflicts": {
           "features": [
-            "Wellness",
-            "Wellness",
-            "Wellness",
-            "Wellness",
-            "Wellness",
-            "Wellness",
             "Wellness",
             "Wellness",
             "Wellness"
@@ -56009,15 +55952,9 @@
         },
         "conflicts": {
           "guests": [
-            10,
-            10,
             10
           ],
           "features": [
-            "Wellness focus",
-            "Modern",
-            "Wellness focus",
-            "Modern",
             "Wellness focus",
             "Modern"
           ]
@@ -56154,12 +56091,12 @@
           "nameNorm": "aqa",
           "builderId": "builder:inace"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 49m Inace-built expedition yacht (2022). Public yacht databases only show an unrelated 28.01m \"AQA\" (Export Yachts, 1996) — no record of a 49m Inace-built AQA found. Likely a very new/private build not yet indexed, or a data-extraction mismatch. See research/round5/yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -56189,14 +56126,6 @@
         },
         "conflicts": {
           "features": [
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
             "Eco",
             "Eco",
             "Eco",
@@ -56234,20 +56163,6 @@
         },
         "conflicts": {
           "features": [
-            "Modern Feadship elegance",
-            "Modern elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
-            "Modern Feadship elegance",
             "Modern Feadship elegance",
             "Modern elegance",
             "Modern Feadship elegance",
@@ -56334,20 +56249,6 @@
             "Explorer",
             "Explorer",
             "Explorer",
-            "Explorer",
-            "Nightclub, cinema; largest US-built, Florida Keys charters.",
-            "Refitted, explorer capabilities",
-            "Explorer capabilities",
-            "Explorer",
-            "Explorer",
-            "Explorer",
-            "Explorer",
-            "Nightclub, cinema; largest US-built, Florida Keys charters.",
-            "Refitted, explorer capabilities",
-            "Explorer capabilities",
-            "Explorer",
-            "Explorer",
-            "Explorer",
             "Explorer"
           ]
         },
@@ -56389,8 +56290,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit",
-            "Refit",
             "Refit"
           ]
         },
@@ -56424,13 +56323,7 @@
         },
         "conflicts": {
           "loa": [
-            "60 (superseded — \"60\" is Arcadia Yachts' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
-            "60",
-            "60",
-            "60",
-            "60",
-            "60",
-            "60"
+            "60 (superseded — \"60\" is Arcadia Yachts' own Sherpa model-line number, not metres — real hull length is 18.28m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
           ]
         },
         "loa_aliases": [
@@ -56546,20 +56439,6 @@
             "Sleek Feadship",
             "Sleek Feadship",
             "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship design",
-            "Sleek",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship design",
-            "Sleek",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship",
-            "Sleek Feadship",
             "Sleek Feadship"
           ]
         },
@@ -56659,13 +56538,12 @@
           "raw": "3.54"
         },
         "gt": 498,
-        "max_speed": 10,
-        "identifiability": "identifiable",
         "conflicts": {
           "max_speed": [
             "~10 (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -56760,16 +56638,6 @@
         },
         "conflicts": {
           "features": [
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
-            "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor",
             "Shallow draft indoor-outdoor",
@@ -56906,8 +56774,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit",
-            "Refit",
             "Refit"
           ]
         },
@@ -57198,16 +57064,6 @@
             "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
             "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
             "Bullet-proof suite; Med cruises.",
-            "Fastest superyacht, missile defense; global.",
-            "Bullet-proof master suite; sophisticated missile defense system; rumored submarine; shallow draft for high speed; Empire style interior; two gas turbines and two diesel engines (94,000 hp).",
-            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
-            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
-            "Bullet-proof suite; Med cruises.",
-            "Fastest superyacht, missile defense; global.",
-            "Bullet-proof master suite; sophisticated missile defense system; rumored submarine; shallow draft for high speed; Empire style interior; two gas turbines and two diesel engines (94,000 hp).",
-            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion.",
-            "Bullet-proof master suite, missile defense system, rumored submarine, shallow draft for high speed, Empire-style interior, hybrid propulsion; two gas turbines and two diesel engines (94,000 hp).",
-            "Bullet-proof suite; Med cruises.",
             "Fastest superyacht, missile defense; global."
           ]
         },
@@ -57310,18 +57166,6 @@
             "Saint Martin discounted",
             "Saint Martin discounted",
             "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounts",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounts",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
-            "Saint Martin discounted",
             "Saint Martin discounted"
           ]
         },
@@ -57356,20 +57200,6 @@
         },
         "conflicts": {
           "features": [
-            "Glamorous, expansive decks",
-            "Glamorous expansive",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous, expansive decks",
-            "Glamorous expansive",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
-            "Glamorous expansive decks",
             "Glamorous, expansive decks",
             "Glamorous expansive",
             "Glamorous expansive decks",
@@ -57452,14 +57282,6 @@
             "Y700 series, award-winning",
             "Y700 series, full-beam owner suite, 2 Jacuzzis",
             "Y700 series, 2 Jacuzzis",
-            "2 Jacuzzis",
-            "Y700 series, award-winning",
-            "Y700 series, full-beam owner suite, 2 Jacuzzis",
-            "Y700 series, 2 Jacuzzis",
-            "2 Jacuzzis",
-            "Y700 series, award-winning",
-            "Y700 series, full-beam owner suite, 2 Jacuzzis",
-            "Y700 series, 2 Jacuzzis",
             "2 Jacuzzis"
           ]
         },
@@ -57503,18 +57325,6 @@
         },
         "conflicts": {
           "features": [
-            "Extensive toys",
-            "Toy-heavy beach club",
-            "Extensive toys",
-            "Extensive toys",
-            "Extensive toys",
-            "Extensive toys",
-            "Extensive toys",
-            "Toy-heavy beach club",
-            "Extensive toys",
-            "Extensive toys",
-            "Extensive toys",
-            "Extensive toys",
             "Extensive toys",
             "Toy-heavy beach club",
             "Extensive toys",
@@ -57709,12 +57519,6 @@
           "features": [
             "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
             "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
-            "Modern interior, charter for racing/tourism; Mediterranean-based.",
-            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
-            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
-            "Modern interior, charter for racing/tourism; Mediterranean-based.",
-            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
-            "Modern interior with wooden elements, ample storage, bright saloon, dining area, sofa relaxation zone; available for charter in Mediterranean (racing, tourism, groups, promotions, photo sessions).",
             "Modern interior, charter for racing/tourism; Mediterranean-based."
           ]
         },
@@ -57809,28 +57613,6 @@
             "Classic, flexible cabins",
             "Classic, flexible",
             "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic",
-            "Classic, flexible cabins",
-            "Classic",
-            "Classic, flexible",
-            "Classic, flexible cabins",
-            "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic",
-            "Classic, flexible cabins",
-            "Classic",
-            "Classic, flexible",
-            "Classic, flexible cabins",
-            "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic, flexible cabins",
-            "Classic, flexible",
-            "Classic, flexible cabins",
             "Classic, flexible"
           ]
         },
@@ -57914,8 +57696,6 @@
         },
         "conflicts": {
           "features": [
-            "Eco sail-assisted",
-            "Eco sail-assisted",
             "Eco sail-assisted"
           ]
         },
@@ -58082,8 +57862,6 @@
         },
         "conflicts": {
           "features": [
-            "Eco propulsion, expedition; global.",
-            "Eco propulsion, expedition; global.",
             "Eco propulsion, expedition; global."
           ]
         },
@@ -58130,16 +57908,6 @@
             "Large capacity refit",
             "Large capacity refit",
             "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
-            "Large capacity refit",
             "Large capacity refit"
           ]
         },
@@ -58180,14 +57948,6 @@
         },
         "conflicts": {
           "features": [
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
-            "Resort-style",
             "Resort-style",
             "Resort-style",
             "Resort-style",
@@ -58250,10 +58010,6 @@
         },
         "conflicts": {
           "features": [
-            "Explorer capabilities",
-            "Helipad, explorer",
-            "Explorer capabilities",
-            "Helipad, explorer",
             "Explorer capabilities",
             "Helipad, explorer"
           ]
@@ -58365,18 +58121,6 @@
             "Luxury crossing",
             "Luxury crossing",
             "Luxury crossing",
-            "Luxury crossing",
-            "Luxury",
-            "Luxury",
-            "Luxury crossing",
-            "Luxury crossing",
-            "Luxury crossing",
-            "Luxury crossing",
-            "Luxury",
-            "Luxury",
-            "Luxury crossing",
-            "Luxury crossing",
-            "Luxury crossing",
             "Luxury crossing"
           ]
         },
@@ -58444,14 +58188,6 @@
         },
         "conflicts": {
           "features": [
-            "Hydrogen-powered, infinity pool, 14 balconies",
-            "World's first hydrogen fuel cell superyacht",
-            "Largest new 2025 charter; record-breaker in St Barts",
-            "Hydrogen-powered, infinity pool",
-            "Hydrogen-powered, infinity pool, 14 balconies",
-            "World's first hydrogen fuel cell superyacht",
-            "Largest new 2025 charter; record-breaker in St Barts",
-            "Hydrogen-powered, infinity pool",
             "Hydrogen-powered, infinity pool, 14 balconies",
             "World's first hydrogen fuel cell superyacht",
             "Largest new 2025 charter; record-breaker in St Barts",
@@ -58560,8 +58296,6 @@
         },
         "conflicts": {
           "features": [
-            "Luxury",
-            "Luxury",
             "Luxury"
           ]
         },
@@ -58709,8 +58443,6 @@
         },
         "conflicts": {
           "features": [
-            "Yoga studio, elevator; Med charters.",
-            "Yoga studio, elevator; Med charters.",
             "Yoga studio, elevator; Med charters."
           ],
           "year": [
@@ -58999,8 +58731,8 @@
           "raw": "10.4"
         },
         "year": {
-          "value": 2025,
-          "raw": "Refit 2025"
+          "value": 2022,
+          "raw": "2022"
         },
         "value": null,
         "weekly_rate": null,
@@ -59029,9 +58761,6 @@
             "Media upgrades",
             "Media upgrades",
             "Media upgrades"
-          ],
-          "year": [
-            "2022"
           ]
         },
         "identifiability": "identifiable"
@@ -59423,10 +59152,8 @@
           "meters": 2.2,
           "raw": "2.2"
         },
-        "gt": 400,
         "max_speed": 10.5,
         "flag": "Australia",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2008 (refit 2018/2024)"
@@ -59434,7 +59161,8 @@
           "gt": [
             "~400 (est., not published) (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -59475,12 +59203,12 @@
         },
         "gt": 9079,
         "flag": "Cayman Islands",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2026"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -59596,16 +59324,6 @@
         },
         "conflicts": {
           "features": [
-            "Largest indoor pool on a yacht (25m long); swimming pool; helicopter pad; custom Airbus H175 helicopter tender; Venetian Aft Helm Limo, Chase 31, and Chase Tender; steel hull, aluminum superstructure; 6,000 nm range; seized in 2022 due to sanctions.",
-            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
-            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
-            "Largest indoor pool; Med sightings (seized).",
-            "Pool, helipad; global (seized).",
-            "Largest indoor pool on a yacht (25m long); swimming pool; helicopter pad; custom Airbus H175 helicopter tender; Venetian Aft Helm Limo, Chase 31, and Chase Tender; steel hull, aluminum superstructure; 6,000 nm range; seized in 2022 due to sanctions.",
-            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
-            "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
-            "Largest indoor pool; Med sightings (seized).",
-            "Pool, helipad; global (seized).",
             "Largest indoor pool on a yacht (25m long); swimming pool; helicopter pad; custom Airbus H175 helicopter tender; Venetian Aft Helm Limo, Chase 31, and Chase Tender; steel hull, aluminum superstructure; 6,000 nm range; seized in 2022 due to sanctions.",
             "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; seized in 2022 due to sanctions.",
             "Largest indoor pool (25m), helicopter pad, custom Airbus H175 tender, multiple chase boats, 6,000 nm range; steel hull, aluminum superstructure; seized in 2022 due to sanctions.",
@@ -59912,14 +59630,6 @@
             "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
             "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
             "Disco, submarine garage; occasional Florida Keys visits.",
-            "Disco, cinema; global.",
-            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
-            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
-            "Disco, submarine garage; occasional Florida Keys visits.",
-            "Disco, cinema; global.",
-            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon.",
-            "Large pool, disco, submarine garage, helipad, jacuzzi, gym, cinema, grand salon with fireplace, formal dining, library, massage room, hair salon; sleek modern exterior.",
-            "Disco, submarine garage; occasional Florida Keys visits.",
             "Disco, cinema; global."
           ]
         },
@@ -60022,16 +59732,6 @@
             "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
             "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
             "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
-            "Anti-paparazzi lasers; global.",
-            "Two helipads; swimming pool; mini-submarine; missile detection system; anti-paparazzi laser system; dance floor; exterior fireplace; two swimming pools; hybrid propulsion; refitted in 2015.",
-            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
-            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
-            "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
-            "Anti-paparazzi lasers; global.",
-            "Two helipads; swimming pool; mini-submarine; missile detection system; anti-paparazzi laser system; dance floor; exterior fireplace; two swimming pools; hybrid propulsion; refitted in 2015.",
-            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
-            "Two helipads, swimming pool, mini-submarine, missile detection, anti-paparazzi lasers, dance floor, exterior fireplace, hybrid propulsion; refitted 2015.",
-            "Two helipads, mini-sub, missile defense; spotted in Caribbean waters.",
             "Anti-paparazzi lasers; global."
           ]
         },
@@ -60120,9 +59820,7 @@
         },
         "conflicts": {
           "loa": [
-            "160m (superseded — Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)",
-            "160m",
-            "160m"
+            "160m (superseded — Graph LOA (160m) was a confirmed data error (~3.3x too large) — real EIV is a 48.8m Rossinavi (2020). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
           ]
         },
         "loa_aliases": [
@@ -60170,12 +59868,12 @@
         "gt": 4561,
         "max_speed": 16,
         "flag": "Egypt",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "1865 (lengthened 1872, 1905)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -60308,24 +60006,6 @@
             "Modern amenities",
             "Modern amenities",
             "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
-            "Modern amenities",
             "Modern amenities"
           ]
         },
@@ -60402,20 +60082,6 @@
             "Multi-island flexibility",
             "Multi-island flexibility",
             "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Flexible island-hopping",
-            "Island-hopping flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Flexible island-hopping",
-            "Island-hopping flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
-            "Multi-island flexibility",
             "Multi-island flexibility"
           ]
         },
@@ -60460,45 +60126,9 @@
             28,
             28,
             28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
             28
           ],
           "features": [
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
             "High guest capacity",
             "High guest capacity",
             "High guest capacity",
@@ -60543,28 +60173,6 @@
         },
         "conflicts": {
           "features": [
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
-            "Wine cellar, modern",
-            "Wine cellar",
             "Wine cellar",
             "Wine cellar, modern",
             "Wine cellar",
@@ -60761,12 +60369,6 @@
           "features": [
             "Modern comfort, hybrid options",
             "Hybrid tech, beach club",
-            "Hybrid, beach club",
-            "Modern comfort, hybrid options",
-            "Hybrid tech, beach club",
-            "Hybrid, beach club",
-            "Modern comfort, hybrid options",
-            "Hybrid tech, beach club",
             "Hybrid, beach club"
           ]
         },
@@ -60857,14 +60459,6 @@
         },
         "conflicts": {
           "features": [
-            "Large guest",
-            "Large",
-            "Large",
-            "Large",
-            "Large guest",
-            "Large",
-            "Large",
-            "Large",
             "Large guest",
             "Large",
             "Large",
@@ -61090,24 +60684,6 @@
             "Futuristic pool/Jacuzzi",
             "Futuristic pool/Jacuzzi",
             "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "High-end",
-            "Futuristic profile, pool/Jacuzzi",
-            "Pool/Jacuzzi, futuristic",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "High-end",
-            "Futuristic profile, pool/Jacuzzi",
-            "Pool/Jacuzzi, futuristic",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
-            "Futuristic pool/Jacuzzi",
             "Futuristic pool/Jacuzzi"
           ]
         },
@@ -61229,27 +60805,9 @@
             "Adventure highlights",
             "Adventure highlights",
             "Adventure highlights",
-            "Adventure highlights",
-            "Highlights",
-            "Explorer features",
-            "Highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Highlights",
-            "Explorer features",
-            "Highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Adventure highlights",
-            "Adventure highlights",
             "Adventure highlights"
           ],
           "guests": [
-            10,
-            10,
             10
           ]
         },
@@ -61358,17 +60916,9 @@
           "features": [
             "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
             "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
-            "12m pool, cryosauna, dive center",
-            "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
-            "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
-            "12m pool, cryosauna, dive center",
-            "Two helipads, cryotherapy chamber, dive center, 12m pool, cinema; available for charter.",
-            "Cryotherapy, dive center, 12m pool; Caribbean and global charters.",
             "12m pool, cryosauna, dive center"
           ],
           "crew": [
-            55,
-            55,
             55
           ]
         },
@@ -61434,18 +60984,6 @@
         },
         "conflicts": {
           "features": [
-            "Opulent piano room",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Opulent piano room",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
-            "Piano room opulence",
             "Opulent piano room",
             "Piano room opulence",
             "Piano room opulence",
@@ -61583,12 +61121,6 @@
           "features": [
             "New",
             "New",
-            "New",
-            "New",
-            "New",
-            "New",
-            "New",
-            "New",
             "New"
           ]
         },
@@ -61662,8 +61194,6 @@
         },
         "conflicts": {
           "features": [
-            "Largest by volume, support vessel; global.",
-            "Largest by volume, support vessel; global.",
             "Largest by volume, support vessel; global."
           ]
         },
@@ -61735,8 +61265,6 @@
         },
         "conflicts": {
           "loa": [
-            "60",
-            "60",
             "60"
           ]
         },
@@ -61799,22 +61327,6 @@
         },
         "conflicts": {
           "features": [
-            "High guest capacity",
-            "High guest capacity",
-            "High capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
-            "High guest capacity",
             "High guest capacity",
             "High guest capacity",
             "High capacity",
@@ -61897,12 +61409,6 @@
           "features": [
             "Eco",
             "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
-            "Eco",
             "Eco"
           ]
         },
@@ -61975,10 +61481,6 @@
         },
         "conflicts": {
           "features": [
-            "Private owner deck, American-style",
-            "Private owner deck",
-            "Private owner deck, American-style",
-            "Private owner deck",
             "Private owner deck, American-style",
             "Private owner deck"
           ]
@@ -62210,12 +61712,12 @@
           "nameNorm": "grace",
           "builderId": "builder:australian-yacht-builders"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 52.4m Australian Yacht Builders \"Grace\". Public records show two distinct \"Grace\" yachts (a 58.5m Australian Yacht Builders vessel, 1991, and an unrelated 52.3m Amels, 2009) — neither matches this node's exact 52.4m + Australian Yacht Builders combination. See research/round5/yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -62388,10 +61890,6 @@
         "conflicts": {
           "loa": [
             "70+",
-            "70+",
-            "70+",
-            "70+",
-            "70+",
             "70+"
           ]
         },
@@ -62437,8 +61935,6 @@
         },
         "conflicts": {
           "features": [
-            "Eco upgrades, helipad; Med rebuild.",
-            "Eco upgrades, helipad; Med rebuild.",
             "Eco upgrades, helipad; Med rebuild."
           ]
         },
@@ -62640,14 +62136,6 @@
             "Refit 2024, modernized",
             "Modernized refit",
             "2,150 GT volume, German precision",
-            "German precision",
-            "Refit 2024, modernized",
-            "Modernized refit",
-            "2,150 GT volume, German precision",
-            "German precision",
-            "Refit 2024, modernized",
-            "Modernized refit",
-            "2,150 GT volume, German precision",
             "German precision"
           ]
         },
@@ -62709,20 +62197,6 @@
         },
         "conflicts": {
           "features": [
-            "Catamaran",
-            "Catamaran",
-            "Catamaran specials",
-            "Catamaran incentives",
-            "Catamaran incentives",
-            "Catamaran incentives",
-            "Catamaran incentives",
-            "Catamaran",
-            "Catamaran",
-            "Catamaran specials",
-            "Catamaran incentives",
-            "Catamaran incentives",
-            "Catamaran incentives",
-            "Catamaran incentives",
             "Catamaran",
             "Catamaran",
             "Catamaran specials",
@@ -62825,14 +62299,6 @@
             "Extension, custom interiors",
             "Custom interiors",
             "Custom interiors",
-            "Custom interiors",
-            "Extension, custom interiors",
-            "Custom interiors",
-            "Custom interiors",
-            "Custom interiors",
-            "Extension, custom interiors",
-            "Custom interiors",
-            "Custom interiors",
             "Custom interiors"
           ]
         },
@@ -62873,18 +62339,6 @@
         },
         "conflicts": {
           "features": [
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
-            "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
             "Jon Bannenberg iconic",
@@ -62932,18 +62386,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
-            "Refit-enhanced Lurssen",
             "Refit Lurssen",
             "Refit-enhanced Lurssen",
             "Refit-enhanced Lurssen",
@@ -63040,10 +62482,6 @@
         },
         "conflicts": {
           "features": [
-            "Cinema, gym, spa; named after children, Caribbean focus.",
-            "Cinema, nightclub",
-            "Cinema, gym, spa; named after children, Caribbean focus.",
-            "Cinema, nightclub",
             "Cinema, gym, spa; named after children, Caribbean focus.",
             "Cinema, nightclub"
           ]
@@ -63162,8 +62600,6 @@
         },
         "conflicts": {
           "features": [
-            "Custom charters, Brisbane/Sydney focus.",
-            "Custom charters, Brisbane/Sydney focus.",
             "Custom charters, Brisbane/Sydney focus."
           ]
         },
@@ -63292,16 +62728,6 @@
             "Home theatre, beach club, gym",
             "Home theatre, beach club, gym",
             "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
-            "Home theatre, beach club, gym",
             "Home theatre, beach club, gym"
           ]
         },
@@ -63371,13 +62797,7 @@
         },
         "conflicts": {
           "loa": [
-            "120 (superseded — \"120\" is ISA Yachts' foot-based \"120\" model-line designation, not metres — real LOA is ~120ft/36.6m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)",
-            "120",
-            "120",
-            "120",
-            "120",
-            "120",
-            "120"
+            "120 (superseded — \"120\" is ISA Yachts' foot-based \"120\" model-line designation, not metres — real LOA is ~120ft/36.6m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)"
           ]
         },
         "loa_aliases": [
@@ -63514,8 +62934,6 @@
         },
         "conflicts": {
           "features": [
-            "Quality",
-            "Quality",
             "Quality"
           ]
         },
@@ -63631,8 +63049,6 @@
         },
         "conflicts": {
           "features": [
-            "Largest aquarium, cinema; Atlantic routes.",
-            "Largest aquarium, cinema; Atlantic routes.",
             "Largest aquarium, cinema; Atlantic routes."
           ]
         },
@@ -63722,16 +63138,15 @@
           "meters": 5.3,
           "raw": "5.3"
         },
-        "gt": 8010,
         "max_speed": 20,
         "range_nm": 5000,
         "flag": "Qatar",
-        "identifiability": "identifiable",
         "conflicts": {
           "gt": [
             "~8,010 (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -63897,22 +63312,6 @@
         },
         "conflicts": {
           "features": [
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
-            "Modern Admiral",
             "Modern Admiral",
             "Modern Admiral",
             "Modern Admiral",
@@ -64144,28 +63543,16 @@
         "conflicts": {
           "year": [
             "2014 (refit)",
-            "2014 (refit)",
-            "2014 (refit)",
-            "2014 (refit)",
-            "2014 (refit)",
             "2014 (refit)"
           ],
           "value": [
-            "$360 million",
-            "$360 million",
             "$360 million"
           ],
           "features": [
             "Jaguar emblem, helipad, spa; available for Caribbean charters.",
-            "Spa, gym, helipad",
-            "Jaguar emblem, helipad, spa; available for Caribbean charters.",
-            "Spa, gym, helipad",
-            "Jaguar emblem, helipad, spa; available for Caribbean charters.",
             "Spa, gym, helipad"
           ],
           "guests": [
-            12,
-            12,
             12
           ]
         },
@@ -64244,28 +63631,6 @@
             "Modern Benetti",
             "Modern Benetti",
             "Modern Benetti",
-            "Modern Benetti",
-            "Modern",
-            "Modern Benetti",
-            "Modern",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern",
-            "Modern Benetti",
-            "Modern",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
-            "Modern Benetti",
             "Modern Benetti"
           ]
         },
@@ -64309,8 +63674,6 @@
         },
         "conflicts": {
           "features": [
-            "Three-masted sailing; Med charters.",
-            "Three-masted sailing; Med charters.",
             "Three-masted sailing; Med charters."
           ]
         },
@@ -64348,8 +63711,6 @@
         },
         "conflicts": {
           "features": [
-            "Trimaran",
-            "Trimaran",
             "Trimaran"
           ]
         },
@@ -64418,8 +63779,6 @@
         },
         "conflicts": {
           "features": [
-            "Sub, helipad; Fiji charters.",
-            "Sub, helipad; Fiji charters.",
             "Sub, helipad; Fiji charters."
           ]
         },
@@ -64538,10 +63897,6 @@
         "conflicts": {
           "features": [
             "Spacious",
-            "Spacious",
-            "Spacious",
-            "Spacious",
-            "Spacious",
             "Spacious"
           ]
         },
@@ -64600,18 +63955,6 @@
         },
         "conflicts": {
           "features": [
-            "Opulent RWD interiors",
-            "Opulent RWD design",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD design",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
-            "Opulent RWD interiors",
             "Opulent RWD interiors",
             "Opulent RWD design",
             "Opulent RWD interiors",
@@ -64752,14 +64095,6 @@
             "Wellness deck",
             "Wellness deck",
             "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
-            "Wellness deck",
             "Wellness deck"
           ]
         },
@@ -64891,12 +64226,6 @@
         },
         "conflicts": {
           "features": [
-            "Glamorous, expansive decks",
-            "Glamorous decks, wellness spa",
-            "Glamorous decks, wellness",
-            "Glamorous, expansive decks",
-            "Glamorous decks, wellness spa",
-            "Glamorous decks, wellness",
             "Glamorous, expansive decks",
             "Glamorous decks, wellness spa",
             "Glamorous decks, wellness"
@@ -65060,10 +64389,7 @@
           "meters": 118,
           "raw": "118m"
         },
-        "beam": {
-          "meters": 15.2,
-          "raw": "~15.2 (50 ft)"
-        },
+        "beam": null,
         "year": {
           "value": 2024,
           "raw": "2024"
@@ -65087,12 +64413,12 @@
         "max_speed": 24,
         "range_nm": 6000,
         "flag": "Marshall Islands",
-        "identifiability": "identifiable",
         "conflicts": {
           "beam": [
             "~15.2 (50 ft) (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -65123,10 +64449,6 @@
         },
         "conflicts": {
           "features": [
-            "Classic interiors, toys",
-            "Classic, toys",
-            "Classic interiors, toys",
-            "Classic, toys",
             "Classic interiors, toys",
             "Classic, toys"
           ]
@@ -65175,8 +64497,6 @@
         },
         "conflicts": {
           "features": [
-            "Large group mega yacht",
-            "Large group mega yacht",
             "Large group mega yacht"
           ]
         },
@@ -65308,18 +64628,6 @@
             "Large-capacity sailing",
             "Large-capacity sailing",
             "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large sail capacity",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large sail capacity",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
-            "Large-capacity sailing",
             "Large-capacity sailing"
           ]
         },
@@ -65413,22 +64721,6 @@
         },
         "conflicts": {
           "features": [
-            "New build",
-            "New build luxury",
-            "New build",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
-            "New build",
-            "New build luxury",
-            "New build",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
-            "New-build luxury",
             "New build",
             "New build luxury",
             "New build",
@@ -65635,8 +64927,6 @@
         },
         "conflicts": {
           "features": [
-            "Helipad, pool; part of fleet in Atlantic.",
-            "Helipad, pool; part of fleet in Atlantic.",
             "Helipad, pool; part of fleet in Atlantic."
           ]
         },
@@ -65707,12 +64997,6 @@
         },
         "conflicts": {
           "features": [
-            "Family",
-            "Family",
-            "Family",
-            "Family",
-            "Family",
-            "Family",
             "Family",
             "Family",
             "Family"
@@ -65811,10 +65095,6 @@
         "conflicts": {
           "loa": [
             "50+",
-            "50+",
-            "50+",
-            "50+",
-            "50+",
             "50+"
           ]
         },
@@ -65907,10 +65187,6 @@
         },
         "conflicts": {
           "features": [
-            "Infinity pool, cinema; Med charters.",
-            "Superyacht for Mediterranean charters.",
-            "Infinity pool, cinema; Med charters.",
-            "Superyacht for Mediterranean charters.",
             "Infinity pool, cinema; Med charters.",
             "Superyacht for Mediterranean charters."
           ]
@@ -66132,12 +65408,6 @@
           "features": [
             "Discounted winter 2026 rates",
             "Award-winning, discounted winter",
-            "Award-winning refit",
-            "Discounted winter 2026 rates",
-            "Award-winning, discounted winter",
-            "Award-winning refit",
-            "Discounted winter 2026 rates",
-            "Award-winning, discounted winter",
             "Award-winning refit"
           ]
         },
@@ -66206,20 +65476,6 @@
             "Luxury-focused",
             "Luxury-focused",
             "Luxury-focused",
-            "Luxury-focused",
-            "Luxury focus",
-            "Luxury focus",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury focus",
-            "Luxury focus",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury-focused",
-            "Luxury-focused",
             "Luxury-focused"
           ]
         },
@@ -66264,20 +65520,16 @@
           "meters": 3.9,
           "raw": "3.9"
         },
-        "gt": 3120,
         "max_speed": 18,
         "range_nm": 6000,
-        "former_names": [
-          "CC-Summer"
-        ],
         "conflicts": {
-          "crew": [
-            30
-          ],
           "gt": [
             "~3,120–3,250 (estimate — not stored as a confirmed value; see source Notes)"
           ]
         },
+        "former_names": [
+          "CC-Summer"
+        ],
         "identifiability": "identifiable"
       }
     },
@@ -66349,10 +65601,6 @@
         "conflicts": {
           "loa": [
             "30+",
-            "30+",
-            "30+",
-            "30+",
-            "30+",
             "30+"
           ]
         },
@@ -66386,13 +65634,7 @@
         },
         "conflicts": {
           "loa": [
-            "120 (superseded — \"120\" is Gulf Craft's foot-based Majesty 120 model designation, not metres — real LOA is ~120ft/36.5m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)",
-            "120",
-            "120",
-            "120",
-            "120",
-            "120",
-            "120"
+            "120 (superseded — \"120\" is Gulf Craft's foot-based Majesty 120 model designation, not metres — real LOA is ~120ft/36.5m. Corrected per research/round5/yacht-specs-under35m.md's Suspect entries.)"
           ]
         },
         "loa_aliases": [
@@ -66430,20 +65672,6 @@
         },
         "conflicts": {
           "features": [
-            "High-spec newer build",
-            "High-spec",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer build",
-            "High-spec",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
-            "High-spec newer",
             "High-spec newer build",
             "High-spec",
             "High-spec newer",
@@ -66497,21 +65725,9 @@
           "crew": [
             19,
             18,
-            18,
-            19,
-            18,
-            18,
-            19,
-            18,
             18
           ],
           "features": [
-            "DynaRig sails, helipad; iconic.",
-            "Iconic DynaRig sails, watersports",
-            "DynaRig sails, watersports",
-            "DynaRig sails, helipad; iconic.",
-            "Iconic DynaRig sails, watersports",
-            "DynaRig sails, watersports",
             "DynaRig sails, helipad; iconic.",
             "Iconic DynaRig sails, watersports",
             "DynaRig sails, watersports"
@@ -66568,26 +65784,6 @@
         },
         "conflicts": {
           "features": [
-            "Two helipads, infinity pool; Med.",
-            "Strong build, toys",
-            "Strong build, extensive toys",
-            "Extensive toys",
-            "Toy-heavy",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Two helipads, infinity pool; Med.",
-            "Strong build, toys",
-            "Strong build, extensive toys",
-            "Extensive toys",
-            "Toy-heavy",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
-            "Toy-heavy explorer",
             "Two helipads, infinity pool; Med.",
             "Strong build, toys",
             "Strong build, extensive toys",
@@ -66692,8 +65888,8 @@
           "raw": "14.4"
         },
         "year": {
-          "value": 2020,
-          "raw": "2020"
+          "value": 2018,
+          "raw": "2018"
         },
         "value": {
           "amount": 200000000,
@@ -66724,22 +65920,13 @@
         },
         "conflicts": {
           "guests": [
-            16,
-            16,
             16
           ],
           "crew": [
-            8,
-            8,
             8
           ],
           "features": [
-            "Fold-out balconies, beach club",
-            "Fold-out balconies, beach club",
             "Fold-out balconies, beach club"
-          ],
-          "year": [
-            "2018"
           ]
         },
         "draft": {
@@ -66807,8 +65994,6 @@
         },
         "conflicts": {
           "features": [
-            "Classic",
-            "Classic",
             "Classic"
           ]
         },
@@ -66846,14 +66031,6 @@
         },
         "conflicts": {
           "features": [
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
-            "Bahamas interiors",
             "Bahamas interiors",
             "Bahamas interiors",
             "Bahamas interiors",
@@ -66998,12 +66175,12 @@
         "gt": 5650,
         "max_speed": 18,
         "flag": "Cayman Islands",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2014"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -67034,18 +66211,6 @@
         },
         "conflicts": {
           "features": [
-            "Full-beam master, beach club",
-            "Beach club",
-            "Beach club/master",
-            "Beach club/master",
-            "Beach club/master",
-            "Beach club/master",
-            "Full-beam master, beach club",
-            "Beach club",
-            "Beach club/master",
-            "Beach club/master",
-            "Beach club/master",
-            "Beach club/master",
             "Full-beam master, beach club",
             "Beach club",
             "Beach club/master",
@@ -67197,8 +66362,6 @@
         },
         "conflicts": {
           "features": [
-            "Outdoor cinema, Jacuzzi",
-            "Outdoor cinema, Jacuzzi",
             "Outdoor cinema, Jacuzzi"
           ]
         },
@@ -67764,8 +66927,6 @@
         },
         "conflicts": {
           "features": [
-            "Japanese-inspired, spa pool; Florida sightings.",
-            "Japanese-inspired, spa pool; Florida sightings.",
             "Japanese-inspired, spa pool; Florida sightings."
           ]
         },
@@ -67828,9 +66989,7 @@
         "imo": "n/a (not found)",
         "conflicts": {
           "loa": [
-            "109m (superseded — Graph LOA (109m) conflated \"109 ft\" with \"109 m\" (a feet-to-meters conversion bug) — real MYSTERE is a 33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)",
-            "109m",
-            "109m"
+            "109m (superseded — Graph LOA (109m) conflated \"109 ft\" with \"109 m\" (a feet-to-meters conversion bug) — real MYSTERE is a 33.29m/109ft Mangusta (2023). Corrected per research/round4/person-enrichment.md's Suspect yachts table.)"
           ]
         },
         "loa_aliases": [
@@ -67945,16 +67104,6 @@
             "Modern luxury Picchiotti",
             "Modern luxury Picchiotti",
             "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
-            "Modern luxury Picchiotti",
             "Modern luxury Picchiotti"
           ]
         },
@@ -67988,13 +67137,7 @@
         },
         "conflicts": {
           "loa": [
-            "68 (superseded — \"68\" is the Absolute Navetta 68 model's foot-based name, not metres — real LOA is 20.52m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
-            "68",
-            "68",
-            "68",
-            "68",
-            "68",
-            "68"
+            "68 (superseded — \"68\" is the Absolute Navetta 68 model's foot-based name, not metres — real LOA is 20.52m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
           ]
         },
         "loa_aliases": [
@@ -68076,20 +67219,6 @@
             "Classic refit value",
             "Classic refit value",
             "Classic refit value",
-            "Classic refit value",
-            "Classic lines, refit",
-            "Classic refit",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic lines, refit",
-            "Classic refit",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic refit value",
-            "Classic refit value",
             "Classic refit value"
           ]
         },
@@ -68128,12 +67257,12 @@
           "nameNorm": "night fury ii",
           "builderId": "builder:columbus-yachts"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 49.9m Columbus-built \"Night Fury II\". The only public record is a 43.0m Columbus Atlantique 43 (2024) — 6.9m shorter than this node's recorded length; builder matches but LOA does not. See research/round5/yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -68198,8 +67327,6 @@
         },
         "conflicts": {
           "features": [
-            "Fast, tenders; Fiji focus.",
-            "Fast, tenders; Fiji focus.",
             "Fast, tenders; Fiji focus."
           ]
         },
@@ -68290,15 +67417,9 @@
           "year": [
             "2021",
             "2021",
-            "2021",
-            "2021",
-            "2020/2021",
-            "2021",
-            "2021"
+            "2020/2021"
           ],
           "features": [
-            "Two helipads, beach club; seized but historically in Caribbean.",
-            "Two helipads, beach club; seized but historically in Caribbean.",
             "Two helipads, beach club; seized but historically in Caribbean."
           ]
         },
@@ -68466,21 +67587,9 @@
           "crew": [
             30,
             30,
-            30,
-            30,
-            30,
-            30,
-            30,
-            30,
             30
           ],
           "features": [
-            "Luxurious cabins, gym, hot tub.",
-            "Luxurious cabins, gym, hot tub",
-            "Spa, helipad",
-            "Luxurious cabins, gym, hot tub.",
-            "Luxurious cabins, gym, hot tub",
-            "Spa, helipad",
             "Luxurious cabins, gym, hot tub.",
             "Luxurious cabins, gym, hot tub",
             "Spa, helipad"
@@ -68540,8 +67649,6 @@
         },
         "conflicts": {
           "features": [
-            "Pool, cinema",
-            "Pool, cinema",
             "Pool, cinema"
           ]
         },
@@ -68608,18 +67715,6 @@
         },
         "conflicts": {
           "features": [
-            "Contemporary stately design",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately design",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
-            "Contemporary stately",
             "Contemporary stately design",
             "Contemporary stately",
             "Contemporary stately",
@@ -68729,8 +67824,6 @@
         },
         "conflicts": {
           "features": [
-            "Catamaran",
-            "Catamaran",
             "Catamaran"
           ]
         },
@@ -68811,16 +67904,6 @@
             "$285 million",
             "$285 million",
             "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
-            "$285 million",
             "$285 million"
           ],
           "features": [
@@ -68829,28 +67912,12 @@
             "Expedition capabilities, submarine; Atlantic/Canary transits.",
             "Research sub, helipads; South Pacific expeditions.",
             "Submarine, dive center; Fiji expeditions.",
-            "Submarine, helipads, cinema",
-            "Research/expedition yacht with submarine, helipads, recording studio; occasional Caribbean charters.",
-            "Submarine, ROVs; expedition in Keys.",
-            "Expedition capabilities, submarine; Atlantic/Canary transits.",
-            "Research sub, helipads; South Pacific expeditions.",
-            "Submarine, dive center; Fiji expeditions.",
-            "Submarine, helipads, cinema",
-            "Research/expedition yacht with submarine, helipads, recording studio; occasional Caribbean charters.",
-            "Submarine, ROVs; expedition in Keys.",
-            "Expedition capabilities, submarine; Atlantic/Canary transits.",
-            "Research sub, helipads; South Pacific expeditions.",
-            "Submarine, dive center; Fiji expeditions.",
             "Submarine, helipads, cinema"
           ],
           "guests": [
-            12,
-            12,
             12
           ],
           "crew": [
-            42,
-            42,
             42
           ]
         },
@@ -68964,22 +68031,6 @@
             "Stylish refit",
             "Stylish refit",
             "Stylish refit",
-            "Stylish refit",
-            "Refit 2023, stylish",
-            "Refit 2023, stylish",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Refit 2023, stylish",
-            "Refit 2023, stylish",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
-            "Stylish refit",
             "Stylish refit"
           ]
         },
@@ -69060,8 +68111,6 @@
         },
         "conflicts": {
           "features": [
-            "Transformable pool; Med-based.",
-            "Transformable pool; Med-based.",
             "Transformable pool; Med-based."
           ]
         },
@@ -69286,12 +68335,12 @@
           "nameNorm": "panam",
           "builderId": "builder:ccn"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 49m \"Panam\" attributed (in part) to CCN. The only public \"Panam\" is a 40.2m Baglietto-built, CCN-constructed yacht (2021) — 8.8m shorter than this node's recorded length. See research/round5/yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -69400,14 +68449,6 @@
             "Last-chance dates",
             "Last-chance dates",
             "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
-            "Last-chance dates",
             "Last-chance dates"
           ]
         },
@@ -69453,10 +68494,6 @@
         },
         "conflicts": {
           "features": [
-            "Helicopter hangar, spa; Florida charters.",
-            "Explorer styling; Atlantic charters including Canaries.",
-            "Helicopter hangar, spa; Florida charters.",
-            "Explorer styling; Atlantic charters including Canaries.",
             "Helicopter hangar, spa; Florida charters.",
             "Explorer styling; Atlantic charters including Canaries."
           ]
@@ -69519,41 +68556,9 @@
             "Gold/red opulence, piano room",
             "Gold/red opulence, piano room",
             "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Art deco, piano lounge; Med charters.",
-            "3 pools, cinema, gym, helipad",
-            "Opulent gold/red interiors, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Art deco, piano lounge; Med charters.",
-            "3 pools, cinema, gym, helipad",
-            "Opulent gold/red interiors, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
-            "Gold/red opulence, piano room",
             "Gold/red opulence, piano room"
           ],
           "guests": [
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
-            12,
             12,
             12,
             12,
@@ -69623,14 +68628,6 @@
         },
         "conflicts": {
           "features": [
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
-            "Award-winning",
             "Award-winning",
             "Award-winning",
             "Award-winning",
@@ -69788,12 +68785,6 @@
           "features": [
             "Explorer, polar capabilities",
             "Expedition",
-            "Expedition",
-            "Explorer, polar capabilities",
-            "Expedition",
-            "Expedition",
-            "Explorer, polar capabilities",
-            "Expedition",
             "Expedition"
           ]
         },
@@ -69827,20 +68818,6 @@
         },
         "conflicts": {
           "features": [
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
-            "Modern Rossinavi",
             "Modern Rossinavi",
             "Modern Rossinavi",
             "Modern Rossinavi",
@@ -70004,8 +68981,6 @@
         },
         "conflicts": {
           "features": [
-            "Gym, jacuzzi; focused on privacy in Florida Keys.",
-            "Gym, jacuzzi; focused on privacy in Florida Keys.",
             "Gym, jacuzzi; focused on privacy in Florida Keys."
           ]
         },
@@ -70134,15 +69109,9 @@
         "conflicts": {
           "features": [
             "Helipad, waterfall pool; Med focus.",
-            "Helipad, beach club",
-            "Helipad, waterfall pool; Med focus.",
-            "Helipad, beach club",
-            "Helipad, waterfall pool; Med focus.",
             "Helipad, beach club"
           ],
           "cabins": [
-            6,
-            6,
             6
           ]
         },
@@ -70215,13 +69184,9 @@
         },
         "conflicts": {
           "guests": [
-            12,
-            12,
             12
           ],
           "features": [
-            "Explorer",
-            "Explorer",
             "Explorer"
           ]
         },
@@ -70255,16 +69220,6 @@
         },
         "conflicts": {
           "features": [
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
-            "Versatile value",
             "Versatile value",
             "Versatile value",
             "Versatile value",
@@ -70337,22 +69292,6 @@
             "Refit, iconic name",
             "Refit, iconic name",
             "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, Bond-inspired",
-            "Refit, iconic name",
-            "Refit iconic",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, Bond-inspired",
-            "Refit, iconic name",
-            "Refit iconic",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, iconic name",
-            "Refit, iconic name",
             "Refit, iconic name"
           ]
         },
@@ -70393,18 +69332,6 @@
         },
         "conflicts": {
           "features": [
-            "Massive capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
-            "Massive guest capacity",
             "Massive capacity",
             "Massive guest capacity",
             "Massive guest capacity",
@@ -70460,8 +69387,6 @@
         },
         "conflicts": {
           "features": [
-            "Water cannon defense; Med sister to Dilbar.",
-            "Water cannon defense; Med sister to Dilbar.",
             "Water cannon defense; Med sister to Dilbar."
           ],
           "year": [
@@ -70475,7 +69400,6 @@
           "meters": 4.5,
           "raw": "4.5"
         },
-        "gt": 5027,
         "max_speed": 21,
         "flag": "Cayman Islands",
         "class_society": "Germanischer Lloyd",
@@ -70642,8 +69566,6 @@
         },
         "conflicts": {
           "features": [
-            "Jacuzzi, water toys, fishing gear; Florida Keys charters.",
-            "Jacuzzi, water toys, fishing gear; Florida Keys charters.",
             "Jacuzzi, water toys, fishing gear; Florida Keys charters."
           ]
         },
@@ -70748,16 +69670,6 @@
             "Timeless classic elegance",
             "Timeless classic elegance",
             "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
-            "Timeless classic elegance",
             "Timeless classic elegance"
           ]
         },
@@ -70773,10 +69685,7 @@
           "meters": 111.6,
           "raw": "111.6/366"
         },
-        "beam": {
-          "meters": 18,
-          "raw": "~18"
-        },
+        "beam": null,
         "year": {
           "value": 2023,
           "raw": "2023"
@@ -70798,12 +69707,12 @@
           "builderId": "builder:freire"
         },
         "gt": 6950,
-        "identifiability": "identifiable",
         "conflicts": {
           "beam": [
             "~18 (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -70876,20 +69785,6 @@
             "Flexible high-end",
             "Flexible high-end",
             "Flexible high-end",
-            "Flexible high-end",
-            "High-end motor, flexible",
-            "High-end, flexible itineraries",
-            "Flexible high-end",
-            "Flexible high-end",
-            "Flexible high-end",
-            "Flexible high-end",
-            "Flexible high-end",
-            "High-end motor, flexible",
-            "High-end, flexible itineraries",
-            "Flexible high-end",
-            "Flexible high-end",
-            "Flexible high-end",
-            "Flexible high-end",
             "Flexible high-end"
           ]
         },
@@ -70934,8 +69829,6 @@
         },
         "conflicts": {
           "features": [
-            "Research labs, submarine; global eco.",
-            "Research labs, submarine; global eco.",
             "Research labs, submarine; global eco."
           ],
           "year": [
@@ -71118,13 +70011,12 @@
           "meters": 2.21,
           "raw": "2.21"
         },
-        "gt": 360,
-        "identifiability": "identifiable",
         "conflicts": {
           "gt": [
             "~360–398 (sources vary) (estimate — not stored as a confirmed value; see source Notes)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -71164,10 +70056,6 @@
         "conflicts": {
           "features": [
             "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
-            "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots.",
-            "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
-            "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots.",
-            "Movie theater, spa, wine cellar, helipad; often hosts celebrities; originally partial ownership with Larry Ellison.",
             "Basketball court, cinema, wine cellar; frequents Caribbean celebrity hotspots."
           ]
         },
@@ -71204,13 +70092,7 @@
         },
         "conflicts": {
           "loa": [
-            "56 (superseded — \"56\" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
-            "56",
-            "56",
-            "56",
-            "56",
-            "56",
-            "56"
+            "56 (superseded — \"56\" is the foot-based model number of the Riva 56 Rivale (a ~56-foot/~17.3m open cruiser), not a 56m LOA. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
           ]
         },
         "loa_aliases": [
@@ -71506,14 +70388,6 @@
             "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
             "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
             "Underwater pod; Med and global (seized).",
-            "Hybrid, underwater pod; global.",
-            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
-            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
-            "Underwater pod; Med and global (seized).",
-            "Hybrid, underwater pod; global.",
-            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
-            "Eight decks, underwater observation pod, crow’s nest at 60m, multiple elevators, rumored submarine, four tenders, hybrid propulsion; seized in 2022.",
-            "Underwater pod; Med and global (seized).",
             "Hybrid, underwater pod; global."
           ]
         },
@@ -71692,26 +70566,6 @@
             "Wellness-focused refit",
             "Wellness-focused refit",
             "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Circular pool, cinema; Canary transits.",
-            "Refit luxury",
-            "Refit luxury, wellness",
-            "Wellness amenities",
-            "Wellness refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Circular pool, cinema; Canary transits.",
-            "Refit luxury",
-            "Refit luxury, wellness",
-            "Wellness amenities",
-            "Wellness refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
-            "Wellness-focused refit",
             "Wellness-focused refit"
           ]
         },
@@ -71856,18 +70710,6 @@
             "Performance sailing",
             "Performance sailing",
             "Performance sailing",
-            "Performance sailing",
-            "Performance sailing elements",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing elements",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing",
-            "Performance sailing",
             "Performance sailing"
           ]
         },
@@ -71910,16 +70752,6 @@
         },
         "conflicts": {
           "features": [
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
-            "Glass-heavy art collection",
             "Glass-heavy art collection",
             "Glass-heavy art collection",
             "Glass-heavy art collection",
@@ -72167,20 +70999,6 @@
             "Jan 2026 discount",
             "Jan 2026 discount",
             "Jan 2026 discount",
-            "Jan 2026 discount",
-            "Discounted",
-            "Discounted",
-            "Discounted Jan 2026",
-            "Jan 2026 discount",
-            "Jan 2026 discount",
-            "Jan 2026 discount",
-            "Jan 2026 discount",
-            "Discounted",
-            "Discounted",
-            "Discounted Jan 2026",
-            "Jan 2026 discount",
-            "Jan 2026 discount",
-            "Jan 2026 discount",
             "Jan 2026 discount"
           ]
         },
@@ -72226,22 +71044,12 @@
           "features": [
             "Sailing superyacht, eco-friendly; Pacific.",
             "Sailing, eco; Fiji islands.",
-            "Eco-Focused",
-            "Sailing superyacht, eco-friendly; Pacific.",
-            "Sailing, eco; Fiji islands.",
-            "Eco-Focused",
-            "Sailing superyacht, eco-friendly; Pacific.",
-            "Sailing, eco; Fiji islands.",
             "Eco-Focused"
           ],
           "guests": [
-            5,
-            5,
             5
           ],
           "crew": [
-            8,
-            8,
             8
           ]
         },
@@ -72275,14 +71083,6 @@
         },
         "conflicts": {
           "features": [
-            "Sailing",
-            "Sailing",
-            "Sailing",
-            "Sailing",
-            "Sailing",
-            "Sailing",
-            "Sailing",
-            "Sailing",
             "Sailing",
             "Sailing",
             "Sailing",
@@ -72385,10 +71185,6 @@
         },
         "conflicts": {
           "features": [
-            "Award features",
-            "Award features",
-            "Award features",
-            "Award features",
             "Award features",
             "Award features"
           ]
@@ -72606,8 +71402,6 @@
         },
         "conflicts": {
           "features": [
-            "Indoor climbing wall, submarine, snow room; Caribbean expeditions.",
-            "Indoor climbing wall, submarine, snow room; Caribbean expeditions.",
             "Indoor climbing wall, submarine, snow room; Caribbean expeditions."
           ]
         },
@@ -72684,20 +71478,6 @@
         },
         "conflicts": {
           "features": [
-            "Award-winning, indulgent amenities",
-            "Indulgent amenities",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Award-winning, indulgent amenities",
-            "Indulgent amenities",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
-            "Indulgent award-winner",
             "Award-winning, indulgent amenities",
             "Indulgent amenities",
             "Indulgent award-winner",
@@ -72812,8 +71592,6 @@
         },
         "conflicts": {
           "features": [
-            "Large",
-            "Large",
             "Large"
           ]
         },
@@ -72958,10 +71736,6 @@
         "conflicts": {
           "features": [
             "New 2026, new interiors",
-            "New interiors/renderings",
-            "New 2026, new interiors",
-            "New interiors/renderings",
-            "New 2026, new interiors",
             "New interiors/renderings"
           ]
         },
@@ -72992,10 +71766,6 @@
         },
         "conflicts": {
           "features": [
-            "New interiors",
-            "New interiors",
-            "New interiors",
-            "New interiors",
             "New interiors",
             "New interiors"
           ]
@@ -73030,10 +71800,6 @@
         },
         "conflicts": {
           "loa": [
-            "60+",
-            "60+",
-            "60+",
-            "60+",
             "60+",
             "60+"
           ]
@@ -73084,12 +71850,12 @@
         "gt": 499,
         "max_speed": 14.5,
         "range_nm": 5000,
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2026 (delivery)"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -73120,20 +71886,6 @@
         },
         "conflicts": {
           "features": [
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
-            "Classic Nobiskrug",
             "Classic Nobiskrug",
             "Classic Nobiskrug",
             "Classic Nobiskrug",
@@ -73320,8 +72072,6 @@
         },
         "conflicts": {
           "features": [
-            "Sauna, deck Jacuzzi",
-            "Sauna, deck Jacuzzi",
             "Sauna, deck Jacuzzi"
           ]
         },
@@ -73373,8 +72123,6 @@
         },
         "conflicts": {
           "features": [
-            "Residential apartments, spa; global.",
-            "Residential apartments, spa; global.",
             "Residential apartments, spa; global."
           ]
         },
@@ -73619,18 +72367,6 @@
             "Sun deck/toys",
             "Sun deck/toys",
             "Sun deck/toys",
-            "Sun deck/toys",
-            "Sun deck",
-            "Sun deck",
-            "Sun deck/toys",
-            "Sun deck/toys",
-            "Sun deck/toys",
-            "Sun deck/toys",
-            "Sun deck",
-            "Sun deck",
-            "Sun deck/toys",
-            "Sun deck/toys",
-            "Sun deck/toys",
             "Sun deck/toys"
           ]
         },
@@ -73755,12 +72491,12 @@
           "nameNorm": "starburst iv",
           "builderId": "builder:bilgin-yachts"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 47m Bilgin-built \"Starburst IV\". The only public record found is \"Starburst III\" (47.4m Bilgin, 2017) — no \"Starburst IV\" is documented; likely a naming confusion with Starburst III in the source corpus. See research/round5/yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -73819,20 +72555,6 @@
         },
         "conflicts": {
           "features": [
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
-            "High-spec CRN",
             "High-spec CRN",
             "High-spec CRN",
             "High-spec CRN",
@@ -74074,26 +72796,6 @@
             "Tri-deck motor",
             "Tri-deck motor",
             "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
-            "Tri-deck motor",
             "Tri-deck motor"
           ]
         },
@@ -74127,10 +72829,6 @@
         },
         "conflicts": {
           "loa": [
-            "60+",
-            "60+",
-            "60+",
-            "60+",
             "60+",
             "60+"
           ]
@@ -74278,13 +72976,7 @@
         },
         "conflicts": {
           "loa": [
-            "65 (superseded — \"65\" is the Sunseeker Manhattan 65 model's (loosely foot-based) name, not metres — real LOA is 69'1\"/21.06m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
-            "65",
-            "65",
-            "65",
-            "65",
-            "65",
-            "65"
+            "65 (superseded — \"65\" is the Sunseeker Manhattan 65 model's (loosely foot-based) name, not metres — real LOA is 69'1\"/21.06m. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
           ]
         },
         "loa_aliases": [
@@ -74369,18 +73061,6 @@
             "Family spacious",
             "Family spacious",
             "Family spacious",
-            "Family spacious",
-            "Family",
-            "Spacious family",
-            "Family spacious",
-            "Family spacious",
-            "Family spacious",
-            "Family spacious",
-            "Family",
-            "Spacious family",
-            "Family spacious",
-            "Family spacious",
-            "Family spacious",
             "Family spacious"
           ]
         },
@@ -74421,20 +73101,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
-            "Refit Nobiskrug",
             "Refit Nobiskrug",
             "Refit Nobiskrug",
             "Refit Nobiskrug",
@@ -74524,10 +73190,6 @@
         "conflicts": {
           "features": [
             "Outdoor cinema, golf simulator; Caribbean family charters.",
-            "Float-in tender garage; occasional Canary charters.",
-            "Outdoor cinema, golf simulator; Caribbean family charters.",
-            "Float-in tender garage; occasional Canary charters.",
-            "Outdoor cinema, golf simulator; Caribbean family charters.",
             "Float-in tender garage; occasional Canary charters."
           ]
         },
@@ -74604,22 +73266,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit, reliable",
-            "Reliable refit",
-            "Reliable",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
-            "Refit, reliable",
-            "Reliable refit",
-            "Reliable",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
-            "Reliable refit",
             "Refit, reliable",
             "Reliable refit",
             "Reliable",
@@ -74780,20 +73426,6 @@
             "Holiday specials",
             "Holiday specials",
             "Holiday specials",
-            "Holiday specials",
-            "Christmas/NY specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Christmas/NY specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
-            "Holiday specials",
             "Holiday specials"
           ]
         },
@@ -74840,8 +73472,6 @@
         },
         "conflicts": {
           "features": [
-            "Global Cruising",
-            "Global Cruising",
             "Global Cruising"
           ]
         },
@@ -74877,18 +73507,6 @@
         },
         "conflicts": {
           "features": [
-            "Indulgent luxury",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Indulgent luxury",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
-            "Ultra-indulgent",
             "Indulgent luxury",
             "Ultra-indulgent",
             "Ultra-indulgent",
@@ -74990,8 +73608,6 @@
         },
         "conflicts": {
           "features": [
-            "Fishing expedition; Fiji.",
-            "Fishing expedition; Fiji.",
             "Fishing expedition; Fiji."
           ]
         },
@@ -75030,12 +73646,12 @@
           "nameNorm": "the jackson",
           "builderId": "builder:horizon"
         },
-        "identifiability": "fragment",
         "conflicts": {
           "identity": [
             "Graph describes a 37m Horizon-built \"The Jackson\" (2017). The only \"The Jackson\" with strong web presence is an unrelated 62.5m Sydney Harbour dinner-cruise/event vessel (a commercial function-boat, not a private Horizon yacht) — could not confirm the graph's 37m/Horizon/2017 entry against any source. See research/round5/yacht-specs-35-45m.md and yacht-specs-45-55m.md."
           ]
-        }
+        },
+        "identifiability": "fragment"
       }
     },
     {
@@ -75104,18 +73720,6 @@
         },
         "conflicts": {
           "features": [
-            "Versatile group layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Versatile group layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
-            "Group-versatile layout",
             "Versatile group layout",
             "Group-versatile layout",
             "Group-versatile layout",
@@ -75190,8 +73794,6 @@
         },
         "conflicts": {
           "features": [
-            "Iconic Lurssen",
-            "Iconic Lurssen",
             "Iconic Lurssen"
           ]
         },
@@ -75424,27 +74026,9 @@
             "Shallow draft cat",
             "Shallow catamaran",
             "Shallow catamaran",
-            "Shallow catamaran",
-            "Catamaran",
-            "Shallow draft catamaran",
-            "Shallow draft catamaran",
-            "Shallow catamaran",
-            "Shallow draft cat",
-            "Shallow catamaran",
-            "Shallow catamaran",
-            "Shallow catamaran",
-            "Catamaran",
-            "Shallow draft catamaran",
-            "Shallow draft catamaran",
-            "Shallow catamaran",
-            "Shallow draft cat",
-            "Shallow catamaran",
-            "Shallow catamaran",
             "Shallow catamaran"
           ],
           "crew": [
-            3,
-            3,
             3
           ]
         },
@@ -75570,8 +74154,6 @@
         },
         "conflicts": {
           "features": [
-            "Freedom cruising",
-            "Freedom cruising",
             "Freedom cruising"
           ]
         },
@@ -75679,8 +74261,6 @@
         },
         "conflicts": {
           "features": [
-            "Refit",
-            "Refit",
             "Refit"
           ]
         },
@@ -75855,10 +74435,6 @@
         "conflicts": {
           "features": [
             "Minimalist design, iPad controls; Florida and Keys sightings.",
-            "Philippe Starck design; Canary sightings.",
-            "Minimalist design, iPad controls; Florida and Keys sightings.",
-            "Philippe Starck design; Canary sightings.",
-            "Minimalist design, iPad controls; Florida and Keys sightings.",
             "Philippe Starck design; Canary sightings."
           ]
         },
@@ -75901,10 +74477,6 @@
         "conflicts": {
           "loa": [
             "50+",
-            "50+",
-            "50+",
-            "50+",
-            "50+",
             "50+"
           ]
         },
@@ -75945,22 +74517,6 @@
         },
         "conflicts": {
           "features": [
-            "Sailing yacht performance",
-            "Sailing performance",
-            "Sailing",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing yacht performance",
-            "Sailing performance",
-            "Sailing",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
-            "Sailing performance",
             "Sailing yacht performance",
             "Sailing performance",
             "Sailing",
@@ -76071,24 +74627,6 @@
             "Post-refit market",
             "Post-refit market",
             "Post-refit market",
-            "Post-refit market",
-            "Refit",
-            "Back on market post-refit",
-            "Refit",
-            "Back on market post-refit",
-            "Back on market post-refit",
-            "Post-refit market",
-            "Post-refit market",
-            "Post-refit market",
-            "Post-refit market",
-            "Refit",
-            "Back on market post-refit",
-            "Refit",
-            "Back on market post-refit",
-            "Back on market post-refit",
-            "Post-refit market",
-            "Post-refit market",
-            "Post-refit market",
             "Post-refit market"
           ]
         },
@@ -76131,20 +74669,6 @@
         },
         "conflicts": {
           "features": [
-            "High performance",
-            "Performance",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
-            "High performance",
-            "Performance",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
-            "High-performance motor",
             "High performance",
             "Performance",
             "High-performance motor",
@@ -76297,8 +74821,6 @@
         },
         "conflicts": {
           "features": [
-            "Hybrid propulsion, beach club; eco-friendly Caribbean cruises.",
-            "Hybrid propulsion, beach club; eco-friendly Caribbean cruises.",
             "Hybrid propulsion, beach club; eco-friendly Caribbean cruises."
           ]
         },
@@ -76433,12 +74955,12 @@
         "max_speed": 23,
         "flag": "Marshall Islands",
         "imo": "9854143",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "2022"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -76480,26 +75002,6 @@
         },
         "conflicts": {
           "features": [
-            "Support vessel; Fiji support.",
-            "Explorer",
-            "Explorer build",
-            "Explorer build",
-            "Explorer",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Support vessel; Fiji support.",
-            "Explorer",
-            "Explorer build",
-            "Explorer build",
-            "Explorer",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
             "Support vessel; Fiji support.",
             "Explorer",
             "Explorer build",
@@ -76661,8 +75163,6 @@
         },
         "conflicts": {
           "features": [
-            "High glamour, guest-centric",
-            "High glamour, guest-centric",
             "High glamour, guest-centric"
           ]
         },
@@ -76732,18 +75232,6 @@
             "Racing-to-leisure sail",
             "Racing-to-leisure sail",
             "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing to leisure",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing to leisure",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
-            "Racing-to-leisure sail",
             "Racing-to-leisure sail"
           ]
         },
@@ -76777,10 +75265,6 @@
         },
         "conflicts": {
           "loa": [
-            "90+",
-            "90+",
-            "90+",
-            "90+",
             "90+",
             "90+"
           ]
@@ -76857,8 +75341,6 @@
         },
         "conflicts": {
           "features": [
-            "Schooner",
-            "Schooner",
             "Schooner"
           ]
         },
@@ -76892,29 +75374,7 @@
         },
         "conflicts": {
           "loa": [
-            "67 (superseded — The graph's 67m LOA mistook the Ferretti 670 model's own model number for a length — real Yamas is a ~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67",
-            "67"
+            "67 (superseded — The graph's 67m LOA mistook the Ferretti 670 model's own model number for a length — real Yamas is a ~20.2m Ferretti 670. Corrected per research/round5/yacht-specs-55-70m.md's Coverage notes.)"
           ]
         },
         "loa_aliases": [
@@ -76964,12 +75424,12 @@
         "range_nm": 5000,
         "flag": "Cayman Islands",
         "imo": "8652201",
-        "identifiability": "identifiable",
         "conflicts": {
           "year": [
             "1981"
           ]
-        }
+        },
+        "identifiability": "identifiable"
       }
     },
     {
@@ -77007,24 +75467,6 @@
         },
         "conflicts": {
           "features": [
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer build",
-            "Explorer build",
-            "Explorer build",
-            "Explorer",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
-            "Explorer capabilities",
             "Explorer build",
             "Explorer build",
             "Explorer build",
