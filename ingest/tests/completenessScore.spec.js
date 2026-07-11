@@ -126,6 +126,51 @@ describe('computeCompleteness — per-type attr%/edge%/score', () => {
     expect(shipyard.edgePct).toBe(0);
     expect(shipyard.score).toBe(0);
   });
+
+  it('engine_model (TASK-017): the made_by edge is one of the required items, alongside plain attrs', () => {
+    const graph = {
+      nodes: [
+        {
+          id: 'engine_model:a',
+          type: 'engine_model',
+          name: 'A',
+          attrs: { years: '2021-', type: 'V12', power_hp: 600, segment: 'outboard' },
+        },
+      ],
+      edges: [edge('engine_model:a', 'made_by', 'engine:mercury-marine')],
+    };
+
+    const { byType } = computeCompleteness(graph);
+    const engineModel = byType.find((r) => r.type === 'engine_model');
+    expect(engineModel.attrPct).toBe(100); // 4 plain attrs + made_by edge, all satisfied
+  });
+
+  it('size_class (TASK-017): no edges are created this round, so edgePct is always 0', () => {
+    const graph = {
+      nodes: [
+        {
+          id: 'size_class:superyacht',
+          type: 'size_class',
+          name: 'Superyacht',
+          attrs: {
+            length_threshold: '24m+',
+            gt_range: '~500-3,000 GT',
+            typical_crew: '3-16',
+            definition_used_by: 'YachtBuyer',
+            example_vessels: 'Amels 60',
+            notes: 'Conflict noted.',
+          },
+        },
+      ],
+      edges: [],
+    };
+
+    const { byType } = computeCompleteness(graph);
+    const sizeClass = byType.find((r) => r.type === 'size_class');
+    expect(sizeClass.attrPct).toBe(100);
+    expect(sizeClass.edgePct).toBe(0);
+    expect(sizeClass.score).toBeCloseTo(0.7 * 10, 2);
+  });
 });
 
 describe('computeCompleteness — overall weighted average', () => {

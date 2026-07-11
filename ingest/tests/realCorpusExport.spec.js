@@ -103,13 +103,13 @@ describe('real corpus — export totals match SQLite exactly', () => {
 // sorted filename order, so a future data-enrichment round that adds new
 // numbered files should sort AFTER the existing corpus and never shift an
 // existing yacht's id. This lock pins the current real-corpus per-type
-// counts (as of TASK-016's shipyard-lane enrichment) and a small sample of
-// well-known yacht ids, so a future round that silently disturbs ingestion
-// order (e.g. a new file inserted with a lower sort-order number, or a
-// rename that changes a yacht's normalized name) fails loudly here instead
-// of quietly reshuffling ids downstream.
+// counts (as of TASK-017's engine/parts/size-class enrichment) and a small
+// sample of well-known yacht ids, so a future round that silently disturbs
+// ingestion order (e.g. a new file inserted with a lower sort-order number,
+// or a rename that changes a yacht's normalized name) fails loudly here
+// instead of quietly reshuffling ids downstream.
 describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', () => {
-  it('matches the pinned per-type node counts (TASK-016 shipyard-lane baseline)', async () => {
+  it('matches the pinned per-type node counts (TASK-017 engine/parts/size-class baseline)', async () => {
     const { runIngest } = await import('../src/ingest.js');
     runIngest();
 
@@ -127,8 +127,14 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     expect(graph.meta.types.marina).toBe(893);
     expect(graph.meta.types.person).toBe(110);
     expect(graph.meta.types.designer).toBe(10);
-    expect(graph.meta.types.engine).toBe(16);
     expect(graph.meta.types.shipyard).toBe(236);
+    // TASK-017: engine grew from 16 (file-07 tier table only) to 59 after
+    // knowledge/89's manufacturer directory merged into/created brand
+    // nodes; engine_model/part/size_class are brand-new types this round.
+    expect(graph.meta.types.engine).toBe(59);
+    expect(graph.meta.types.engine_model).toBe(37);
+    expect(graph.meta.types.part).toBe(111);
+    expect(graph.meta.types.size_class).toBe(4);
   }, 30000);
 
   it('resolves a pinned sample of well-known yacht ids unchanged', async () => {
@@ -143,5 +149,60 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
       expect(row.type).toBe('yacht');
     }
     db.close();
+  }, 30000);
+});
+
+// Review fix (TASK-016 review carry-forward): a cheap sanity range on every
+// numeric attr the shipyard/engine/engine-model mappers parse, so a future
+// curation mistake (a prose cell like "Nimitz-class capable (Dry Dock 8)"
+// silently parsing to tonnage=8, or a stray comma truncating "400,000" to
+// 400) fails a real-corpus test immediately instead of shipping a
+// nonsensical value. Bounds are deliberately generous (real-world dry docks
+// span a few hundred tons to ~1M+ tons; yachts/shipyards span a few metres
+// to Newport-News-scale ~700m graving docks; engine outputs span a few
+// horsepower to multi-thousand-hp racing/ship engines) — this is a "does
+// this look like the right unit/order-of-magnitude" check, not a precise
+// business-rule validation.
+describe('real corpus — numeric attr range-sanity locks', () => {
+  it('every shipyard max_tonnage/max_loa falls within a plausible real-world range', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db.prepare("SELECT id, attrs_json FROM nodes WHERE type = 'shipyard'").all();
+    db.close();
+
+    expect(rows.length).toBeGreaterThan(0);
+
+    for (const row of rows) {
+      const attrs = JSON.parse(row.attrs_json || '{}');
+      if (attrs.max_tonnage !== undefined && attrs.max_tonnage !== null) {
+        expect(attrs.max_tonnage, `${row.id} max_tonnage=${attrs.max_tonnage}`).toBeGreaterThanOrEqual(100);
+        expect(attrs.max_tonnage, `${row.id} max_tonnage=${attrs.max_tonnage}`).toBeLessThanOrEqual(1_500_000);
+      }
+      if (attrs.max_loa !== undefined && attrs.max_loa !== null) {
+        expect(attrs.max_loa, `${row.id} max_loa=${attrs.max_loa}`).toBeGreaterThanOrEqual(10);
+        expect(attrs.max_loa, `${row.id} max_loa=${attrs.max_loa}`).toBeLessThanOrEqual(700);
+      }
+    }
+  }, 30000);
+
+  it('every engine_model power_hp falls within a plausible real-world range (TASK-017)', async () => {
+    const { runIngest } = await import('../src/ingest.js');
+    runIngest();
+
+    const db = new Database(tmpDbPath, { readonly: true });
+    const rows = db.prepare("SELECT id, attrs_json FROM nodes WHERE type = 'engine_model'").all();
+    db.close();
+
+    expect(rows.length).toBeGreaterThan(0);
+
+    for (const row of rows) {
+      const attrs = JSON.parse(row.attrs_json || '{}');
+      if (attrs.power_hp !== undefined && attrs.power_hp !== null) {
+        expect(attrs.power_hp, `${row.id} power_hp=${attrs.power_hp}`).toBeGreaterThanOrEqual(1);
+        expect(attrs.power_hp, `${row.id} power_hp=${attrs.power_hp}`).toBeLessThanOrEqual(10_000);
+      }
+    }
   }, 30000);
 });

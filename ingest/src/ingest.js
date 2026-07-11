@@ -5,14 +5,36 @@
 // ingestion-order-dependent, see yachtMapper.js), parses each file's pipe
 // tables, and routes every table to exactly one entity mapper by schema
 // guard, in precedence order: yacht > club > marina > company > engine >
-// shipyard. A table that matches none of the six schemas is skipped and
-// counted (diagnostic only — never silently dropped from the log).
+// shipyard > engine-manufacturer > engine-model > part > size-class. A
+// table that matches none of the ten schemas is skipped and counted
+// (diagnostic only — never silently dropped from the log).
 //
 // TASK-016 adds shipyardMapper LAST in precedence (a highly specific guard
 // per its own module header — see shipyardMapper.js for the full
 // collision analysis against the other five guards) and, separately, the
 // `npm run score` completeness reporter (src/reporters/completenessScore.js,
 // not part of the ingest run itself).
+//
+// TASK-017 adds four more highly specific guards, all placed after
+// shipyard in precedence (see ingest/tests/guardCollisions.spec.js for the
+// full 10x10 collision matrix proving none of the ten guards ever claim
+// another's shape):
+//   - engineManufacturer (engineMapper.js's second guard): a global engine-
+//     brand directory (knowledge/89), upserting into the SAME 'engine' node
+//     type as the existing Tier/Manufacturer table, plus OWNED_BY edges to
+//     a resolved/created parent-company node.
+//   - engineModel (engineModelMapper.js, new 'engine_model' node type):
+//     Mercury's model/series history (knowledge/88), with a MADE_BY edge to
+//     the resolved/created engine brand node.
+//   - part (partMapper.js, new 'part' node type): boat/yacht parts anatomy
+//     glossary (knowledge/90).
+//   - sizeClass (sizeClassMapper.js, new 'size_class' node type): the
+//     yacht/superyacht/megayacht/gigayacht classification table
+//     (knowledge/90), attrs stored verbatim (no numeric parsing — see that
+//     mapper's own module header for why).
+// linkEngineOemSupplies() is a small retrofit hook (same pattern as
+// linkYachtRegions() below) run once after all files are processed, adding
+// a hand-grounded handful of OEM_SUPPLIES edges between engine brands.
 //
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
@@ -49,8 +71,17 @@ import { mapYachtTables } from './mappers/yachtMapper.js';
 import { mapClubTables, isClubTable } from './mappers/clubMapper.js';
 import { mapMarinaTables, isMarinaTable } from './mappers/marinaMapper.js';
 import { mapCompanyTables, isCompanyTable } from './mappers/companyMapper.js';
-import { mapEngineTables, isEngineTable } from './mappers/engineMapper.js';
+import {
+  mapEngineTables,
+  isEngineTable,
+  mapEngineManufacturerTables,
+  isEngineManufacturerTable,
+  linkEngineOemSupplies,
+} from './mappers/engineMapper.js';
 import { mapShipyardTables, isShipyardTable } from './mappers/shipyardMapper.js';
+import { mapEngineModelTables, isEngineModelTable } from './mappers/engineModelMapper.js';
+import { mapPartTables, isPartTable } from './mappers/partMapper.js';
+import { mapSizeClassTables, isSizeClassTable } from './mappers/sizeClassMapper.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -126,12 +157,23 @@ function isYachtTable(table) {
 
 /**
  * Partitions `tables` into per-mapper buckets by schema guard, in
- * precedence order (yacht > club > marina > company > engine > shipyard).
- * A table matching none of the six is counted in `skipped` (diagnostic
- * only).
+ * precedence order (yacht > club > marina > company > engine > shipyard >
+ * engineManufacturer > engineModel > part > sizeClass). A table matching
+ * none of the ten is counted in `skipped` (diagnostic only).
  */
 function routeTables(tables) {
-  const buckets = { yacht: [], club: [], marina: [], company: [], engine: [], shipyard: [] };
+  const buckets = {
+    yacht: [],
+    club: [],
+    marina: [],
+    company: [],
+    engine: [],
+    shipyard: [],
+    engineManufacturer: [],
+    engineModel: [],
+    part: [],
+    sizeClass: [],
+  };
   let skipped = 0;
 
   for (const table of tables) {
@@ -141,6 +183,10 @@ function routeTables(tables) {
     else if (isCompanyTable(table)) buckets.company.push(table);
     else if (isEngineTable(table)) buckets.engine.push(table);
     else if (isShipyardTable(table)) buckets.shipyard.push(table);
+    else if (isEngineManufacturerTable(table)) buckets.engineManufacturer.push(table);
+    else if (isEngineModelTable(table)) buckets.engineModel.push(table);
+    else if (isPartTable(table)) buckets.part.push(table);
+    else if (isSizeClassTable(table)) buckets.sizeClass.push(table);
     else skipped += 1;
   }
 
@@ -312,6 +358,9 @@ export function runIngest() {
       companies: 0,
       engines: 0,
       shipyards: 0,
+      engineModels: 0,
+      parts: 0,
+      sizeClasses: 0,
       designers: 0,
       poweredBy: 0,
       edges: 0,
@@ -367,6 +416,24 @@ export function runIngest() {
       totals.shipyards += shipyardResult.shipyards;
       totals.edges += shipyardResult.edges;
 
+      // TASK-017: engineManufacturer upserts into the SAME 'engine' node
+      // type as `engineResult` above (see engineMapper.js's module header),
+      // so its node count is folded into totals.engines, not a separate
+      // counter.
+      const engineManufacturerResult = mapEngineManufacturerTables(db, buckets.engineManufacturer, fileName);
+      totals.engines += engineManufacturerResult.engines;
+      totals.edges += engineManufacturerResult.edges;
+
+      const engineModelResult = mapEngineModelTables(db, buckets.engineModel, fileName);
+      totals.engineModels += engineModelResult.models;
+      totals.edges += engineModelResult.edges;
+
+      const partResult = mapPartTables(db, buckets.part, fileName);
+      totals.parts += partResult.parts;
+
+      const sizeClassResult = mapSizeClassTables(db, buckets.sizeClass, fileName);
+      totals.sizeClasses += sizeClassResult.classes;
+
       // Independent side-pass: does not consume from `buckets` / does not
       // affect `skipped` accounting (see module header).
       const attributionResult = linkYachtAttributions(db, tables, fileName);
@@ -392,6 +459,13 @@ export function runIngest() {
 
     const regionResult = linkYachtRegions(db);
     totals.edges += regionResult.edges;
+
+    // TASK-017 retrofit hook (same pattern as linkYachtRegions above): runs
+    // once, after every file's engine brand nodes (from either table
+    // shape) have been created, so both ends of each documented OEM pair
+    // are guaranteed to exist already.
+    const oemSuppliesResult = linkEngineOemSupplies(db);
+    totals.edges += oemSuppliesResult.edges;
 
     const skippedProseReportPath = writeSkippedProseReport(skippedProseEntries);
 

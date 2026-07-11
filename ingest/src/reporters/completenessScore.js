@@ -70,14 +70,22 @@ export const REQUIRED_ATTRS = {
   designer: ['country', 'notes'],
   person: ['notes', 'provenance'],
   engine: ['tier', 'parent_brand', 'power_range'],
+  // TASK-017: engine_model's own attrs, plus its MADE_BY edge to the brand
+  // (an engine_model with no resolved brand is a data gap, same spirit as
+  // marina's city-or-located_in-edge item).
+  engine_model: ['years', 'type', 'power_hp', 'segment', { edge: 'made_by' }],
+  part: ['category', 'location', 'description', 'applies_to'],
+  // size_class carries no edges at all this round (see sizeClassMapper.js's
+  // module header) — its completeness is purely attr presence.
+  size_class: ['length_threshold', 'gt_range', 'typical_crew', 'definition_used_by', 'example_vessels', 'notes'],
   // Region nodes carry no meaningful attrs of their own in this graph —
   // their only signal is how well-connected they are (see module header).
   region: [],
 };
 
-// Per the ticket. Sum is 105, not 100 — overall divides by the sum of
-// weights actually applied (see computeCompleteness), so this need not be
-// a strict 0-100 partition.
+// Per the ticket. Sum is 105 (TASK-016) + 13 (TASK-017's three new types) =
+// 118 — overall divides by the sum of weights actually applied (see
+// computeCompleteness), so this need not be a strict 0-100 partition.
 export const TYPE_WEIGHTS = {
   yacht: 20,
   shipyard: 15,
@@ -89,6 +97,9 @@ export const TYPE_WEIGHTS = {
   club: 5,
   designer: 5,
   engine: 5,
+  engine_model: 5,
+  part: 5,
+  size_class: 3,
 };
 
 function round2(n) {
