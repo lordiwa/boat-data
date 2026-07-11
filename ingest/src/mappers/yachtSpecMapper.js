@@ -60,10 +60,22 @@ import {
   isPlausibleEntityName,
   parseLength,
   lengthsMatch,
+  parseYear,
 } from './normalize.js';
 
 const NAME_KEYS = ['yacht'];
 const LOA_KEYS = ['loa']; // used ONLY for disambiguation among same-named nodes — never stored by this mapper.
+// TASK-024 item 4: the Year column (tableParser's ALIAS_MAP already aliases
+// the raw "Year" header to 'year' — same key yachtMapper.js's own primary
+// ingestion uses) was previously read only for nothing at all; this mapper
+// now ingests it into attrs.year, same {value, raw} shape as yachtMapper.js's
+// buildYearAttr, merged with the same first-non-empty-wins/conflict
+// discipline as every other field below. Closes the gap several research/
+// round5 band files' own headers noted (e.g. knowledge/97's DUNIA BARU/EIV/
+// NORTHERN SUN/Teleost/Oriy rows, whose builderId was null before this
+// mapper's builder-adjacent fields ran) — the Year column itself was never
+// actually blocked from being read, just never mapped anywhere.
+const YEAR_KEYS = ['year'];
 const BEAM_KEYS = ['beam_m'];
 const DRAFT_KEYS = ['draft_m'];
 const GT_KEYS = ['gt'];
@@ -113,6 +125,38 @@ function buildLengthAttr(raw) {
   if (isEmptyValue(raw)) return null;
   const value = parseNumeric(raw);
   return value === null ? null : { meters: value, raw: String(raw).trim() };
+}
+
+function buildYearAttr(raw) {
+  if (isEmptyValue(raw)) return null;
+  return { value: parseYear(raw), raw: String(raw).trim() };
+}
+
+function yearFieldsEqual(a, b) {
+  if (typeof a.value === 'number' && typeof b.value === 'number') return a.value === b.value;
+  return a.raw === b.raw;
+}
+
+function yearRawOf(value) {
+  return value && typeof value === 'object' && 'raw' in value ? value.raw : String(value);
+}
+
+// TASK-024 item 4: knowledge/93+97 both curate a leading "~" onto a handful
+// of GT/beam/max-speed cells whose Notes column explicitly says the figure
+// is an estimate, not a confirmed hull spec (e.g. De Lisle III's
+// "~400 (est., not published)" GT, Katara's "~8,010" GT, Launchpad's
+// "~15.2 (50 ft)" beam) — parseNumeric/buildLengthAttr previously stripped
+// the "~" silently and stored the estimate as if it were a confirmed value,
+// same failure class the ticket's re-audit was meant to catch. Detected on
+// the RAW cell text, before any stripping, so it never fires on a value
+// that merely happens to contain a "~" elsewhere in its raw text (none of
+// the corpus's real cells do — the marker is always leading).
+function isApproxRaw(raw) {
+  return !isEmptyValue(raw) && String(raw).trim().startsWith('~');
+}
+
+function approxConflictNote(raw) {
+  return `${String(raw).trim()} (estimate — not stored as a confirmed value; see source Notes)`;
 }
 
 // "<primary> [conflict: <alt1>, <alt2>]" -> { primary: '<primary>', conflicts: ['<alt1>', '<alt2>'] }.
@@ -270,45 +314,82 @@ export function mapYachtSpecTables(db, tables, sourceFile) {
         conflicts[field] = existingList.includes(altRaw) ? existingList : [...existingList, altRaw];
       };
 
+      // year: TASK-024 item 4 — same {value, raw} shape/merge discipline as
+      // every other field here (first-non-empty-wins, differing value ->
+      // conflicts, never silently overwritten).
+      const incomingYear = buildYearAttr(pickFirstPresent(row, YEAR_KEYS));
+      if (incomingYear) {
+        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'year', incomingYear, yearFieldsEqual, yearRawOf);
+        merged.year = value;
+        if (conflict) addConflict('year', conflict);
+      }
+
       // beam / draft: length-shaped ({ meters, raw }), curated-conflict-aware.
+      // TASK-024 item 4: an approximate ("~"-prefixed) cell is routed to
+      // conflicts/notes rather than stored as a confirmed value (see
+      // isApproxRaw's own comment) — the field itself is left untouched.
       const beamCell = splitConflictMarker(pickFirstPresent(row, BEAM_KEYS));
-      const incomingBeam = buildLengthAttr(beamCell.primary);
-      if (incomingBeam) {
-        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'beam', incomingBeam, lengthFieldsEqual, lengthRawOf);
-        merged.beam = value;
-        if (conflict) addConflict('beam', conflict);
+      if (isApproxRaw(beamCell.primary)) {
+        addConflict('beam', approxConflictNote(beamCell.primary));
+      } else {
+        const incomingBeam = buildLengthAttr(beamCell.primary);
+        if (incomingBeam) {
+          const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'beam', incomingBeam, lengthFieldsEqual, lengthRawOf);
+          merged.beam = value;
+          if (conflict) addConflict('beam', conflict);
+        }
       }
       for (const alt of beamCell.conflicts) addConflict('beam', alt);
 
       const draftCell = splitConflictMarker(pickFirstPresent(row, DRAFT_KEYS));
-      const incomingDraft = buildLengthAttr(draftCell.primary);
-      if (incomingDraft) {
-        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'draft', incomingDraft, lengthFieldsEqual, lengthRawOf);
-        merged.draft = value;
-        if (conflict) addConflict('draft', conflict);
+      if (isApproxRaw(draftCell.primary)) {
+        addConflict('draft', approxConflictNote(draftCell.primary));
+      } else {
+        const incomingDraft = buildLengthAttr(draftCell.primary);
+        if (incomingDraft) {
+          const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'draft', incomingDraft, lengthFieldsEqual, lengthRawOf);
+          merged.draft = value;
+          if (conflict) addConflict('draft', conflict);
+        }
       }
       for (const alt of draftCell.conflicts) addConflict('draft', alt);
 
-      // gt / max_speed / range_nm: plain numbers.
-      const gtValue = parseNumeric(pickFirstPresent(row, GT_KEYS));
-      if (gtValue !== null) {
-        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'gt', gtValue, (a, b) => a === b, scalarRawOf);
-        merged.gt = value;
-        if (conflict) addConflict('gt', conflict);
+      // gt / max_speed / range_nm: plain numbers. Same approx-marker
+      // handling as beam/draft above.
+      const gtRaw = pickFirstPresent(row, GT_KEYS);
+      if (isApproxRaw(gtRaw)) {
+        addConflict('gt', approxConflictNote(gtRaw));
+      } else {
+        const gtValue = parseNumeric(gtRaw);
+        if (gtValue !== null) {
+          const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'gt', gtValue, (a, b) => a === b, scalarRawOf);
+          merged.gt = value;
+          if (conflict) addConflict('gt', conflict);
+        }
       }
 
-      const maxSpeedValue = parseNumeric(pickFirstPresent(row, MAX_SPEED_KEYS));
-      if (maxSpeedValue !== null) {
-        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'max_speed', maxSpeedValue, (a, b) => a === b, scalarRawOf);
-        merged.max_speed = value;
-        if (conflict) addConflict('max_speed', conflict);
+      const maxSpeedRaw = pickFirstPresent(row, MAX_SPEED_KEYS);
+      if (isApproxRaw(maxSpeedRaw)) {
+        addConflict('max_speed', approxConflictNote(maxSpeedRaw));
+      } else {
+        const maxSpeedValue = parseNumeric(maxSpeedRaw);
+        if (maxSpeedValue !== null) {
+          const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'max_speed', maxSpeedValue, (a, b) => a === b, scalarRawOf);
+          merged.max_speed = value;
+          if (conflict) addConflict('max_speed', conflict);
+        }
       }
 
-      const rangeValue = parseNumeric(pickFirstPresent(row, RANGE_KEYS));
-      if (rangeValue !== null) {
-        const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'range_nm', rangeValue, (a, b) => a === b, scalarRawOf);
-        merged.range_nm = value;
-        if (conflict) addConflict('range_nm', conflict);
+      const rangeRaw = pickFirstPresent(row, RANGE_KEYS);
+      if (isApproxRaw(rangeRaw)) {
+        addConflict('range_nm', approxConflictNote(rangeRaw));
+      } else {
+        const rangeValue = parseNumeric(rangeRaw);
+        if (rangeValue !== null) {
+          const { value, conflict } = mergeFieldWithConflict(existingAttrs, 'range_nm', rangeValue, (a, b) => a === b, scalarRawOf);
+          merged.range_nm = value;
+          if (conflict) addConflict('range_nm', conflict);
+        }
       }
 
       // flag / class_society: plain strings, curated-conflict-aware for flag.

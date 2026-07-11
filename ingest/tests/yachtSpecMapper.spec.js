@@ -236,6 +236,97 @@ describe('mapYachtSpecTables — schema guard on the table pass', () => {
   });
 });
 
+describe('mapYachtSpecTables — Year column ingestion (TASK-024 item 4)', () => {
+  it('ingests the Year column into attrs.year ({ value, raw }) for a yacht that had none', () => {
+    upsertNode(db, { id: 'yacht:azzam', type: 'yacht', name: 'Azzam' });
+    const tables = parseTables(FIXTURE_YACHT_SPECS);
+    mapYachtSpecTables(db, tables, 'yacht-spec-fixture.md');
+
+    const node = getNode('yacht:azzam');
+    expect(node.attrs.year.value).toBe(2013);
+    expect(node.attrs.year.raw).toBe('2013');
+  });
+
+  it('leaves a pre-existing year untouched when it agrees, and records a conflict when it disagrees', () => {
+    upsertNode(db, {
+      id: 'yacht:azzam',
+      type: 'yacht',
+      name: 'Azzam',
+      attrs: { year: { value: 1999, raw: '1999' } },
+    });
+    const tables = parseTables(FIXTURE_YACHT_SPECS);
+    mapYachtSpecTables(db, tables, 'yacht-spec-fixture.md');
+
+    const node = getNode('yacht:azzam');
+    // First-non-empty-wins: the PRE-EXISTING value (1999) is preserved...
+    expect(node.attrs.year.value).toBe(1999);
+    // ...and the differing research value (2013) is recorded as a conflict.
+    expect(node.attrs.conflicts.year).toContain('2013');
+  });
+
+  it('is idempotent: running twice does not add a spurious year conflict', () => {
+    upsertNode(db, { id: 'yacht:azzam', type: 'yacht', name: 'Azzam' });
+    const tables = parseTables(FIXTURE_YACHT_SPECS);
+    mapYachtSpecTables(db, tables, 'yacht-spec-fixture.md');
+    mapYachtSpecTables(db, tables, 'yacht-spec-fixture.md');
+
+    const node = getNode('yacht:azzam');
+    expect(node.attrs.year.value).toBe(2013);
+    expect(node.attrs.conflicts?.year).toBeUndefined();
+  });
+});
+
+describe('mapYachtSpecTables — approximate ("~") values routed to conflicts, never stored as confirmed (TASK-024 item 4)', () => {
+  const FIXTURE_APPROX = `
+| Yacht | Builder | Year | LOA (m) | Beam (m) | Draft (m) | GT | Max Speed (kn) | Range (nm) | Flag | Class Society | IMO | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| De Lisle III | Gulf Craft | 2008 | 42 | 7.5 | 2.2 | ~400 (est., not published) | 10.5 | | Australia | | | GT is an estimate, not published. |
+| Katara | Lürssen | 2010 | 124.4 | 19.5 | 5.3 | ~8,010 | 20 | 5000+ | Qatar | | | GT approximate. |
+| Launchpad | Feadship | 2024 | 118 | ~15.2 (50 ft) | | 4999 | 24 | 6000 | Marshall Islands | | | Beam approximate. |
+`;
+
+  it('does NOT store an approximate GT (leading "~") as attrs.gt; records it in attrs.conflicts.gt instead', () => {
+    upsertNode(db, { id: 'yacht:de-lisle-iii', type: 'yacht', name: 'De Lisle III' });
+    const tables = parseTables(FIXTURE_APPROX);
+    mapYachtSpecTables(db, tables, 'approx-fixture.md');
+
+    const node = getNode('yacht:de-lisle-iii');
+    expect(node.attrs.gt).toBeUndefined();
+    expect(node.attrs.conflicts.gt[0]).toContain('~400');
+  });
+
+  it('does NOT store a "~"-prefixed GT with thousands separators (Katara) as attrs.gt', () => {
+    upsertNode(db, { id: 'yacht:katara', type: 'yacht', name: 'Katara' });
+    const tables = parseTables(FIXTURE_APPROX);
+    mapYachtSpecTables(db, tables, 'approx-fixture.md');
+
+    const node = getNode('yacht:katara');
+    expect(node.attrs.gt).toBeUndefined();
+    expect(node.attrs.conflicts.gt[0]).toContain('~8,010');
+  });
+
+  it('does NOT store an approximate beam (Launchpad) as attrs.beam', () => {
+    upsertNode(db, { id: 'yacht:launchpad', type: 'yacht', name: 'Launchpad' });
+    const tables = parseTables(FIXTURE_APPROX);
+    mapYachtSpecTables(db, tables, 'approx-fixture.md');
+
+    const node = getNode('yacht:launchpad');
+    expect(node.attrs.beam).toBeUndefined();
+    expect(node.attrs.conflicts.beam[0]).toContain('~15.2');
+    // The non-approximate GT on the same row is still stored normally.
+    expect(node.attrs.gt).toBe(4999);
+  });
+
+  it('still stores a normal (non-"~") GT/beam value as confirmed (regression: approx-detection must not blank ordinary values)', () => {
+    upsertNode(db, { id: 'yacht:azzam', type: 'yacht', name: 'Azzam' });
+    const tables = parseTables(FIXTURE_YACHT_SPECS);
+    mapYachtSpecTables(db, tables, 'yacht-spec-fixture.md');
+
+    expect(getNode('yacht:azzam').attrs.gt).toBe(13136);
+    expect(getNode('yacht:azzam').attrs.beam.meters).toBe(20.8);
+  });
+});
+
 describe('module importability', () => {
   it('exposes mapYachtSpecTables and isYachtSpecTable as named exports', async () => {
     const mod = await import('../src/mappers/yachtSpecMapper.js');
