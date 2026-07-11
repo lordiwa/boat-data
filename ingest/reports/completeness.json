@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-11T03:06:13.312Z",
+  "generated_at": "2026-07-11T04:02:01.955Z",
   "byType": [
     {
       "type": "yacht",
@@ -38,7 +38,7 @@
     },
     {
       "type": "region",
-      "count": 900,
+      "count": 857,
       "attrPct": 100,
       "edgePct": 100,
       "score": 10

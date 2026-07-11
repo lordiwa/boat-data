@@ -63,6 +63,17 @@
 // since it deletes/retypes/flags/corrects nodes that earlier hooks (and
 // every mapper) must still see intact.
 //
+// TASK-022 adds no new guard (no new corpus table shape) but hardens region
+// canonicalization in two tiers: regions.js's REGION_ALIAS_GROUPS gains a
+// permanent "City, qualifier" alias set (Tier 1 — prevents near-duplicate
+// city-variant nodes from ever being minted); a new
+// regionCanonicalization.js retrofit hook (applyRegionCanonicalization(),
+// same pattern as linkYachtRegions/applyGraphCleanup) runs the one-time,
+// corpus-scoped Tier 2 judgment merges, prose-artifact renames, and
+// artifact:true quarantine flags for genuinely ambiguous prose-name region
+// nodes (see that module's own header for the full ledger). Runs BEFORE
+// applyGraphCleanup(), which stays the deliberate last-position hook.
+//
 // TASK-004 also adds two small "retrofit hooks" that read already-mapped
 // data without touching yachtMapper.js's internals (per the ticket: "do
 // not rewrite yachtMapper's internals"):
@@ -114,6 +125,7 @@ import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js'
 import { mapYachtSpecTables, isYachtSpecTable } from './mappers/yachtSpecMapper.js';
 import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/personMapper.js';
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
+import { applyRegionCanonicalization } from './mappers/regionCanonicalization.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -562,6 +574,18 @@ export function runIngest() {
     // are guaranteed to exist already.
     const oemSuppliesResult = linkEngineOemSupplies(db);
     totals.edges += oemSuppliesResult.edges;
+
+    // TASK-022: region canonicalization — runs after linkYachtRegions()
+    // above (so every region node any mapper/hook could have minted already
+    // exists) and BEFORE applyGraphCleanup() (which stays the deliberate
+    // last-position hook per its own module header). Tier 1 (permanent
+    // "City, qualifier" alias hardening) lives in regions.js itself and
+    // needs no runtime step here — it prevents the duplicate from ever
+    // being minted. This call handles Tier 2: one-time corpus-scoped
+    // judgment merges, prose-artifact renames/quarantine flags, and the
+    // generic ";"-in-name safety net (see regionCanonicalization.js's own
+    // module header for the full ledger). Idempotent; safe on every run.
+    applyRegionCanonicalization(db);
 
     // TASK-019: graph cleanup — deliberately LAST, after every mapper/hook
     // above has had a chance to create or enrich a node (see

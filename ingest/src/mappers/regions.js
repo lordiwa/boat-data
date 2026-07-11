@@ -33,8 +33,98 @@ export const REGION_ALIAS_GROUPS = [
   {
     slug: 'monaco',
     name: 'Monaco',
-    aliases: ['Monaco', 'Port Hercules (Monaco)', 'Port Hercules', 'Monte Carlo'],
+    // TASK-022: 'Monaco (La Condamine)' is the marina/harbour ward (Port
+    // Hercule sits in La Condamine) — a tiny city-state has no useful
+    // internal-ward granularity for this graph, same reasoning as the
+    // pre-existing Port Hercules alias.
+    aliases: ['Monaco', 'Port Hercules (Monaco)', 'Port Hercules', 'Monte Carlo', 'Monaco (La Condamine)'],
   },
+
+  // --- TASK-022: Tier 1 city/qualifier alias hardening --------------------
+  // Every group below collapses a "City, <broader qualifier>" (or "City
+  // (<supplementary note>)") corpus spelling onto a single canonical "City"
+  // node. Each pair was confirmed, by inspecting the pre-fix real-corpus
+  // graph's actual located_in/based_in edges, to name the SAME real place
+  // with no plausible alternate referent (e.g. both the bare "Coomera" and
+  // "Coomera, QLD" nodes pointed at the identical "Gold Coast City Marina &
+  // Shipyard"). This is deliberately a PERMANENT alias (not a one-time
+  // graphCleanup-style merge): adding it here means a fresh ingest never
+  // mints the duplicate node in the first place.
+  //
+  // Genuinely ambiguous same-spelled cities (Portland OR/ME, Newport RI/OR,
+  // Henderson WA/NV, Toledo OH/OR, Jamestown RI/PA, Scarborough ON/QLD,
+  // Vancouver BC/WA, Belfast UK/ME, Richmond CA/BC, Tuzla Turkey/Bosnia) are
+  // deliberately NOT added here even where the CURRENT corpus happens to be
+  // unambiguous — baking a bare "Portland"/"Henderson"/"Tuzla" alias into
+  // this permanent table would silently swallow a future, genuinely
+  // different same-named place. Those get a one-time, corpus-scoped merge
+  // in regionCanonicalization.js instead (see that module's own header).
+  { slug: 'alameda', name: 'Alameda', aliases: ['Alameda', 'Alameda, CA'] },
+  {
+    slug: 'ameglia-la-spezia',
+    name: 'Ameglia (La Spezia)',
+    aliases: ['Ameglia (La Spezia)', 'Ameglia (La Spezia), plus Viareggio/Massa plants'],
+  },
+  { slug: 'barcelona', name: 'Barcelona', aliases: ['Barcelona', 'Barcelona, Catalonia'] },
+  { slug: 'bremerton', name: 'Bremerton', aliases: ['Bremerton', 'Bremerton, WA'] },
+  {
+    slug: 'calvia-mallorca',
+    name: 'Calvià, Mallorca',
+    aliases: [
+      'Calvià, Mallorca',
+      'Calvia, Mallorca',
+      'Calvià, Mallorca, Balearic Islands',
+      'Calvia, Mallorca, Balearic Islands',
+    ],
+  },
+  { slug: 'coomera', name: 'Coomera', aliases: ['Coomera', 'Coomera, QLD'] },
+  { slug: 'cyca', name: 'CYCA', aliases: ['CYCA', 'CYCA, NSW'] },
+  { slug: 'dania-beach', name: 'Dania Beach', aliases: ['Dania Beach', 'Dania Beach, FL'] },
+  { slug: 'dianshan-lake', name: 'Dianshan Lake', aliases: ['Dianshan Lake', 'Dianshan Lake, Qingpu'] },
+  // NOTE: deliberately excludes the "(Dania/New River), FL" and
+  // ", FL / Saugatuck, MI" compound variants — both combine multiple
+  // distinct places (never guessed onto plain Fort Lauderdale).
+  { slug: 'fort-lauderdale', name: 'Fort Lauderdale', aliases: ['Fort Lauderdale', 'Fort Lauderdale, FL'] },
+  { slug: 'freeport', name: 'Freeport', aliases: ['Freeport', 'Freeport, Grand Bahama Island'] },
+  { slug: 'fremantle', name: 'Fremantle', aliases: ['Fremantle', 'Fremantle, WA'] },
+  { slug: 'gold-coast', name: 'Gold Coast', aliases: ['Gold Coast', 'Gold Coast, QLD'] },
+  {
+    slug: 'houghton-mi',
+    name: 'Houghton, MI',
+    aliases: ['Houghton, MI', 'Houghton, MI (Keweenaw Peninsula)'],
+  },
+  { slug: 'kaohsiung', name: 'Kaohsiung', aliases: ['Kaohsiung', 'Kaohsiung (+ USA facilities)'] },
+  {
+    slug: 'la-seyne-sur-mer',
+    name: 'La Seyne-sur-Mer',
+    aliases: ['La Seyne-sur-Mer', 'La Seyne-sur-Mer (Toulon)'],
+  },
+  { slug: 'marbella', name: 'Marbella', aliases: ['Marbella', 'Marbella, Costa del Sol'] },
+  { slug: 'marina-del-rey', name: 'Marina del Rey', aliases: ['Marina del Rey', 'Marina del Rey, CA'] },
+  { slug: 'miami', name: 'Miami', aliases: ['Miami', 'Miami, FL'] },
+  {
+    slug: 'miami-river',
+    name: 'Miami River',
+    aliases: ['Miami River', 'Miami River, ~2.6 miles upriver'],
+  },
+  { slug: 'naples', name: 'Naples', aliases: ['Naples', 'Naples (HQ)'] },
+  { slug: 'north-vancouver', name: 'North Vancouver', aliases: ['North Vancouver', 'North Vancouver, BC'] },
+  { slug: 'poole', name: 'Poole', aliases: ['Poole', 'Poole, Dorset'] },
+  { slug: 'port-angeles', name: 'Port Angeles', aliases: ['Port Angeles', 'Port Angeles, WA'] },
+  { slug: 'port-vila', name: 'Port Vila', aliases: ['Port Vila', 'Port Vila, Efate'] },
+  { slug: 'san-diego', name: 'San Diego', aliases: ['San Diego', 'San Diego, CA'] },
+  { slug: 'seattle', name: 'Seattle', aliases: ['Seattle', 'Seattle, WA'] },
+  { slug: 'sydney', name: 'Sydney', aliases: ['Sydney', 'Sydney, NSW'] },
+  { slug: 'tauranga', name: 'Tauranga', aliases: ['Tauranga', 'Tauranga, Bay of Plenty'] },
+  { slug: 'vuda-point', name: 'Vuda Point', aliases: ['Vuda Point', 'Vuda Point, Lautoka'] },
+  { slug: 'west-palm-beach', name: 'West Palm Beach', aliases: ['West Palm Beach', 'West Palm Beach, FL'] },
+  { slug: 'west-vancouver', name: 'West Vancouver', aliases: ['West Vancouver', 'West Vancouver, BC'] },
+  { slug: 'whangarei', name: 'Whangarei', aliases: ['Whangarei', 'Whangarei, Northland'] },
+  // "Newport, RI" and "Newport, Rhode Island" both explicitly name the same
+  // US state in full or abbreviated form — zero ambiguity regardless of
+  // corpus (unlike bare "Newport", which this corpus's OWN Pacific-coast
+  // marinas file also uses for Newport, OR — deliberately left unaliased).
+  { slug: 'newport-ri', name: 'Newport, RI', aliases: ['Newport, RI', 'Newport, Rhode Island'] },
 ];
 
 // Florida cities that recur across the marina/club/company corpus files:
