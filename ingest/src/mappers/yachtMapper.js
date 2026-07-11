@@ -389,7 +389,18 @@ function mergeAttrs(existingAttrs, incomingFields, sourceFile, resolution) {
       merged[field] = oldVal;
     } else {
       merged[field] = oldVal;
-      conflicts[field] = [...(conflicts[field] || []), rawOf(field, newVal)];
+      // TASK-025 (Round 7) hardening fix: dedupe against values ALREADY
+      // recorded in conflicts[field], not just against the current merged
+      // value — the pre-fix code pushed a fresh copy of `rawNew` every time
+      // a later source row repeated the SAME differing text (visible on the
+      // real corpus as e.g. yacht:excellence's "Futuristic pool/Jacuzzi"
+      // duplicated 6x, yacht:elements's "Modern amenities" 7x,
+      // yacht:samsara-oceanco's "Wellness-focused refit" 5x). Applies to
+      // every MERGEABLE_FIELDS entry generically (not just `features`),
+      // since the bug lived in this one shared branch of the per-field loop.
+      const rawNew = rawOf(field, newVal);
+      const existingList = conflicts[field] || [];
+      conflicts[field] = existingList.includes(rawNew) ? existingList : [...existingList, rawNew];
     }
   }
 
