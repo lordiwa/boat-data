@@ -324,14 +324,21 @@ export function appendProvenance(provenance, sourceFile) {
 // per knowledge/99's own curation rule 3 ("where sources gave a range or a
 // 'c.' estimate, left empty — must not be 'helpfully' filled by the
 // mapper").
-const FOUNDED_ESTIMATE_MARKER_RE = /\b(c\.?|circa|est\.?|approx\.?)\b|~/i;
-const FOUNDED_RANGE_MARKER_RE = /\d\s*[-–—]\s*\d/;
+// TASK-026 fix round: '?' (uncertainty marker, "1962?") and a digit-/-digit
+// pair (a second date-separator style alongside the dash forms already
+// covered by FOUNDED_RANGE_MARKER_RE, "2005/2024") are rejected outright
+// alongside the pre-existing estimate/range markers.
+const FOUNDED_ESTIMATE_MARKER_RE = /\b(c\.?|circa|est\.?|approx\.?)\b|~|\?/i;
+const FOUNDED_RANGE_MARKER_RE = /\d\s*[-–—/]\s*\d/;
 // No digit OR letter immediately adjacent on either side — the same
 // lookbehind/lookahead lesson as yachtSpecMapper.js's NUMBER_RE, extended
 // to also reject digit-adjacency so a comma-stripped "400,000" (->
 // "400000", one continuous 6-digit run) never matches: none of its 4-digit
-// substrings are bounded by a non-digit on both sides.
-const FOUNDED_STRICT_RE = /(?<![a-zA-Z0-9])(\d{4})(?![a-zA-Z0-9])/;
+// substrings are bounded by a non-digit on both sides. Global so
+// parseFoundedYear can find EVERY boundary-clean candidate in the cell, not
+// just the first — see the function docstring: more than one distinct
+// candidate means the cell is ambiguous, not that the first one wins.
+const FOUNDED_STRICT_RE = /(?<![a-zA-Z0-9])(\d{4})(?![a-zA-Z0-9])/g;
 // A deliberately generous floor: real corpus data ranges 1575 (Picchiotti)
 // to the present, and 1200 is well before any real shipyard in this
 // corpus, so a genuine old-yard year is never rejected while obvious
@@ -352,10 +359,14 @@ export function parseFoundedYear(raw) {
   if (FOUNDED_RANGE_MARKER_RE.test(original)) return null;
 
   const cleaned = original.replace(/,/g, '');
-  const m = cleaned.match(FOUNDED_STRICT_RE);
-  if (!m) return null;
+  const candidates = [...cleaned.matchAll(FOUNDED_STRICT_RE)].map((m) => m[1]);
+  const distinctYears = [...new Set(candidates)];
+  // More than one distinct boundary-clean 4-digit run means the cell can't
+  // be reduced to exactly one bare year (e.g. "1849 (rebuilt 1920)",
+  // "1985 and 1990") — reject rather than taking the first match.
+  if (distinctYears.length !== 1) return null;
 
-  const year = parseInt(m[1], 10);
+  const year = parseInt(distinctYears[0], 10);
   const maxYear = new Date().getFullYear();
   if (year < FOUNDED_MIN_YEAR || year > maxYear) return null;
   return year;

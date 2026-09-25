@@ -321,6 +321,43 @@ describe('parseFoundedYear', () => {
     expect(parseFoundedYear('')).toBeNull();
     expect(parseFoundedYear('N/A')).toBeNull();
   });
+
+  // TASK-026 fix round: the docstring promises "a cell that can't be reduced
+  // to exactly one bare year is left absent", but the original implementation
+  // took the FIRST boundary-clean 4-digit run instead of checking there was
+  // only one. These pin the reviewer's reproduction cases.
+  it('rejects a cell with two distinct candidate years rather than taking the first (the "1849 (rebuilt 1920)" bug)', () => {
+    expect(parseFoundedYear('1849 (rebuilt 1920)')).toBeNull();
+  });
+
+  it('rejects a slash-separated pair of years rather than taking the first', () => {
+    expect(parseFoundedYear('2005/2024')).toBeNull();
+  });
+
+  it('rejects two years joined by prose rather than taking the first', () => {
+    expect(parseFoundedYear('1985 and 1990')).toBeNull();
+  });
+
+  it('rejects a year carrying an uncertainty marker ("?")', () => {
+    expect(parseFoundedYear('1962?')).toBeNull();
+  });
+
+  // Regression pins: the pre-existing guards must still hold after the fix.
+  it('still rejects every previously-guarded artifact (regression)', () => {
+    expect(parseFoundedYear('c. 1930')).toBeNull();
+    expect(parseFoundedYear('~1900')).toBeNull();
+    expect(parseFoundedYear('1983-1988')).toBeNull();
+    expect(parseFoundedYear('400,000')).toBeNull();
+    expect(parseFoundedYear('V8')).toBeNull();
+    expect(parseFoundedYear('1199')).toBeNull();
+    expect(parseFoundedYear('abc')).toBeNull();
+  });
+
+  it('still parses every previously-passing bare year (regression)', () => {
+    expect(parseFoundedYear('1907')).toBe(1907);
+    expect(parseFoundedYear('1575')).toBe(1575);
+    expect(parseFoundedYear('1200')).toBe(1200);
+  });
 });
 
 // TASK-026 (Round 8) hygiene: research/round8/05_company_edges_and_hygiene.md
