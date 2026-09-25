@@ -7,3 +7,6 @@ state/.lock
 
 # logs
 *.log
+
+# context-monitor transient markers
+.claude/context-monitor/
