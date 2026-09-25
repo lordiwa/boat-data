@@ -2,14 +2,12 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-09-25T16:01:43.425Z",
+  "updated_at": "2026-09-25T16:11:00.427Z",
   "active_task": "TASK-026",
   "workflow_step": "implement",
   "next_action": "TASK-026 implementation in flight: one FRESH developer (tdd tier) building the builderEnrichment mapper from knowledge/99 (84 builders, 263 cells), plus placeholder exclusion on attrs.placeholder, residual (7) dangling-built_by identifiability fix, residual (6) partBrandLinker/freshnessGuard fixes, and the lane C website-hygiene re-baseline as a SEPARATE labeled commit. KNOWN SHORTFALL, flagged to the developer up front: the grounded research ceiling for builder attrs is 83.75%, below AC 1's >=85%. Do NOT let that get closed by inference — the honest figure stands and the AC gets amended or waived by the human. NEXT after the developer reports: verify its numbers independently (re-run score + freshness guards myself), then spawn a FRESH-CONTEXT reviewer, block on any HIGH, then close and redeploy to Firebase (zero-downtime; live site unaffected until then).",
   "handoff_summary": "Site is LIVE at https://boat-site-e66fb.web.app (TASK-015 closed 2026-09-25 — Firebase project boat-site-e66fb; live payload byte-identical to committed ingest/data/graph.json). All 25 prior tickets done. Enrichment loop RESUMED 2026-09-25 on fresh human go-ahead: the >=8.5 goal is un-suspended. TASK-026 (Round 8) is in research: builder attr enrichment (42.66% -> >=85% target, weight 15, biggest lever) + company edge connection (35.93%) + four still-open TASK-025 residuals (4,5,6,7). Baseline re-measured this session: 7.03 all-nodes / 7.36 identifiable-only.",
-  "open_questions": [
-    "AC 1 sets builder attrs >=85% but the grounded research ceiling is 83.75%. Options: (a) accept 83.75 and amend the AC with the evidence, (b) run a third research lane at the ~104 still-empty cells (mostly founded years for defunct yards that genuinely resist sourcing), (c) exclude the 5 placeholder builders from the score DENOMINATOR, which alone lifts it to ~86.5% but is a metric change that must land as its own labeled re-baseline commit, never inside a data round. Recommend (a) now and (c) as a separate deliberate re-baseline ticket."
-  ],
+  "open_questions": [],
   "blockers": [],
   "decisions": [
     "2026-07-10: Human authorized full autonomous enrichment loop until completeness >=8.5/10, one round at a time not required",
@@ -25,7 +23,9 @@
     "2026-09-25: hivemind plugin updated 0.18.0 -> 0.23.0; .claude/workflows/ already carried deep-research.js and deep-review.js so apply-workflows added nothing. Stale context-monitor paths in .claude/settings.json now self-heal via the 0.23.0 plugin-level SessionStart repin hook.",
     "2026-09-25: HUMAN GOAL CHANGE — enrichment loop RESUMED; the >=8.5 target is un-suspended after being paused since 2026-07-11 at 7.36. Round 8 sanctioned as TASK-026.",
     "2026-09-25: Placeholder builder nodes (Custom 68 yachts, Various 38 yachts, Custom (rebuild) 1) are NEVER to be enriched — enriching them would fabricate a builder identity for 107 yachts. Excluded from Round 8 targets and made an explicit AC with a required test. Whether they should also leave the score DENOMINATOR is a metric change and must land as a separate labeled re-baseline commit, never inside a data round (process rule 5).",
-    "2026-09-25: TASK-015 closed — deployed to Firebase project boat-site-e66fb. Fixed two blockers: .firebaserc pinned a placeholder alias, and firebase-tools was not installed anywhere so the documented one-command deploy was not satisfiable on a clean clone (now an app/ devDependency)."
+    "2026-09-25: TASK-015 closed — deployed to Firebase project boat-site-e66fb. Fixed two blockers: .firebaserc pinned a placeholder alias, and firebase-tools was not installed anywhere so the documented one-command deploy was not satisfiable on a clean clone (now an app/ devDependency).",
+    "2026-09-25: HUMAN APPROVED amending TASK-026 AC 1 from >=85% to >=83.5% builder attr coverage, with cell-level evidence recorded in the ticket. Rationale: 85% was an orchestrator estimate made before the research existed; the grounded ceiling is 83.75% (536/640) and the 104 remaining cells are unfillable without inventing data (20 on placeholder builders, 42 websites for long-defunct yards, 26 founded years given only as ranges, 10 that would misattribute yacht specialism to naval shipbuilders, 6 unresolved name collisions).",
+    "2026-09-25: Excluding the 5 placeholder builders from the score DENOMINATOR (which alone would give 536/620 = 86.45% and clear the ORIGINAL 85%) is deliberately NOT done in Round 8. It is defensible on its merits but must land as its own labeled re-baseline commit per loop process rule 5, specifically so a metric change can never be used to rescue a data round's headline number. Round 9 candidate."
   ],
   "subagent_results": [
     {
