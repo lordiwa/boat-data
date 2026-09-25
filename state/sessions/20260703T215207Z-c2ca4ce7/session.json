@@ -2,7 +2,7 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-09-25T15:47:58.290Z",
+  "updated_at": "2026-09-25T15:57:37.650Z",
   "active_task": "TASK-026",
   "workflow_step": "research",
   "next_action": "TASK-026 research phase: two researcher agents running in parallel on builder enrichment lanes A and B (86 real long-tail yards + 11 website-only), writing to research/round8/03_ and 04_. Orchestrator is doing the company-edge investigation locally. NEXT once lanes land: curate into a knowledge/NN_*.md doc, then spawn a FRESH developer (TDD tier) for the builderEnrichment mapper + the residual (6)/(7) fixes, then ingest -> score -> fresh-context reviewer. Redeploy to Firebase only after a green review — deploys are zero-downtime so the live site is unaffected by data work in the meantime.",
@@ -25,7 +25,14 @@
     "2026-09-25: Placeholder builder nodes (Custom 68 yachts, Various 38 yachts, Custom (rebuild) 1) are NEVER to be enriched — enriching them would fabricate a builder identity for 107 yachts. Excluded from Round 8 targets and made an explicit AC with a required test. Whether they should also leave the score DENOMINATOR is a metric change and must land as a separate labeled re-baseline commit, never inside a data round (process rule 5).",
     "2026-09-25: TASK-015 closed — deployed to Firebase project boat-site-e66fb. Fixed two blockers: .firebaserc pinned a placeholder alias, and firebase-tools was not installed anywhere so the documented one-command deploy was not satisfiable on a clean clone (now an app/ devDependency)."
   ],
-  "subagent_results": [],
+  "subagent_results": [
+    {
+      "agent": "researcher",
+      "task": "TASK-026 lane A: builder enrichment (43 yards)",
+      "at": "2026-09-25T15:57:37.650Z",
+      "summary": "Wrote research/round8/03_builder_enrichment_A.md. ORCHESTRATOR-VERIFIED rather than taken on trust: all 43 join keys match graph names+ids verbatim (0 drift); 0 malformed founded years; 0 malformed websites; 0 encoding corruption; specialty column free of SuperYachtTimes boilerplate. Coverage: country 41/43, founded 36/43, website 25/43, specialty 37/43; 24 fully 4/4. Never-guess honored: 2 left entirely blank - Australian Yacht Builders (no company by that exact name exists; suspected ingestion placeholder) and Hudson (2+ real Hudson boatbuilders, genuine collision). FLAGS for developer/reviewer: (a) AK Yacht + Akyacht almost certainly one company (AKYACHT, founder Vural Ak, 2015) split across two nodes - FLAGGED NOT MERGED, needs its own grounded merge decision. (b) Helsingor Vaerft and Grandi Yatcilik Mimarlik re-flagged as likely dupes (also flagged in Round 2, still unresolved). (c) 7 nodes (Canadian Vickers, Flender, HDW, Jeff Boat, Halter Marine, Astilleros Armon, Intermarine-USA) are general commercial/naval shipbuilders attributed via a single legacy hull - grounded facts recorded, but 'not primarily a yacht builder' noted as misattribution risk; do NOT let specialty imply yacht specialism for these. (d) Cassens-Werft founding-year conflict 1875 vs 2004 recorded with a [conflict:] marker rather than silently resolved."
+    }
+  ],
   "pending_human_confirmation": null,
   "mode": "harness",
   "loop_goal": {
