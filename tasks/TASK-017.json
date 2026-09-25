@@ -1,0 +1,42 @@
+{
+  "key": "TASK-017",
+  "title": "Data enrichment Round 2: marine engines (Mercury history, global manufacturers), boat parts anatomy, yacht size classes, beat-Wikipedia analysis",
+  "description": "Second wave of the authorized enrichment loop. (1) Full Mercury Marine history from Kiekhaefer 1939 to current, tied into offshore powerboat racing (extends corpus docs 03/04). (2) Global marine engine manufacturer directory — outboard/inboard/sterndrive/diesel/electric — deeper than Wikipedia; feeds the engine node type (currently 16 nodes, 1 powered_by edge). (3) Boat/yacht parts & anatomy dataset. (4) Yacht vs superyacht vs megayacht vs gigayacht classification dataset with thresholds + examples. (5) Analytical lane: dataset-vs-Wikipedia comparison, ranked missing-topic ideas. Business rule recorded: this data tier stays free; if data quality is #1, monetize with a single ad.",
+  "acceptance_criteria": [
+    "Mercury Marine + offshore powerboat racing engine history researched into research/round2/ with sources, covering 1939-present eras, racing classes, and current product lines",
+    "Global engine manufacturer directory: 40+ brands with parent company, country, founded, engine types, power ranges, notable models, segment",
+    "Boat parts anatomy dataset: 100+ parts with category, location, description, vessel applicability",
+    "Size classification dataset: yacht/superyacht/megayacht/gigayacht definitions with length/GT thresholds, sourced, plus example vessels",
+    "Beat-Wikipedia analysis doc: side-by-side coverage comparison and ranked list of missing datasets/ideas",
+    "Mapper support for new datasets (engine enrichment, parts, classes) designed and implemented with tests; ingest green; completeness score improves and is recorded"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "data-enrichment",
+    "round-2",
+    "engines",
+    "parts",
+    "classification"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T00:12:43.854Z",
+      "body": "Review round 1: BLOCK. HIGH: engine_model power_hp=8 parsed from \"V8\" in prose cell (same class as Norfolk tonnage bug) — fix dispatched (cell curation + parsePowerHp letter-adjacency hardening + sweep). MEDIUM: knowledge/89 Parent Company prose cells minted dupe/junk company nodes (correct-craft x2, brunswick x2, tohatsu-rebadge-program, volvo-group x2) — normalizing cells; power_hp range-lock lower bound too weak — strengthening. LOW: two wrong comments; research-dir naming (ticket said research/round2/, engine/parts research physically lives in research/round1/ — accepted as-is, no file moves; noted here for the record). Reviewer confirmed: guard matrix real (10x10), size_class competing-definitions decision honored, 5 oem_supplies edges all grounded, all 3,946 pre-existing nodes/edges intact, score math hand-derives (6.02)."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T00:26:16.488Z",
+      "body": "CLOSED on green review (round 2 APPROVE, all 6 ACs explicitly met). Delivery: engine 16→59 (clean dedup onto pre-existing brands), engine_model 37, part 111, size_class 4 (competing definitions preserved per project decision), edges made_by 37 / oem_supplies 5 (grounded) / owned_by growth; knowledge/88-90; guardCollisions 10x10 matrix; range-sanity locks; kind='yacht services'; Norfolk cell fix. Score 5.79→6.02; 409+114 tests green. Review round 1 BLOCK: HIGH power_hp=8 parsed from \"V8\" prose (fixed: cell curation + letter-adjacency hardening + pinned exact-value tests); 6 junk parent-company nodes reconciled (Indmar+PCM converge on correct-craft). Residual LOWs carried to TASK-019: (1) weichai-group vs weichai-holding-group equivalence needs one grounding source before merge; (2) tohatsu vs tohatsu-corporation-jv-with-brunswick-since-1988 near-dupe — normalize the JV qualifier to Notes."
+    }
+  ],
+  "created_at": "2026-07-10T22:27:43.519Z",
+  "updated_at": "2026-07-11T00:26:21.223Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

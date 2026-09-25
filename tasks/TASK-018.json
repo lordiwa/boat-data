@@ -1,0 +1,35 @@
+{
+  "key": "TASK-018",
+  "title": "Accessibility (WCAG 2.1 AA) compliance pass for DataYacht app + accessibility statement",
+  "description": "Make the DataYacht Vue 3 SPA handicap-accessible to WCAG 2.1 Level AA and lawsuit-resistant (ADA Title III exposure grows once the site carries its planned single ad). Code-level conformance, NOT an overlay widget — overlays (UserWay/accessiBe, as seen on windvintage.com) do not prevent suits and can attract them. Scope: automated audit (axe-core/Lighthouse) of all views (Home, Explore, EntityList, Entity, Query, Reports), fix findings (semantic HTML, alt text, keyboard nav + focus states, contrast, ARIA on search/tables/charts), add /accessibility statement page with contact, wire axe-core into vitest/CI so it never regresses. Human context: user asked how not to get sued; engineering guidance given, not legal advice.",
+  "acceptance_criteria": [
+    "Lighthouse accessibility score >= 95 on every route",
+    "axe-core automated checks integrated into the app test suite and passing with zero critical/serious violations",
+    "All interactive elements keyboard-reachable with visible focus indicators; charts have text alternatives; all form inputs labeled",
+    "Text contrast meets 4.5:1 (AA) across light/dark themes if both exist",
+    "An /accessibility statement page exists stating WCAG 2.1 AA target and a contact channel for accessibility issues",
+    "npm test and typecheck green; no visual regression on desktop"
+  ],
+  "status": "done",
+  "priority": "medium",
+  "labels": [
+    "accessibility",
+    "compliance",
+    "app"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T10:23:41.731Z",
+      "body": "CLOSED on green review (PASS; all 6 ACs; reviewer independently ran Lighthouse — 100/100 on sampled routes, zero failing audits — and re-derived the WCAG contrast math by hand). Delivery: skip-link + main landmark, DataTable APG-correct sortable headers (button-in-th, aria-sort), charts role=group/img switching + label-content-name-mismatch fix (Vue whitespace-condensing root cause, &#32; text-node fix verified in real browser), --color-accent-text AA token (4 sub-AA usages fixed, shade-only change), /accessibility statement page (honest wording, contact, dated) on every route's footer, axe-core per-route suite + real-math contrast suite in CI. Post-review MEDIUM fixed: label-mismatch rule now runs under jsdom via minimal canvas stub (axeCanvasStub.ts), proven non-vacuous against a reintroduced defect; pointer comments at both hack sites; LAST_UPDATED maintenance comment. Final: 142 app tests + typecheck + build clean. Residuals: statement-page date needs manual bumps; tint-over-bg contrast loop (computed safe >6:1, spec could cover both parents); no repo formatter config exists (pre-existing) — the durable test now guards the whitespace hack regardless."
+    }
+  ],
+  "created_at": "2026-07-10T23:04:41.439Z",
+  "updated_at": "2026-07-11T10:23:43.567Z",
+  "jira_key": null,
+  "verification_tier": "tests-after"
+}

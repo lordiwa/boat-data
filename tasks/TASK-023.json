@@ -1,0 +1,37 @@
+{
+  "key": "TASK-023",
+  "title": "Data enrichment Round 6: yacht long-tail specs, unit-bug corrections, duplicate-hull merges, identifiability policy + dual scoring",
+  "description": "Integrate the 4 band research files in research/round5/ (yacht-specs-55-70m.md: 80 covered + 14 dupe clusters + 5 unit bugs; 45-55m: 30 covered + 6 same-name conflicts + Pardo 50 unit bug; 35-45m: ~5 covered, band is fragment-heavy; under35m+stragglers: 12 covered incl. 9 large stragglers, 9 unit bugs, 3 dupe splits, 5 text-fragment artifacts). Consolidated: ~127 yachts gain specs via the existing yachtSpecMapper (curate into knowledge/93 or a new 97 doc), ~15 model-number/feet-as-LOA corrections via YACHT_QUALITY_CORRECTIONS with provenance, ~17 grounded duplicate-hull merges via YACHT_MERGE_MAP, artifacts flagged. THEN the policy piece: add identifiability classification (identifiable / fragment) for yacht nodes — a fragment = no year AND no builder edge AND no researchable identity per the band research Coverage notes; flag as attr, NEVER delete. Extend completenessScore.js to report DUAL scores: overall-all-nodes and overall-identifiable-entities (both printed, both in completeness.json); the 8.5 loop target is measured on identifiable entities, transparently labeled. Same-name conflicts (AQA, Grace, Panam, Starburst IV, Night Fury II, Little Perle, The Jackson) get conflicts-convention entries, not silent picks.",
+  "acceptance_criteria": [
+    "~127 yachts resolve and gain spec attrs from the band research (report exact resolution rate; no new yacht nodes minted)",
+    "All ~15 unit-bug corrections applied via the curated corrections mechanism with old values preserved in conflicts and per-entry provenance",
+    "~17 duplicate-hull clusters merged (grounded only) with zero orphan edges and reconciled edge counts; ambiguous pairs (Katina/Lady Beth) left with documented rationale",
+    "Identifiability flag on yacht nodes per the stated rule; scorer reports BOTH all-nodes and identifiable-only scores in table + completeness.json; loop target explicitly tied to identifiable score in the report output",
+    "All tests green (ingest+app+typecheck), guard matrix intact, pins updated deliberately, both score numbers recorded vs 6.80 baseline"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "data-enrichment",
+    "round-6",
+    "yachts",
+    "scoring-policy"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-022"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T07:06:45.431Z",
+      "body": "CLOSED on green review (APPROVE, all 5 ACs; numeric shortfalls 114/9/18 vs ~127/~15/~17 all reconciled as research-doc dedup/overlap, not dropped work). Double-ingest bug fixed at both root causes with whole-graph byte-stability lock. Yacht 599→581 (18 grounded merges), 9 unit corrections (Pardo 50 correctly blanked-not-guessed), Naples split done. Scores: 6.80 → 6.88 all-nodes / 6.92 identifiable. 814+124 tests. KEY REVIEW FINDING (MEDIUM→TASK-024): identifiability rule counts built_by edges to builder:various/custom as identity signals and ignores research skip-lists → 35 fragments reported vs ~340 real; shipped metric is conservative (stricter Rule B yields 7.17) but the fragment stat misrepresents the graph and the current denominator makes 8.5 likely unreachable → policy ticket TASK-024 adopts Rule B transparently. LOWs to TASK-024: DB9 grounded merge deferred; same-name conflicts lack node-level attrs.conflicts entries; Naples fall-through defaults future unlisted sources to FL; yachtSpecMapper drops Year column and stores estimated GT (De Lisle III ~400) as confirmed."
+    }
+  ],
+  "created_at": "2026-07-11T03:10:50.788Z",
+  "updated_at": "2026-07-11T07:06:47.211Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

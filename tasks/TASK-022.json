@@ -1,0 +1,36 @@
+{
+  "key": "TASK-022",
+  "title": "Region canonicalization: merge near-duplicate regions, fix garbled region names, hierarchy hygiene",
+  "description": "Regions grew 642→900 across enrichment rounds and accumulated near-duplicates and artifacts: e.g. 'West Palm Beach' vs 'West Palm Beach, FL' (marina:safe-harbor-rybovich has 3 located_in edges to near-dupe regions), garbled node 'Palm Beach; often grouped with Fort Lauderdale…' (prose as region name), 'Barcelona' vs 'Barcelona, Catalonia' granularity variants. Build a region-canonicalization pass in the ingest pipeline: normalize 'City, ST'/'City' variants onto one canonical node, quarantine prose-name artifacts, dedupe located_in/based_in edges after merge, and harden regions.js resolution so future rounds stop minting variants (the TASK-020 word-overlap compatibility check is a starting point — make canonicalization the mapper-level default). Data-driven merge map with rationale, same discipline as graphCleanup. No web research needed — this is programmatic + judgment over the existing 900 names.",
+  "acceptance_criteria": [
+    "A region canonicalization step runs in the pipeline with a documented merge map; near-duplicate city variants merged (spot-checks: one West Palm Beach, one Barcelona)",
+    "Prose-name region artifacts identified and quarantined/renamed with rationale; no region node whose name contains ';' or sentence fragments",
+    "No node carries duplicate located_in edges to merged regions; orphan-edge scan clean; all non-region type counts unchanged",
+    "regions.js resolution hardened so re-ingesting the same corpus mints zero new variant regions (idempotency test)",
+    "All tests green, pins updated deliberately, score delta recorded (region connectivity should improve)"
+  ],
+  "status": "done",
+  "priority": "medium",
+  "labels": [
+    "data-quality",
+    "regions",
+    "cleanup"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-021"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T04:11:46.253Z",
+      "body": "CLOSED on green review (PASS, all 5 ACs met — AC2 under its quarantine disjunction: one ';' name survives deliberately as artifact:true for a relocation-history node where any single place would be a guess). Regions 900→857 (arithmetic verified by enumeration: -35 Tier-1 alias collapses, -8 Tier-2 merges, -2 renames), edges 2621→2613, part_of preserved +2 correct Florida roll-ups, 748+124 tests, score 6.80 unchanged (region was connectivity-saturated — win is query correctness: WPB/Barcelona unified). Carry-forwards to TASK-023: (1) MEDIUM: split region:naples into Naples FL / Naples Italy and re-point the Naples (HQ) alias to the Italy node (Palumbo shipyards are grounded Italian; FL clubs grounded Florida); (2) HIGH-priority first item: fix the pre-existing double-ingest bug where YACHT_QUALITY_CORRECTIONS loa rewrites cause yachtMapper to mint eiv-2/mystere-2 siblings on re-ingest — MUST be fixed before TASK-023 adds ~15 more corrections through the same mechanism. Backlog: region:newport OR/RI conflation, club-abbreviation regions (byc/syc/cyca), compound descriptors, artifact:true UI badge."
+    }
+  ],
+  "created_at": "2026-07-11T02:55:30.529Z",
+  "updated_at": "2026-07-11T04:11:47.664Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

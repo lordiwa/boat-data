@@ -1,0 +1,52 @@
+{
+  "key": "TASK-025",
+  "title": "Round 7 integration: weakest-tier yacht band, dupe-pair resolutions, research carry-over, oligarch yacht ingestion, part/size_class edges, freshness-guard edge attrs",
+  "description": "Integration ticket built from TASK-024 close-out residuals (items 1-6) plus grounded backlog items, per the Round 7 scoping session. Gap analysis on the 7.22 identifiable-only baseline (score = 0.7*attr% + 0.3*edge%, TYPE_WEIGHTS): this round targets (a) yacht identifiable attr% via the 23-yacht weakest research band + oligarch ingestion, (b) part edge% 0->lifted and size_class edge% 0->100 via edges derived from existing canonical attrs, (c) data-quality residuals (dupe pairs, LOA estimate confirmations, research->knowledge carry-over), (d) hardening (freshness guard edge attrs, conflicts.features dedupe). Weakest-tier band (identifiable only via year+meaningful builder, no spec attr, no research coverage; derived from committed graph.json): ahpo (Lurssen 2021), atlantis-ii (Hellenic 1981), dragonfly-silveryachts (SilverYachts 2009), elements (Yachtley 2019), excellence (Abeking & Rasmussen 2019), gigia (Lurssen 2005/2024), infinity (Oceanco 2022), j7-explorer (Bahtera Bahari 2022), la-datcha (Damen Yachting 2020), lady-jorgia (Lurssen 2021), lauren-l (Cassens-Werft 2002), liva-o (Abeking & Rasmussen 2023), luna (Lloyd Werft 2010), mansion-yacht (Stainless Structures), navtilvs (Hellenic 1973), nomad (Oceanfast 2003), relentless (Trinity 2001 refit), sahana (Feadship 2025 expected), samsara (Benetti 2015), samsara-oceanco (Oceanco 2015), tatiana (Bilgin 2021), viva (Feadship 2021), zen (Feadship 2021). Dupe pairs: samsara/samsara-oceanco, moka/moka-overmarine, that-s-amore/that-s-amore-grandi-yatcilik, sophia (108m raw '108/354')/sophia-feadship (97m), dream-olympic/dream-olympic-yacht (both 107m), plus Olympic Marine vs builder:olympic-yacht-services equivalence. LOA estimate confirmations (currently '~' model-number-derived): rivale-56 (~17.3m), arcadia-sherpa-60 (18.28m), sunseeker-manhattan-65 (21.06m), navetta-68 (20.52m), yamas (~20.2m Ferretti 670). Oligarch yachts grounded in knowledge/95: Amadea, Tango, Phi, Lady Anastasia, Lena, Valerie, Royal Romance — minting explicitly sanctioned for this ticket. Loop rules apply: research/round7/ first, curated knowledge doc next, mapper-only graph changes, never-guess ('~' estimates -> notes/conflicts, never confirmed numbers), corrections via YACHT_QUALITY_CORRECTIONS / merge maps with per-entry provenance, numeric-cell guards (comma-strip, letter-adjacency rejection, range locks, pinned exact values).",
+  "acceptance_criteria": [
+    "Weakest-tier band: each of the 23 listed yachts either gains >=1 confirmed spec attr (gt/beam/draft/max_speed/range_nm/flag/imo, plus LOA/former_names where confirmed) ingested from a curated round-7 knowledge doc, or carries a documented no-public-data note in conflicts/notes; no invented values, estimates routed to notes/conflicts per TASK-024 convention",
+    "Dupe pairs: samsara, moka, that-s-amore, sophia, dream-olympic pairs and the Olympic Marine/Olympic Yacht Services equivalence each either merged via graphCleanup merge maps with a grounding citation, or left split with a conflicts.identity entry recording why grounding is insufficient (tested)",
+    "Research carry-over: Lady Beth and the 55-70m band specs that live only under research/ are carried into a curated knowledge doc and ingested onto their nodes",
+    "LOA confirmations: the 5 model-number-derived LOAs (rivale-56, arcadia-sherpa-60, sunseeker-manhattan-65, navetta-68, yamas) verified against primary/spec sources — confirmed values stored exact with provenance, unconfirmable ones remain flagged as estimates (tested)",
+    "Oligarch ingestion: the 7 knowledge/95 seized yachts exist as identifiable nodes with specs and ownership recorded per existing conventions (ownership_confidence edge attr, conflicts where contested), minting sanctioned by this ticket only for these 7 names",
+    "Structural edges derived ONLY from existing canonical attrs (no invented data): part nodes gain manufacturer/brand edges lifting part edge% above 0, and yachts with canonical length_m gain classification edges to the 4 size_class nodes lifting size_class edge% to 100; derivation logic covered by tests including boundary values at the 24/30/60/100m thresholds",
+    "Hardening: artifact-freshness guard extended to deep-compare edge attrs (clean rebuild vs committed graph.json), and yachtMapper conflicts.features dedupe quirk fixed — both tested",
+    "All suites green (ingest + app + typecheck); identifiability pins (232/348) and other exact-count pins updated deliberately with the data-vs-rule delta explained in commit messages; npm run score re-derived, completeness.json updated, and both overall scores reported in the close-out comment"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "round-7",
+    "data-quality",
+    "enrichment"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [
+    "2785de9a8a97e8758b62bef033434bfa4a08a758",
+    "1596b1e",
+    "662f27b",
+    "9f4b6be",
+    "ed62107",
+    "e68ce87",
+    "b128cbd",
+    "b2f9e42",
+    "b2da39b"
+  ],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T11:05:00.000Z",
+      "body": "Round 7 gap plan (decided this session, on the 7.22 baseline, +144 weighted points needed for 8.5 across total weight 113): this ticket ~+30-45 weighted (yacht band + part/size_class edges + merges). Round 8 candidates: builder attr enrichment (42.66% attrs, weight 15 — biggest single lever, ~+50 weighted at 90%) + company edge connection/merge investigation (35.85% edge%, weight 10, ~+19 weighted). Round 9: marina attr enrichment (30.05%, weight 10, ~+35 weighted at 80%) + remaining yacht band. Backlog items deliberately NOT in this ticket (no score impact or app-side): ownership_confidence edge-attr UI surface, artifact:true UI badge, Newport OR/RI + byc/syc region splits (region already 10.00), famous-clubs minting (NYYC/RYS/RORC — needs separate sanction discussion)."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T15:45:00.000Z",
+      "body": "CLOSED on green review (round 1 BLOCK -> 4-item fix round -> round 2 APPROVE, all 8 ACs met). Scores: 7.03 all-nodes / 7.36 identifiable-only (TARGET METRIC, up from 7.22). Graph: 4278 nodes / 3107 edges; yacht 581 = 238 identifiable / 343 fragments (580-6 merges+7 mints). Delivered: 19/23 weakest-tier yachts enriched from knowledge/98 (curated from research/round7/01); 5 grounded merges (samsara->samsara-oceanco w/ Benetti misattribution fixed, moka-overmarine->moka w/ Sanlorenzo builder fix, that-s-amore pair, both dream-olympic nodes->yacht:dream, ahpo->lady-jorgia same-hull rename); 4 stay-splits recorded on-node w/ conflicts.identity (sophia 108m likely-fabricated, lady-beth-lurssen nonexistent, olympic-yacht-services + olympic-marine-lavrion via new NODE_STAY_SPLIT_NOTES mechanism); 5 exact LOA confirmations (17.27/18.67/21.08/20.53/20.24) + navetta-68 builder->Absolute + gigia year->2017; corpus-confusion quarantine (nomad/relentless/sahana: conflicts only, no enrichment); Lady Beth fully spec'd (Newcastle Marine 2011, GT 1100, ex-Harbour Island/Sovereign/Loon; max_speed sources-vary kept unconfirmed); 7 sanctioned oligarch mints (amadea/tango/phi/lady-anastasia/lena/valerie/royal-romance w/ ownership_confidence tiers + Amadea counter-claim noted); sizeClassLinker (498/498 yachts classified, size_class edge% 0->100); partBrandLinker (conservative, 1 grounded edge, one cited seed mint company:seakeeper accepted by reviewer); mergeAttrs dedupe fixed across ALL MERGEABLE_FIELDS; freshness guard extended to edge attrs. Suites: 906 ingest + 142 app + typecheck green; both freshness guards prove committed graph == clean rebuild. HUMAN DECISION 2026-07-11: 7.36 accepted as good for now — >=8.5 goal SUSPENDED, loop paused after this close; no Round 8 without fresh go-ahead. ROUND 8 RESIDUALS (round-1 reviewer, verbatim): (1) 'Record Olympic Marine/OYS stay-split on-node with a test (this round's blocking HIGH); flip to MERGE only if a shared company registration ever surfaces (research/round7/02, open questions).' [DONE in fix round]; (2) 'Add [conflict:] markers for Elements gt/range_nm and Lauren L gt in knowledge/98; restore samsara-oceanco's ~6,700nm range estimate as a conflicts entry.' [DONE in fix round]; (3) 'Drop yacht:lady-beth's stale builder:custom built_by edge (dual-builder state left by fixLadyBethBuiltBy).' [DONE in fix round]; (4) 'Rule B refinement: require year.value (not just a raw string) for the year signal; separate researched-and-found-bogus data_quality from positive research coverage so nomad/relentless/sahana-class nodes can be demoted.'; (5) 'Carry Viva->Defy rename and Gigia's Areti->Amatasia->Gigia chain into former_names; Lady Beth IMO still unfound — needs a direct registry (Equasis/MarineTraffic) pass.'; (6) 'partBrandLinker: exclude placeholder nodes (builder:custom/various) from the candidate list; freshnessGuard: also compare node name/type.'; (7) 'Pre-existing quirk observed: built_by edges to NONEXISTENT builder ids count as a meaningful builder identifiability signal (loadMeaningfulBuiltByYachtIds never checks node existence) — the dream-olympic orphan-id pattern would have cleared Rule B via a dangling edge.' Round 8/9 gap plan in prior comment stands if the loop resumes."
+    }
+  ],
+  "created_at": "2026-07-11T11:05:00.000Z",
+  "updated_at": "2026-07-11T15:45:00.000Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

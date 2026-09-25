@@ -1,0 +1,38 @@
+{
+  "key": "TASK-019",
+  "title": "Data enrichment Round 3: builder/designer enrichment + builder-graph cleanup (dedupe, suspect nodes)",
+  "description": "Integrate research/round2/builder-enrichment.md and designer-directory.md into the graph. (1) Builder enrichment mapper: attrs (country, city, founded, specialty, status, parent_company, website) resolved onto EXISTING builder nodes by exact/normalized name — 75 covered builders. (2) Designer mapper: enrich the 10 existing designer nodes (exact names preserved in research) + create ~50 new ones with discipline/notable-yachts attrs; where Notable Yachts match existing yacht nodes, add designed_by edges. (3) Cleanup: merge ~15 duplicate builder pairs (CRN/CRN Yachts etc. — merge edges onto canonical node, preserving yacht built_by links), handle 13 suspect nodes (Y.CO→company, Hoek Design→designer, placeholders like Custom/Various get flagged attrs or removal per judgment with tests, '(Naval-inspired)' designer artifact re-pointed). Cleanup MUST respect the ingestion-order invariant and update the baseline-lock pins deliberately (documented in the commit). Depends on TASK-017 (mappers/knowledge numbering).",
+  "acceptance_criteria": [
+    "Builder type attr coverage rises from 0% to >=40% overall and 100% for builders with >=3 yachts; score reflects it",
+    "Designer type grows to >=55 nodes with discipline + notable_yachts attrs; new designed_by edges created where yacht names resolve",
+    "Duplicate builder pairs merged with no lost built_by edges (edge counts reconciled in tests); suspect nodes reclassified or removed with per-node rationale in the commit/curation notes",
+    "Baseline-lock test updated intentionally (old pins documented in commit message), ingestion-order invariant otherwise intact",
+    "All ingest + app tests green, typecheck clean, graph re-exported + synced, completeness score delta recorded"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "data-enrichment",
+    "round-3",
+    "builders",
+    "designers",
+    "cleanup"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-017"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T01:39:07.369Z",
+      "body": "CLOSED on green review (APPROVE). Score 6.02→6.67. Builder attrs 0→42.66% (independently recomputed), designers 10→60 (86 grounded designed_by edges), 18 merges (incl. Weichai with provenance) + 13 suspect nodes resolved, built_by 563→553 reconciled 1:1, 498+114 tests, pins updated with documented arithmetic. AC1 WAIVER (recorded per reviewer): the \"100% for >=3-yacht builders\" clause is met in spirit for Custom/Various (flagged placeholders, not companies) but NOT for builder:olympic-yacht-services — real Greek yard, empty attrs, no row existed in round-2 research. Waived as non-blocking; follow-up item assigned to Round 5 research (one enrichment row + ingest). Reviewer's reproducible tier metric is 35/38 (developer's 55/58 was a denominator discrepancy) — future rounds measure against 35/38 basis. LOW carry-forwards to TASK-020: mergeNode should stamp provenance:['graph-cleanup-merge'] on trace-less canonical nodes; attrs merge should union provenance arrays instead of first-non-empty-wins."
+    }
+  ],
+  "created_at": "2026-07-10T23:42:35.597Z",
+  "updated_at": "2026-07-11T01:39:09.915Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

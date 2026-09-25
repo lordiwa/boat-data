@@ -1,0 +1,43 @@
+{
+  "key": "TASK-021",
+  "title": "Data enrichment Round 5: persons + clubs enrichment, ownership corrections, unit-error fixes",
+  "description": "Integrate research/round4/person-enrichment.md (110/110 persons: nationality/industry/role/status + ownership-confidence tiers; ~20 name-variant dupes + ~15 institutional placeholders; 4 contradicted ownership attributions; 7 oligarch orphan nodes needing owned_by edges from corpus doc 74; suspect-yacht resolutions incl. EIV 160m→48.8m and MYSTERE 109m→33.29m unit errors; Olympic Yacht Services likely = Olympic Marine Lavrion — verify against corpus source before renaming) and research/round4/club-enrichment.md (62 clubs enriched; 7 club dupe pairs; 5 founded-year discrepancies → conflicts convention, not silent correction). Person/club enrichment mappers + graphCleanup extensions. Ownership corrections use the conflicts/provenance conventions: contradicted attributions get corrected edges with the contradiction documented, rumored-only ownership gets confidence attr not deletion. Decision: notable missing famous clubs (NYYC, Royal Yacht Squadron, RORC etc.) are NOT created this round — researcher produced no data rows for them; queue as future lane if wanted.",
+  "acceptance_criteria": [
+    "Person type: nationality/industry/role/status attrs on all researched persons; ownership_confidence attr (confirmed/widely reported/rumored) on owned_by edges or person attrs; 4 contradicted attributions corrected with documented rationale; 7 oligarch owned_by edges restored from corpus grounding",
+    "Person dedupe: name-variant duplicates merged via graphCleanup map with no lost edges; institutional placeholders retyped or flagged",
+    "Yacht unit-error fixes: EIV loa 48.8, MYSTERE loa 33.29, via curated correction mechanism with provenance; RIO/MOSAIQUE flags remain",
+    "Club type: 62 clubs enriched (founded/website/city confirm); 7 dupe pairs merged; 5 founded-year discrepancies recorded via conflicts convention",
+    "All tests green (ingest+app+typecheck), pins updated deliberately, score delta recorded, no push"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "data-enrichment",
+    "round-5",
+    "persons",
+    "clubs",
+    "corrections"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-020"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T03:01:44.851Z",
+      "body": "AC-1 AMENDMENT (explicit, per reviewer): the \"7 oligarch owned_by edges restored\" clause is formally waived — verified computationally that none of the 7 target yachts (Lady Anastasia, Lena, Valerie, Phi, Royal Romance, Tango, Amadea) exist as graph nodes; restoring edges would require minting yachts, contradicting the enrich-never-mint convention. Documented in knowledge/95:59-72. The 7 yachts become a future yacht-ingestion lane (they're all notable seized-oligarch vessels — good Round 7 candidates). Review verdict PASS otherwise; one MEDIUM data defect (sheikh nationality column shift, knowledge/95:179-182) + untagged A+ edge being fixed before close."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T03:08:38.239Z",
+      "body": "CLOSED on green review (PASS) + post-review MEDIUM fix verified by orchestrator spot-check in shipped graph (Mansour/Mohammed nationality='Emirati' no stray industry key; yacht:a owned_by edge ownership_confidence='confirmed'; +1 regression lock pinning the column-shift class). Final: score 6.53→6.80 (person 8.97, club 6.37), 683+124 tests, graph 4337/2621, persons 110→87 post-dedupe (incl. Shapoor Mistry addition), clubs 368→360. Full correction ledger in review record: Tatiana re-point, Opera dual-disputed, H3 unconfirmed, Brin mismatch dropped, EIV/MYSTERE unit fixes with conflicts preservation. Residuals routed: 7 seized-oligarch yachts → Round 7 yacht-ingestion lane; bilal-hydrie disconnected node convention, ownership_confidence edge-attr UI, Olympic Marine equivalence, famous-clubs ingestion → backlog."
+    }
+  ],
+  "created_at": "2026-07-11T01:51:23.846Z",
+  "updated_at": "2026-07-11T03:08:40.434Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

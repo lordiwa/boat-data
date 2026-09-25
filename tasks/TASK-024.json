@@ -1,0 +1,33 @@
+{
+  "key": "TASK-024",
+  "title": "Identifiability policy v2 (Rule B) + re-baseline + TASK-023 review LOWs",
+  "description": "Policy-only ticket per TASK-023 review: tighten yacht identifiability to Rule B — identifiable requires >=2 independent signals among {year attr, meaningful built_by edge (excluding builder:various/builder:custom/placeholder-flagged builders), any spec attr (gt/beam/draft/max_speed/range_nm/flag/imo), research coverage (93/97 provenance, former_names, data_quality flag)} — and incorporate the round5 research Coverage-notes skip lists as explicit negative evidence (a skip-listed name cannot be identifiable without a spec attr or research provenance). Expected outcome per reviewer counterfactual: ~341 fragments, yacht-identifiable ~6.35, overall identifiable ~7.17 — re-baseline the target metric in the SAME commit with a clear message separating rule-change from data-change. Plus review LOWs: (1) merge yacht:db9-palmer-johnson into yacht:db9 (grounded by 45-55m research); (2) add node-level attrs.conflicts entries for the 7 same-name-conflict yachts (AQA, Grace, Panam, Starburst IV, Night Fury II, Little Perle, The Jackson) recording the researched-vessel mismatch; (3) guard the Naples fall-through (unlisted future region:naples sources should quarantine, not default to FL); (4) yachtSpecMapper: ingest the Year column into year attr, and route estimated values (e.g. De Lisle III '~400 est.') into conflicts/notes rather than storing as confirmed numbers — re-audit knowledge/93+97 rows for other '~' values.",
+  "acceptance_criteria": [
+    "Rule B implemented in identifiability.js with the negative-evidence skip lists; fragment/identifiable counts and both scores re-derived; commit message explicitly labels the metric re-baseline and cites the rule change as the cause of the delta",
+    "builder:various/custom/placeholder edges no longer count as identity signals (tested)",
+    "DB9 pair merged; 7 same-name-conflict yachts carry attrs.conflicts entries; Naples fall-through quarantines unlisted sources; Year column ingested and estimated values not stored as confirmed (all tested)",
+    "All suites green (ingest+app+typecheck), pins updated deliberately, completeness.json carries both scores + fragment count under the new rule"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "scoring-policy",
+    "data-quality",
+    "round-6"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T09:38:32.263Z",
+      "body": "CLOSED on green review (round 2 APPROVE, all 4 ACs met). Rule B live: yacht 580 = 232 identifiable / 348 fragments; scores 6.90 all-nodes / 7.22 identifiable-only (TARGET METRIC — corrects the briefly-announced 7.23 which came from a stale local graph.db; root cause + fix in commits 899bda9 etc.). Review round 1 BLOCK caught the stale-artifact HIGH: committed graph.json diverged from clean pipeline on 186 nodes' attrs (9 '~' estimates stored confirmed, duplicated notes/conflicts) — fixed by clean regen + NEW CI GUARDS: exact 232/348 pins + artifact-freshness deep-compare (clean in-memory ingest vs committed graph.json, per-node attrs) + ingest:clean script + README regen procedure. conflicts.identity convention APPROVED and documented as reserved key. 848+124 tests. ROUND 7 RESIDUALS (reviewer, verbatim): (1) 23 weakest-tier yachts identifiable only via year+builder (Ahpo, Atlantis II, Luna, Infinity, Zen, Excellence, Lauren L, La Datcha, ...) — targeted research band; (2) samsara/samsara-oceanco likely dupe pair — grounded-merge investigation; (3) Moka + That's Amore dupe pairs unmerged (no grounding citation yet); (4) Lady Beth + some 55-70m band specs live only in research/, never carried to a knowledge doc — carry them in; (5) five feet/metres LOA errors await corrections (Rivale 56, Sherpa 60, Manhattan 65, Navetta 68, Yamas); (6) freshness guard doesn't compare edge attrs — extend in a hardening pass."
+    }
+  ],
+  "created_at": "2026-07-11T07:07:05.587Z",
+  "updated_at": "2026-07-11T09:38:33.816Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

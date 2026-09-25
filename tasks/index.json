@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-04T17:31:44.421Z",
+  "generated_at": "2026-07-11T19:59:29.763Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -90,6 +90,66 @@
       "title": "Firebase Hosting deployment",
       "status": "in_review",
       "priority": "medium"
+    },
+    {
+      "key": "TASK-016",
+      "title": "Data enrichment loop Round 1: shipyards & dry docks (entity type + global directory)",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-017",
+      "title": "Data enrichment Round 2: marine engines (Mercury history, global manufacturers), boat parts anatomy, yacht size classes, beat-Wikipedia analysis",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-018",
+      "title": "Accessibility (WCAG 2.1 AA) compliance pass for DataYacht app + accessibility statement",
+      "status": "done",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-019",
+      "title": "Data enrichment Round 3: builder/designer enrichment + builder-graph cleanup (dedupe, suspect nodes)",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-020",
+      "title": "Data enrichment Round 4: yacht spec completion + marina enrichment + rename/artifact handling",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-021",
+      "title": "Data enrichment Round 5: persons + clubs enrichment, ownership corrections, unit-error fixes",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-022",
+      "title": "Region canonicalization: merge near-duplicate regions, fix garbled region names, hierarchy hygiene",
+      "status": "done",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-023",
+      "title": "Data enrichment Round 6: yacht long-tail specs, unit-bug corrections, duplicate-hull merges, identifiability policy + dual scoring",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-024",
+      "title": "Identifiability policy v2 (Rule B) + re-baseline + TASK-023 review LOWs",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-025",
+      "title": "Round 7 integration: weakest-tier yacht band, dupe-pair resolutions, research carry-over, oligarch yacht ingestion, part/size_class edges, freshness-guard edge attrs",
+      "status": "done",
+      "priority": "high"
     }
   ]
 }

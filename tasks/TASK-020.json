@@ -1,0 +1,37 @@
+{
+  "key": "TASK-020",
+  "title": "Data enrichment Round 4: yacht spec completion + marina enrichment + rename/artifact handling",
+  "description": "Integrate research/round3/yacht-specs.md (~95 large yachts with beam/draft/GT/max_speed/range/flag/class_society/imo; 7 confirmed renames; RIO-203m and MOSAIQUE-164m flagged as likely corpus artifacts) and research/round3/marina-enrichment.md (49 marinas: 7 existing enriched + 42 famous new; known collision traps: graph 'Portofino Hotel & Marina' is California not Italy, 'Yacht Haven Marina' is Pacific NW not USVI; Rybovich has two nodes). New yacht-enrichment mapper resolving onto existing yacht nodes by exact name with rename support (former_names attr; renames matched via research Notes), marina-enrichment mapper (berths, max_loa, max_draft, fuel_dock, website). Artifact handling: RIO/MOSAIQUE get a data_quality flag attr (do not delete without grounding). Suspect-yacht follow-ups (Fulk Al Salamah, Blue, EIV etc. returned nothing confident) stay open for a later research pass.",
+  "acceptance_criteria": [
+    "Yacht type attr coverage: beam/draft/gt/max_speed/range/flag/class_society/imo fields exist in the schema and are populated for the researched set (~95 yachts, no invented values); former_names attr populated for the 7 confirmed renames",
+    "Marina enrichment: 7 existing nodes enriched + 42 new famous marinas created with berths/max_loa/website; the two name-collision traps explicitly guarded (California Portofino NOT merged with Italian Portofino; PNW Yacht Haven NOT merged with USVI); Rybovich double node merged with provenance",
+    "RIO and MOSAIQUE yacht nodes carry a data_quality:'unverified — no matching real vessel found' flag surfaced in the app EntityView",
+    "All ingest + app tests green (guard matrix extended), typecheck clean, baseline pins updated deliberately, score delta vs post-TASK-019 recorded",
+    "Completeness scorer REQUIRED_ATTRS for yacht extended to include the new spec fields (score becomes stricter for yacht — document the before/after both under old and new config)"
+  ],
+  "status": "done",
+  "priority": "high",
+  "labels": [
+    "data-enrichment",
+    "round-4",
+    "yachts",
+    "marinas"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-019"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-07-11T02:25:01.115Z",
+      "body": "CLOSED on green review (PASS, all 5 ACs met — AC2 with documented deviation: true split 13 enriched + 38 new; research doc's 7+42 was an arithmetic slip). Graph: 4299→4366 nodes, 2594→2640 edges, yacht 605→599 (6 grounded rename/artifact merges), 0 orphans, idempotency proven byte-identical. SCORE RECORD (per reviewer LOW, both configs durable here): old 6-attr yacht config 6.67→6.69; new stricter 14-attr yacht config = 6.53 (yacht per-type 4.16, attr coverage 19.45%) — 6.53 is the honest go-forward baseline. Spot-verified: Whisper ex-Kismet vs current 122m Kismet clean, REV Ocean 21120nm real, Eclipse IMO string-preserved, Amadea not minted, both marina collision traps clean in data. Carry-forwards to TASK-021: MEDIUM app attrs.spec.ts test gap (data_quality hidden-key + meters + labels), LOW dead nodeExists() in yachtSpecMapper, LOW old-config score discoverability (recorded here). Future-round punch list: region canonicalization (Safe Harbor Rybovich has 3 near-dupe located_in regions; regions 864→900), yachtMapper conflicts.features dedupe quirk, Sophia 108/97 pair (needs grounding), Fulk Al Salamah/Blue/EIV follow-ups (research landed in round4 person doc)."
+    }
+  ],
+  "created_at": "2026-07-11T00:41:45.115Z",
+  "updated_at": "2026-07-11T02:25:04.246Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}
