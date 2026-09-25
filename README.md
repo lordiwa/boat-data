@@ -46,16 +46,21 @@ Hosting config lives at the repo root (`firebase.json`, `.firebaserc`)
 because it needs to serve `app/dist` — the SPA build output — while sitting
 alongside `ingest/` and `knowledge/`.
 
+**The site is live at <https://boat-site-e66fb.web.app>** (Firebase project
+`boat-site-e66fb`). The steps below are only needed on a fresh machine or to
+retarget a different project.
+
 ### One-time setup
 
-1. Install the Firebase CLI: `npm install -g firebase-tools`.
-2. Authenticate: `firebase login`.
-3. Create (or choose) a Firebase project:
-   - Create one at [console.firebase.google.com](https://console.firebase.google.com),
-     **or** run `firebase projects:create` from the CLI.
-   - `.firebaserc` at the repo root defaults the project alias `default` to
-     `datayacht-app`. If you create a project with a different id, update
-     it by running, from the repo root:
+1. The Firebase CLI is a devDependency of `app/` — `npm install` in `app/`
+   provides it, so no global install is required.
+2. Authenticate: `npx firebase login`.
+3. Choose a Firebase project:
+   - `.firebaserc` at the repo root pins the `default` alias to
+     `boat-site-e66fb`, so a normal deploy needs no further setup.
+   - To target a *different* project, create one at
+     [console.firebase.google.com](https://console.firebase.google.com) (or run
+     `firebase projects:create`), then update the alias from the repo root:
 
      ```sh
      firebase use --add
