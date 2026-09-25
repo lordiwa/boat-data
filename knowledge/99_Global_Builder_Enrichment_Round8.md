@@ -11,9 +11,11 @@ curation: all join keys match a real builder node's name *and* id verbatim.
 ## Curation rules applied
 
 1. **Placeholder nodes are excluded**, keyed on `attrs.placeholder === true` — not on a
-   name pattern. Excluded here: Mixed, Motorsailer.
-   These 5 builders carry 109 yachts between them; enriching them would fabricate a
-   builder identity for every one of those hulls.
+   name pattern. Mixed and Motorsailer were the only two placeholder builders that
+   reached this round's target lists and were dropped from curation here; the other
+   three placeholders (Custom, Various, Custom (rebuild)) were never targeted in the
+   first place. All 5 placeholder builders carry 109 yachts between them combined;
+   enriching any of them would fabricate a builder identity for those hulls.
 2. **Never-guess**: a cell is filled only where the research gave a single sourced value.
    Yards the researchers left blank stay blank — 11 rows were dropped
    entirely as fully unresolved (Australian Yacht Builders, Hudson, Northstar Yachts, Shear Yachts, Stainless Structures, Xplorer, Clelands Shipbuilding Co, Kleven, Royal Denship, Uljanik, Vosper Thornycroft).
