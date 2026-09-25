@@ -10,3 +10,6 @@ state/.lock
 
 # context-monitor transient markers
 **/.claude/context-monitor/
+
+# firebase deploy cache
+.firebase/
