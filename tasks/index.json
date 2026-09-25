@@ -154,7 +154,7 @@
     {
       "key": "TASK-026",
       "title": "Round 8: builder attribute enrichment + company edge connection",
-      "status": "todo",
+      "status": "done",
       "priority": "high",
       "labels": [
         "data",
@@ -164,7 +164,7 @@
         "company"
       ],
       "created_at": "2026-09-25T15:47:00.840Z",
-      "updated_at": "2026-09-25T15:47:00.840Z"
+      "updated_at": "2026-09-25T17:01:29.894Z"
     }
   ]
 }
