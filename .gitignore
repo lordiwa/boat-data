@@ -9,4 +9,4 @@ state/.lock
 *.log
 
 # context-monitor transient markers
-.claude/context-monitor/
+**/.claude/context-monitor/
