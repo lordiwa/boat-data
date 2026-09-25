@@ -146,7 +146,19 @@ describe('Round 8 — AC7: pinned founded years (knowledge/99)', () => {
     expect(typeof n.attrs.founded).toBe('number');
   });
 
-  it('every builder.founded value in the whole graph is a plausible 4-digit number (range lock, real-corpus wide)', () => {
+  // TASK-026 fix round (review LOW): renamed from "every builder.founded
+  // value..." — this lock only ever checked `typeof === 'number'` entries,
+  // silently skipping legacy STRING founded values carried over from
+  // earlier rounds (e.g. builder:broward "1948", builder:alloy-yachts
+  // "1985", and several prose-heavy cells like builder:feadship "1949
+  // (component yards 1849 and 1906)" that aren't reducible to a single bare
+  // year at all). Widening this lock to also range-check the string cells
+  // would require re-implementing year-extraction logic inside the test —
+  // the exact risk class this fix round exists to close — so instead the
+  // name is corrected to state its real (numeric-only) scope. Normalizing
+  // the mixed string/number `founded` type graph-wide is a deliberate,
+  // out-of-scope Round 9 item (do not do it here).
+  it('every NUMERIC builder.founded value in the graph is a plausible 4-digit year (range lock; legacy string-typed founded cells are out of scope — see comment above)', () => {
     const builders = graph.nodes.filter((n) => n.type === 'builder');
     const currentYear = new Date().getFullYear();
     for (const b of builders) {
