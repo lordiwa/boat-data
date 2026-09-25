@@ -2,15 +2,40 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-07-04T17:32:15.329Z",
+  "updated_at": "2026-09-25T15:15:01.670Z",
   "active_task": null,
   "workflow_step": "idle",
-  "next_action": null,
-  "handoff_summary": "session started",
+  "next_action": "Session is ACTIVE but has no assigned work item — the human reopened it without picking a unit of work. The >=8.5 enrichment goal stays SUSPENDED; do NOT start Round 8 without a fresh, explicit go-ahead (R8 = builder attrs + company edges, R9 = marina attrs, both scoped verbatim in TASK-025 close-out). Candidate next moves, human to choose: (a) drive TASK-015 Firebase Hosting from in_review to closed; (b) un-suspend the loop and open the Round 8 ticket; (c) leave idle. Housekeeping from the pause is now DONE: research/, tasks/TASK-016..025.json, HANDOFF.md and the state bundle are committed, and main has been pushed to origin for the first time.",
+  "handoff_summary": "Session REOPENED 2026-09-25 after a 2.5-month pause. The autonomous data-enrichment loop delivered ten tickets (TASK-016..025), each closed on a green fresh-context review: shipyards/dry docks, engines+parts+size classes, WCAG 2.1 AA accessibility, builders/designers, yacht specs, persons/clubs, region canonicalization, R6 identifiability + dual scoring, Rule B re-baseline, and the R7 integration round. Final state: 4,278 nodes / 3,107 edges; 581 yachts (238 identifiable, 343 fragment); completeness 7.03/10 all-nodes and 7.36/10 on the honest identifiable-only target metric; 906 ingest + 142 app tests + typecheck green; both artifact-freshness guards prove the committed graph.json equals a clean rebuild. The >=8.5 loop goal remains SUSPENDED. Board is clear of the loop; TASK-015 (Firebase Hosting deployment) is the only non-done ticket, sitting at in_review from the pre-loop v1 backlog.",
   "open_questions": [],
   "blockers": [],
-  "decisions": [],
-  "subagent_results": [],
+  "decisions": [
+    "2026-07-10: Human authorized full autonomous enrichment loop until completeness >=8.5/10, one round at a time not required",
+    "2026-07-10: Scope includes commercial dry docks per country and submarine/submersible facilities (superyacht-to-submarine global list)",
+    "2026-07-10: New node type 'shipyard' with OPERATED_BY/LOCATED_IN edges; shipyard guard placed last in routing precedence to protect ingestion-order-dependent yacht ids",
+    "2026-07-10: Research lands in research/round1/ first, curated into knowledge/ docs after review (never straight into knowledge/)",
+    "2026-07-10: Size-class schema: store raw length_m/gt as canonical, derive display-only size_tier (24/30/60/100m convention), keep regulatory thresholds (24m Load Line, 500GT ISM, 3000GT STCW) as separate facts — never encode one broker's class boundary as truth",
+    "2026-07-10: Reviewer must verify aggregator-sourced dock dimensions against yard primary sources before authoritative status (flag from commercial-drydocks lane)",
+    "2026-07-10: Engine graph gets an oem_supplies edge type distinct from owned_by (brand-owner != actual manufacturer, e.g. Tohatsu builds small Mercurys) — TASK-017 scope",
+    "2026-07-11: Round 7 = one integration ticket (TASK-025) from TASK-024 residuals + grounded backlog; oligarch-yacht minting (7 knowledge/95 names) explicitly sanctioned within TASK-025 only; famous-clubs minting deferred pending separate sanction; part/size_class edges derived only from existing canonical attrs (no invented data); gap plan: R8 builder attrs + company edges, R9 marina attrs",
+    "2026-07-11: HUMAN GOAL CHANGE — 7.36 accepted as good for now; the >=8.5 standing loop goal is SUSPENDED. Finish TASK-025 (fix round -> round-2 review -> close), then PAUSE the session. Do not start Round 8 without a fresh go-ahead.",
+    "2026-09-25: Human reopened the paused session and authorized the two pause-era housekeeping items — commit the untracked ticket/research/handoff/state files, and push main to origin (first push; the loop-era auto_push_after_close=false rule applied to automatic pushes, this was an explicit human instruction). Enrichment loop goal stays suspended; no Round 8 sanction given.",
+    "2026-09-25: hivemind plugin updated 0.18.0 -> 0.23.0; .claude/workflows/ already carried deep-research.js and deep-review.js so apply-workflows added nothing. Stale context-monitor paths in .claude/settings.json now self-heal via the 0.23.0 plugin-level SessionStart repin hook."
+  ],
+  "subagent_results": [
+    {
+      "agent": "researcher",
+      "task": "TASK-025 lane A: 23 weakest-tier yacht specs",
+      "at": "2026-07-11T11:30:00.000Z",
+      "summary": "Wrote research/round7/01_weakest_tier_yacht_specs.md (format-compatible with knowledge/97). 19/23 confirmed with >=1 spec. Bonus grounded merge: Ahpo == Lady Jorgia (sold May 2023, renamed). Gigia delivery year is 2017 (as Areti), not 2005; 2024 refit real. 3 unresolved corpus-confusion nodes whose stored specs match no real vessel: Nomad (30m vs real 69.5m Oceanfast), Relentless (34m vs real 43-44m Trinity), Sahana (75m Feadship 2025 nonexistent; likely 36m Oceanfast Sahana x Feadship Hasna confusion) — route to conflicts/notes, do NOT enrich. Samsara-Benetti confirmed misattribution (real = Oceanco 88.5m, ex-Infinity/Cloud 9). Mansion Yacht: per-model estimate only."
+    },
+    {
+      "agent": "researcher",
+      "task": "TASK-025 lane B: dupe pairs + LOA confirms + carry-over",
+      "at": "2026-07-11T11:25:00.000Z",
+      "summary": "Wrote research/round7/02_dupe_pairs_loa_carryover.md. MERGE x4 with citations: samsara->samsara-oceanco (survivor samsara-oceanco); moka-overmarine->moka (Overmarine claim debunked, distinct 49.9m Mangusta Moka exists); that-s-amore-grandi-yatcilik->that-s-amore; dream-olympic + dream-olympic-yacht -> existing canonical yacht:dream (both members reference orphan builder ids). STAY-SPLIT x2: sophia 108m claim likely fabricated (flag conflicts.identity, keep 97m Feadship sophia-feadship); Olympic Marine (marina:olympic-marine-lavrion) vs builder:olympic-yacht-services related-but-distinct. LOA CONFIRMED x5: Rivale 56 = 17.27; Sherpa 60 = 18.67 (stored 18.28 was Hull Length spec, real correction); Manhattan 65 = 21.08; Navetta 68 = 20.53 (Absolute, builder mis-attribution flagged); Yamas = 20.24 (Ferretti 670). Carry-over: only Lady Beth uncarried, prose-only 54.86m Newcastle Marine — follow-up addendum research pass dispatched."
+    }
+  ],
   "pending_human_confirmation": null,
   "mode": "harness",
   "loop_goal": {
