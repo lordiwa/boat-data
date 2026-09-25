@@ -2,12 +2,14 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-09-25T15:59:25.285Z",
+  "updated_at": "2026-09-25T16:01:43.425Z",
   "active_task": "TASK-026",
-  "workflow_step": "curate",
-  "next_action": "TASK-026 research phase: two researcher agents running in parallel on builder enrichment lanes A and B (86 real long-tail yards + 11 website-only), writing to research/round8/03_ and 04_. Orchestrator is doing the company-edge investigation locally. NEXT once lanes land: curate into a knowledge/NN_*.md doc, then spawn a FRESH developer (TDD tier) for the builderEnrichment mapper + the residual (6)/(7) fixes, then ingest -> score -> fresh-context reviewer. Redeploy to Firebase only after a green review — deploys are zero-downtime so the live site is unaffected by data work in the meantime.",
+  "workflow_step": "implement",
+  "next_action": "TASK-026 implementation in flight: one FRESH developer (tdd tier) building the builderEnrichment mapper from knowledge/99 (84 builders, 263 cells), plus placeholder exclusion on attrs.placeholder, residual (7) dangling-built_by identifiability fix, residual (6) partBrandLinker/freshnessGuard fixes, and the lane C website-hygiene re-baseline as a SEPARATE labeled commit. KNOWN SHORTFALL, flagged to the developer up front: the grounded research ceiling for builder attrs is 83.75%, below AC 1's >=85%. Do NOT let that get closed by inference — the honest figure stands and the AC gets amended or waived by the human. NEXT after the developer reports: verify its numbers independently (re-run score + freshness guards myself), then spawn a FRESH-CONTEXT reviewer, block on any HIGH, then close and redeploy to Firebase (zero-downtime; live site unaffected until then).",
   "handoff_summary": "Site is LIVE at https://boat-site-e66fb.web.app (TASK-015 closed 2026-09-25 — Firebase project boat-site-e66fb; live payload byte-identical to committed ingest/data/graph.json). All 25 prior tickets done. Enrichment loop RESUMED 2026-09-25 on fresh human go-ahead: the >=8.5 goal is un-suspended. TASK-026 (Round 8) is in research: builder attr enrichment (42.66% -> >=85% target, weight 15, biggest lever) + company edge connection (35.93%) + four still-open TASK-025 residuals (4,5,6,7). Baseline re-measured this session: 7.03 all-nodes / 7.36 identifiable-only.",
-  "open_questions": [],
+  "open_questions": [
+    "AC 1 sets builder attrs >=85% but the grounded research ceiling is 83.75%. Options: (a) accept 83.75 and amend the AC with the evidence, (b) run a third research lane at the ~104 still-empty cells (mostly founded years for defunct yards that genuinely resist sourcing), (c) exclude the 5 placeholder builders from the score DENOMINATOR, which alone lifts it to ~86.5% but is a metric change that must land as its own labeled re-baseline commit, never inside a data round. Recommend (a) now and (c) as a separate deliberate re-baseline ticket."
+  ],
   "blockers": [],
   "decisions": [
     "2026-07-10: Human authorized full autonomous enrichment loop until completeness >=8.5/10, one round at a time not required",
