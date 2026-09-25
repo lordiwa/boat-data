@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T19:46:15.398Z",
+    "generated_at": "2026-09-25T16:27:42.831Z",
     "node_count": 4278,
     "edge_count": 3107,
     "types": {
@@ -58,13 +58,37 @@
       "id": "builder:absolute",
       "type": "builder",
       "name": "Absolute",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "absoluteyachts.com",
+        "specialty": [
+          "flybridge/coupé/navetta motor yachts",
+          "composite construction"
+        ],
+        "founded": 2002,
+        "notes": "Founded by Sergio Maggi & Marcello Bè in Podenzano (Piacenza).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:adm-shipyards",
       "type": "builder",
       "name": "ADM Shipyards",
-      "attrs": {}
+      "attrs": {
+        "country": "United Arab Emirates",
+        "website": "admshipyards.com",
+        "specialty": [
+          "megayacht newbuild & refit",
+          "up to 200m"
+        ],
+        "founded": 2008,
+        "notes": "Formed 2008 as a shipbuilding venture of the Abu Dhabi MAR group (Abu Dhabi MAR itself est. 2007); Port Zayed, Abu Dhabi.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:admiral-yachts",
@@ -89,13 +113,37 @@
       "id": "builder:ak-yacht",
       "type": "builder",
       "name": "AK Yacht",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "akyacht.com",
+        "specialty": [
+          "full-custom explorer superyachts",
+          "steel/aluminium"
+        ],
+        "founded": 2015,
+        "notes": "[note: appears to be the SAME company as the \"Akyacht\" node below — both are \"AKYACHT\", founded by Vural Ak in 2015 in Kocaeli/Basiskele. Not merged here per instructions (graph names left as-is); flagging as a likely duplicate-node pair for the graph maintainers.]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:akyacht",
       "type": "builder",
       "name": "Akyacht",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "akyacht.com",
+        "specialty": [
+          "full-custom explorer superyachts",
+          "steel/aluminium"
+        ],
+        "founded": 2015,
+        "notes": "Same company/facts as \"AK Yacht\" above — see duplicate-node note there. First launch: 85m VICTORIOUS (2021), largest superyacht built in Turkey.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:alloy-yachts",
@@ -110,15 +158,30 @@
         ],
         "status": "defunct (wound down April 2016)",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "alloyyachts.com",
+        "notes": "New Zealand builder (Henderson, Auckland), ceased operations c.2013-2016; domain found referenced as the official site in current listings, but live status at time of writing not independently confirmed — included per source rather than guessed"
       }
     },
     {
       "id": "builder:alstom",
       "type": "builder",
       "name": "Alstom",
-      "attrs": {}
+      "attrs": {
+        "country": "France",
+        "specialty": [
+          "commercial/passenger shipbuilding",
+          "built megayachts (e.g. KOGO",
+          "Turama) while the Saint-Nazaire yard traded as \"Alstom Marine\""
+        ],
+        "founded": 1862,
+        "notes": "\"Alstom\" the graph builder name is a corporate-ownership label, not a yard's own name: the physical yard is Chantiers de l'Atlantique (Saint-Nazaire, founded 1862), owned by Alstom 1976–2006 (as Alstom-Atlantique / Alstom Marine) before passing to Aker Yards then STX. `founded` given is the yard's own founding, not Alstom-the-conglomerate's. No single \"Alstom yacht builder\" website exists; leave blank rather than pointing at alstom.com (unrelated current business) or chantiers-atlantique.com (post-Alstom entity).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:amels",
@@ -143,15 +206,35 @@
       "id": "builder:amer",
       "type": "builder",
       "name": "Amer",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "ameryachts.it",
+        "specialty": [
+          "custom luxury motor yachts",
+          "24–75m"
+        ],
+        "founded": 1973,
+        "notes": "Predecessor company Permare founded 1973 by Fernando Amerio in Sanremo; the \"Amer Yachts\" brand itself was established in 1990. Recorded founded=1973 (company's own history page treats this as its founding); the 1990 brand-launch date is noted here rather than in the founded cell to avoid a fabricated single \"right\" answer.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:arcadia",
       "type": "builder",
       "name": "Arcadia",
       "attrs": {
+        "country": "Italy",
+        "website": "arcadiayachts.it",
+        "specialty": [
+          "semi-custom composite eco-yachts",
+          "solar/hybrid systems"
+        ],
+        "founded": 2008,
+        "notes": "Naples-based; founded by Ugo Pellegrino, Francesco Guida and other industry executives. First model A85 launched 2010.",
         "provenance": [
-          "graph-cleanup-merge"
+          "99_Global_Builder_Enrichment_Round8.md"
         ]
       }
     },
@@ -159,13 +242,40 @@
       "id": "builder:ares-yachts",
       "type": "builder",
       "name": "Ares Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "aresyachts.com",
+        "specialty": [
+          "custom explorer superyachts up to 90m",
+          "steel/aluminium/composite"
+        ],
+        "founded": 2006,
+        "notes": "Parent \"Ares Shipyard\" founded 2006 in Antalya by the Kalafatoğlu family (initially yachts, pivoted to naval/patrol/commercial 2008); the dedicated \"ARES Yachts\" superyacht division specifically launched in 2023.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:astilleros-armon",
       "type": "builder",
       "name": "Astilleros Armon",
-      "attrs": {}
+      "attrs": {
+        "country": "Spain",
+        "website": "astillerosarmon.com",
+        "specialty": [
+          "commercial vessels (fishing",
+          "tugs",
+          "ferries",
+          "offshore)",
+          "yachts & yacht support"
+        ],
+        "founded": 1963,
+        "notes": "HQ/founding site Navia, Asturias; multi-yard group (Gijón, Vigo, Burela). Primarily a commercial shipbuilder, not yacht-specialist — flag for misattribution review.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:austal-ships",
@@ -253,13 +363,33 @@
       "id": "builder:bahtera-bahari",
       "type": "builder",
       "name": "Bahtera Bahari",
-      "attrs": {}
+      "attrs": {
+        "country": "Indonesia",
+        "website": "bahterabaharishipyard.com",
+        "specialty": [
+          "large aluminium/steel explorer megayachts",
+          "also barges",
+          "tugboats",
+          "landing craft"
+        ],
+        "founded": 2005,
+        "notes": "PT Bahtera Bahari Shipyard, Batam. Confirmed as the builder of the 120m explorer megayacht J7 Explorer (delivered 2022) — this resolves an initial concern that the name might collide with an unrelated small-scale Sulawesi phinisi/gulet builder; no such distinct company was found, so treated as a single confirmed entity.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:bayaco",
       "type": "builder",
       "name": "Bayaco",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "notes": "Located in Bergen op Zoom. Trade listings link its contact page to Bayards' shipbuilding division (m.bayards.com/en/shipbuilding), suggesting Bayaco may be a shipbuilding brand of the Bayards Aluminium Constructions Group (est. 1963) — but no source stated this plainly enough to ground it, so founded/website/specialty left blank rather than inferring the parent group's facts onto this node.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:beneteau",
@@ -341,7 +471,17 @@
       "id": "builder:bremer-vulkan",
       "type": "builder",
       "name": "Bremer Vulkan",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "specialty": [
+          "civilian & (later) naval commercial shipbuilding"
+        ],
+        "founded": 1893,
+        "notes": "Vegesack/Bremen. Defunct — closed 1997 due to financial mismanagement; absorbed the 1805-founded Johann Lange Shipyard. No current website (defunct).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:brodosplit",
@@ -376,39 +516,103 @@
         "status": "defunct as new-build (ceased ~2009); survives as refit yard \"Broward Shipyard\"",
         "notes": "(curated from \"Broward Marine\" to match the existing graph node) founded by Frank Denison",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "browardshipyard.com"
       }
     },
     {
       "id": "builder:canadian-vickers",
       "type": "builder",
       "name": "Canadian Vickers",
-      "attrs": {}
+      "attrs": {
+        "country": "Canada",
+        "specialty": [
+          "naval vessels",
+          "general shipbuilding",
+          "aircraft manufacturing"
+        ],
+        "founded": 1911,
+        "notes": "Montreal. Established by Vickers Sons & Maxim (UK); yard built 1912. Defunct — closed 1989, facilities razed. Not a yacht-specialist builder — flag for misattribution review if the linked yacht is a pleasure craft rather than a historic naval/commercial hull. No website (defunct).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:cantiere-delle-marche",
       "type": "builder",
       "name": "Cantiere delle Marche",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "cantieredellemarche.it",
+        "specialty": [
+          "long-range explorer yachts",
+          "semi-custom & full-custom"
+        ],
+        "founded": 2010,
+        "notes": "Ancona. Founded by a group led by the Cecchini family. First yacht (Darwin 86, \"Vitadimare 3\") launched 2011.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:cantieri-di-pisa",
       "type": "builder",
       "name": "Cantieri di Pisa",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "cantieridipisa.com",
+        "specialty": [
+          "fast planing motor yachts (Akhir series)"
+        ],
+        "founded": 1945,
+        "notes": "Founded in Limite sull'Arno; relocated to Darsena Pisana, Canale dei Navicelli in 1956. Later became part of Baglietto/Gruppo Gavio (per Round 1 research).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:cassens-werft",
       "type": "builder",
       "name": "Cassens-Werft",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "specialty": [
+          "general/commercial shipbuilding"
+        ],
+        "founded": 1875,
+        "notes": "[conflict: 1875 traditional founding (Cassen Cassens & Klattendorf acquiring/naming \"Cassensche Werft\") per de.wikipedia.org vs 2004 \"inception date\" per Wikidata company record — likely reflects a later corporate re-registration rather than the yard's actual origin, but flagged rather than silently resolved]. Emden. Ceased shipbuilding 2016, formally closed 29 June 2018 — defunct; former site was www.cassens-werft.de.",
+        "conflicts": {
+          "founded": [
+            "1875 traditional founding (Cassen Cassens & Klattendorf acquiring/naming \"Cassensche Werft\") per de.wikipedia.org vs 2004 \"inception date\" per Wikidata company record — likely reflects a later corporate re-registration rather than the yard's actual origin, but flagged rather than silently resolved"
+          ]
+        },
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:ccn",
       "type": "builder",
       "name": "CCN",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "cerricantierinavali.it",
+        "specialty": [
+          "high-performance fiberglass & steel/aluminium yachts",
+          "27–35m"
+        ],
+        "founded": 1997,
+        "notes": "Full name Cerri Cantieri Navali, founded by Carlo Cerri; Avenza, Marina di Carrara. 70% acquired by Gavio Group in 2011.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:christensen",
@@ -424,15 +628,29 @@
         "status": "defunct/relocated (Vancouver yard closed 2015, final yacht 2019)",
         "notes": "(curated from \"Christensen Shipyards\" to match the existing graph node)",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "christensenyachts.com"
       }
     },
     {
       "id": "builder:circa-marine",
       "type": "builder",
       "name": "Circa Marine",
-      "attrs": {}
+      "attrs": {
+        "country": "New Zealand",
+        "website": "circamarine.co.nz",
+        "specialty": [
+          "custom aluminium explorer/passage-maker yachts",
+          "also commercial vessels"
+        ],
+        "founded": 1976,
+        "notes": "Family-operated, Whangarei, Northland.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:clelands-shipbuilding-co",
@@ -513,7 +731,18 @@
       "id": "builder:corsair-yachts",
       "type": "builder",
       "name": "Corsair Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "website": "corsairmarine.com",
+        "specialty": [
+          "trailerable sailing trimarans (folding-beam composite construction)"
+        ],
+        "founded": 1984,
+        "notes": "Founded by John Walton (Corsair Marine) in San Diego, CA to build Ian Farrier's F-27 design. Relocated production to Ho Chi Minh City, Vietnam in 2006; owned by Seawind Catamarans since 2010. Country recorded is the founding country (USA); current manufacturing base is Vietnam.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:crescent-custom-yachts",
@@ -538,7 +767,19 @@
       "id": "builder:crescent-yachts",
       "type": "builder",
       "name": "Crescent Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Canada",
+        "website": "crescentyachts.ca",
+        "specialty": [
+          "semi-custom & custom motor yachts",
+          "33–50m"
+        ],
+        "founded": 1985,
+        "notes": "Founded by Jack Charles in Crescent Beach, BC; now based in Richmond, BC. Revived 2015 by grandson Tim Charles after a hiatus.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:crn-yachts",
@@ -572,7 +813,19 @@
       "id": "builder:custom-line",
       "type": "builder",
       "name": "Custom Line",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "customline-yacht.com",
+        "specialty": [
+          "semi-custom composite/aluminium-alloy yachts",
+          "28–50m"
+        ],
+        "founded": 1996,
+        "notes": "Ferretti Group brand; built at the Ferretti Group Superyacht Yard in Ancona (also Fano, Cattolica); HQ Forlì.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:custom-rebuild",
@@ -606,7 +859,13 @@
       "id": "builder:deep-sea-marine",
       "type": "builder",
       "name": "Deep Sea Marine",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "notes": "Listed by SuperYacht Times as a US-based new-build shipyard, but no founding year, website, or specialty could be confirmed from available sources. NOT the same as the unrelated (and unconnected) \"Deep Sea Boat Builders\" — a 1976–1989 Louisiana shrimp-trawler builder — do not conflate the two if enriching further.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:delta-marine",
@@ -631,7 +890,21 @@
       "id": "builder:derecktor",
       "type": "builder",
       "name": "Derecktor",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "website": "derecktor.com",
+        "specialty": [
+          "custom yacht & commercial newbuild",
+          "repair",
+          "refit",
+          "aluminium-construction pioneer"
+        ],
+        "founded": 1947,
+        "notes": "Founded by Robert E. Derecktor in Mamaroneck, NY. Built America's Cup winner Stars & Stripes '87 and the 86m Cakewalk. Operates yards in Mamaroneck NY, Dania Beach FL, Fort Pierce FL.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:devonport",
@@ -656,13 +929,37 @@
       "id": "builder:ditmar-donaldson",
       "type": "builder",
       "name": "Ditmar Donaldson",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "specialty": [
+          "wood-hull sportfishing & pleasure yachts",
+          "commercial vessels"
+        ],
+        "founded": 1948,
+        "notes": "[note: actual company name is \"Dittmar & Donaldson\" (double-t, ampersand) — graph name \"Ditmar Donaldson\" left unaltered per instructions.] Costa Mesa, California — NOT Australia (an initial search hypothesis proved wrong; flagging in case ingestion mis-tagged the country). Began as \"Sea Boat Company\" shortly after WWII; first known launch 1948.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:dreamline-yachts",
       "type": "builder",
       "name": "Dreamline Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "specialty": [
+          "luxury motor yachts",
+          "26–49m",
+          "hybrid propulsion",
+          "proprietary \"lama chine\" hull"
+        ],
+        "founded": 2011,
+        "notes": "Also trades as \"DL Yachts\" / \"DL Yachts Dreamline.\" Founded by engineer Peter Zuber, with Paolo Bencivenni (ex-Dominator CEO) leading it; production in Fano/Ancona. No confirmed official domain found (brokers/aggregators only — itboat, Worth Avenue Yachts, Arcon Yachts); left blank rather than guessing dlyachts.it or similar.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:dunya-yachts",
@@ -697,15 +994,30 @@
         "status": "status uncertain",
         "notes": "(curated from \"Elefsis Shipyards\" to match the existing graph node)",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "elefsis-shipyards.gr"
       }
     },
     {
       "id": "builder:elsflether-werft",
       "type": "builder",
       "name": "Elsflether Werft",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "website": "elsflether-werft.de",
+        "specialty": [
+          "custom/bespoke yacht & commercial newbuild",
+          "refit",
+          "steel/marine construction"
+        ],
+        "founded": 1916,
+        "notes": "Founded by engineer Franz Peuss; Elsfleth. Acquired by new ownership Oct 2019; appears to still be operating (unlike several other German yards in this batch).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:feadship",
@@ -769,7 +1081,18 @@
       "id": "builder:flender",
       "type": "builder",
       "name": "Flender",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "specialty": [
+          "merchant/commercial ships",
+          "naval vessels (built U-boats in WWII)"
+        ],
+        "founded": 1917,
+        "notes": "Full name Flender Werke / Lübecker Flenderwerke AG, Lübeck. Defunct — closed 2002 (insolvency). Not yacht-specialist — flag for misattribution review. No website (defunct).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:freire-shipyard",
@@ -793,7 +1116,18 @@
       "id": "builder:fx-yachts",
       "type": "builder",
       "name": "FX Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "fxyachts.com",
+        "specialty": [
+          "composite motor & sailing yachts up to ~40–45m"
+        ],
+        "founded": 2012,
+        "notes": "Part of Ulukartal Group (Ulukartal Holding est. 2010); Antalya Free Zone production, Istanbul HQ. Debuted at Cannes 2015 (FX29, FX38).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:golden-yachts",
@@ -819,8 +1153,10 @@
       "type": "builder",
       "name": "Grandi Yatcilik Mimarlik",
       "attrs": {
+        "country": "Turkey",
+        "notes": "Bodrum-based. No founding year, website, or firm specialty description could be confirmed — only that it has built gulet/motor-style yachts (e.g. \"That's Amore,\" 2021). Round 2's research also flagged \"Grandi Yatcilik\" (bare) vs \"Grandi Yatcilik Mimarlik\" as a likely duplicate-node pair; not resolved here.",
         "provenance": [
-          "graph-cleanup-merge"
+          "99_Global_Builder_Enrichment_Round8.md"
         ]
       }
     },
@@ -849,13 +1185,37 @@
       "id": "builder:hakvoort",
       "type": "builder",
       "name": "Hakvoort",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "website": "hakvoort.com",
+        "specialty": [
+          "custom steel/aluminium sailing & motor superyachts"
+        ],
+        "founded": 1919,
+        "notes": "Full name Royal Hakvoort Shipyards; Monnickendam. Founded by Albert Hakvoort Sr., purchasing a yard whose own predecessor site had launched vessels since 1780. Received Dutch Royal (\"Koninklijke\") designation 13 Nov 2020. Family-owned into 4th generation.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:halter-marine",
       "type": "builder",
       "name": "Halter Marine",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "specialty": [
+          "commercial vessels (supply/crew boats)",
+          "sportfishermen",
+          "research/oceanographic ships",
+          "some yachts"
+        ],
+        "founded": 1956,
+        "notes": "Founded by Harold Halter & Jimmy Dubuisson, New Orleans; main yard Pascagoula, MS. Sold to Trinity Industries 1983; later \"VT Halter Marine,\" defunct as of 14 Nov 2022 (merged into Bollinger Shipyards). No current website.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:hatteras",
@@ -880,7 +1240,19 @@
       "id": "builder:hdw",
       "type": "builder",
       "name": "HDW",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "specialty": [
+          "naval vessels",
+          "submarines",
+          "commercial/merchant ships"
+        ],
+        "founded": 1838,
+        "notes": "Full name Howaldtswerke-Deutsche Werft; Kiel. Formed in current name via 1968 merger of Howaldtswerke (est. 1838) with Hamburg's Deutsche Werft. Now absorbed into TKMS (ThyssenKrupp Marine Systems) — no HDW-branded site exists; not primarily a yacht builder, flag for misattribution review.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:heesen",
@@ -915,8 +1287,10 @@
         "status": "active (as Skaramangas Shipyards)",
         "notes": "(curated from \"Hellenic (Skaramangas Shipyards)\" to match the existing graph node) formerly \"Hellenic Shipyards S.A.\"",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "hellenic-shipyards.gr"
       }
     },
     {
@@ -924,8 +1298,14 @@
       "type": "builder",
       "name": "Helsingor Vaerft",
       "attrs": {
+        "country": "Denmark",
+        "specialty": [
+          "commercial shipbuilding"
+        ],
+        "founded": 1882,
+        "notes": "Helsingør (Elsinore). Defunct — closed 1983 after heavy financial losses. [Note: Round 2 flagged the graph also contains a separate node `builder:helsing-r` (\"Helsingør\") suspected to be the same yard under a mis-transliterated slug — likely duplicate, not resolved here.] No website (defunct); a Værftsmuseet (shipyard museum) now occupies the site.",
         "provenance": [
-          "graph-cleanup-merge"
+          "99_Global_Builder_Enrichment_Round8.md"
         ]
       }
     },
@@ -933,7 +1313,18 @@
       "id": "builder:horizon",
       "type": "builder",
       "name": "Horizon",
-      "attrs": {}
+      "attrs": {
+        "country": "Taiwan",
+        "website": "horizonyacht.com",
+        "specialty": [
+          "semi-custom/custom production & explorer motor yachts"
+        ],
+        "founded": 1987,
+        "notes": "Reused from Round 1/2 research (Horizon Yacht Group, Kaohsiung) — not re-verified independently here since it was already grounded; see those files' sources.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:hudson",
@@ -963,13 +1354,37 @@
       "id": "builder:inace",
       "type": "builder",
       "name": "Inace",
-      "attrs": {}
+      "attrs": {
+        "country": "Brazil",
+        "website": "inace.com.br",
+        "specialty": [
+          "steel/aluminium luxury & explorer yachts",
+          "historically also naval and commercial fishing vessels"
+        ],
+        "founded": 1968,
+        "notes": "Full name Indústria Naval do Ceará; Fortaleza. Founded by Dr. Gil Bezerra (one source states 1965 instead of 1968 — not flagged as a hard conflict since 1968 was the more consistently repeated figure, but noted here). Superyacht/luxury division added 1987.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:intermarine-usa",
       "type": "builder",
       "name": "Intermarine - USA",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "specialty": [
+          "fiberglass spec motor yachts",
+          "95–145ft",
+          "also US Navy minehunters"
+        ],
+        "founded": 1987,
+        "notes": "Savannah, GA — acquired the 1912-founded Savannah Machine & Foundry site. Sold by Intermarine in 1999; yard changed hands repeatedly afterward and is defunct as \"Intermarine.\" No current website.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:isa-yachts",
@@ -994,7 +1409,19 @@
       "id": "builder:jeff-boat",
       "type": "builder",
       "name": "Jeff Boat",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "specialty": [
+          "inland river barges",
+          "towboats",
+          "WWII-era LSTs"
+        ],
+        "founded": 1938,
+        "notes": "Company name is \"Jeffboat\" / \"Jeffersonville Boat & Machine Company,\" Jeffersonville, Indiana — organized 1938, renamed Jeffboat 1964; absorbed the site of the older Howard Shipyard (founded 1834, whose site/assets Jeffboat took over during/after WWII). `founded` recorded as the JeffBoat entity's own organization date (1938) rather than the 1834 predecessor. Defunct — closed 2018 after 180 years of shipbuilding on the site. Primarily an inland commercial barge builder, not yacht-specialist — flag for misattribution review. No website (defunct).",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:kleven",
@@ -1019,19 +1446,56 @@
       "id": "builder:kusch-yachts",
       "type": "builder",
       "name": "Kusch Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "website": "kusch-yachts.com",
+        "specialty": [
+          "custom superyacht newbuild",
+          "refit",
+          "repair",
+          "conversion"
+        ],
+        "founded": 1981,
+        "notes": "Founded by Claus Kusch; based at Peters Werft, Wewelsfleth. First yacht (Lady Georgina) delivered 1982.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:lamda-nafs-shipyards",
       "type": "builder",
       "name": "Lamda Nafs Shipyards",
-      "attrs": {}
+      "attrs": {
+        "country": "Greece",
+        "website": "lamdanafs.com",
+        "specialty": [
+          "aluminium megayacht construction",
+          "steel/metal/piping work"
+        ],
+        "notes": "Perama/Piraeus (HQ) with a yard at Mandoudi, Evia. Described as the only Greek yard specializing in aluminium megayacht construction; ~38 vessels built to date. No confirmed founding year found.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:lazzara",
       "type": "builder",
       "name": "Lazzara",
-      "attrs": {}
+      "attrs": {
+        "country": "United States",
+        "website": "lazzarayachts.com",
+        "specialty": [
+          "luxury motor yachts",
+          "60–125ft"
+        ],
+        "founded": 1990,
+        "notes": "Founded as Lazzara Yacht Corporation by brothers Brad & Dick Lazzara, Tampa, FL (family boatbuilding lineage traces to father Vince Lazzara's Columbia Yachts/Gulfstar Yachts). Ownership/status has changed repeatedly (Avanti Ocean Group 2015 → \"Lazzara Custom Yachts\"; Euro Marine Group acquisition 2018 moved some production to Turkey) — current operating status uncertain, flagging rather than asserting it is still an active US builder.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:lloyd-werft",
@@ -1055,7 +1519,13 @@
       "id": "builder:lloyds-ships",
       "type": "builder",
       "name": "Lloyds Ships",
-      "attrs": {}
+      "attrs": {
+        "country": "Australia",
+        "notes": "Per SuperYacht Times, \"Lloyds Ships\" is listed as an Australia-based new-build shipyard entry (18 yachts in its own portfolio there, largest \"Renegade\" 49.85m) — but no founding year, website, or independently-verifiable specialty could be found, and it's unclear whether this is a genuine shipbuilder or a listings/brokerage artifact. Distinct from \"Lloyd's Register\" (the UK classification society) and \"Lloyd Werft\" (Bremerhaven refit yard, already covered in Round 2) — do not conflate any of the three.",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:lurssen",
@@ -1081,37 +1551,108 @@
       "id": "builder:majesty",
       "type": "builder",
       "name": "Majesty",
-      "attrs": {}
+      "attrs": {
+        "country": "UAE",
+        "website": "majesty-yachts.com",
+        "specialty": [
+          "luxury motor yachts",
+          "superyachts",
+          "megayachts"
+        ],
+        "founded": 1982,
+        "notes": "[note: appears to be the same brand as \"Majesty Yachts\" below — suspected duplicate/split node, not merged per instructions]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:majesty-yachts",
       "type": "builder",
       "name": "Majesty Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "UAE",
+        "website": "majesty-yachts.com",
+        "specialty": [
+          "luxury motor yachts",
+          "superyachts",
+          "megayachts"
+        ],
+        "founded": 1982,
+        "notes": "[note: 1982 is Gulf Craft's own founding date, per majesty-yachts.de \"about us\"; the Majesty superyacht line itself launched later (~2003-04) but no bare year for that launch was confirmed — used the company's own claimed founding year per Rule 3] [suspected duplicate: see \"Majesty\" above]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:mangusta",
       "type": "builder",
       "name": "Mangusta",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "mangustayachts.com",
+        "specialty": [
+          "high-performance open motor superyachts",
+          "long-range \"Mangusta Oceanco\" line"
+        ],
+        "founded": 1985,
+        "notes": "Brand of Overmarine Group, Viareggio",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:mariotti",
       "type": "builder",
       "name": "Mariotti",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "mariottiyard.it",
+        "specialty": [
+          "megayachts",
+          "superyachts",
+          "cruise ships",
+          "offshore vessels"
+        ],
+        "founded": 1928,
+        "notes": "T. Mariotti S.p.A., Genoa",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:mayra-yachts",
       "type": "builder",
       "name": "Mayra Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "mayrayachts.com.tr",
+        "specialty": [
+          "custom motor superyachts"
+        ],
+        "notes": "Founding year not found in any source checked",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:mie-zosen",
       "type": "builder",
       "name": "Mie Zosen",
-      "attrs": {}
+      "attrs": {
+        "country": "Japan",
+        "specialty": [
+          "motor yacht / passenger-vessel construction"
+        ],
+        "notes": "Yokkaichi-based yard; built 52m M/Y Big Eagle (1980) and Chang Hae (1982). No founding year or website located",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:mixed",
@@ -1126,7 +1667,24 @@
       "id": "builder:mondomarine",
       "type": "builder",
       "name": "Mondomarine",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "mondomarine.it",
+        "specialty": [
+          "aluminium/steel explorer superyachts",
+          "40-75m"
+        ],
+        "founded": 1915,
+        "notes": "[conflict: founded 1915 as \"Campanella\" repair yard in Savona; only began building yachts under the Mondomarine brand in the 1970s under new ownership]",
+        "conflicts": {
+          "founded": [
+            "founded 1915 as \"Campanella\" repair yard in Savona; only began building yachts under the Mondomarine brand in the 1970s under new ownership"
+          ]
+        },
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:moonen",
@@ -1161,7 +1719,23 @@
       "id": "builder:neel",
       "type": "builder",
       "name": "Neel",
-      "attrs": {}
+      "attrs": {
+        "country": "France",
+        "website": "neel-trimarans.com",
+        "specialty": [
+          "cruising trimarans / multihulls"
+        ],
+        "founded": 2010,
+        "notes": "[conflict: some sources say founded 2009, most recent say 2010] La Rochelle; founder Eric Bruneel",
+        "conflicts": {
+          "founded": [
+            "some sources say founded 2009, most recent say 2010"
+          ]
+        },
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:neorion",
@@ -1177,15 +1751,30 @@
         ],
         "status": "status uncertain",
         "provenance": [
-          "91_Global_Builder_Enrichment_Directory.md"
-        ]
+          "91_Global_Builder_Enrichment_Directory.md",
+          "99_Global_Builder_Enrichment_Round8.md"
+        ],
+        "website": "neorion-holdings.gr",
+        "notes": "Syros, Greece; now \"ONEX Neorion Shipyards\""
       }
     },
     {
       "id": "builder:newcastle-marine",
       "type": "builder",
       "name": "Newcastle Marine",
-      "attrs": {}
+      "attrs": {
+        "country": "USA",
+        "website": "newcastleshipyards.com",
+        "specialty": [
+          "custom steel/aluminum expedition motor yachts",
+          "up to ~90m"
+        ],
+        "founded": 1999,
+        "notes": "Palatka, FL (formerly Palm Coast); founded by Kevin Keith & Lester Miller",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:nobiskrug",
@@ -1272,21 +1861,52 @@
       "id": "builder:oceanfast",
       "type": "builder",
       "name": "Oceanfast",
-      "attrs": {}
+      "attrs": {
+        "country": "Australia",
+        "specialty": [
+          "performance/custom motor superyachts",
+          "30-60m"
+        ],
+        "notes": "[conflict: founding year variously reported as 1983 / 1984 / 1988 across sources — no way to tell which the (defunct) yard itself claimed, so left blank]. Henderson, WA; acquired by Austal 1999; ceased operations ~2004-05. Defunct, no live site",
+        "conflicts": {
+          "founded": [
+            "founding year variously reported as 1983 / 1984 / 1988 across sources — no way to tell which the (defunct) yard itself claimed, so left blank"
+          ]
+        },
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:odisej",
       "type": "builder",
       "name": "Odisej",
-      "attrs": {}
+      "attrs": {
+        "country": "Croatia",
+        "specialty": [
+          "steel/aluminum sailing superyachts",
+          "up to 45m"
+        ],
+        "notes": "Kaštel Gomilica-based Odisej Shipyard. No founding year or confirmed official-site domain found. [note: do not confuse with \"Odisej Yachting\" (odisej-yachting.com), a separate Šibenik charter/rental operator with a similar name]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:olympic-yacht-services",
       "type": "builder",
       "name": "Olympic Yacht Services",
       "attrs": {
+        "country": "Greece",
+        "specialty": [
+          "luxury yacht conversion/refit (e.g. 106.5m M/Y Dream",
+          "delivered 2018)"
+        ],
+        "notes": "[note: potential name confusion with \"Olympic Marine\" (Lavrio, founded 1969, production motorboats) and \"Olympic Yachtcraft Corp.\" (Canada) — different companies; founded/website left blank since not confirmed specifically for Olympic Yacht Services]",
         "provenance": [
-          "graph-cleanup-merge"
+          "99_Global_Builder_Enrichment_Round8.md"
         ],
         "conflicts": {
           "identity": [
@@ -1319,13 +1939,31 @@
       "id": "builder:pacific-motor-boat",
       "type": "builder",
       "name": "Pacific Motor Boat",
-      "attrs": {}
+      "attrs": {
+        "country": "USA",
+        "specialty": [
+          "custom wood motor yacht construction"
+        ],
+        "notes": "Identified via 1931 M/Y Discovery (ex-Holiday), built as \"Pacific MB\", San Pedro, California. No company founding year found; historic/defunct, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:pak-haji-saka",
       "type": "builder",
       "name": "Pak Haji Saka",
-      "attrs": {}
+      "attrs": {
+        "country": "Indonesia",
+        "specialty": [
+          "traditional phinisi (Bugis-Makassar) wooden shipbuilding"
+        ],
+        "notes": "[note: sources identify \"Haji Saka\" as a shipwright/foreman (with Haji Baso as master-builder/punggawa) on the Lamima phinisi project — an individual craftsman, not a registered company, so \"founded\" doesn't cleanly apply]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:palmer-johnson",
@@ -1430,31 +2068,88 @@
       "id": "builder:peters-schiffbau",
       "type": "builder",
       "name": "Peters Schiffbau",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "website": "peters-werft.de",
+        "specialty": [
+          "newbuild/repair/conversion of merchant & special-purpose vessels and megayachts up to 140m"
+        ],
+        "founded": 1871,
+        "notes": "Wewelsfleth, on the Elbe/Kiel Canal junction",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:picchiotti",
       "type": "builder",
       "name": "Picchiotti",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "picchiottiyachts.com",
+        "specialty": [
+          "custom/semi-custom motor superyachts up to 75m"
+        ],
+        "founded": 1575,
+        "notes": "1575 is the shipyard's own claimed founding date (Limite sull'Arno); now based in La Spezia, part of The Italian Sea Group",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:piriou",
       "type": "builder",
       "name": "Piriou",
-      "attrs": {}
+      "attrs": {
+        "country": "France",
+        "website": "piriou.com",
+        "specialty": [
+          "commercial fishing/research/offshore-support vessels",
+          "naval/patrol vessels",
+          "recently added explorer yachts"
+        ],
+        "founded": 1965,
+        "notes": "Concarneau",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:platinum-marine",
       "type": "builder",
       "name": "Platinum Marine",
-      "attrs": {}
+      "attrs": {
+        "country": "Canada",
+        "website": "platinummarine.ca",
+        "specialty": [
+          "custom recreational yacht construction & refit (incl. Crescent Custom Yachts",
+          "Platinum Marine Refit",
+          "Tactical Custom Boats)"
+        ],
+        "notes": "Vancouver, BC. Founding year not found",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:platinum-yachts",
       "type": "builder",
       "name": "Platinum Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "UAE",
+        "specialty": [
+          "superyacht construction (built 162m M/Y Dubai",
+          "delivered 2006)"
+        ],
+        "notes": "Jebel Ali. [note: distinct company/node from \"Platinum Marine\" (Canada) above, not a collision]. Only related live domain found (pym.ae) is a separate yacht-management company, not confirmed as the builder's own site, so left blank",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:princess",
@@ -1479,31 +2174,92 @@
       "id": "builder:profab-engineering",
       "type": "builder",
       "name": "Profab Engineering",
-      "attrs": {}
+      "attrs": {
+        "country": "New Zealand",
+        "website": "profabengineering.co.nz",
+        "specialty": [
+          "aluminium catamaran/superyacht construction (e.g. 39m tri-deck cat \"The Beast\"",
+          "2019)"
+        ],
+        "notes": "Palmerston North. [note: NOT South Africa — several unrelated SA aluminium boat builders exist (T-Craft, Port Edward Boat Builders), but the \"Profab Engineering\"/\"Profab Central Engineering\" that builds superyachts per Boat International is the NZ company]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:proteksan-turquoise",
       "type": "builder",
       "name": "Proteksan-Turquoise",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "turquoiseyachts.com",
+        "specialty": [
+          "custom megayachts up to ~85m"
+        ],
+        "founded": 1997,
+        "notes": "Predecessor Proteksan and Turquoise brands trace to the 1970s; joint company formed 1997; renamed \"Turquoise Yachts\" after 2014 ownership change (Mohammed al-Barwani / Oceanco)",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:radez",
       "type": "builder",
       "name": "Radež",
-      "attrs": {}
+      "attrs": {
+        "country": "Croatia",
+        "website": "radez.hr",
+        "specialty": [
+          "steel/aluminum sailing & motor yachts up to 52m"
+        ],
+        "founded": 1954,
+        "notes": "Blato, Korčula Island",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:rauma",
       "type": "builder",
       "name": "Rauma",
-      "attrs": {}
+      "attrs": {
+        "country": "Finland",
+        "specialty": [
+          "large motor yacht/passenger-vessel construction (built 116m M/Y Turama",
+          "delivered 1990",
+          "as Rauma-Repola)"
+        ],
+        "notes": "[conflict: sources give different milestones for this shipbuilding lineage — \"modern shipbuilding\" from 1945, vs. Rauma-Repola Oy incorporated 1952 — and the yard as such no longer exists (merged into Finnyards → Aker Yards → STX Finland, closed 2013; site later restarted in 2014 as the unrelated-successor Rauma Marine Constructions). Left founded/website blank rather than guess which milestone is \"the\" founding]",
+        "conflicts": {
+          "founded": [
+            "sources give different milestones for this shipbuilding lineage — \"modern shipbuilding\" from 1945, vs. Rauma-Repola Oy incorporated 1952 — and the yard as such no longer exists (merged into Finnyards → Aker Yards → STX Finland, closed 2013; site later restarted in 2014 as the unrelated-successor Rauma Marine Constructions). Left founded/website blank rather than guess which milestone is \"the\" founding"
+          ]
+        },
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:rayburn",
       "type": "builder",
       "name": "Rayburn",
-      "attrs": {}
+      "attrs": {
+        "country": "Canada",
+        "website": "rayburnyachts.com",
+        "specialty": [
+          "semi-custom/custom motor yachts",
+          "~60-100+ ft"
+        ],
+        "founded": 1991,
+        "notes": "Mission, British Columbia; founders Ron & Paul Rayburn",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:riva",
@@ -1601,7 +2357,17 @@
       "id": "builder:samuda-bros",
       "type": "builder",
       "name": "Samuda Bros",
-      "attrs": {}
+      "attrs": {
+        "country": "United Kingdom",
+        "specialty": [
+          "iron/steel warships and steam packets"
+        ],
+        "founded": 1843,
+        "notes": "[note: the Samuda brothers' partnership dates to 1832 (marine engines); shipbuilding proper began 1843 at Cubitt Town, Isle of Dogs, London]. Firm closed 1893, defunct, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:sanlorenzo",
@@ -1626,19 +2392,50 @@
       "id": "builder:scheepswerf-gebr-van-der-werf",
       "type": "builder",
       "name": "Scheepswerf Gebr. van der Werf",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "specialty": [
+          "cargo ships / small coastal vessels"
+        ],
+        "founded": 1927,
+        "notes": "Deest, Gelderland; active 1927-1975, defunct, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:schichau-unterweser",
       "type": "builder",
       "name": "Schichau Unterweser",
-      "attrs": {}
+      "attrs": {
+        "country": "Germany",
+        "specialty": [
+          "shipbuilding (tugs",
+          "naval and merchant vessels)"
+        ],
+        "founded": 1972,
+        "notes": "Formed 1972 from merger of the Bremerhaven-relocated Schichau yard with the Unterweser yard; merged again with Seebeckwerft in 1988 (→ Schichau Seebeck); ultimate successor (SSW) closed 2009. Defunct, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:sfcn",
       "type": "builder",
       "name": "SFCN",
-      "attrs": {}
+      "attrs": {
+        "country": "France",
+        "specialty": [
+          "naval vessels (corvettes",
+          "landing ships) and custom sailing yachts (built 1991 3-masted M/Y Le Ponant)"
+        ],
+        "notes": "Villeneuve-la-Garenne; shipbuilding there ceased in 1992. Company founding year not confirmed; defunct at this site, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:shear-yachts",
@@ -1713,19 +2510,54 @@
       "id": "builder:tankoa",
       "type": "builder",
       "name": "Tankoa",
-      "attrs": {}
+      "attrs": {
+        "country": "Italy",
+        "website": "tankoa.it",
+        "specialty": [
+          "steel/aluminium luxury megayachts",
+          "45-100m"
+        ],
+        "founded": 2007,
+        "notes": "Genoa (Sestri Ponente); founded by Guido Orsi w/ ex-Baglietto management",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:tansu",
       "type": "builder",
       "name": "Tansu",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "rizatansu.com",
+        "specialty": [
+          "custom",
+          "military-inspired explorer/expedition superyachts"
+        ],
+        "founded": 1996,
+        "notes": "Istanbul; founder Riza Tansu. [note: no dedicated \"tansuyachts.com\" was found live; the contact domain currently associated with the brand is rizatansu.com]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:tenix-defence",
       "type": "builder",
       "name": "Tenix Defence",
-      "attrs": {}
+      "attrs": {
+        "country": "Australia",
+        "specialty": [
+          "naval/defense shipbuilding (frigates",
+          "patrol vessels)"
+        ],
+        "founded": 1997,
+        "notes": "Formed 1997 from Transfield's defense arm; acquired by BAE Systems 2008 and no longer exists independently. Defunct, no website",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:trinity-yachts",
@@ -1787,7 +2619,18 @@
       "id": "builder:van-der-graaf",
       "type": "builder",
       "name": "Van der Graaf",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "website": "graafship.com",
+        "specialty": [
+          "sailing-yacht hulls/superstructures up to 65m",
+          "refit & repair"
+        ],
+        "notes": "[note: founded \"in the 1980s\" per sources but no precise bare year found]. Rebranded as Graafship in the 1990s; now based in Dordrecht",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:vard",
@@ -1877,13 +2720,34 @@
       "id": "builder:vuijk-scheepswerven",
       "type": "builder",
       "name": "Vuijk Scheepswerven",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "specialty": [
+          "ships / dredging equipment (built classic M/Y Sherakhan",
+          "1966)"
+        ],
+        "founded": 1872,
+        "notes": "Capelle aan den IJssel; active 1872-1979, defunct, no website. [SUSPECTED DUPLICATE: see \"Vuyk en Zonen\" below]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:vuyk-en-zonen",
       "type": "builder",
       "name": "Vuyk en Zonen",
-      "attrs": {}
+      "attrs": {
+        "country": "Netherlands",
+        "specialty": [
+          "ships / dredging equipment"
+        ],
+        "founded": 1872,
+        "notes": "Capelle aan den IJssel; active 1872-1979, defunct, no website. [SUSPECTED DUPLICATE of \"Vuijk Scheepswerven\" above — both appear to be the same historic yard (\"A. Vuijk & Zonen's Scheepswerven\" / \"A. Vuyk & Zonen\"), just two different transliterations of the family name (Vuijk/Vuyk) that ended up as separate graph nodes. Do not merge — flagging only]",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:wally",
@@ -1908,7 +2772,18 @@
       "id": "builder:warren-yachts",
       "type": "builder",
       "name": "Warren Yachts",
-      "attrs": {}
+      "attrs": {
+        "country": "Australia",
+        "website": "warrenyachts.com",
+        "specialty": [
+          "high-performance sport/superyachts",
+          "~23-37m (75-144ft)"
+        ],
+        "notes": "Hemmant, Queensland; founder Dave Warren, early 1980s (no precise bare year found); sold to Shipworks Group 2003",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:westport-yachts",
@@ -1939,13 +2814,35 @@
       "id": "builder:yachtley",
       "type": "builder",
       "name": "Yachtley",
-      "attrs": {}
+      "attrs": {
+        "country": "Turkey",
+        "website": "yachtley.com",
+        "specialty": [
+          "superyacht new-build and refit",
+          "50-160m"
+        ],
+        "founded": 2005,
+        "notes": "Kocaeli Free Zone; owned by Fal Holding (Saudi Arabia)",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "builder:yachtsourcing",
       "type": "builder",
       "name": "Yachtsourcing",
-      "attrs": {}
+      "attrs": {
+        "country": "Indonesia",
+        "website": "yachtsourcing.com",
+        "specialty": [
+          "custom phinisi/sailing yacht construction and refits"
+        ],
+        "notes": "Bali-based; works with Indonesian phinisi craftsmen. Founding year not found",
+        "provenance": [
+          "99_Global_Builder_Enrichment_Round8.md"
+        ]
+      }
     },
     {
       "id": "club:700-yacht-club",

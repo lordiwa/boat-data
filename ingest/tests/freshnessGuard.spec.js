@@ -99,6 +99,30 @@ describe('compareGraphs — pure synthetic comparisons', () => {
     expect(result.divergentEdgeKeys).toEqual([]);
     expect(result.isClean).toBe(true);
   });
+
+  // TASK-026 (Round 8) residual (6): the guard previously only compared each
+  // node's `attrs` — a stale committed `name` or `type` (e.g. left over from
+  // a graphCleanup retype that a later code change altered, or a hand-edit
+  // slipping past review) sailed through undetected.
+  it('flags a node whose NAME differs between fresh and committed, even when attrs are identical', () => {
+    const fresh = graph([{ id: 'builder:a', type: 'builder', name: 'A', attrs: {} }], []);
+    const committed = graph([{ id: 'builder:a', type: 'builder', name: 'A (stale name)', attrs: {} }], []);
+
+    const result = compareGraphs(fresh, committed);
+
+    expect(result.divergentNodeIds).toEqual(['builder:a']);
+    expect(result.isClean).toBe(false);
+  });
+
+  it('flags a node whose TYPE differs between fresh and committed, even when attrs are identical', () => {
+    const fresh = graph([{ id: 'x:a', type: 'company', name: 'A', attrs: {} }], []);
+    const committed = graph([{ id: 'x:a', type: 'builder', name: 'A', attrs: {} }], []);
+
+    const result = compareGraphs(fresh, committed);
+
+    expect(result.divergentNodeIds).toEqual(['x:a']);
+    expect(result.isClean).toBe(false);
+  });
 });
 
 // --- Real-corpus integration: extends TASK-024's node-only freshness guard

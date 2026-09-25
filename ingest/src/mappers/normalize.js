@@ -312,6 +312,106 @@ export function appendProvenance(provenance, sourceFile) {
   return existing.includes(sourceFile) ? existing : [...existing, sourceFile];
 }
 
+// TASK-026 (Round 8): 'founded' must be a bare 4-digit year — the same
+// recurring numeric-cell bug class that previously turned "400,000" into
+// 400 (comma adjacency, shipyardMapper.js's tonnage fix) and "V8" into
+// power_hp=8 (letter adjacency, engineModelMapper.js's fix), now applied to
+// a new field. Deliberately its OWN, stricter parser (not parseYear/
+// parseHistoricalYear above, both of which tolerate a 4-digit run embedded
+// in a longer string like "2005/2024" or "1849 (rebuilt 1920)") — a
+// founding-year cell that carries an estimate/range marker ("c. 1930",
+// "~1900", "1983-1988") is rejected outright (null) rather than guessed at,
+// per knowledge/99's own curation rule 3 ("where sources gave a range or a
+// 'c.' estimate, left empty — must not be 'helpfully' filled by the
+// mapper").
+const FOUNDED_ESTIMATE_MARKER_RE = /\b(c\.?|circa|est\.?|approx\.?)\b|~/i;
+const FOUNDED_RANGE_MARKER_RE = /\d\s*[-–—]\s*\d/;
+// No digit OR letter immediately adjacent on either side — the same
+// lookbehind/lookahead lesson as yachtSpecMapper.js's NUMBER_RE, extended
+// to also reject digit-adjacency so a comma-stripped "400,000" (->
+// "400000", one continuous 6-digit run) never matches: none of its 4-digit
+// substrings are bounded by a non-digit on both sides.
+const FOUNDED_STRICT_RE = /(?<![a-zA-Z0-9])(\d{4})(?![a-zA-Z0-9])/;
+// A deliberately generous floor: real corpus data ranges 1575 (Picchiotti)
+// to the present, and 1200 is well before any real shipyard in this
+// corpus, so a genuine old-yard year is never rejected while obvious
+// garbage (a stray 2-digit fragment, a future/typo year) still is.
+const FOUNDED_MIN_YEAR = 1200;
+
+/**
+ * Parses a "founded" cell into a plain 4-digit year number, or null when
+ * the cell is empty/unknown, carries an estimate/range marker, or falls
+ * outside a plausible shipyard-founding window (see module comment above
+ * for the full recurring-bug citation). Never guesses: a cell that can't
+ * be reduced to exactly one bare year is left absent rather than filled.
+ */
+export function parseFoundedYear(raw) {
+  if (isEmptyValue(raw)) return null;
+  const original = String(raw).trim();
+  if (FOUNDED_ESTIMATE_MARKER_RE.test(original)) return null;
+  if (FOUNDED_RANGE_MARKER_RE.test(original)) return null;
+
+  const cleaned = original.replace(/,/g, '');
+  const m = cleaned.match(FOUNDED_STRICT_RE);
+  if (!m) return null;
+
+  const year = parseInt(m[1], 10);
+  const maxYear = new Date().getFullYear();
+  if (year < FOUNDED_MIN_YEAR || year > maxYear) return null;
+  return year;
+}
+
+// TASK-026 (Round 8) hygiene: research/round8/05_company_edges_and_hygiene.md
+// Finding 2 — 198 of 965 `website` attrs graph-wide are polluted with a
+// markdown-link wrapper, a URL path, an http(s):// scheme, parenthetical
+// "not found" prose, or (3 cases) an email address, instead of a bare
+// domain. Reduces a raw cell to its bare domain, or returns null when it
+// can't be (an email, unparseable prose, an empty cell) — used both by new
+// mappers writing a `website` attr for the first time and by
+// websiteHygiene.js's retrofit sweep over already-ingested nodes.
+const MARKDOWN_LINK_RE = /^\[([^\]]*)\]\(([^)]*)\)$/;
+const BARE_DOMAIN_RE = /^[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+export function normalizeWebsite(raw) {
+  if (isEmptyValue(raw)) return null;
+  let s = String(raw).trim();
+  if (s.includes('@')) return null; // an email address, not a website.
+
+  const linkMatch = s.match(MARKDOWN_LINK_RE);
+  if (linkMatch) {
+    // Prefer the URL half of a markdown link; fall back to its link text
+    // when the URL half is itself empty/unusable.
+    s = linkMatch[2].trim() || linkMatch[1].trim();
+  }
+  if (s.includes('@')) return null;
+
+  s = s.replace(/^https?:\/\//i, '').replace(/^\/\/+/, '');
+  s = s.split('/')[0].trim(); // drop a trailing URL path/query.
+  s = s.replace(/[)\s]+$/, ''); // stray trailing punctuation left by a markdown wrapper.
+
+  if (!BARE_DOMAIN_RE.test(s)) return null; // not a plausible bare domain.
+  return s;
+}
+
+// TASK-026 (Round 8) hygiene, Finding 3: ~27 attrs across several yacht
+// fields (class_society, imo, flag — website is handled by
+// normalizeWebsite above, which already nulls this same prose shape)
+// record a "we looked and didn't find one" SENTINEL as if it were a real
+// value, inflating the completeness scorer's coverage count. Deliberately
+// narrow: a genuine status value that happens to carry its OWN parenthetical
+// (e.g. "defunct (wound down April 2016)") must NOT match — "defunct" is a
+// real fact, not an absence sentinel.
+const ABSENCE_BASE_TOKEN_RE = /^(n\/a\.?|na|unknown|none|[—-])\s*\(/i;
+const BARE_NOT_FOUND_RE = /^\([^)]*\)$/;
+
+export function isAbsenceSentinel(raw) {
+  if (isEmptyValue(raw)) return false; // already-empty is handled elsewhere, not this function's job.
+  const s = String(raw).trim();
+  if (ABSENCE_BASE_TOKEN_RE.test(s)) return true;
+  if (BARE_NOT_FOUND_RE.test(s) && /not found/i.test(s)) return true;
+  return false;
+}
+
 /**
  * Merges `incoming` field values onto `existingAttrs` for the simpler
  * TASK-004 entity mappers (club/marina/company/engine): first non-empty

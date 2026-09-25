@@ -17,6 +17,9 @@ import {
   parseMoney,
   parseIntSafe,
   parseYear,
+  parseFoundedYear,
+  normalizeWebsite,
+  isAbsenceSentinel,
 } from '../src/mappers/normalize.js';
 
 describe('stripDiacritics', () => {
@@ -272,6 +275,119 @@ describe('parseYear', () => {
   });
 });
 
+// TASK-026 (Round 8): 'founded' is a bare 4-digit year — the same recurring
+// numeric-cell bug class that previously turned "400,000" into 400 (comma
+// adjacency) and "V8" into power_hp=8 (letter adjacency), applied to a new
+// field. Pinned exact values are drawn straight from knowledge/99's own
+// table (Picchiotti 1575, Absolute 2002, Neel 2010, ...).
+describe('parseFoundedYear', () => {
+  it('parses a bare 4-digit year (pinned: Absolute founded 2002)', () => {
+    expect(parseFoundedYear('2002')).toBe(2002);
+  });
+
+  it('parses the earliest real corpus value (pinned: Picchiotti founded 1575)', () => {
+    expect(parseFoundedYear('1575')).toBe(1575);
+  });
+
+  it('parses the most recent real corpus value (pinned: AK Yacht/Akyacht founded 2015)', () => {
+    expect(parseFoundedYear('2015')).toBe(2015);
+  });
+
+  it('strips a thousands-separator comma before matching, and REJECTS the artifact rather than extracting a wrong 4-digit substring (the "400,000" -> 400 bug class)', () => {
+    expect(parseFoundedYear('400,000')).toBeNull();
+  });
+
+  it('rejects a digit run immediately adjacent to a letter (the "V8" -> 8 bug class)', () => {
+    expect(parseFoundedYear('F1997')).toBeNull();
+    expect(parseFoundedYear('1997F')).toBeNull();
+  });
+
+  it('rejects a "c." / circa / approx estimate marker rather than guessing a value (knowledge/99 curation rule 3)', () => {
+    expect(parseFoundedYear('c. 1930')).toBeNull();
+    expect(parseFoundedYear('circa 1930')).toBeNull();
+    expect(parseFoundedYear('~1900')).toBeNull();
+  });
+
+  it('rejects an explicit year range rather than picking one side', () => {
+    expect(parseFoundedYear('1983-1988')).toBeNull();
+  });
+
+  it('range-locks to a plausible shipyard-founding window, rejecting an implausible year', () => {
+    expect(parseFoundedYear('0999')).toBeNull();
+    expect(parseFoundedYear('3000')).toBeNull();
+  });
+
+  it('returns null for empty/unknown cells (never-guess: empty beats invented)', () => {
+    expect(parseFoundedYear('')).toBeNull();
+    expect(parseFoundedYear('N/A')).toBeNull();
+  });
+});
+
+// TASK-026 (Round 8) hygiene: research/round8/05_company_edges_and_hygiene.md
+// Finding 2 (pollution: markdown link, URL path, scheme, email) + Finding 3
+// (absence sentinels stored as a present value).
+describe('normalizeWebsite', () => {
+  it('leaves an already-bare domain untouched', () => {
+    expect(normalizeWebsite('absoluteyachts.com')).toBe('absoluteyachts.com');
+  });
+
+  it('strips an http(s):// scheme and a trailing slash', () => {
+    expect(normalizeWebsite('https://eyc.jp/')).toBe('eyc.jp');
+    expect(normalizeWebsite('http://www.example.com')).toBe('www.example.com');
+  });
+
+  it('unwraps a markdown link, preferring the URL half', () => {
+    expect(normalizeWebsite('[www.ayc.ca](http://www.ayc.ca/)')).toBe('www.ayc.ca');
+  });
+
+  it('strips a trailing URL path', () => {
+    expect(normalizeWebsite('aci-marinas.com/marina/aci-dubrovnik')).toBe('aci-marinas.com');
+  });
+
+  it('rejects a value containing an email address', () => {
+    expect(normalizeWebsite('info@abys-yachting.com')).toBeNull();
+    expect(normalizeWebsite('marie@yacht-zoo.com')).toBeNull();
+  });
+
+  it('collapses "two domains in one cell" to the first', () => {
+    expect(normalizeWebsite('marinaibiza.com / marinaportibiza.com')).toBe('marinaibiza.com');
+  });
+
+  it('returns null for parenthetical "not found" prose rather than storing it as a website', () => {
+    expect(normalizeWebsite('— (site defunct)')).toBeNull();
+    expect(normalizeWebsite('(not found)')).toBeNull();
+  });
+
+  it('returns null for empty/unknown cells', () => {
+    expect(normalizeWebsite('')).toBeNull();
+    expect(normalizeWebsite('N/A')).toBeNull();
+  });
+});
+
+describe('isAbsenceSentinel', () => {
+  it('flags "n/a (not found)"', () => {
+    expect(isAbsenceSentinel('n/a (not found)')).toBe(true);
+  });
+
+  it('flags a bare "(not found)"', () => {
+    expect(isAbsenceSentinel('(not found)')).toBe(true);
+  });
+
+  it('flags a dash + explanatory parenthetical', () => {
+    expect(isAbsenceSentinel('— (state-run, no single official site found)')).toBe(true);
+    expect(isAbsenceSentinel('— (site defunct)')).toBe(true);
+  });
+
+  it('does NOT flag a real status value that happens to carry its own parenthetical (defunct is a real status, not an absence sentinel)', () => {
+    expect(isAbsenceSentinel('defunct (wound down April 2016)')).toBe(false);
+  });
+
+  it('does NOT flag a plain, present value', () => {
+    expect(isAbsenceSentinel('Panama')).toBe(false);
+    expect(isAbsenceSentinel('9855276')).toBe(false);
+  });
+});
+
 describe('module importability', () => {
   it('exposes the documented named exports', async () => {
     const mod = await import('../src/mappers/normalize.js');
@@ -285,6 +401,9 @@ describe('module importability', () => {
       'parseMoney',
       'parseIntSafe',
       'parseYear',
+      'parseFoundedYear',
+      'normalizeWebsite',
+      'isAbsenceSentinel',
     ]) {
       expect(typeof mod[name]).toBe('function');
     }

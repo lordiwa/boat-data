@@ -127,9 +127,15 @@ export function ensureKnownPartBrandNodes(db) {
 export function linkPartBrands(db) {
   const parts = db.prepare("SELECT id, attrs_json FROM nodes WHERE type = 'part'").all();
   const candidates = db
-    .prepare("SELECT id, name FROM nodes WHERE type IN ('company', 'builder', 'engine') AND name IS NOT NULL")
+    .prepare("SELECT id, name, attrs_json FROM nodes WHERE type IN ('company', 'builder', 'engine') AND name IS NOT NULL")
     .all()
-    .filter((c) => c.name && c.name.trim().length >= 4);
+    .filter((c) => c.name && c.name.trim().length >= 4)
+    // TASK-026 (Round 8) residual (6): a placeholder-flagged node
+    // (attrs.placeholder === true — e.g. builder:custom) is not a real
+    // brand; excluding it here keeps a part description that happens to
+    // mention its generic name (unlikely today, but not impossible as the
+    // corpus grows) from ever resolving onto it.
+    .filter((c) => !parseAttrsJson(c.attrs_json).placeholder);
 
   let edges = 0;
   let ambiguous = 0;

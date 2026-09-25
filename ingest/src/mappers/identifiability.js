@@ -208,6 +208,16 @@ function loadMeaningfulBuiltByYachtIds(db) {
   const meaningful = new Set();
   for (const { src, dst } of builtByEdges) {
     if (meaningful.has(src)) continue;
+    // TASK-026 (Round 8) residual (7): a built_by edge pointing at a
+    // builder id that doesn't actually exist in `nodes` (a dangling edge —
+    // e.g. left over from a merge/cleanup bug) is not identity evidence.
+    // Without this check, builderAttrsById.get(dst) returns undefined for
+    // such an id, isPlaceholderBuilder(dst, undefined) returns false (it's
+    // neither an EXPLICIT_PLACEHOLDER_BUILDER_ID nor attrs.placeholder ===
+    // true on a non-existent attrs object), and the edge was wrongly
+    // counted as "meaningful" — clearing Rule B's signal #2 for a yacht
+    // that has no real, resolvable builder at all.
+    if (!builderAttrsById.has(dst)) continue;
     if (!isPlaceholderBuilder(dst, builderAttrsById.get(dst))) meaningful.add(src);
   }
   return meaningful;

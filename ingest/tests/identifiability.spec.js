@@ -211,6 +211,30 @@ describe('classifyYachtIdentifiability — Rule B builder exclusions (AC2: build
   });
 });
 
+describe('classifyYachtIdentifiability — TASK-026 residual (7): dangling built_by edges are not identity evidence', () => {
+  it('does not count a built_by edge pointing at a NONEXISTENT builder id as a signal, even combined with year', () => {
+    upsertNode(db, { id: 'yacht:dangling', type: 'yacht', name: 'Dangling', attrs: { year: { value: 2015, raw: '2015' } } });
+    // Deliberately no upsertNode for 'builder:does-not-exist' — a dangling
+    // edge, same shape a merge/cleanup bug could leave behind.
+    upsertEdge(db, { src: 'yacht:dangling', rel: 'built_by', dst: 'builder:does-not-exist' });
+
+    classifyYachtIdentifiability(db);
+
+    // Only 1 real signal (year) — the dangling built_by edge must not count.
+    expect(getNode('yacht:dangling').attrs.identifiability).toBe('fragment');
+  });
+
+  it('still counts a built_by edge pointing at a builder id that DOES exist (regression guard against over-correcting)', () => {
+    upsertNode(db, { id: 'yacht:not-dangling', type: 'yacht', name: 'Not Dangling', attrs: { year: { value: 2015, raw: '2015' } } });
+    upsertNode(db, { id: 'builder:real-existing', type: 'builder', name: 'Real Existing' });
+    upsertEdge(db, { src: 'yacht:not-dangling', rel: 'built_by', dst: 'builder:real-existing' });
+
+    classifyYachtIdentifiability(db);
+
+    expect(getNode('yacht:not-dangling').attrs.identifiability).toBe('identifiable');
+  });
+});
+
 describe('classifyYachtIdentifiability — Rule B negative evidence (round5 skip lists)', () => {
   it('demotes a skip-listed name back to FRAGMENT even though it clears the base >=2 threshold via year + a real builder edge (the AQA/The Jackson case)', () => {
     upsertNode(db, { id: 'yacht:aqa', type: 'yacht', name: 'AQA', attrs: { year: { value: 2022, raw: '2022' } } });

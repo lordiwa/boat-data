@@ -64,7 +64,14 @@ export function compareGraphs(fresh, committed) {
   for (const [id, committedNode] of committedNodesById) {
     const freshNode = freshNodesById.get(id);
     if (!freshNode) continue;
-    if (!attrsEqual(freshNode.attrs, committedNode.attrs)) divergentNodeIds.push(id);
+    // TASK-026 (Round 8) residual (6): previously only `attrs` was
+    // compared — a stale committed `name` or `type` (e.g. left over from a
+    // graphCleanup retype whose logic later changed, or a hand-edit that
+    // slipped past review) sailed through undetected.
+    const attrsSame = attrsEqual(freshNode.attrs, committedNode.attrs);
+    const nameSame = freshNode.name === committedNode.name;
+    const typeSame = freshNode.type === committedNode.type;
+    if (!attrsSame || !nameSame || !typeSame) divergentNodeIds.push(id);
   }
   divergentNodeIds.sort();
 

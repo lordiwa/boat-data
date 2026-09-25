@@ -25,6 +25,7 @@ import { isEngineModelTable } from '../src/mappers/engineModelMapper.js';
 import { isPartTable } from '../src/mappers/partMapper.js';
 import { isSizeClassTable } from '../src/mappers/sizeClassMapper.js';
 import { isBuilderEnrichmentTable } from '../src/mappers/builderEnrichmentMapper.js';
+import { isBuilderEnrichmentRound8Table } from '../src/mappers/builderEnrichmentRound8Mapper.js';
 import { isDesignerTable } from '../src/mappers/designerMapper.js';
 import { isYachtSpecTable } from '../src/mappers/yachtSpecMapper.js';
 import { isMarinaEnrichmentTable } from '../src/mappers/marinaMapper.js';
@@ -52,6 +53,7 @@ const GUARDS = {
   part: isPartTable,
   sizeClass: isSizeClassTable,
   builderEnrichment: isBuilderEnrichmentTable,
+  builderEnrichmentRound8: isBuilderEnrichmentRound8Table,
   designer: isDesignerTable,
   yachtSpec: isYachtSpecTable,
   marinaEnrichment: isMarinaEnrichmentTable,
@@ -117,6 +119,11 @@ const FIXTURES = {
 | Builder | Country | City | Founded | Specialty | Status | Parent Company | Website | Notes |
 |---|---|---|---|---|---|---|---|---|
 | Lurssen | Germany | Bremen-Vegesack | 1875 | custom steel/aluminium megayachts | active | family-owned | lurssen.com | 51 yachts in graph |
+`,
+  builderEnrichmentRound8: `
+| Builder | Country | Founded | Website | Specialty | Notes |
+|---|---|---|---|---|---|
+| Absolute | Italy | 2002 | absoluteyachts.com | flybridge/coupé/navetta motor yachts; composite construction | Founded by Sergio Maggi & Marcello Bè in Podenzano (Piacenza). |
 `,
   designer: `
 | Designer | Country | City | Founded | Discipline | Notable Yachts | Status | Website | Notes |

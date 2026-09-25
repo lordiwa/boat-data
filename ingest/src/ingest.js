@@ -121,6 +121,10 @@ import { mapEngineModelTables, isEngineModelTable } from './mappers/engineModelM
 import { mapPartTables, isPartTable } from './mappers/partMapper.js';
 import { mapSizeClassTables, isSizeClassTable } from './mappers/sizeClassMapper.js';
 import { mapBuilderEnrichmentTables, isBuilderEnrichmentTable } from './mappers/builderEnrichmentMapper.js';
+import {
+  mapBuilderEnrichmentRound8Tables,
+  isBuilderEnrichmentRound8Table,
+} from './mappers/builderEnrichmentRound8Mapper.js';
 import { mapDesignerTables, isDesignerTable } from './mappers/designerMapper.js';
 import { mapYachtSpecTables, isYachtSpecTable } from './mappers/yachtSpecMapper.js';
 import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/personMapper.js';
@@ -222,6 +226,7 @@ function routeTables(tables) {
     part: [],
     sizeClass: [],
     builderEnrichment: [],
+    builderEnrichmentRound8: [],
     designer: [],
     yachtSpec: [],
     marinaEnrichment: [],
@@ -242,6 +247,7 @@ function routeTables(tables) {
     else if (isPartTable(table)) buckets.part.push(table);
     else if (isSizeClassTable(table)) buckets.sizeClass.push(table);
     else if (isBuilderEnrichmentTable(table)) buckets.builderEnrichment.push(table);
+    else if (isBuilderEnrichmentRound8Table(table)) buckets.builderEnrichmentRound8.push(table);
     else if (isDesignerTable(table)) buckets.designer.push(table);
     else if (isYachtSpecTable(table)) buckets.yachtSpec.push(table);
     else if (isMarinaEnrichmentTable(table)) buckets.marinaEnrichment.push(table);
@@ -434,6 +440,9 @@ export function runIngest() {
       poweredBy: 0,
       builderEnrichmentMatched: 0,
       builderEnrichmentCreated: 0,
+      builderEnrichmentRound8Matched: 0,
+      builderEnrichmentRound8Unresolved: 0,
+      builderEnrichmentRound8PlaceholderSkipped: 0,
       designedBy: 0,
       yachtSpecMatched: 0,
       yachtSpecUnresolved: 0,
@@ -539,6 +548,15 @@ export function runIngest() {
       totals.builderEnrichmentMatched += builderEnrichmentResult.matched;
       totals.builderEnrichmentCreated += builderEnrichmentResult.created;
       totals.edges += builderEnrichmentResult.edges;
+
+      // TASK-026 (Round 8): resolves onto EXISTING builder nodes ONLY —
+      // never mints (see builderEnrichmentRound8Mapper.js's own module
+      // header), so its matched count is folded into totals.builders via
+      // its own counter, not the shared `builders` total.
+      const builderEnrichmentRound8Result = mapBuilderEnrichmentRound8Tables(db, buckets.builderEnrichmentRound8, fileName);
+      totals.builderEnrichmentRound8Matched += builderEnrichmentRound8Result.matched;
+      totals.builderEnrichmentRound8Unresolved += builderEnrichmentRound8Result.unresolved;
+      totals.builderEnrichmentRound8PlaceholderSkipped += builderEnrichmentRound8Result.placeholderSkipped;
 
       const designerResult = mapDesignerTables(db, buckets.designer, fileName);
       totals.designers += designerResult.matched + designerResult.created;
