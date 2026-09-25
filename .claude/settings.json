@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "node \"C:\\Users\\RafaelMatovelle\\.claude\\plugins\\cache\\hivemind-marketplace\\hivemind\\0.18.0\\context-monitor\\statusline.mjs\""
+    "command": "node \"C:\\Users\\RafaelMatovelle\\.claude\\plugins\\cache\\hivemind-marketplace\\hivemind\\0.23.0\\context-monitor\\statusline.mjs\""
   },
   "hooks": {
     "Stop": [
@@ -10,7 +10,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Fun\\hivemind\\hivemind\\context-monitor\\stop-hook.mjs\""
+            "command": "node \"C:\\Users\\RafaelMatovelle\\.claude\\plugins\\cache\\hivemind-marketplace\\hivemind\\0.23.0\\context-monitor\\stop-hook.mjs\""
           }
         ]
       }
@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Fun\\hivemind\\hivemind\\context-monitor\\session-start.mjs\""
+            "command": "node \"C:\\Users\\RafaelMatovelle\\.claude\\plugins\\cache\\hivemind-marketplace\\hivemind\\0.23.0\\context-monitor\\session-start.mjs\""
           }
         ]
       }
