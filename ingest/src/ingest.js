@@ -133,6 +133,7 @@ import { classifyYachtIdentifiability } from './mappers/identifiability.js';
 import { applyRegionCanonicalization } from './mappers/regionCanonicalization.js';
 import { mintOligarchYachtNodes, linkOligarchYachtOwners } from './mappers/oligarchYachtMapper.js';
 import { ensureKnownPartBrandNodes, linkPartBrands } from './mappers/partBrandLinker.js';
+import { applyWebsiteHygiene } from './mappers/websiteHygiene.js';
 import { linkYachtSizeClasses } from './mappers/sizeClassLinker.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
@@ -639,6 +640,18 @@ export function runIngest() {
     // graphCleanup.js's own module header for the full merge/reclassify/
     // remove/flag ledger). Idempotent; safe to run on every ingest.
     applyGraphCleanup(db);
+
+    // TASK-026 (Round 8), lane C hygiene: website normalization + absence-
+    // sentinel clearing (see websiteHygiene.js's own module header) — runs
+    // after applyGraphCleanup() so it sees every node's final, post-merge
+    // attrs. Order relative to the oligarch/part-brand/size-class hooks
+    // below doesn't matter (none of them touch website/class_society/imo/
+    // flag attrs).
+    const websiteHygieneResult = applyWebsiteHygiene(db);
+    console.log(
+      `[ingest] website hygiene: ${websiteHygieneResult.websitesNormalized} normalized, ` +
+        `${websiteHygieneResult.websitesCleared} cleared, ${websiteHygieneResult.sentinelsCleared} sentinels cleared`
+    );
 
     // TASK-025 (Round 7): oligarch yacht owned_by edges — runs AFTER
     // applyGraphCleanup() (person nodes are stable by then; none of the 7
