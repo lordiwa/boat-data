@@ -1,0 +1,42 @@
+{
+  "key": "TASK-026",
+  "title": "Round 8: builder attribute enrichment + company edge connection",
+  "description": "Round 8 of the data-enrichment loop, resuming from the 7.36/10 identifiable-only baseline after the human lifted the 2026-07-11 suspension on 2026-09-25.\n\nTwo levers, both named in TASK-025 close-out gap plan:\n(1) BUILDER ATTRS — biggest single lever. 160 builders at 42.66% attr coverage, weight 15. The gap is bimodal: 60 builders complete (4/4), 11 missing only website, and 89 with ZERO of country/founded/website/specialty. Three of those 89 are PLACEHOLDER nodes (Custom 68 yachts, Various 38 yachts, Custom (rebuild) 1 yacht) which must NEVER be enriched — they are not real yards. That leaves 86 real long-tail yards (1-2 yachts each) plus 11 website-only fixes.\n(2) COMPANY EDGES — company at 35.93% edge coverage, weight 10. Investigate connection/merge opportunities.\n\nAlso folds in the still-open TASK-025 Round 8 residuals (4), (5), (6), (7).\n\nExact-name target lists are pre-generated in research/round8/TARGETS_*.md so researchers join on the EXACT graph name and spend zero web budget confirming existence (loop process rule 6).",
+  "acceptance_criteria": [
+    "Builder attr coverage rises from 42.66% to >=85%, measured by `cd ingest && npm run score`",
+    "The three placeholder builders (Custom, Various, Custom (rebuild)) are NOT enriched and are explicitly excluded in the mapper with a test proving it",
+    "Every enriched builder attr is grounded in a cited source in research/round8/ and carried into a curated knowledge/NN_*.md doc; nothing is minted from thin air (never-guess rule: empty beats invented)",
+    "Company edge coverage improves from 35.93%, or a written finding explains why the remaining gap is not closable without inventing relationships",
+    "TASK-025 residual (7) is fixed: loadMeaningfulBuiltByYachtIds must not count built_by edges pointing at NONEXISTENT builder ids as a builder identifiability signal, with a regression test using a dangling-edge fixture",
+    "TASK-025 residual (6) is fixed: partBrandLinker excludes placeholder builder nodes; freshnessGuard also compares node name and type",
+    "New numeric/date cells (founded years) pass range locks and pinned exact-value tests — founded must be a plausible 4-digit year, rejecting comma/letter-adjacency artifacts per the recurring-bug rule",
+    "Full suites green: ingest + app tests + typecheck; both freshness guards prove committed graph.json == clean rebuild",
+    "Target metric (identifiable-only) does not regress below 7.36"
+  ],
+  "status": "todo",
+  "priority": "high",
+  "labels": [
+    "data",
+    "enrichment",
+    "round-8",
+    "builder",
+    "company"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-025"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-09-25T15:47:00.840Z",
+      "body": "Scoped 2026-09-25 against a freshly measured baseline (7.03 all-nodes / 7.36 identifiable-only; builder 42.66% attrs / 99.38% edges, company 61.01% attrs / 35.93% edges). Pre-generated exact-name target lists: research/round8/TARGETS_builders_A.md (43 yards), _B.md (43 yards), _websiteonly.md (11). Placeholder exclusion is an AC, not a nicety — Custom/Various carry 106 yachts between them and enriching them would fabricate a builder identity for every one. Site is live at https://boat-site-e66fb.web.app; redeploy is zero-downtime, so data work cannot disturb it and nothing ships until we explicitly redeploy."
+    }
+  ],
+  "created_at": "2026-09-25T15:47:00.840Z",
+  "updated_at": "2026-09-25T15:47:00.840Z",
+  "jira_key": null,
+  "verification_tier": "tdd"
+}

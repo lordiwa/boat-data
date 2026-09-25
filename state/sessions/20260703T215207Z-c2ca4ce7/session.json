@@ -2,11 +2,11 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-09-25T15:15:01.670Z",
-  "active_task": null,
-  "workflow_step": "idle",
-  "next_action": "Session is ACTIVE but has no assigned work item — the human reopened it without picking a unit of work. The >=8.5 enrichment goal stays SUSPENDED; do NOT start Round 8 without a fresh, explicit go-ahead (R8 = builder attrs + company edges, R9 = marina attrs, both scoped verbatim in TASK-025 close-out). Candidate next moves, human to choose: (a) drive TASK-015 Firebase Hosting from in_review to closed; (b) un-suspend the loop and open the Round 8 ticket; (c) leave idle. Housekeeping from the pause is now DONE: research/, tasks/TASK-016..025.json, HANDOFF.md and the state bundle are committed, and main has been pushed to origin for the first time.",
-  "handoff_summary": "Session REOPENED 2026-09-25 after a 2.5-month pause. The autonomous data-enrichment loop delivered ten tickets (TASK-016..025), each closed on a green fresh-context review: shipyards/dry docks, engines+parts+size classes, WCAG 2.1 AA accessibility, builders/designers, yacht specs, persons/clubs, region canonicalization, R6 identifiability + dual scoring, Rule B re-baseline, and the R7 integration round. Final state: 4,278 nodes / 3,107 edges; 581 yachts (238 identifiable, 343 fragment); completeness 7.03/10 all-nodes and 7.36/10 on the honest identifiable-only target metric; 906 ingest + 142 app tests + typecheck green; both artifact-freshness guards prove the committed graph.json equals a clean rebuild. The >=8.5 loop goal remains SUSPENDED. Board is clear of the loop; TASK-015 (Firebase Hosting deployment) is the only non-done ticket, sitting at in_review from the pre-loop v1 backlog.",
+  "updated_at": "2026-09-25T15:47:58.290Z",
+  "active_task": "TASK-026",
+  "workflow_step": "research",
+  "next_action": "TASK-026 research phase: two researcher agents running in parallel on builder enrichment lanes A and B (86 real long-tail yards + 11 website-only), writing to research/round8/03_ and 04_. Orchestrator is doing the company-edge investigation locally. NEXT once lanes land: curate into a knowledge/NN_*.md doc, then spawn a FRESH developer (TDD tier) for the builderEnrichment mapper + the residual (6)/(7) fixes, then ingest -> score -> fresh-context reviewer. Redeploy to Firebase only after a green review — deploys are zero-downtime so the live site is unaffected by data work in the meantime.",
+  "handoff_summary": "Site is LIVE at https://boat-site-e66fb.web.app (TASK-015 closed 2026-09-25 — Firebase project boat-site-e66fb; live payload byte-identical to committed ingest/data/graph.json). All 25 prior tickets done. Enrichment loop RESUMED 2026-09-25 on fresh human go-ahead: the >=8.5 goal is un-suspended. TASK-026 (Round 8) is in research: builder attr enrichment (42.66% -> >=85% target, weight 15, biggest lever) + company edge connection (35.93%) + four still-open TASK-025 residuals (4,5,6,7). Baseline re-measured this session: 7.03 all-nodes / 7.36 identifiable-only.",
   "open_questions": [],
   "blockers": [],
   "decisions": [
@@ -20,22 +20,12 @@
     "2026-07-11: Round 7 = one integration ticket (TASK-025) from TASK-024 residuals + grounded backlog; oligarch-yacht minting (7 knowledge/95 names) explicitly sanctioned within TASK-025 only; famous-clubs minting deferred pending separate sanction; part/size_class edges derived only from existing canonical attrs (no invented data); gap plan: R8 builder attrs + company edges, R9 marina attrs",
     "2026-07-11: HUMAN GOAL CHANGE — 7.36 accepted as good for now; the >=8.5 standing loop goal is SUSPENDED. Finish TASK-025 (fix round -> round-2 review -> close), then PAUSE the session. Do not start Round 8 without a fresh go-ahead.",
     "2026-09-25: Human reopened the paused session and authorized the two pause-era housekeeping items — commit the untracked ticket/research/handoff/state files, and push main to origin (first push; the loop-era auto_push_after_close=false rule applied to automatic pushes, this was an explicit human instruction). Enrichment loop goal stays suspended; no Round 8 sanction given.",
-    "2026-09-25: hivemind plugin updated 0.18.0 -> 0.23.0; .claude/workflows/ already carried deep-research.js and deep-review.js so apply-workflows added nothing. Stale context-monitor paths in .claude/settings.json now self-heal via the 0.23.0 plugin-level SessionStart repin hook."
+    "2026-09-25: hivemind plugin updated 0.18.0 -> 0.23.0; .claude/workflows/ already carried deep-research.js and deep-review.js so apply-workflows added nothing. Stale context-monitor paths in .claude/settings.json now self-heal via the 0.23.0 plugin-level SessionStart repin hook.",
+    "2026-09-25: HUMAN GOAL CHANGE — enrichment loop RESUMED; the >=8.5 target is un-suspended after being paused since 2026-07-11 at 7.36. Round 8 sanctioned as TASK-026.",
+    "2026-09-25: Placeholder builder nodes (Custom 68 yachts, Various 38 yachts, Custom (rebuild) 1) are NEVER to be enriched — enriching them would fabricate a builder identity for 107 yachts. Excluded from Round 8 targets and made an explicit AC with a required test. Whether they should also leave the score DENOMINATOR is a metric change and must land as a separate labeled re-baseline commit, never inside a data round (process rule 5).",
+    "2026-09-25: TASK-015 closed — deployed to Firebase project boat-site-e66fb. Fixed two blockers: .firebaserc pinned a placeholder alias, and firebase-tools was not installed anywhere so the documented one-command deploy was not satisfiable on a clean clone (now an app/ devDependency)."
   ],
-  "subagent_results": [
-    {
-      "agent": "researcher",
-      "task": "TASK-025 lane A: 23 weakest-tier yacht specs",
-      "at": "2026-07-11T11:30:00.000Z",
-      "summary": "Wrote research/round7/01_weakest_tier_yacht_specs.md (format-compatible with knowledge/97). 19/23 confirmed with >=1 spec. Bonus grounded merge: Ahpo == Lady Jorgia (sold May 2023, renamed). Gigia delivery year is 2017 (as Areti), not 2005; 2024 refit real. 3 unresolved corpus-confusion nodes whose stored specs match no real vessel: Nomad (30m vs real 69.5m Oceanfast), Relentless (34m vs real 43-44m Trinity), Sahana (75m Feadship 2025 nonexistent; likely 36m Oceanfast Sahana x Feadship Hasna confusion) — route to conflicts/notes, do NOT enrich. Samsara-Benetti confirmed misattribution (real = Oceanco 88.5m, ex-Infinity/Cloud 9). Mansion Yacht: per-model estimate only."
-    },
-    {
-      "agent": "researcher",
-      "task": "TASK-025 lane B: dupe pairs + LOA confirms + carry-over",
-      "at": "2026-07-11T11:25:00.000Z",
-      "summary": "Wrote research/round7/02_dupe_pairs_loa_carryover.md. MERGE x4 with citations: samsara->samsara-oceanco (survivor samsara-oceanco); moka-overmarine->moka (Overmarine claim debunked, distinct 49.9m Mangusta Moka exists); that-s-amore-grandi-yatcilik->that-s-amore; dream-olympic + dream-olympic-yacht -> existing canonical yacht:dream (both members reference orphan builder ids). STAY-SPLIT x2: sophia 108m claim likely fabricated (flag conflicts.identity, keep 97m Feadship sophia-feadship); Olympic Marine (marina:olympic-marine-lavrion) vs builder:olympic-yacht-services related-but-distinct. LOA CONFIRMED x5: Rivale 56 = 17.27; Sherpa 60 = 18.67 (stored 18.28 was Hull Length spec, real correction); Manhattan 65 = 21.08; Navetta 68 = 20.53 (Absolute, builder mis-attribution flagged); Yamas = 20.24 (Ferretti 670). Carry-over: only Lady Beth uncarried, prose-only 54.86m Newcastle Marine — follow-up addendum research pass dispatched."
-    }
-  ],
+  "subagent_results": [],
   "pending_human_confirmation": null,
   "mode": "harness",
   "loop_goal": {
