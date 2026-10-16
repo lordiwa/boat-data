@@ -1,3 +1,50 @@
+# HANDOFF — 2026-10-16 session snapshot (context-window pause before /clear)
+
+> **Authoritative for resume.** Everything below this block supersedes the older 2026-07-11
+> snapshot kept further down. On resume: read this section first, then `state/session.json`
+> per CLAUDE.md RESUME-FIRST (the session bundle there predates this work and is idle/stale).
+
+## What was done this session (all uncommitted, working tree only)
+1. **Repo set up on this machine** (D:\boat-data, Windows). Node 22.19. `ingest/` and `app/`
+   deps installed. Ports 5173/5174 are taken by an unrelated "Martial Photo" Vite project, so
+   the dev server runs on **http://localhost:5180/** (`cd app && npx vite --port 5180 --strictPort`).
+   Ingest tests only pass with `npx vitest run --pool=forks --poolOptions.forks.singleFork`
+   (default parallel pool crashes "Worker exited unexpectedly" on this box; threads pool hangs).
+2. **Hook fix**: `.claude/settings.json` statusLine/Stop/SessionStart commands pointed at
+   `C:\Users\RafaelMatovelle\...`; rewritten to `$HOME/.claude/plugins/cache/hivemind-marketplace/hivemind/0.23.0/context-monitor/*.mjs`. Verified all three scripts exit 0.
+3. **Dave Kess email batch ingested** (23 emails from davidadamkess@gmail.com to srparca@gmail.com,
+   fetched via the Gmail connector). Written as `knowledge/100_*.md` … `114_*.md` (15 files, each
+   with source date/subject header): salvage operators (100), vintage taxonomy (101), Florida
+   Atlantic marina master list (102, 259 rows), South Florida dry stacks + slip rates (103), Europe
+   dry stacks (104), offshore racing 2026 (105), marina categories/haul-out layer (106), Venice gondola
+   dataset (107), Italy data architecture (108), Florida data architecture (109), corridor schema (110),
+   site structure + monetization (111), marina data sources (112), MarineTraffic (113), rescue boats seed (114).
+   Fixes applied during ingest: renamed prose headings that minted junk marina nodes (106, 112);
+   company addresses normalized to "City, Florida" (100); "Harbour Village Marina Ponce Inlet" and
+   "Safe Harbor Rybovich Riviera Beach" disambiguated (102) to avoid false merges.
+4. **Clean ingest run** (`npm run ingest:clean`): nodes 4,278 → **4,656**, edges 3,107 → 3,401;
+   marina 930 → 1,206, company 796 → 819, region 858 → 937. `ingest/data/graph.json` regenerated and
+   synced to `app/public/data/graph.json`; app built; app tests 142/142 pass.
+5. **Pinned baselines updated** in `ingest/tests/realCorpusExport.spec.js` (marina 1206, region 937 ×3,
+   with dated comments). Full ingest suite: 39 files / 1,031 tests pass (single-fork mode).
+6. **Filter/category proposal written**: `research/category-taxonomy-proposal.md` (Spanish). Diagnoses
+   free-text attrs + flat regions, proposes `attrs.facets` controlled vocabulary per type, a
+   country→subdivision→city hierarchy, facet panel UI, and a 7-step implementation plan.
+
+## Open items / next actions
+- User asked (in Spanish): "necesito que los filtros mejoren … organizar la data para crear las categorías".
+  Proposal delivered; **awaiting 3 decisions** from the user (section 7 of the proposal): UI language,
+  LOA/year bands, start with geography-for-all vs marinas-only. Then implement steps 1–7 of the plan.
+- Nothing committed yet. Working tree: modified `.claude/settings.json`, `ingest/data/graph.json`,
+  `ingest/tests/realCorpusExport.spec.js`, two lockfiles; untracked `knowledge/100–114_*.md`,
+  `research/category-taxonomy-proposal.md`, stray `state/sessions/20260703T215207Z-c2ca4ce7/subagent-log.jsonl`.
+  Suggested commits: `docs(knowledge): add Dave Kess Oct-2026 email batch (files 100–114)` +
+  `chore(ingest): regenerate graph.json, update pinned baselines` + `fix(hooks): portable plugin paths`.
+- Knowledge files 108–112 and 114 produce no graph nodes (strategy/architecture prose) — expected.
+- Pre-existing junk regions noted but NOT touched: "north of town", "New River", "Palm Beach)" (from file 16).
+
+---
+
 # HANDOFF — DataYacht enrichment loop (2026-07-11)
 
 > **[2026-09-25] SUPERSEDED — historical snapshot.** This file was written mid-TASK-024
