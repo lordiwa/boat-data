@@ -169,7 +169,10 @@ describe('real corpus — baseline lock (per-type counts + pinned yacht ids)', (
     // pass's own grep-only method (no code-execution tool available to
     // it) couldn't detect, and the remaining 38 rows mint new marina
     // nodes (893 - 1 + 38 = 930).
-    expect(graph.meta.types.marina).toBe(930);
+    // 2026-10-16: marina rose from 930 to 1206 — knowledge/102 (Florida
+    // Atlantic coast master list, 259 rows), 103 (South Florida dry stacks),
+    // 104 (Europe dry stacks) from the Dave Kess email batch.
+    expect(graph.meta.types.marina).toBe(1206);
     // TASK-021: person DROPPED from 110 to 86 — graphCleanup.js's
     // PERSON_MERGE_MAP merges 22 name-variant duplicate pairs (Sheikh
     // Mansour's 4-way group, Sheikh Mohammed's 3-way group, Alisher
@@ -399,7 +402,8 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
     runIngest();
 
     const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
-    expect(graph.meta.types.region).toBe(858);
+    // 2026-10-16: 858 -> 937 — Florida city regions minted by knowledge/102-104.
+    expect(graph.meta.types.region).toBe(937);
   }, 30000);
 
   it('spot-check: exactly one West Palm Beach region node (the ", FL" variant never gets minted)', async () => {
@@ -549,8 +553,8 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
     const regionCountSecond = dbSecond.prepare("SELECT COUNT(*) AS count FROM nodes WHERE type = 'region'").get().count;
     dbSecond.close();
 
-    expect(regionCountFirst).toBe(858); // TASK-023 item 5: 857 baseline + 1 net from the Naples split
-    expect(regionCountSecond).toBe(858);
+    expect(regionCountFirst).toBe(937); // 858 baseline + 79 Florida/Europe city regions from knowledge/102-104 (2026-10-16)
+    expect(regionCountSecond).toBe(937);
   }, 40000);
 });
 
