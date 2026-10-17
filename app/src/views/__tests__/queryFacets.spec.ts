@@ -1,0 +1,51 @@
+// TASK-031 AC1: the query builder's condition editor offers vocabulary dropdowns for facet/geo fields only.
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { mount, flushPromises } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
+import { createRouter, createMemoryHistory } from 'vue-router';
+import { routes } from '@/router';
+import { useGraphStore } from '@/stores/graph';
+import { fixtureGraph } from '@/__tests__/support/facetFixture';
+import QueryView from '@/views/QueryView.vue';
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
+
+describe('QueryView facet fields', () => {
+  // Harm: a free-text box for a controlled vocabulary invites typos that match nothing, and a dropdown on a raw
+  // number field would block range filters.
+  it('facet field -> grouped fields + multi-select with counts + "Open in browse"; raw attribute -> number input', async () => {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    vi.stubGlobal('fetch', async () => ({ ok: true, status: 200, statusText: 'OK', json: async () => fixtureGraph() }));
+    await useGraphStore(pinia).load();
+    const router = createRouter({ history: createMemoryHistory(), routes });
+    router.push('/query?type=marina');
+    await router.isReady();
+    const w = mount(QueryView, { global: { plugins: [pinia, router] } });
+    await flushPromises();
+
+    await w.findAll('button').find((b) => b.text() === 'Add filter' || b.text() === '+ Add filter')!.trigger('click');
+    const field = w.find('select[aria-label="Field"]');
+    expect(w.findAll('optgroup').map((g) => g.attributes('label'))).toEqual(['Categories', 'Location', 'Attributes', 'Relations']);
+
+    await field.setValue('cat_facility_category');
+    const values = w.find('select[multiple]');
+    expect(values.attributes('aria-label')).toBe('Facility type values');
+    expect(values.findAll('option').map((o) => o.text())).toEqual(['Boatyard (4)', 'Dry stack (2)', 'Fuel dock (1)']);
+    expect(w.find('select[aria-label="Comparison"]').findAll('option').map((o) => o.text())).toEqual(['is any of', 'is not']);
+    expect(w.find('a[href^="/browse/marina"]').exists()).toBe(false);
+
+    await values.setValue(['dry stack', 'boatyard']);
+    expect(w.find('.query-view__describe').text()).toBe('Showing marinas where Facility type is any of Boatyard, Dry stack.');
+    expect(w.find('a.btn').text()).toBe('Open in browse');
+    expect(w.find('a.btn').attributes('href')).toBe('/browse/marina?facility_category=boatyard,dry+stack');
+
+    await field.setValue('berths');
+    expect(w.find('select[multiple]').exists()).toBe(false);
+    expect(w.find('input[type="number"]').exists()).toBe(true);
+    expect(w.find('a.btn').exists()).toBe(false);
+  });
+});

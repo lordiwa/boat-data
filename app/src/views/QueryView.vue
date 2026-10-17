@@ -9,21 +9,28 @@
 // bookmarked or pasted link reproduces the same results; a malformed query
 // string degrades to the default (Yachts, no filters) rather than crashing.
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { useGraphStore } from '@/stores/graph';
 import { useTypeRows } from '@/composables/useTypeRows';
 import { getColumnsForType } from '@/utils/columns';
-import { labelForType, singularLabelForType, iconForType } from '@/utils/labels';
+import { labelForType, singularLabelForType, iconForType, labelForFacetKey, labelForFacetValue } from '@/utils/labels';
+import { compareBands, GEO_KEYS, isBandKey } from '@/utils/facets';
 import { KNOWN_NODE_TYPES } from '@/utils/nodeTypes';
 import DataTable from '@/components/DataTable.vue';
 import { runQuery } from '@/query/engine';
 import { describeQuery } from '@/query/describe';
 import { decodeQuery, encodeQuery } from '@/query/urlCodec';
+import { queryToBrowse } from '@/query/browseBridge';
 import { printMode } from '@/composables/printMode';
 import {
+  FACET_OPS,
+  facetFieldSlug,
   opsForValueKind,
+  parseFacetFieldSlug,
   QUERYABLE_FIELDS,
   type AttrOp,
+  type FacetFilter,
+  type FacetOp,
   type FieldMeta,
   type Filter,
   type Query,
@@ -34,7 +41,9 @@ const graph = useGraphStore();
 const route = useRoute();
 const router = useRouter();
 
-const OP_LABELS: Record<AttrOp, string> = {
+const OP_LABELS: Record<AttrOp | FacetOp, string> = {
+  in: 'is any of',
+  not: 'is not',
   eq: 'is',
   contains: 'contains',
   gte: 'is at least',
@@ -48,7 +57,9 @@ const OP_LABELS: Record<AttrOp, string> = {
 interface FilterDraft {
   id: number;
   fieldSlug: string;
-  op: AttrOp;
+  op: AttrOp | FacetOp;
+  /** Facet/geo fields only: the chosen vocabulary values (multi-select). */
+  values: string[];
   // Vue auto-casts v-model on a `type="number"` input to a Number once it
   // holds a valid value (see DataTable.vue's own note on this), so these
   // must accept either shape even though we always initialize them as ''.
@@ -63,7 +74,7 @@ function toText(value: string | number): string {
 
 let nextDraftId = 1;
 function newDraft(fieldSlug = ''): FilterDraft {
-  return { id: nextDraftId++, fieldSlug, op: 'eq', value: '', value2: '' };
+  return { id: nextDraftId++, fieldSlug, op: 'eq', value: '', value2: '', values: [] };
 }
 
 const selectedType = ref<NodeType>('yacht');
@@ -72,6 +83,60 @@ const drafts = ref<FilterDraft[]>([]);
 const fields = computed<FieldMeta[]>(() => QUERYABLE_FIELDS[selectedType.value] ?? []);
 const attrFields = computed(() => fields.value.filter((f): f is Extract<FieldMeta, { kind: 'attr' }> => f.kind === 'attr'));
 const relFields = computed(() => fields.value.filter((f): f is Extract<FieldMeta, { kind: 'rel' }> => f.kind === 'rel'));
+
+// TASK-031: facet + geo fields come from the graph's controlled vocabulary (same per-type index /browse uses),
+// not from QUERYABLE_FIELDS, so only vocabularies that exist for the selected type are offered.
+interface FacetOption {
+  value: string;
+  label: string;
+  count: number;
+}
+interface FacetFieldInfo {
+  slug: string;
+  label: string;
+  group: FacetFilter['group'];
+  key: string;
+  options: FacetOption[];
+}
+
+const facetFields = computed<FacetFieldInfo[]>(() => {
+  if (!graph.loaded) return [];
+  const index = graph.facetIndex(selectedType.value);
+  const infoFor = (group: FacetFilter['group'], key: string): FacetFieldInfo | null => {
+    const byValue = index.facets.get(key);
+    if (!byValue) return null;
+    const options = [...byValue].map(([value, ids]) => {
+      const shown = group === 'geo' ? (key === 'country' ? (index.countryNames.get(value) ?? value) : value) : labelForFacetValue(key, value);
+      return { value: group === 'geo' ? shown : value, label: shown, count: ids.size };
+    });
+    options.sort(
+      isBandKey(key) ? (a, b) => compareBands(a.value, b.value) : (a, b) => b.count - a.count || a.label.localeCompare(b.label),
+    );
+    return { slug: facetFieldSlug(group, key), label: labelForFacetKey(key), group, key, options };
+  };
+  const out: FacetFieldInfo[] = [];
+  for (const key of index.facetKeys) {
+    const info = infoFor('facet', key);
+    if (info) out.push(info);
+  }
+  if (index.hasGeo) {
+    for (const key of GEO_KEYS) {
+      const info = infoFor('geo', key);
+      if (info) out.push(info);
+    }
+  }
+  return out;
+});
+const categoryFields = computed(() => facetFields.value.filter((f) => f.group === 'facet'));
+const locationFields = computed(() => facetFields.value.filter((f) => f.group === 'geo'));
+
+function isFacetDraft(draft: FilterDraft): boolean {
+  return parseFacetFieldSlug(draft.fieldSlug) !== null;
+}
+
+function facetInfo(draft: FilterDraft): FacetFieldInfo | undefined {
+  return facetFields.value.find((f) => f.slug === draft.fieldSlug);
+}
 
 function fieldMeta(draft: FilterDraft): FieldMeta | undefined {
   return fields.value.find((f) => f.field === draft.fieldSlug);
@@ -98,7 +163,9 @@ function onFieldChange(draft: FilterDraft) {
   const meta = fieldMeta(draft);
   draft.value = '';
   draft.value2 = '';
-  if (meta && meta.kind === 'attr') {
+  draft.values = [];
+  if (isFacetDraft(draft)) draft.op = 'in';
+  else if (meta && meta.kind === 'attr') {
     draft.op = opsForValueKind(meta.valueKind)[0];
   }
 }
@@ -118,6 +185,11 @@ function resetFilters() {
 
 /** Converts a draft to a real Filter, or undefined if it's incomplete (no field chosen, no value typed yet). */
 function toFilter(draft: FilterDraft): Filter | undefined {
+  const facet = parseFacetFieldSlug(draft.fieldSlug);
+  if (facet) {
+    if (!draft.values.length || !(FACET_OPS as string[]).includes(draft.op)) return undefined;
+    return { kind: 'facet', group: facet.group, key: facet.key, op: draft.op as FacetOp, values: [...draft.values] };
+  }
   const meta = fieldMeta(draft);
   if (!meta) return undefined;
 
@@ -141,12 +213,12 @@ function toFilter(draft: FilterDraft): Filter | undefined {
     if (!raw) return undefined;
     const n = Number(raw);
     if (Number.isNaN(n)) return undefined;
-    return { kind: 'attr', field: meta.field, op: draft.op, value: n };
+    return { kind: 'attr', field: meta.field, op: draft.op as AttrOp, value: n };
   }
 
   const text = toText(draft.value).trim();
   if (!text) return undefined;
-  return { kind: 'attr', field: meta.field, op: draft.op, value: text };
+  return { kind: 'attr', field: meta.field, op: draft.op as AttrOp, value: text };
 }
 
 const effectiveQuery = computed<Query>(() => ({
@@ -163,6 +235,11 @@ function isNumberField(draft: FilterDraft): boolean {
   const meta = fieldMeta(draft);
   return !!meta && meta.kind === 'attr' && meta.valueKind === 'number';
 }
+
+// "Open in browse": only offered when /browse/:type can express the query exactly (see browseBridge.ts).
+const browseTarget = computed(() =>
+  graph.loaded ? queryToBrowse(effectiveQuery.value, graph.facetIndex(selectedType.value)) : null,
+);
 
 const resultRows = computed(() => runQuery(rows.value, effectiveQuery.value));
 const description = computed(() => describeQuery(effectiveQuery.value));
@@ -182,7 +259,16 @@ function draftsFromQuery(query: Query): FilterDraft[] {
   const typeFields = QUERYABLE_FIELDS[query.type] ?? [];
   const result: FilterDraft[] = [];
   for (const filter of query.filters) {
-    if (filter.kind === 'rel') {
+    if (filter.kind === 'facet') {
+      result.push({
+        id: nextDraftId++,
+        fieldSlug: facetFieldSlug(filter.group, filter.key),
+        op: filter.op,
+        value: '',
+        value2: '',
+        values: [...filter.values],
+      });
+    } else if (filter.kind === 'rel') {
       const meta = typeFields.find((f): f is Extract<FieldMeta, { kind: 'rel' }> => f.kind === 'rel' && f.rel === filter.rel);
       if (!meta) continue;
       // urlCodec never decodes a targetId-form relation filter (see its
@@ -193,6 +279,7 @@ function draftsFromQuery(query: Query): FilterDraft[] {
         op: 'eq',
         value: filter.targetName ?? '',
         value2: '',
+        values: [],
       });
     } else {
       const meta = typeFields.find((f) => f.field === filter.field);
@@ -203,6 +290,7 @@ function draftsFromQuery(query: Query): FilterDraft[] {
         op: filter.op,
         value: String(filter.value ?? ''),
         value2: filter.op === 'between' ? String(filter.value2 ?? '') : '',
+        values: [],
       });
     }
   }
@@ -214,7 +302,10 @@ function draftsFromQuery(query: Query): FilterDraft[] {
 // filters) — never crash, never leave a half-broken state.
 let restoring = true;
 onMounted(() => {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams();
+  for (const [key, raw] of Object.entries(route.query)) {
+    for (const v of Array.isArray(raw) ? raw : [raw]) if (typeof v === 'string') params.append(key, v);
+  }
   const decoded = decodeQuery(params);
   if (decoded) {
     selectedType.value = decoded.type;
@@ -278,6 +369,12 @@ watch(
             @change="onFieldChange(draft)"
           >
             <option value="" disabled>Choose a field&hellip;</option>
+            <optgroup v-if="categoryFields.length" label="Categories">
+              <option v-for="f in categoryFields" :key="f.slug" :value="f.slug">{{ f.label }}</option>
+            </optgroup>
+            <optgroup v-if="locationFields.length" label="Location">
+              <option v-for="f in locationFields" :key="f.slug" :value="f.slug">{{ f.label }}</option>
+            </optgroup>
             <optgroup label="Attributes">
               <option v-for="f in attrFields" :key="f.field" :value="f.field">{{ f.label }}</option>
             </optgroup>
@@ -286,8 +383,11 @@ watch(
             </optgroup>
           </select>
 
+          <select v-if="isFacetDraft(draft)" class="filter-row__op" v-model="draft.op" aria-label="Comparison">
+            <option v-for="op in FACET_OPS" :key="op" :value="op">{{ OP_LABELS[op] }}</option>
+          </select>
           <select
-            v-if="fieldMeta(draft)?.kind === 'attr'"
+            v-else-if="fieldMeta(draft)?.kind === 'attr'"
             class="filter-row__op"
             v-model="draft.op"
             aria-label="Comparison"
@@ -296,7 +396,19 @@ watch(
           </select>
           <span v-else-if="fieldMeta(draft)?.kind === 'rel'" class="filter-row__op-label">contains</span>
 
-          <template v-if="fieldMeta(draft)?.kind === 'rel'">
+          <select
+            v-if="isFacetDraft(draft)"
+            v-model="draft.values"
+            multiple
+            size="6"
+            class="filter-row__value filter-row__value--multi"
+            :aria-label="`${facetInfo(draft)?.label ?? 'Field'} values`"
+          >
+            <option v-for="o in facetInfo(draft)?.options ?? []" :key="o.value" :value="o.value">
+              {{ o.label }} ({{ o.count.toLocaleString() }})
+            </option>
+          </select>
+          <template v-else-if="fieldMeta(draft)?.kind === 'rel'">
             <input
               type="text"
               class="filter-row__value"
@@ -335,6 +447,7 @@ watch(
           <button type="button" class="btn btn--ghost" :disabled="!drafts.length" @click="resetFilters">
             Reset filters
           </button>
+          <RouterLink v-if="browseTarget" class="btn btn--secondary" :to="browseTarget">Open in browse</RouterLink>
         </div>
       </section>
 
@@ -468,6 +581,11 @@ watch(
 
 .filter-row__value--number {
   width: 6.5rem;
+}
+
+.filter-row__value--multi {
+  min-width: 14rem;
+  max-width: 100%;
 }
 
 .filter-row__and {

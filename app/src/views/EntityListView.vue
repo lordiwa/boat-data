@@ -14,6 +14,8 @@ import { getColumnsForType } from '@/utils/columns';
 import { isKnownNodeType } from '@/utils/nodeTypes';
 import { labelForType } from '@/utils/labels';
 import { slugify } from '@/utils/slug';
+import { browseToQuery } from '@/query/browseBridge';
+import { encodeQuery } from '@/query/urlCodec';
 import { printMode } from '@/composables/printMode';
 import DataTable from '@/components/DataTable.vue';
 import FacetPanel from '@/components/FacetPanel.vue';
@@ -65,6 +67,16 @@ const views = computed(() =>
 );
 const chips = computed(() => (index.value ? selectionChips(selection.value, index.value, isImplicitDefault(route.query, index.value)) : []));
 const crumbs = computed(() => (index.value ? geoCrumbs(selection.value, index.value) : []));
+
+// TASK-031: the same selection, expressed as a /query link (reverse of "Open in browse").
+const refineTarget = computed(() => {
+  if (!index.value || activeCount.value === 0) return null;
+  const q = browseToQuery(knownType.value, route.query, index.value);
+  if (!q.filters.length) return null;
+  const params = encodeQuery(q);
+  const query: Record<string, string | string[]> = { type: q.type, f: params.getAll('f') };
+  return { path: '/query', query };
+});
 
 function setSelection(next: FacetSelection): void {
   if (!index.value) return;
@@ -133,6 +145,9 @@ function rowKey(row: { node: { id: string } }): string {
             </template>
           </nav>
           <ActiveFilterChips :chips="chips" @remove="onRemove" @clear="setSelection({})" />
+          <p v-if="refineTarget && !printMode" class="entity-list__refine">
+            <RouterLink :to="refineTarget">Refine in query builder</RouterLink>
+          </p>
           <DataTable
             :key="props.type"
             :rows="filteredRows"
@@ -179,6 +194,11 @@ function rowKey(row: { node: { id: string } }): string {
 
 .entity-list__main {
   min-width: 0;
+}
+
+.entity-list__refine {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
 }
 
 .entity-list__crumbs {
