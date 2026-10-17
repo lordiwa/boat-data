@@ -273,7 +273,29 @@ export function selectionKeys(index: FacetIndex): string[] {
   return [...index.facetKeys, ...(index.hasGeo ? GEO_KEYS : [])];
 }
 
-const splitList = (raw: string): string[] => raw.split(',').map((s) => s.replace(/%2C/gi, ','));
+const unescapeComma = (s: string): string => s.replace(/%2C/gi, ',');
+
+/**
+ * Splits a comma-separated query value. Values that themselves contain a comma ("Anping, Tainan")
+ * arrive in three natural encodings: escaped (%2C text), raw, or inside a repeated key. So adjacent
+ * pieces are re-joined whenever the joined text is a known vocabulary value (longest match first).
+ */
+function splitList(raw: string, known: Map<string, unknown> | undefined): string[] {
+  const parts = raw.split(',');
+  const out: string[] = [];
+  for (let i = 0; i < parts.length; ) {
+    let taken = 1;
+    for (let j = parts.length; j > i + 1; j--) {
+      if (known?.has(unescapeComma(parts.slice(i, j).join(',')))) {
+        taken = j - i;
+        break;
+      }
+    }
+    out.push(unescapeComma(parts.slice(i, i + taken).join(',')));
+    i += taken;
+  }
+  return out;
+}
 const joinList = (values: string[]): string => values.map((v) => v.replace(/,/g, '%2C')).join(',');
 
 export interface ParsedSelection {
@@ -297,10 +319,13 @@ export function parseSelection(query: Record<string, unknown>, index: FacetIndex
     const byValue = index.facets.get(key);
     if (!byValue || text === '') continue;
     const kept: string[] = [];
-    for (let v of splitList(text)) {
+    for (let v of splitList(text, byValue)) {
       if (key === 'country' && !byValue.has(v)) {
+        if (byValue.has(v.toUpperCase())) v = v.toUpperCase();
+        else {
         const code = [...index.countryNames].find(([, name]) => name.toLowerCase() === v.toLowerCase())?.[0];
         if (code) v = code;
+        }
       }
       if (byValue.has(v) && !kept.includes(v)) kept.push(v);
     }
@@ -323,11 +348,6 @@ export function selectionToQuery(sel: FacetSelection, index: FacetIndex): Record
   return query;
 }
 
-/** Selection -> URLSearchParams (for tests and external link building). */
-export function encodeSelection(sel: FacetSelection, index: FacetIndex): URLSearchParams {
-  return new URLSearchParams(selectionToQuery(sel, index));
-}
-
 /** Only yachts default a facet on: the 'complete' flag hides the unidentifiable fragments (proposal 5.5). */
 export function hasDefaultComplete(index: FacetIndex): boolean {
   return index.type === 'yacht' && index.booleanKeys.has('complete') && index.facets.get('complete')?.has('true') === true;
@@ -335,12 +355,13 @@ export function hasDefaultComplete(index: FacetIndex): boolean {
 
 /**
  * Parses the route query and applies the yacht default (complete=true) ONLY when the URL carries no
- * facet/geo key at all.
+ * facet/geo key at all. "Facet/geo key" means a key of THIS type's vocabulary: /browse/yacht?country=US
+ * still gets the default, because country is not a yacht facet key (yachts carry no attrs.geo).
  */
-export function resolveSelection(query: Record<string, unknown>, index: FacetIndex): { selection: FacetSelection; isDefault: boolean } {
+export function resolveSelection(query: Record<string, unknown>, index: FacetIndex): { selection: FacetSelection } {
   const parsed = parseSelection(query, index);
-  if (!parsed.explicit && hasDefaultComplete(index)) return { selection: { complete: ['true'] }, isDefault: true };
-  return { selection: parsed.selection, isDefault: false };
+  if (!parsed.explicit && hasDefaultComplete(index)) return { selection: { complete: ['true'] } };
+  return { selection: parsed.selection };
 }
 
 export function selectedCount(sel: FacetSelection): number {
@@ -354,6 +375,8 @@ export interface FilterChip {
   text: string;
   /** Accessible name for the remove button target, e.g. "Facility type: Dry stack". */
   full: string;
+  /** Optional tooltip explaining non-obvious behaviour of this chip. */
+  title?: string;
 }
 
 /** Chips for every selected value, in facet order (generic facets, then geography). */
@@ -365,7 +388,11 @@ export function selectionChips(sel: FacetSelection, index: FacetIndex): FilterCh
       const valueLabel = displayLabel(index, key, value);
       const isBool = index.booleanKeys.has(key);
       const text = isBool ? (value === 'true' ? label : `Not ${label.toLowerCase()}`) : isBandKey(key) ? `${label}: ${valueLabel}` : valueLabel;
-      chips.push({ key, value, text, full: isBool ? text : `${label}: ${valueLabel}` });
+      const title =
+        key === EXPLICIT_EMPTY_KEY && value === 'true' && hasDefaultComplete(index)
+          ? 'Shown by default. Removing it keeps ?complete=all in the URL so the default stays off after a reload.'
+          : undefined;
+      chips.push({ key, value, text, full: isBool ? text : `${label}: ${valueLabel}`, title });
     }
   }
   return chips;

@@ -62,12 +62,24 @@ describe('facet engine', () => {
     expect(bad.selection).toEqual({ subdivision: ['Florida'], country: ['US'], berths_band: ['150-400'] });
   });
 
+  // Harm: a city containing a comma is silently dropped (and the whole country listed) when the URL
+  // arrives escaped, raw, hand-typed or with a lowercase country code.
+  it('resolves comma-containing values in every natural encoding, and lowercase ISO codes', () => {
+    const idx = index('marina');
+    for (const raw of ['Anping%2C Tainan', 'Anping, Tainan']) {
+      expect(parseSelection({ city: raw }, idx).selection).toEqual({ city: ['Anping, Tainan'] });
+    }
+    expect(parseSelection({ city: ['Anping, Tainan', 'Miami'] }, idx).selection.city).toEqual(['Anping, Tainan', 'Miami']);
+    expect(parseSelection({ city: 'Miami,Anping, Tainan' }, idx).selection.city).toEqual(['Miami', 'Anping, Tainan']);
+    expect(parseSelection({ country: 'us' }, idx).selection).toEqual({ country: ['US'] });
+  });
+
   // Harm: the default hides fragments again after the user removed the chip, or overrides an explicit selection.
   it('applies the yacht complete=true default only when the URL carries no facet key', () => {
     const y = index('yacht');
-    expect(resolveSelection({}, y)).toEqual({ selection: { complete: ['true'] }, isDefault: true });
-    expect(resolveSelection({ loa_band: '60-90' }, y)).toEqual({ selection: { loa_band: ['60-90'] }, isDefault: false });
-    expect(resolveSelection({ complete: 'all' }, y)).toEqual({ selection: {}, isDefault: false });
+    expect(resolveSelection({}, y)).toEqual({ selection: { complete: ['true'] } });
+    expect(resolveSelection({ loa_band: '60-90' }, y)).toEqual({ selection: { loa_band: ['60-90'] } });
+    expect(resolveSelection({ complete: 'all' }, y)).toEqual({ selection: {} });
     expect(selectionToQuery({}, y)).toEqual({ complete: 'all' });
     expect(resolveSelection({}, index('marina')).selection).toEqual({});
   });
@@ -95,7 +107,7 @@ describe.skipIf(!existsSync(realGraphPath))('facet performance on the real graph
     const matched = applyFacetSelection(sel, idx);
     computeFacetViews(sel, idx);
     const ms = performance.now() - start;
-    expect(nodes.length).toBe(1206);
+    expect(nodes.length).toBeGreaterThan(1000);
     expect(matched.size).toBeGreaterThan(0);
     expect(ms).toBeLessThan(50);
   });

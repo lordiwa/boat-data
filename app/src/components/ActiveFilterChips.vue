@@ -12,7 +12,7 @@ defineEmits<{ (e: 'remove', key: string, value: string): void; (e: 'clear'): voi
 
 <template>
   <div v-if="chips.length" class="chips" role="group" aria-label="Active filters">
-    <span v-for="chip in chips" :key="`${chip.key}=${chip.value}`" class="chips__chip">
+    <span v-for="chip in chips" :key="`${chip.key}=${chip.value}`" class="chips__chip" :title="chip.title">
       <span>{{ chip.text }}</span>
       <button type="button" class="chips__remove" :aria-label="`Remove filter ${chip.full}`" @click="$emit('remove', chip.key, chip.value)">
         <span aria-hidden="true">&times;</span>

@@ -51,7 +51,7 @@ const router = useRouter();
 const index = computed(() => (graph.loaded && isKnown.value ? graph.facetIndex(props.type) : null));
 const hasPanel = computed(() => !!index.value && index.value.facets.size > 0);
 const resolved = computed(() =>
-  index.value ? resolveSelection(route.query, index.value) : { selection: {} as FacetSelection, isDefault: false },
+  index.value ? resolveSelection(route.query, index.value) : { selection: {} as FacetSelection },
 );
 const selection = computed(() => resolved.value.selection);
 const activeCount = computed(() => selectedCount(selection.value));
@@ -72,7 +72,9 @@ function setSelection(next: FacetSelection): void {
 
 function onToggle(key: string, value: string): void {
   const current = selection.value[key] ?? [];
-  const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value];
+  // A boolean facet is a switch, not a multi-select: it REPLACES the group (never 'true' + 'false').
+  const isBool = index.value?.booleanKeys.has(key) ?? false;
+  const next = current.includes(value) ? current.filter((v) => v !== value) : isBool ? [value] : [...current, value];
   setSelection({ ...selection.value, [key]: next });
 }
 

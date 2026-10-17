@@ -60,4 +60,23 @@ describe('facet views', () => {
     expect(text).toContain('M2');
     expect(text).not.toContain('M3');
   });
+
+// Harm: a crumb for a comma-containing city dropped the city and listed the whole country.
+it('the entity crumb for a comma-containing city opens a list of exactly that city', async () => {
+  const entity = await setup('/entity/m6', EntityView, { id: 'm6' });
+  const href = entity.findAll('nav[aria-label="Location"] a').at(-1)!.attributes('href')!;
+  const list = await setup(href, EntityListView, { type: 'marina' });
+  expect(list.find('.data-table__count').text()).toBe('1 of 1 results');
+  expect(list.findAll('.chips__chip').map((c) => c.text())).toContain('Anping, Tainan×');
+});
+
+// Harm: with ?complete=false the switch rendered off, and clicking it ADDED 'true' (contradictory chips, all rows).
+it('the boolean switch replaces the group instead of appending', async () => {
+  const w = await setup('/browse/yacht?complete=false', EntityListView, { type: 'yacht' });
+  expect(w.findAll('.chips__chip').length).toBe(1);
+  await w.find('fieldset[data-facet="complete"] input').trigger('change');
+  await flushPromises();
+  expect(w.findAll('.chips__chip').map((c) => c.text().replace(/[^A-Za-z ]/g, '').trim())).toEqual(['Complete profile']);
+  expect(w.find('.data-table__count').text()).toBe('1 of 1 results');
+});
 });

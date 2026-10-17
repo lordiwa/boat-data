@@ -18,6 +18,7 @@ import { isPlaceholderName } from '@/utils/placeholder';
 import { buildConflictEntries, provenanceFiles } from '@/utils/attrs';
 import { inverseGroupAnchor } from '@/utils/relAnchors';
 import { slugify } from '@/utils/slug';
+import { selectionToQuery } from '@/utils/facets';
 import AttrPanel from '@/components/AttrPanel.vue';
 import DataTable from '@/components/DataTable.vue';
 import QuickActions from '@/components/QuickActions.vue';
@@ -56,15 +57,18 @@ const geoCrumbs = computed<GeoCrumb[]>(() => {
     | undefined;
   if (!n || !geo || !geo.country_code || !geo.country) return [];
   const path = `/browse/${n.type}`;
-  const crumbs: GeoCrumb[] = [{ text: geo.country, to: { path, query: { country: geo.country_code } } }];
-  const query: Record<string, string> = { country: geo.country_code };
+  // Queries go through the shared facet codec so values containing commas ("Anping, Tainan") round-trip.
+  const index = graph.facetIndex(n.type);
+  const link = (sel: Record<string, string[]>) => ({ path, query: selectionToQuery(sel, index) });
+  const sel: Record<string, string[]> = { country: [geo.country_code] };
+  const crumbs: GeoCrumb[] = [{ text: geo.country, to: link(sel) }];
   if (geo.subdivision) {
-    query.subdivision = geo.subdivision;
-    crumbs.push({ text: geo.subdivision, to: { path, query: { ...query } } });
+    sel.subdivision = [geo.subdivision];
+    crumbs.push({ text: geo.subdivision, to: link(sel) });
   }
   if (geo.city) {
-    query.city = geo.city;
-    crumbs.push({ text: geo.city, to: { path, query: { ...query } } });
+    sel.city = [geo.city];
+    crumbs.push({ text: geo.city, to: link(sel) });
   }
   return crumbs;
 });
