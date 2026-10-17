@@ -65,10 +65,17 @@ describe('QueryView facet fields', () => {
     const selected = ok.find('select[multiple]').findAll('option').filter((o) => (o.element as HTMLOptionElement).selected);
     expect(selected.map((o) => o.text())).toEqual(['Dry stack (2)']);
     expect(ok.find('.query-view__describe').text()).toBe('Showing marinas where Facility type is Dry stack.');
-    // ISO codes the engine matches (geo.country_code) must survive the prune, as typed.
-    const iso = await restore('f=geo_country.in.US');
-    expect(iso.findAll('tbody tr')).toHaveLength(3);
-    expect([iso.vm.$route.query.f].flat()).toEqual(['geo_country.in.US']);
+    // Hand-typed ISO codes (any case) are normalised to the country name, so sentence, URL, multi-select and the
+    // browse bridge agree.
+    for (const code of ['US', 'us']) {
+      const iso = await restore(`f=geo_country.in.${code}`);
+      expect(iso.findAll('tbody tr')).toHaveLength(3);
+      expect([iso.vm.$route.query.f].flat()).toEqual(['geo_country.in.United States']);
+      const sel = iso.find('select[multiple]').findAll('option').filter((o) => (o.element as HTMLOptionElement).selected);
+      expect(sel.map((o) => o.text().replace(/ \(\d+\)$/, ''))).toEqual(['United States']);
+      expect(iso.find('.query-view__describe').text()).toContain('United States');
+      expect(iso.find('a.btn').text()).toBe('Open in browse');
+    }
     const none = await restore('f=cat_facility_category.in.zzz&f=cat_constructor.in.x');
     expect(none.find('select[multiple]').exists()).toBe(false);
     expect(none.find('.query-view__describe').text()).toBe('Showing all marinas.');
