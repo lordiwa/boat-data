@@ -191,6 +191,8 @@ export function applyFacets(db) {
     return name;
   };
 
+  // Known limit: only string features/notes are read. As of 2026-10-16 no yacht in the corpus has an
+  // array-typed features or notes cell (0 of 581), so nothing is lost; join arrays here if one appears.
   const propulsionOf = (attrs, builderAttrs) => {
     const own = norm([attrs.features, attrs.notes].filter(isText).join(' ; '));
     if (CLASSIC_NOUN_RE.test(own)) return 'classic';
