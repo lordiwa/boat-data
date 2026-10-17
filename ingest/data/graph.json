@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-17T02:43:21.518Z",
+    "generated_at": "2026-10-17T03:28:38.387Z",
     "node_count": 4789,
     "edge_count": 4199,
     "types": {
@@ -4330,11 +4330,11 @@
         "facility_category": [
           {
             "value": "wet-slip marina",
-            "count": 709
+            "count": 704
           },
           {
             "value": "unclassified",
-            "count": 242
+            "count": 234
           },
           {
             "value": "boatyard",
@@ -4342,7 +4342,7 @@
           },
           {
             "value": "club marina",
-            "count": 51
+            "count": 64
           },
           {
             "value": "yacht basin",
@@ -5510,7 +5510,7 @@
         "propulsion_type": [
           {
             "value": "unknown",
-            "count": 426
+            "count": 437
           },
           {
             "value": "motor",
@@ -5518,11 +5518,11 @@
           },
           {
             "value": "explorer",
-            "count": 41
+            "count": 32
           },
           {
             "value": "sailing",
-            "count": 23
+            "count": 22
           },
           {
             "value": "catamaran",
@@ -5530,7 +5530,7 @@
           },
           {
             "value": "sport-fish",
-            "count": 4
+            "count": 3
           },
           {
             "value": "classic",
@@ -46189,7 +46189,7 @@
           "city": "Lee County"
         },
         "facets": {
-          "facility_category": "wet-slip marina",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -47785,7 +47785,7 @@
           "city": "Clayton Bay"
         },
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "South Australia",
@@ -49389,7 +49389,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -52182,7 +52182,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -52535,7 +52535,7 @@
           "city": "Nhulunbuy"
         },
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "Northern Territory",
@@ -56104,7 +56104,7 @@
           "city": "Key Largo"
         },
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -61611,7 +61611,7 @@
           "49_Long_Island_Yacht_Clubs_Data.md"
         ],
         "facets": {
-          "facility_category": "wet-slip marina",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -61707,7 +61707,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -61728,7 +61728,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -61896,7 +61896,7 @@
           "city": "Motueka"
         },
         "facets": {
-          "facility_category": "wet-slip marina",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "New Zealand",
           "subdivision": "Tasman",
@@ -63074,7 +63074,7 @@
           "city": "Noosaville"
         },
         "facets": {
-          "facility_category": "unclassified",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "Queensland",
@@ -73406,7 +73406,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "wet-slip marina",
+          "facility_category": "club marina",
           "data_level": "basic"
         }
       }
@@ -74277,7 +74277,7 @@
           "city": "Ormond Beach"
         },
         "facets": {
-          "facility_category": "wet-slip marina",
+          "facility_category": "club marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -103324,7 +103324,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "40-60",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "United States",
           "charter_available": false,
           "complete": false,
@@ -103707,7 +103707,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2000s",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "United States",
           "charter_available": false,
@@ -104468,7 +104468,7 @@
         "facets": {
           "size_class": "yacht",
           "loa_band": "15-24",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "France",
           "charter_available": false,
           "complete": false,
@@ -108375,7 +108375,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "40-60",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "Italy",
           "charter_available": false,
           "complete": false,
@@ -110717,7 +110717,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "40-60",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "Turkey",
           "charter_available": false,
           "complete": false,
@@ -112447,7 +112447,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2010s",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "United States",
           "charter_available": false,
@@ -113173,7 +113173,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "United States",
           "charter_available": false,
           "complete": false,
@@ -119975,7 +119975,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2010s",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "United States",
           "charter_available": false,
           "complete": true,
@@ -123704,7 +123704,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "24-40",
-          "propulsion_type": "sport-fish",
+          "propulsion_type": "unknown",
           "builder_country": "United States",
           "charter_available": false,
           "complete": false,
@@ -124614,7 +124614,7 @@
           "size_class": "superyacht",
           "loa_band": "24-40",
           "decade": "2010s",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "builder_country": "Taiwan",
           "charter_available": false,
           "complete": false,
@@ -124895,7 +124895,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2000s",
-          "propulsion_type": "explorer",
+          "propulsion_type": "unknown",
           "flag": "Marshall Islands",
           "builder_country": "United States",
           "charter_available": false,
