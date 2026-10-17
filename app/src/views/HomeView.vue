@@ -239,6 +239,12 @@ const coverage = computed(() =>
   padding-left: 1.25rem;
 }
 
+/* In-text links must not rely on colour alone (Lighthouse link-in-text-block). */
+.steps a,
+.block p a {
+  text-decoration: underline;
+}
+
 .steps li {
   margin-bottom: 0.5rem;
 }
