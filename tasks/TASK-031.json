@@ -11,7 +11,7 @@
     "AC6: Geo conditions evaluate against attrs.geo only; a fixture node with attrs.country 'Italy' and attrs.geo.country 'Netherlands' matches geo.country = Netherlands and not Italy.",
     "AC7: Existing app tests green plus new tests <= AC count unless justified; typecheck and build clean; keyboard operable selects; UAT on /query by the human."
   ],
-  "status": "todo",
+  "status": "in_progress",
   "priority": "medium",
   "labels": [
     "taxonomy",
@@ -25,9 +25,20 @@
   ],
   "linked_commits": [],
   "linked_prs": [],
-  "comments": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T05:16:27.579Z",
+      "body": "PEDIDO ESTRUCTURADO (PLANTILLA-PEDIDO, derivado de la descripción y del paso 5 de research/category-taxonomy-proposal.md). 1. Objetivo: que el constructor de consultas use el vocabulario controlado (meta.facets y attrs.geo) con desplegables de valores en vez de texto libre, y que /query y /browse se conviertan uno en otro. 2. Actor: usuario avanzado que compone consultas en /query; usuario de /browse que quiere refinar. 3. Problema: hoy las condiciones son texto libre, no conocen facetas ni geografía, no admiten multivalor y los enlaces /query y /browse viven aislados. 4. Caminos: principal: elegir campo de categoría o de localización -> desplegable con valores y conteos -> operador \"is any of\" multivalor -> resultados exactos; alternativo: campo de atributo crudo -> entradas de texto/número como hoy; alternativo: \"Open in browse\" desde una consulta de un solo tipo con solo facetas/geo -> URL /browse/:type equivalente; alternativo: \"Refine in query builder\" desde /browse -> misma selección en /query; fallo: enlace /query antiguo -> decodifica igual que antes; fallo: consulta con relaciones o varios tipos -> \"Open in browse\" no se ofrece. 5. Hecho: AC1-AC7. 6. Restricciones: geo se evalúa SOLO contra attrs.geo (nunca attrs.country); urlCodec retrocompatible; inglés; selects operables con teclado; sin cambios de ingesta. 7. Fuera de alcance: condiciones de relación, nuevos tipos de campo numérico, cambios en el índice de búsqueda (TASK-032).\nLISTA DE CASOS DE USO (pendiente de aprobación del humano; la misma lista es el guion de UAT):\nCU1 (principal): en /query elegir tipo marina y el campo \"Facility type\" (bajo el encabezado Categories) -> aparece un desplegable multivalor con los valores de meta.facets.marina.facility_category y sus conteos; elegir Dry stack y Boatyard con \"is any of\" -> la tabla muestra exactamente las marinas con cualquiera de los dos.\nCU2 (localización): elegir \"Country\" bajo Location -> desplegable con países y conteos; elegir Netherlands -> solo nodos con attrs.geo.country Netherlands; un nodo con attrs.country \"Italy\" y attrs.geo.country \"Netherlands\" aparece con Netherlands y no con Italy.\nCU3 (is not): \"Facility type is not Dry stack\" excluye exactamente las marinas con ese valor y conserva las que no tienen faceta.\nCU4 (atributo crudo): elegir un atributo bajo Attributes (p. ej. berths) -> entradas numéricas con eq/gte/lte/between como hoy, sin desplegable.\nCU5 (descripción): la frase en inglés dice \"Facility type is any of Dry stack, Boatyard\" y \"Country is Netherlands\"; al menos 3 condiciones descritas.\nCU6 (URL): la consulta con arrays se codifica en la URL, se recarga igual; 5 enlaces /query antiguos fijados decodifican al mismo modelo que antes; todos los tests de urlCodec existentes pasan sin cambios.\nCU7 (Open in browse): consulta de un solo tipo con solo condiciones de faceta/geo -> botón \"Open in browse\" lleva a la URL /browse/:type equivalente con las mismas chips; si la consulta tiene relaciones o varios tipos, el botón no aparece.\nCU8 (Refine in query builder): desde /browse/marina?subdivision=Florida&facility_category=dry%20stack pulsar \"Refine in query builder\" -> /query con las mismas condiciones; volver con \"Open in browse\" produce la URL idéntica.\nCU9 (teclado y no regresión): selects operables con teclado; tests existentes verdes + nuevos <= 7; typecheck y build limpios; sin cambios de ingesta ni de graph.json."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T14:53:12.850Z",
+      "body": "HUMAN APPROVAL recorded 2026-10-17: the human approved the 9-case use-case list (CU1-CU9, previous comment) verbatim (\"Aprobados, adelante\"). Developer dispatch authorized; the human also instructed the orchestrator to keep driving until the route to production is done. The same list is the UAT script (requires_uat=true); UAT delegated to the orchestrator unless the human says otherwise. Any change to a case goes back to the human."
+    }
+  ],
   "created_at": "2026-10-17T02:56:03.764Z",
-  "updated_at": "2026-10-17T02:56:03.764Z",
+  "updated_at": "2026-10-17T14:54:25.854Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": true,

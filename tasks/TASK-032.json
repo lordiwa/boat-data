@@ -10,7 +10,7 @@
     "AC5: 'Open as filtered list' appears only for prefix-only queries and links to the exact /browse URL (test).",
     "AC6: Existing app tests green plus new tests <= AC count unless justified; typecheck/build clean; keyboard navigation and live-region announcements still work (UAT by the human)."
   ],
-  "status": "todo",
+  "status": "in_progress",
   "priority": "medium",
   "labels": [
     "taxonomy",
@@ -24,9 +24,20 @@
   ],
   "linked_commits": [],
   "linked_prs": [],
-  "comments": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T05:16:27.627Z",
+      "body": "PEDIDO ESTRUCTURADO (PLANTILLA-PEDIDO, derivado de la descripción y del paso 6 de research/category-taxonomy-proposal.md). 1. Objetivo: que la búsqueda global encuentre por ciudad, país, constructor y categoría, y admita prefijos de tipo/campo. 2. Actor: cualquier visitante que escribe en el buscador de cabecera. 3. Problema: hoy el índice solo cubre el nombre (y el constructor en yates), así que \"marinas miami\" o \"dry stack fort lauderdale\" no devuelven nada. 4. Caminos: principal: escribir \"miami\" -> marinas con geo.city Miami agrupadas por tipo con subtítulo \"ciudad, país\"; alternativo: prefijos type:/marina:/country:/city:/in:/<facetKey>: que acotan; alternativo: consulta solo de prefijos -> acción \"Open as filtered list\" hacia /browse; fallo: prefijo desconocido -> se busca como texto plano; fallo: sin resultados -> mensaje y anuncio al lector de pantalla. 5. Hecho: AC1-AC6. 6. Restricciones: < 20 ms por búsqueda de 3 tokens sobre 4.789 nodos, tokens precalculados una vez por carga, sin regex por pulsación; navegación por teclado y live-region conservadas; inglés; sin cambios de ingesta. 7. Fuera de alcance: búsqueda difusa, sinónimos, ranking por popularidad, cambios en /query (TASK-031).\nLISTA DE CASOS DE USO (pendiente de aprobación del humano; la misma lista es el guion de UAT):\nCU1 (principal): escribir \"miami\" -> marinas con geo.city Miami, agrupadas por tipo, cada resultado con subtítulo \"Miami, United States\"; un nodo sin attrs.geo no muestra subtítulo.\nCU2 (categoría y país): \"dry stack\" -> marinas con facility_category dry stack; \"italy\" -> constructores y demás nodos con geo.country Italy.\nCU3 (prefijo de tipo): \"type:marina fort\" y \"marina: fort\" devuelven solo marinas; las chips de tipo sobre la lista acotan al pulsarlas.\nCU4 (prefijos geo): \"country:italy\", \"city:miami\" e \"in:florida\" (cualquier nivel geográfico) acotan como se indica.\nCU5 (prefijo de faceta): \"facility_category:dry stack\" y \"loa_band:60-90\" acotan por el valor de la faceta.\nCU6 (prefijo desconocido): \"foo:bar\" se busca como texto plano sin error.\nCU7 (Open as filtered list): \"marina: in:florida facility_category:dry stack\" muestra la acción \"Open as filtered list\" que lleva a /browse/marina?subdivision=Florida&facility_category=dry%20stack; con texto libre adicional la acción no aparece.\nCU8 (rendimiento): búsqueda de 3 tokens sobre el grafo real < 20 ms; el índice se construye una sola vez por carga.\nCU9 (accesibilidad y no regresión): flechas/Enter/Escape funcionan como hoy; la live-region anuncia el conteo de resultados; tests existentes verdes + nuevos <= 6; typecheck y build limpios."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T14:53:12.911Z",
+      "body": "HUMAN APPROVAL recorded 2026-10-17: the human approved the 9-case use-case list (CU1-CU9, previous comment) verbatim (\"Aprobados, adelante\"). Developer dispatch authorized in parallel with TASK-031; the human also instructed the orchestrator to keep driving until the route to production is done. The same list is the UAT script (requires_uat=true); UAT delegated to the orchestrator unless the human says otherwise. Any change to a case goes back to the human."
+    }
+  ],
   "created_at": "2026-10-17T02:56:03.855Z",
-  "updated_at": "2026-10-17T02:56:03.855Z",
+  "updated_at": "2026-10-17T14:54:25.913Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": true,

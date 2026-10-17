@@ -12,7 +12,7 @@
     "AC7: Precomputed facet indexes in the graph store; a benchmark-style unit test asserts filtering the real marina set with 5 active facets completes under 50 ms; CSV export exports exactly the filtered rows.",
     "AC8: 142 existing app tests still green plus new tests <= AC count unless justified; typecheck and build clean; app/public/data/graph.json untouched."
   ],
-  "status": "in_review",
+  "status": "done",
   "priority": "high",
   "labels": [
     "taxonomy",
@@ -24,7 +24,12 @@
   "depends_on": [
     "TASK-029"
   ],
-  "linked_commits": [],
+  "linked_commits": [
+    "df19586",
+    "503b1de",
+    "8a74258",
+    "dd69598"
+  ],
   "linked_prs": [],
   "comments": [
     {
@@ -61,12 +66,70 @@
       "author": "developer",
       "at": "2026-10-17T04:19:13.537Z",
       "body": "FIX-ROUND HAND-OFF (relayed by orchestrator; actual SHA from git log: 8a74258 — the developer quoted 1f8a2e6 from memory). Files: facets.ts, ActiveFilterChips.vue, EntityListView.vue, EntityView.vue, two spec files; git show --stat confirmed no foreign file. WG30-H1: crumbs go through selectionToQuery; parseSelection re-joins comma pieces that form a known vocabulary/geo value (longest match first), so \"Anping%2C Tainan\", \"Anping, Tainan\" and repeated keys all resolve to exactly that city. WG30-M1: boolean switch replaces the group (?complete=false then click -> single \"Complete profile\" chip). Lows: lowercase ISO accepted; encodeSelection/isDefault removed; real-graph test asserts > 1000 marinas; Complete chip tooltip explains ?complete=all; comment explains why /browse/yacht?country=US keeps the default. Tests 157 (incl. TASK-034's 4) green; 3 new locks (cap 3); build clean. Red-green: boolean-append plant red; comma re-join revert red; crumb lock stays green if EntityView alone reverts (parser rescues it — defence in depth). Pending: fresh reviewer on 503b1de..8a74258 (app/ files of this ticket only), probe replay, [FINDING-RESOLVED: WG30-H1], HUMAN UAT CU1-CU12, close."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T04:41:27.929Z",
+      "body": "[WARGAMING] Replay of the challenger probes against 8a74258 (HEAD 36da82c), attacking CU6 camino alternativo (crumb with comma city) and CU8 camino alternativo (boolean switch from ?complete=false), plus CU5/CU10 camino de fallo with hostile URLs. Scratch: C:\\Users\\srpar\\AppData\\Local\\Temp\\claude\\D--boat-data\\a4071a6a-8d33-468c-8b6c-c86958751844\\scratchpad\\wargame-030-replay\\ (probes.spec.ts unchanged, fix-replay.spec.ts new, run1..run4.log). Challenger probes: 10/10 pass, 0 regressions; R4 lowercase ISO now fixed; R6 comma-city crumb now parses to [\"Anping, Tainan\"] and EntityListView shows exactly 1 row (club:argo-yacht-club) with chips Taiwan + \"Anping, Tainan\"; R6 ?complete=false then toggle -> /browse/yacht?complete=true, 1 chip; toggle again -> ?complete=all. Ambiguity sweep: vocabulary {\"A, B\",\"A\",\"B\"} deterministic over 50 runs, round-trips; only theoretical collision is a value equal to the bare comma-join of two others (LOW WG30-L5, absent from corpus: the only comma value in the graph is club city \"Anping, Tainan\").\n[FINDING-RESOLVED: WG30-H1] crumbs go through selectionToQuery and parseSelection re-joins comma pieces; end-to-end EntityView -> EntityListView verified on the real graph.\nWG30-M1 RESOLVED: boolean switch replaces the group.\n[FINDING-HIGH: WG30-H2] Regression introduced by 8a74258: app/src/utils/facets.ts:283-298 splitList tries every suffix j for every start i with slice+join+Map lookup, O(n^3) on untrusted URL input, on the main thread on every route change. Measured on the real marina index: 500 junk values 1355 ms (AC7 budget 50 ms); growth 200->71 ms, 400->585, 800->4507, 2000->73443 ms. Repro: open /browse/marina?city=j0,j1,...,j1999 (~10 KB URL) -> tab blocked ~73 s. Pre-fix splitList at 503b1de was a plain split (0.3 ms for 800). Fix: bound the lookahead to the max comma count of any value in that key's vocabulary, precomputed once in buildFacetIndex (real graph: 1 for club.city, 0 elsewhere), i.e. for j from min(parts.length, i+1+maxCommas[key]) down to i+2; lock with a test parsing 2000 comma values under 50 ms.\nLOW/info: ?country=Australia resolves to {} only in synthetic data where one code carries two names (countryNames keeps the last); real graph has no such code; pre-existing."
+    },
+    {
+      "author": "reviewer",
+      "at": "2026-10-17T04:42:04.691Z",
+      "body": "REVIEW VERDICT fix round (fresh-context, diff 503b1de..8a74258 app/): BLOCK, 1 HIGH, 1 MEDIUM, 3 LOW. RUN: vitest 17 files / 157 passed; typecheck exit 0; build exit 0; git show --stat 8a74258 = only the 6 named files, no TASK-034 files, no graph.json/urlCodec/QueryView. Real-graph scan: the only comma-containing value is club/city \"Anping, Tainan\" (2 nodes); club/city also contains \"Tainan\", so the ambiguity case exists in real data. WG30-H1 genuinely resolved for the reported path (EntityView.vue:62-72 crumbs via selectionToQuery; parseSelection facets.ts:283-298,322 accepts escaped, raw and repeated-key forms; longest match first). WG30-M1 resolved (EntityListView.vue:76-77 replaces the group for booleanKeys; default path and ?complete=all marker intact). LOWs L-1..L-4 and lowercase ISO present as claimed. 3 new tests = cap, harm comments present, each discriminates. Regla 1: no CU changed.\nHIGH R-1 (= WG30-H2) facets.ts:283-298 splitList is O(n^3) in comma pieces; timing of a verbatim copy: 100 values 8 ms, 500 918 ms, 1000 7.4 s, 2000 61 s, 5000 killed after 5 min. Repro: /browse/marina?city=<\"a,\" x1500> (~3 KB) or repeated ?city=a keys (arrays are joined into one string first, facets.ts:318); parseSelection runs in a computed on every route change, so a shareable link freezes the page (CU10 failure path regresses to denial of the view). Fix: bound the join window to the max comma count per key precomputed in buildFacetIndex (0 for all keys but club/city = 1), or skip the re-join when no known value for the key contains a comma; lock with a 5000-piece parse completing in a few ms; replay hostile-URL probes.\nMEDIUM M-1 facetViews.spec.ts:615-621 crumb lock asserts '1 of 1 results' but the fixture has a single TW marina, so country alone yields 1 of 1; only the chip assertion discriminates. Add a second TW fixture marina with city 'Tainan' so raw \"Anping, Tainan\" must not resolve to 'Tainan'.\nLOW L-5 facets.ts:391-394 \"Shown by default\" tooltip also appears for explicit ?complete=true. L-6 facets.ts:323-329 unindented else block. L-7 document the longest-match ambiguity semantics in the splitList doc comment."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T04:54:38.298Z",
+      "body": "FIX-ROUND 2 HAND-OFF (relayed by orchestrator; SHA from git log: dd69598). Files: facets.ts, facets.spec.ts, facetFixture.ts, EntityListView.vue (+1 line beyond briefing, see L-5), homeView.spec.ts (fixture count shift only). WG30-H2: buildFacetIndex records the max comma count of any known value per key; splitList tries joins only within that window, so a key without comma values behaves as a plain split. Timings on the real club index: 500 pieces 1-3 ms, 2000 pieces 2-10 ms; wargame replay (wargame-030-replay) 2 files / 19 tests pass incl. the 500-piece perf case. Lock: new spec parses 2500 pieces for a key without comma values and for club city, each under 50 ms, and \"Anping, Tainan\" still resolves exactly. M-1: second TW fixture marina (city \"Tainan\") in facetFixture.ts; expected counts shifted legitimately (boatyard ids gain m7, marina total 6->7; homeView.spec 10 nodes / 7 marinas). L-5: new exported isImplicitDefault(query, index); EntityListView passes it to selectionChips so the \"Shown by default\" tooltip only appears for the implicit default; checked in the existing yacht-default spec. L-6 indent fixed; L-7 splitList doc comment describes longest-match and the bounded window. Red plants: window widened by 30 -> perf spec failed at 168 ms; dropping the city in parseSelection -> 4 specs failed; removing the L-5 condition -> yacht-default spec failed; pure revert to O(n^3) hangs (confirmed, killed), hence the widened-window plant. Orchestrator verified independently: git show --stat clean, vitest 17 files / 159 passed."
+    },
+    {
+      "author": "reviewer",
+      "at": "2026-10-17T04:58:50.228Z",
+      "body": "REVIEW VERDICT fix round 2 (fresh-context, diff 36da82c..dd69598 -- app/): APPROVE, 0 HIGH, 0 MEDIUM, 3 LOW. RUN: vitest 17 files / 159 passed; typecheck exit 0; build clean; challenger replay (wargame-030-replay) 2 files / 19 passed, 0 regressions; git diff --stat = exactly the 5 named files, HomeView.vue untouched. Independent timing on the REAL graph (scratchpad rev030-r2-timing/timing.spec.ts, 4/4): parseSelection 500/2000/5000 comma pieces, marina city 1.5/1.6/4.5 ms, facility_category 0.5/1.6/3.4, subdivision 0.4/1.3/3.1, country 13.6/9.2/28.7; club city 1.1/3.4/10.0, country 1.7/6.1/18.6; 2000 repeated ?city= keys marina 1.6 ms, club 2.8; 5000x\"Anping,\"+\"Anping, Tainan\" on club 3.6 ms resolving to {\"city\":[\"Anping, Tainan\"]}. Previous round: 500 pieces 918-1355 ms, 2000 pieces 61-73 s.\nWindow logic (facets.ts:107-112, 294-309, 333): per key, over vocabulary AND geo keys; graph.json scan agrees (every key 0 except club city 1); computed once per buildFacetIndex, memoised per type in stores/graph.ts:169-177 facetIndexCache; future 2-comma vocabulary handled deterministically (20 runs); maxCommas 0 degenerates to plain split. Escaped, raw, repeated-key, lowercase ISO and round-trip all resolve. isImplicitDefault / EntityListView.vue:66: tooltip only on the implicit default; ?complete=true and ?complete=all unchanged (CU7/CU8). M-1 fixture: TW now m6+m7, crumb lock discriminates (country-only or raw split both give 2 of 2); count shifts are exactly m7. 1 new spec (perf lock facets.spec.ts:79-91, harm comment, fails at widened window) + 1 extended; cap respected; Regla 1: no CU changed.\nLOW L-8 facets.ts:337 country fallback spreads index.countryNames per unknown piece (O(pieces x countries); 5000 pieces 29 ms) — build a lowercase name->code Map once in buildFacetIndex. L-9 facets.ts:379-381 isImplicitDefault re-parses the query already parsed by resolveSelection; return an implicit flag instead. L-10 facets.spec.ts:86 50 ms wall-clock assertion could flake on a loaded CI box (measured 1-10 ms)."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T04:58:50.292Z",
+      "body": "[WARGAMING] Round-2 replay against dd69598: the challenger probe set (CU5/CU10 camino de fallo with hostile URLs, CU6 camino alternativo comma-city crumb, CU8 camino alternativo boolean switch, CU3/CU2 camino principal engine semantics, CU9 drawer a11y, CU11 CSV, CU12 state leaks) passes 19/19 (probes 10 + fix-replay 9) with 0 regressions, run by the developer and again by the fresh reviewer. The perf attack that opened WG30-H2 (2000 and 5000 comma pieces, 2000 repeated keys, 5000x \"Anping,\" prefix) now completes in 1-29 ms on the real graph.\n[FINDING-RESOLVED: WG30-H2] splitList lookahead bounded by per-key max comma count precomputed in buildFacetIndex (dd69598); confirmed by independent timing in the round-2 review and locked by facets.spec.ts:79-91.\nResiduals carried as LOW (no ticket action): WG30-L5 theoretical comma-join collision absent from corpus; countryNames keeps the last name per code (synthetic data only); L-8/L-9/L-10 from the round-2 review. Pending before close: HUMAN UAT CU1-CU12 on :5180."
+    },
+    {
+      "author": "uat",
+      "at": "2026-10-17T14:55:15.075Z",
+      "body": "1. CU1 open /browse/marina, select Florida and Dry stack; expect reduced table, chips and URL. Observed: 1,206 -> 281 -> 1, chips Dry stack + Florida, URL /browse/marina?facility_category=dry+stack&subdivision=Florida. Verified by Orchestrator at the human's request. Verdict: PASS\n2. CU2 with Florida selected, expect facility_category counts scoped to Florida and zero-count values disabled but visible. Observed: Wet-slip marina 182, Club marina 34, Boatyard 11; Fuel dock (0) disabled and visible. Verified by Orchestrator at the human's request. Verdict: PASS\n3. CU3 Dry stack + Boatyard union, then berths_band 150-400 intersection. Observed: 2 and 146 -> 148 union; with 150-400 -> 2. Verified by Orchestrator at the human's request. Verdict: PASS\n4. CU4 loa_band as band buttons, complete as toggle. Observed: 6 aria-pressed band buttons, 0 number inputs; Complete profile is role=switch. Verified by Orchestrator at the human's request. Verdict: PASS\n5. CU5 reopen the filtered URL in a new page; old /query link still works. Observed: same 1 row and chips; /query?type=yacht&f=loa.gte.60 renders 298 results, no errors. Verified by Orchestrator at the human's request. Verdict: PASS\n6. CU6 deep link and breadcrumbs. Observed: United States > Florida with 281 rows; marina:17th-street-yacht-basin shows three linked crumbs, Fort Lauderdale crumb -> 22 rows; person entity shows no breadcrumb. Verified by Orchestrator at the human's request. Verdict: PASS\n7. CU7 yacht default. Observed: Complete profile chip and 238 rows; removing it -> 581 and ?complete=all; /browse/yacht?loa_band=60-90 -> only the Length 60-90 chip, 186 rows. Verified by Orchestrator at the human's request. Verdict: PASS\n8. CU8 chips and Clear all. Observed: removing Dry stack leaves Florida with 281; Clear all -> 1,206 rows and URL exactly /browse/marina. Verified by Orchestrator at the human's request. Verdict: PASS\n9. CU9 375 px. Observed: scrollWidth 375, Filters (1) button, Enter opens role=dialog with focus on Close, 60 Tabs stay inside, Escape returns focus to the button; Lighthouse accessibility 100 on /browse/marina. Verified by Orchestrator at the human's request. Verdict: PASS\n10. CU10 invalid value. Observed: ?facility_category=zzz&subdivision=Florida -> 281 rows, only the Florida chip, 0 console errors. Verified by Orchestrator at the human's request. Verdict: PASS\n11. CU11 CSV export. Observed: Download CSV blob rows 1 / 281 / 148 equal the counters 1 of 1 / 281 of 281 / 148 of 148 (not the 50 paginated rows). Verified by Orchestrator at the human's request. Verdict: PASS\n12. CU12 no regression. Observed: vitest 17 files / 159 passed, typecheck and build clean, app/public/data/graph.json untouched in every ticket commit. Verified by Orchestrator at the human's request. Verdict: PASS\n\nOverall result: PASS"
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T14:56:00.633Z",
+      "body": "ENTREGA — TASK-030 Facet panel + navigable geography in /browse/:type\n\n1. CASOS DE USO APROBADOS (aprobados por el humano el 2026-10-16, comentario del orquestador con la lista CU1-CU12)\n   CU1 facetas + Geography, Florida y Dry stack -> cumplido. CU2 conteos vivos y ceros deshabilitados -> cumplido. CU3 OR dentro / AND entre -> cumplido. CU4 bandas como botones, booleanos como switch -> cumplido. CU5 URL y recarga, enlaces /query antiguos -> cumplido. CU6 deep link y migas geo -> cumplido. CU7 por defecto en yates -> cumplido. CU8 chips y Clear all -> cumplido. CU9 móvil 375 px, cajón, teclado, Lighthouse 100 -> cumplido. CU10 valor inválido ignorado -> cumplido. CU11 CSV = filas filtradas, 5 facetas < 50 ms -> cumplido. CU12 no regresión -> cumplido. Ningún caso cambiado.\n\n2. RESULTADO DE LA IMPLEMENTACIÓN\n   El usuario puede filtrar cualquier /browse/:type por facetas controladas (meta.facets) y por geografía país > subdivisión > ciudad desde attrs.geo, con conteos vivos, chips, URL compartible, migas geo en las fichas, cajón móvil accesible y CSV del conjunto filtrado. Archivos: app/src/utils/facets.ts (motor, codec compartido, ventana de re-unión acotada por clave), components/FacetPanel.vue, ActiveFilterChips.vue, views/EntityListView.vue, EntityView.vue, utils/labels.ts, stores/graph.ts (índices memoizados), tests facets.spec.ts, FacetPanel.spec.ts, facetViews.spec.ts, fixture facetFixture.ts. Commits df19586, 503b1de, 8a74258 (ronda 1), dd69598 (ronda 2). Fuera a propósito: subdivisiones/ciudades fuera del ámbito se ocultan en vez de deshabilitarse (L-1, aceptado); nada de ingesta ni graph.json.\n\n3. WARGAMING\n   Atacado: CU5 y CU10 camino de fallo (URLs hostiles: claves duplicadas, vacías, __proto__, <script>, RTL, 5000 chars, 500-5000 valores), CU6 camino alternativo (ciudad con coma, ISO en minúsculas, ciudad sin padre), CU8 camino alternativo (switch desde ?complete=false, quitar chips), CU3/CU2 camino principal del motor, CU7 alternativo (?complete=all/ALL/0), CU9 a11y del cajón, CU11 CSV con paginación, CU12 fugas entre tipos. Sobrevivió: todo lo anterior salvo dos hallazgos. No sobrevivió: WG30-H1 (miga con ciudad con coma listaba 4 clubes en vez de 1) -> corregido en 8a74258 y marcado [FINDING-RESOLVED: WG30-H1]; WG30-M1 (switch OR-append) -> corregido en 8a74258; WG30-H2 (la corrección de H1 hizo el parseo cúbico: 2000 valores 60-70 s) -> corregido en dd69598, tiempos reales 1-29 ms, marcado [FINDING-RESOLVED: WG30-H2]. E2E/sondas corridas: wargame-030 probes.spec.ts + fix-replay.spec.ts 19/19 tras dd69598, 0 regresiones; suite app 159/159. Reviews: ronda 0 APPROVE 0 HIGH, ronda 1 BLOCK por H2, ronda 2 APPROVE 0 HIGH 0 MEDIUM. Veredicto: verificado.\n\n4. UAT\n   requires_uat=true; el humano delegó el UAT en el orquestador. Guion = CU1-CU12; 12/12 PASS registrados en el comentario uat anterior (Chrome headless sobre :5180, 0 errores de consola). Overall result: PASS.\n\n5. ESTADO Y DEUDAS\n   LOW no accionados: L-1 ocultar vs deshabilitar fuera de ámbito; L-4 /browse/yacht?country=US conserva el chip por defecto (documentado); L-8 fallback de nombre de país O(piezas x países), 29 ms peor caso; L-9 parseo duplicado en isImplicitDefault; L-10 aserción de 50 ms por reloj; WG30-L5 colisión teórica de valores con coma (ausente del corpus); countryNames conserva el último nombre por código (solo datos sintéticos); chips en orden de clave, no de clic; valor desconocido permanece en la URL aunque se ignore. Geo sin resolver sigue en TASK-028; facetas sin mapear en TASK-033."
     }
   ],
   "created_at": "2026-10-17T02:56:03.650Z",
-  "updated_at": "2026-10-17T04:19:13.537Z",
+  "updated_at": "2026-10-17T14:56:00.633Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": true,
-  "marker": "[EXPLICIT]"
+  "marker": "[EXPLICIT]",
+  "linked_commits_verification": {
+    "at": "2026-10-17T14:56:00.633Z",
+    "checked": true,
+    "reason": null,
+    "commits": [
+      {
+        "sha": "df19586",
+        "state": "verified"
+      },
+      {
+        "sha": "503b1de",
+        "state": "verified"
+      },
+      {
+        "sha": "8a74258",
+        "state": "verified"
+      },
+      {
+        "sha": "dd69598",
+        "state": "verified"
+      }
+    ]
+  }
 }

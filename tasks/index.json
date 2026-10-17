@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:19:13.537Z",
+  "generated_at": "2026-10-17T14:56:01.343Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -178,19 +178,19 @@
     {
       "key": "TASK-030",
       "title": "Facet panel + navigable geography in /browse/:type (proposal step 4)",
-      "status": "in_review",
+      "status": "done",
       "priority": "high"
     },
     {
       "key": "TASK-031",
       "title": "Query builder reads meta.facets: value dropdowns, geo fields, multi-value conditions (proposal step 5)",
-      "status": "todo",
+      "status": "in_progress",
       "priority": "medium"
     },
     {
       "key": "TASK-032",
       "title": "Global search: wider index (city, country, builder, category) + type/field prefixes (proposal step 6)",
-      "status": "todo",
+      "status": "in_progress",
       "priority": "medium"
     },
     {
@@ -202,7 +202,7 @@
     {
       "key": "TASK-034",
       "title": "Home becomes an about/landing page explaining DataYacht; Explore stays the browsing hub",
-      "status": "in_review",
+      "status": "done",
       "priority": "medium"
     }
   ]

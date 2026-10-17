@@ -12,7 +12,53 @@
       "type": "task",
       "ref": "tasks/TASK-029.json",
       "label": "Per-type controlled-vocabulary facets (attrs.facets) computed at ingest"
+    },
+    {
+      "id": "task-030",
+      "type": "task",
+      "ref": "tasks/TASK-030.json",
+      "label": "Facet panel + navigable geography in /browse/:type (proposal step 4)"
+    },
+    {
+      "id": "task-034",
+      "type": "task",
+      "ref": "tasks/TASK-034.json",
+      "label": "Home becomes an about/landing page explaining DataYacht; Explore stays the browsing hub"
+    },
+    {
+      "id": "decision-20261016-route-to-prod-three-ui-tickets-one-deploy",
+      "type": "decision",
+      "ref": "state/sessions/20260703T215207Z-c2ca4ce7/session.json",
+      "label": "2026-10-16 human: route to production = TASK-030 facet panel, TASK-031 query dropdowns, TASK-032 search prefixes, then ONE Firebase deploy; UI tickets carry requires_uat"
+    },
+    {
+      "id": "decision-20261017-home-landing-page-explore-hub",
+      "type": "decision",
+      "ref": "state/sessions/20260703T215207Z-c2ca4ce7/session.json",
+      "label": "2026-10-17 human: Home must be a landing page explaining DataYacht; Explore remains the browsing hub (TASK-034 rescoped, CU1-CU8 approved)"
+    },
+    {
+      "id": "decision-20261016-filters-read-attrs-geo-never-attrs-country",
+      "type": "decision",
+      "ref": "state/sessions/20260703T215207Z-c2ca4ce7/session.json",
+      "label": "2026-10-16 TASK-027 review: filters and queries must read attrs.geo, never attrs.country"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "from": "task-030",
+      "to": "decision-20261016-route-to-prod-three-ui-tickets-one-deploy",
+      "relation": "produced-by"
+    },
+    {
+      "from": "task-030",
+      "to": "decision-20261016-filters-read-attrs-geo-never-attrs-country",
+      "relation": "relates-to"
+    },
+    {
+      "from": "task-034",
+      "to": "decision-20261017-home-landing-page-explore-hub",
+      "relation": "produced-by"
+    }
+  ]
 }
