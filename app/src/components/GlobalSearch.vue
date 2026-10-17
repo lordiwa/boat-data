@@ -11,7 +11,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useGraphStore } from '@/stores/graph';
-import type { SearchEntry } from '@/stores/graph';
+import { browseHref, parseQuery, searchEntries, type ScoredEntry, type SearchEntry } from '@/utils/search';
 import { labelForType } from '@/utils/labels';
 import { isPlaceholderName } from '@/utils/placeholder';
 import { searchFocusRequest } from '@/composables/searchFocus';
@@ -25,11 +25,6 @@ const MAX_PER_GROUP = 8;
 
 /** Debounce delay between keystrokes and running the search, in ms. */
 const DEBOUNCE_MS = 120;
-
-interface ScoredEntry extends SearchEntry {
-  /** 0 = name starts with query, 1 = name contains query, 2 = only the extra (e.g. builder) field matches. */
-  score: number;
-}
 
 interface ResultGroup {
   type: string;
@@ -61,22 +56,21 @@ const activeIndex = ref(-1);
 const inputRef = ref<HTMLInputElement | null>(null);
 const rootRef = ref<HTMLElement | null>(null);
 
-const groups = computed<ResultGroup[]>(() => {
-  const q = normalizedQuery.value;
-  if (!q) return [];
+const parsed = computed(() => parseQuery(normalizedQuery.value, graph.searchVocab));
+
+/** Chip selection: one type to narrow to, or null for all. Reset whenever the query changes. */
+const typeFilter = ref<string | null>(null);
+watch(normalizedQuery, () => {
+  typeFilter.value = null;
+});
+
+const allGroups = computed<ResultGroup[]>(() => {
+  if (!normalizedQuery.value) return [];
   const byType = new Map<string, ScoredEntry[]>();
-  for (const entry of graph.searchIndex) {
-    let score = -1;
-    if (entry.nameLower.startsWith(q)) score = 0;
-    else if (entry.nameLower.includes(q)) score = 1;
-    else if (entry.extra && entry.extra.includes(q)) score = 2;
-    if (score === -1) continue;
+  for (const entry of searchEntries(graph.searchIndex, parsed.value)) {
     let list = byType.get(entry.type);
-    if (!list) {
-      list = [];
-      byType.set(entry.type, list);
-    }
-    list.push({ ...entry, score });
+    if (!list) byType.set(entry.type, (list = []));
+    list.push(entry);
   }
   const knownTypes = GROUP_ORDER.filter((t) => byType.has(t));
   const otherTypes = [...byType.keys()].filter((t) => !GROUP_ORDER.includes(t)).sort();
@@ -92,6 +86,30 @@ const groups = computed<ResultGroup[]>(() => {
     };
   });
 });
+
+const groups = computed(() => (typeFilter.value ? allGroups.value.filter((g) => g.type === typeFilter.value) : allGroups.value));
+const totalMatches = computed(() => groups.value.reduce((n, g) => n + g.total, 0));
+
+/** Live-region text: result count (or the empty state) whenever the panel is showing. */
+const announcement = computed(() => {
+  if (!isOpen.value || !hasQuery.value) return '';
+  const n = totalMatches.value;
+  return n === 0 ? `No matches for ${debouncedQuery.value.trim()}` : `${n} ${n === 1 ? 'result' : 'results'}`;
+});
+
+const openListUrl = computed(() => (hasQuery.value ? browseHref(parsed.value, (t) => graph.facetIndex(t)) : null));
+
+function toggleType(type: string) {
+  typeFilter.value = typeFilter.value === type ? null : type;
+}
+
+function openList(event: MouseEvent) {
+  event.preventDefault();
+  const url = openListUrl.value;
+  if (!url) return;
+  closePanel();
+  router.push(url);
+}
 
 // TASK-034: Home's "Search" CTA asks for focus via the shared request counter.
 watch(searchFocusRequest, () => inputRef.value?.focus());
@@ -181,10 +199,11 @@ interface NamePart {
   match: boolean;
 }
 
-/** Splits `name` into [before, match, after] around the first case-insensitive occurrence of `q`. */
-function highlightParts(name: string, q: string): NamePart[] {
-  if (!q) return [{ text: name, match: false }];
-  const idx = name.toLowerCase().indexOf(q);
+/** Splits `name` into [before, match, after] around the first query term that occurs in it. */
+function highlightParts(name: string, terms: string[]): NamePart[] {
+  const lower = name.toLowerCase();
+  const q = terms.find((t) => lower.includes(t)) ?? '';
+  const idx = q ? lower.indexOf(q) : -1;
   if (idx === -1) return [{ text: name, match: false }];
   const parts: NamePart[] = [];
   if (idx > 0) parts.push({ text: name.slice(0, idx), match: false });
@@ -220,37 +239,60 @@ function highlightParts(name: string, q: string): NamePart[] {
       />
     </div>
 
-    <div v-if="isOpen && hasQuery" id="global-search-panel" class="global-search__panel" role="listbox">
-      <template v-if="hasResults">
-        <div v-for="group in groups" :key="group.type" class="global-search__group">
-          <div class="global-search__group-header">
-            <span>{{ group.label }}</span>
-            <span class="global-search__group-count">{{ group.total }}</span>
-          </div>
+    <div class="sr-only" role="status" aria-live="polite" data-testid="search-live">{{ announcement }}</div>
+
+    <div v-if="isOpen && hasQuery" class="global-search__panel">
+      <div v-if="allGroups.length > 1 || openListUrl" class="global-search__toolbar">
+        <div v-if="allGroups.length > 1" class="global-search__chips" role="group" aria-label="Narrow by type">
           <button
-            v-for="item in group.items"
-            :id="`global-search-option-${item.id}`"
-            :key="item.id"
+            v-for="g in allGroups"
+            :key="g.type"
             type="button"
-            role="option"
-            :aria-selected="item.id === activeId"
-            class="global-search__item"
-            :class="{ 'global-search__item--active': item.id === activeId }"
-            @mousedown.prevent="selectEntry(item)"
-            @mouseenter="setActiveByEntry(item)"
+            class="global-search__chip"
+            :class="{ 'global-search__chip--on': typeFilter === g.type }"
+            :aria-pressed="typeFilter === g.type"
+            @click="toggleType(g.type)"
           >
-            <span class="global-search__item-name">
-              <template v-for="(part, i) in highlightParts(item.name, normalizedQuery)" :key="i">
-                <mark v-if="part.match">{{ part.text }}</mark>
-                <template v-else>{{ part.text }}</template>
-              </template>
-            </span>
-            <span v-if="isPlaceholderName(item.name)" class="global-search__badge">unspecified</span>
+            {{ g.label }} {{ g.total }}
           </button>
-          <div v-if="group.overflow > 0" class="global-search__more">+{{ group.overflow }} more</div>
         </div>
-      </template>
-      <div v-else class="global-search__empty">No matches for &ldquo;{{ debouncedQuery.trim() }}&rdquo;</div>
+        <a v-if="openListUrl" class="global-search__open-list" :href="openListUrl" @click="openList">Open as filtered list</a>
+      </div>
+      <div id="global-search-panel" role="listbox" aria-label="Search results">
+        <template v-if="hasResults">
+          <div v-for="group in groups" :key="group.type" class="global-search__group">
+            <div class="global-search__group-header">
+              <span>{{ group.label }}</span>
+              <span class="global-search__group-count">{{ group.total }}</span>
+            </div>
+            <button
+              v-for="item in group.items"
+              :id="`global-search-option-${item.id}`"
+              :key="item.id"
+              type="button"
+              role="option"
+              :aria-selected="item.id === activeId"
+              class="global-search__item"
+              :class="{ 'global-search__item--active': item.id === activeId }"
+              @mousedown.prevent="selectEntry(item)"
+              @mouseenter="setActiveByEntry(item)"
+            >
+              <span class="global-search__item-text">
+                <span class="global-search__item-name">
+                  <template v-for="(part, i) in highlightParts(item.name, parsed.terms)" :key="i">
+                    <mark v-if="part.match">{{ part.text }}</mark>
+                    <template v-else>{{ part.text }}</template>
+                  </template>
+                </span>
+                <span v-if="item.subtitle" class="global-search__item-sub">{{ item.subtitle }}</span>
+              </span>
+              <span v-if="isPlaceholderName(item.name)" class="global-search__badge">unspecified</span>
+            </button>
+            <div v-if="group.overflow > 0" class="global-search__more">+{{ group.overflow }} more</div>
+          </div>
+        </template>
+        <div v-else class="global-search__empty">No matches for &ldquo;{{ debouncedQuery.trim() }}&rdquo;</div>
+      </div>
     </div>
   </div>
 </template>
@@ -351,6 +393,60 @@ function highlightParts(name: string, q: string): NamePart[] {
   color: var(--color-text);
   cursor: pointer;
   font-family: var(--font-sans);
+}
+
+.global-search__item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.global-search__item-sub {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.global-search__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.3rem 0.9rem 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.global-search__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.global-search__chip {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.global-search__chip--on {
+  background: var(--color-brand-light);
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  font-weight: 600;
+}
+
+.global-search__open-list {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-brand);
 }
 
 .global-search__item-name {

@@ -14,40 +14,20 @@
 import { defineStore } from 'pinia';
 import { shallowRef, computed } from 'vue';
 import { buildFacetIndex, type FacetIndex } from '@/utils/facets';
+import { buildSearchIndex, type SearchEntry, type SearchVocab } from '@/utils/search';
 import type { GraphEdge, GraphExport, GraphMeta, GraphNode, EdgeRel, NodeType } from '@/types/graph';
 
 /** node id -> rel -> edges whose src (out) or dst (in) is that node id */
 type Adjacency = Map<string, Map<string, GraphEdge[]>>;
 
-/**
- * TASK-008: one precomputed, lowercase-friendly entry per node, used by
- * GlobalSearch so it never has to lowercase 3k+ names on every keystroke.
- * `extra` carries cheap, high-value secondary text to search — currently
- * just a yacht's builder name (via the `built_by` edge), since the ticket
- * asks for "name matching is the core" and nothing fancier.
- */
-export interface SearchEntry {
-  id: string;
-  type: string;
-  name: string;
-  nameLower: string;
-  extra: string;
-}
+// TASK-032: the search index (name, builder, geo, facet labels) and its prefix vocabulary are built
+// once per load by utils/search.ts; a yacht's builder comes from its first `built_by` edge.
+export type { SearchEntry } from '@/utils/search';
 
-function buildSearchIndex(nodeMap: Map<string, GraphNode>, out: Adjacency): SearchEntry[] {
-  const entries: SearchEntry[] = [];
-  for (const node of nodeMap.values()) {
-    let extra = '';
-    if (node.type === 'yacht') {
-      const builtBy = out.get(node.id)?.get('built_by');
-      if (builtBy && builtBy.length) {
-        const builder = nodeMap.get(builtBy[0].dst);
-        if (builder) extra = builder.name.toLowerCase();
-      }
-    }
-    entries.push({ id: node.id, type: node.type, name: node.name, nameLower: node.name.toLowerCase(), extra });
-  }
-  return entries;
+function builderNameOf(nodeMap: Map<string, GraphNode>, out: Adjacency, node: GraphNode): string {
+  if (node.type !== 'yacht') return '';
+  const builtBy = out.get(node.id)?.get('built_by');
+  return (builtBy?.length && nodeMap.get(builtBy[0].dst)?.name) || '';
 }
 
 function addToAdjacency(adjacency: Adjacency, nodeId: string, rel: string, edge: GraphEdge) {
@@ -95,6 +75,7 @@ export const useGraphStore = defineStore('graph', () => {
   const adjacencyOut = shallowRef<Adjacency>(new Map());
   const adjacencyIn = shallowRef<Adjacency>(new Map());
   const searchIndex = shallowRef<SearchEntry[]>([]);
+  const searchVocab = shallowRef<SearchVocab>({ types: new Set(), values: new Map() });
 
   const nodeCount = computed(() => meta.value?.node_count ?? 0);
   const edgeCount = computed(() => meta.value?.edge_count ?? 0);
@@ -214,7 +195,9 @@ export const useGraphStore = defineStore('graph', () => {
       nameToId.value = nameToIdMap;
       adjacencyOut.value = out;
       adjacencyIn.value = inn;
-      searchIndex.value = buildSearchIndex(nodeMap, out);
+      const built = buildSearchIndex(nodeMap.values(), (n) => builderNameOf(nodeMap, out, n));
+      searchIndex.value = built.entries;
+      searchVocab.value = built.vocab;
       loaded.value = true;
     } catch (err) {
       error.value = err instanceof Error ? err.message : String(err);
@@ -233,6 +216,7 @@ export const useGraphStore = defineStore('graph', () => {
     edgeCount,
     typeCounts,
     searchIndex,
+    searchVocab,
     load,
     nodesByType,
     nodeById,
