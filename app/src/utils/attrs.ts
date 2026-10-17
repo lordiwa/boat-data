@@ -15,8 +15,10 @@ import { formatMeters, formatMoney, formatNumber, formatYear, shortHost } from '
  * TASK-020: `data_quality` is also hidden here — EntityView.vue renders it
  * as a prominent warning banner (see its own `dataQualityWarning`
  * computed), not a plain attr row.
+ * TASK-029: `facets` (the ingest-computed controlled-vocabulary block) is hidden until the
+ * facet panel ticket renders it; showing it here would be an unplanned UI change.
  */
-const HIDDEN_KEYS = new Set(['_resolution', 'provenance', 'conflicts', 'data_quality']);
+const HIDDEN_KEYS = new Set(['_resolution', 'provenance', 'conflicts', 'data_quality', 'facets']);
 
 // TASK-020: beam/draft (yachtSpecMapper.js) and max_draft (marinaMapper.js's
 // isMarinaEnrichmentTable) are all { meters, raw } shapes, same as loa/max_loa.
