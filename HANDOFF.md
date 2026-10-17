@@ -1,3 +1,44 @@
+# HANDOFF — 2026-10-17 (late) session snapshot — ROUTE TO PROD COMPLETE EXCEPT FIREBASE DEPLOY
+
+> **Authoritative for resume.** Supersedes every block below. On resume: read this block, then
+> `state/session.json` -> bundle `state/sessions/20260703T215207Z-c2ca4ce7/session.json` (active_task null,
+> `blockers` names the deploy auth problem).
+
+## Where things stand (branch main = origin/main = 7f4dd63, everything pushed)
+- **CLOSED today with green review + wargaming + delegated UAT (all PASS) + PLANTILLA-ENTREGA bodies:**
+  TASK-030 facet panel (df19586 503b1de 8a74258 dd69598), TASK-034 Home landing (5756a9f 7ad0a30 b36aced),
+  TASK-031 query builder facets (ab2d762 2b4beac ab863ea a53bea1 11add65), TASK-032 global search
+  (3d14fe1 0acd802 e967e9b). Earlier: TASK-027, TASK-029 closed. Debts: TASK-028 (geo), TASK-033 (facets),
+  LOW residuals listed in each ticket's close-out comment.
+- App suite 22 files / 172 tests green; typecheck + build clean; Lighthouse accessibility 100 on /, /query,
+  /browse/marina. `app/dist` built from HEAD (204 kB JS, 31 kB CSS). Knowledge graph has task/decision edges.
+- **Human decisions today:** loop until done + ignore the 35% context guard; UAT of all four tickets delegated
+  to the orchestrator; TASK-034 CU8/AC4 amended to <=5 tests; TASK-031 CU7 narrowed (Open in browse only when
+  expressible in /browse); TASK-032 result groups ranked by relevance (name/geo above facet labels).
+- **ONLY PENDING STEP: Firebase Hosting deploy.** `npx firebase deploy --only hosting --config ../firebase.json`
+  (from app/) fails with "Failed to get Firebase project boat-site-e66fb": the CLI on this machine is logged in
+  as rmatovelle84@gmail.com, which has no access to that project (projects:list shows 4 unrelated projects).
+  Non-interactive `firebase login --reauth` only prints a URL + code flow. The human must run
+  `! cd app && npx firebase login --reauth` interactively (prefix `!` in the prompt) with the owning account,
+  or grant rmatovelle84@gmail.com Editor on boat-site-e66fb. Then: deploy, verify live /, /browse/marina,
+  /query and the header search, then pause/end the session bundle.
+
+## Process notes earned this session (keep)
+- Wargaming challenger (general-purpose, 8 rounds, real code in scratch vitest) + fresh reviewer per hand-off
+  caught: a cubic re-join in the facet URL parser (WG30-H2, introduced by the H1 fix), render crash on malformed
+  meta.geo, 3 search-grammar MEDIUMs, Chrome's native Escape-clears-search-input (invisible to jsdom; only the
+  browser UAT caught it). Keep doing browser UAT with puppeteer-core (scratchpad/uat/*.mjs has the launch recipe;
+  Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe).
+- Parallel developers in the shared tree with pathspec-limited commits worked (no sweeps) because the file
+  surfaces were disjoint; worktree isolation is unusable until `.claude/settings.json` carries
+  `worktree.baseRef=head` (the file is plugin-rewritten; never commit it).
+- close_task guards: body needs the PLANTILLA-ENTREGA numbered blocks, block 3 must name `CUn` + a path word,
+  `[FINDING-HIGH: id]` needs `[FINDING-RESOLVED: id]`; `uat` comment: no preamble, every step `Verdict: PASS`,
+  `Overall result: PASS`, >= AC-count steps, "verified by Orchestrator at the human's request" when delegated.
+- Ports 5173/5174 busy; dev server on 5180 (was still running at snapshot time). Ingest tests need singleFork.
+
+---
+
 # HANDOFF — 2026-10-17 session snapshot (context-window pause before /clear)
 
 > **Authoritative for resume.** Supersedes the 2026-10-16 block below. On resume: read this block, then
