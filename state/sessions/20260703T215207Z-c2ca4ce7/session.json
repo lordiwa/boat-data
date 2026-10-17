@@ -2,10 +2,10 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-10-17T14:54:26.370Z",
-  "active_task": "TASK-030",
-  "workflow_step": "impl",
-  "next_action": "HUMAN 2026-10-17: loop until done, ignore the 35% context guard; UAT of 030/034 delegated to orchestrator; CU8/AC4 of TASK-034 amended to <=5 tests; TASK-031 and TASK-032 use-case lists (CU1-CU9 each) APPROVED. RUNNING: uat-runner (headless Chrome on :5180, TASK-030 CU1-CU11 + TASK-034 CU1-5,7); dev-031 (query builder facets; files app/src/query/*, QueryView.vue, EntityListView.vue refine action) and dev-032 (search index + prefixes; stores/graph.ts, GlobalSearch.vue, new utils) concurrently in the shared tree with pathspec-limited commits (no worktree.baseRef in settings, so worktree isolation was not usable). On uat-runner return: record `uat` comments (strict Verdict: PASS per step, Overall result: PASS, steps marked verified by Orchestrator at the human request), close TASK-030 (linked df19586 503b1de 8a74258 dd69598) and TASK-034 (5756a9f 7ad0a30 b36aced) with PLANTILLA-ENTREGA bodies, commit state. On each developer return: verify SHAs/tests, transition in_review, fresh reviewer + challenger, fix rounds, delegated UAT, close. Then build + ONE Firebase deploy (cd app && npm run build && npx firebase deploy --only hosting --config ../firebase.json) and git push origin main (both authorized by the human route-to-prod decision).",
+  "updated_at": "2026-10-17T16:04:02.969Z",
+  "active_task": null,
+  "workflow_step": "update",
+  "next_action": "TASK-030, TASK-031, TASK-032, TASK-034 all CLOSED 2026-10-17 (reviews, wargaming, delegated UAT, PLANTILLA-ENTREGA). Remaining per the human route-to-prod decision: production build + ONE Firebase deploy (cd app && npm run build && npx firebase deploy --only hosting --config ../firebase.json), verify the live site, then git push origin main; then pause/end the session. Debts: TASK-028 (geo), TASK-033 (facets), LOW residuals listed in each ticket close-out.",
   "handoff_summary": "2026-10-16/17: TASK-027 (geo hierarchy) and TASK-029 (per-type facets) CLOSED on green reviews + wargaming (TASK-029 needed 3 fix rounds: 4 data HIGHs on never-guess propulsion/role inference, all fixed, replay 0 regressions; closed via auditable exception only because one DEGRADED marker exceeded the 500-char scan cap). Graph 4,789 nodes / 4,199 edges, attrs.geo on ~1,745 nodes, attrs.facets on 3,715, score 7.73. origin/main pushed at d212a7c (human instruction); later commits 7ce2645, 4a11642 + state commits still local. Human route to prod: TASK-030 (facet panel + navigable geography, UAT), TASK-031 (query builder dropdowns), TASK-032 (search prefixes), then ONE Firebase deploy. Debts: TASK-028 (geo), TASK-033 (facets). TASK-030 use cases approved; developer spawned.",
   "open_questions": [],
   "blockers": [],
@@ -86,6 +86,18 @@
       "task": "Combined fix round TASK-030 (dd69598) + TASK-034 (b36aced)",
       "at": "2026-10-17T05:00:46.927Z",
       "summary": "dd69598: splitList lookahead bounded by per-key max commas precomputed in buildFacetIndex; real-graph parse 500/2000/5000 pieces now 1-29 ms (was 1 s / 60-70 s); second TW fixture marina makes the crumb lock discriminate; isImplicitDefault for the tooltip; replay 19/19. Fresh review APPROVE 0 HIGH 0 MEDIUM, 3 LOW (country-name fallback map, duplicate parse, wall-clock assertion). b36aced: HomeView guards malformed meta.geo, skips node-less countries, sorts by count, empty-graph copy, overflow-wrap; dominantType test with TW shipyards. Fresh review code APPROVE; live top-5 unchanged (US/AU/NZ marina, IT shipyard, JP marina), Lighthouse 100; replay 13/14 with the one failure being fixed behaviour. 159 app tests green, verified by orchestrator."
+    },
+    {
+      "agent": "developer x2",
+      "task": "TASK-031 query builder facets (ab2d762, 2b4beac); TASK-032 global search (3d14fe1)",
+      "at": "2026-10-17T15:09:22.467Z",
+      "summary": "Both built concurrently in the shared tree with pathspec-limited commits; git show --stat clean for all three commits. 032: utils/search.ts index + prefix parser, store builds once per load, GlobalSearch chips/subtitle/live region/Open as filtered list; 5 tests; 3-token query 1.84 ms on real graph. 031: new facet/geo filter kind with in/not, URL tokens cat_/geo_, browseBridge name<->ISO, QueryView grouped fields + multi-select, EntityListView Refine action; 7 tests; old links untouched. Suite 159 -> 171 green, typecheck + build clean (orchestrator-verified). Judgment calls flagged: 031 hides Open in browse for is-not; 032 indexes builder_country label so plain italy floods yachts."
+    },
+    {
+      "agent": "reviewers/challengers/uat/devs",
+      "task": "Close-out TASK-031 + TASK-032",
+      "at": "2026-10-17T16:04:02.969Z",
+      "summary": "031: review APPROVE 0 HIGH; wargaming 0 HIGH/0 MEDIUM; CU7 narrowed by human; fix rounds ab863ea (prune out-of-vocab, hasOwn, hint), a53bea1 + 11add65 (hand-typed ISO codes normalised to names); delegated UAT 9/9 PASS; closed with 5 linked commits. 032: review APPROVE (1 MEDIUM), wargaming 0 HIGH / 3 MEDIUM; human chose relevance ranking; fix 0acd802 (dedupe/cap, ranking, spaced prefixes, plural type words, diacritic folding, whitespace, boolean link), e967e9b (Escape .prevent); replay 9/9; delegated UAT 9/9 PASS; closed with 3 linked commits. Final suite 22 files / 172 tests, typecheck + build clean, Lighthouse a11y 100 on /, /query, /browse/marina."
     }
   ],
   "pending_human_confirmation": null,

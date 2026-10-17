@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T14:56:01.343Z",
+  "generated_at": "2026-10-17T16:03:34.114Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -184,13 +184,13 @@
     {
       "key": "TASK-031",
       "title": "Query builder reads meta.facets: value dropdowns, geo fields, multi-value conditions (proposal step 5)",
-      "status": "in_progress",
+      "status": "done",
       "priority": "medium"
     },
     {
       "key": "TASK-032",
       "title": "Global search: wider index (city, country, builder, category) + type/field prefixes (proposal step 6)",
-      "status": "in_progress",
+      "status": "done",
       "priority": "medium"
     },
     {
