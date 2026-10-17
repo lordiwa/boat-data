@@ -39,6 +39,8 @@ export interface FacetIndex {
   facetKeys: string[];
   /** Facet keys whose meta values are all booleans. */
   booleanKeys: Set<string>;
+  /** facet/geo key -> most commas inside any known value (bounds the URL re-join window in splitList). */
+  maxCommas: Map<string, number>;
 }
 
 type MetaFacets = Record<string, { value: string | number | boolean; count: number }[]> | undefined;
@@ -102,7 +104,13 @@ export function buildFacetIndex(type: string, nodes: GraphNode[], metaFacets: Me
       if (g.city) addTo(facets, 'city', g.city, node.id);
     }
   }
-  return { type, all, facets, hasGeo, countryNames, facetKeys, booleanKeys };
+  const maxCommas = new Map<string, number>();
+  for (const [key, byValue] of facets) {
+    let max = 0;
+    for (const value of byValue.keys()) max = Math.max(max, value.split(',').length - 1);
+    maxCommas.set(key, max);
+  }
+  return { type, all, facets, hasGeo, countryNames, facetKeys, booleanKeys, maxCommas };
 }
 
 interface Geo {
@@ -278,14 +286,17 @@ const unescapeComma = (s: string): string => s.replace(/%2C/gi, ',');
 /**
  * Splits a comma-separated query value. Values that themselves contain a comma ("Anping, Tainan")
  * arrive in three natural encodings: escaped (%2C text), raw, or inside a repeated key. So adjacent
- * pieces are re-joined whenever the joined text is a known vocabulary value (longest match first).
+ * pieces are re-joined whenever the joined text is a known vocabulary value. Longest match wins: at each
+ * position the widest known join is taken, so with both "A, B" and "A" known, "A, B" resolves to the
+ * former. The join window is bounded by `maxCommas` (the most commas in any known value of the key), so
+ * the work is O(pieces x maxCommas) even on a hostile URL; with maxCommas 0 this is a plain split.
  */
-function splitList(raw: string, known: Map<string, unknown> | undefined): string[] {
+function splitList(raw: string, known: Map<string, unknown> | undefined, maxCommas: number): string[] {
   const parts = raw.split(',');
   const out: string[] = [];
   for (let i = 0; i < parts.length; ) {
     let taken = 1;
-    for (let j = parts.length; j > i + 1; j--) {
+    for (let j = Math.min(parts.length, i + 1 + maxCommas); j > i + 1; j--) {
       if (known?.has(unescapeComma(parts.slice(i, j).join(',')))) {
         taken = j - i;
         break;
@@ -319,12 +330,12 @@ export function parseSelection(query: Record<string, unknown>, index: FacetIndex
     const byValue = index.facets.get(key);
     if (!byValue || text === '') continue;
     const kept: string[] = [];
-    for (let v of splitList(text, byValue)) {
+    for (let v of splitList(text, byValue, index.maxCommas.get(key) ?? 0)) {
       if (key === 'country' && !byValue.has(v)) {
         if (byValue.has(v.toUpperCase())) v = v.toUpperCase();
         else {
-        const code = [...index.countryNames].find(([, name]) => name.toLowerCase() === v.toLowerCase())?.[0];
-        if (code) v = code;
+          const code = [...index.countryNames].find(([, name]) => name.toLowerCase() === v.toLowerCase())?.[0];
+          if (code) v = code;
         }
       }
       if (byValue.has(v) && !kept.includes(v)) kept.push(v);
@@ -364,6 +375,11 @@ export function resolveSelection(query: Record<string, unknown>, index: FacetInd
   return { selection: parsed.selection };
 }
 
+/** True when resolveSelection applied the yacht default (the URL carried no facet key), as opposed to an explicit ?complete=true. */
+export function isImplicitDefault(query: Record<string, unknown>, index: FacetIndex): boolean {
+  return !parseSelection(query, index).explicit && hasDefaultComplete(index);
+}
+
 export function selectedCount(sel: FacetSelection): number {
   return Object.values(sel).reduce((n, v) => n + (v?.length ?? 0), 0);
 }
@@ -379,8 +395,11 @@ export interface FilterChip {
   title?: string;
 }
 
-/** Chips for every selected value, in facet order (generic facets, then geography). */
-export function selectionChips(sel: FacetSelection, index: FacetIndex): FilterChip[] {
+/**
+ * Chips for every selected value, in facet order (generic facets, then geography). `implicitDefault`: the
+ * selection came from the yacht default, not from the URL (only then does the "Shown by default" tooltip apply).
+ */
+export function selectionChips(sel: FacetSelection, index: FacetIndex, implicitDefault = false): FilterChip[] {
   const chips: FilterChip[] = [];
   for (const key of selectionKeys(index)) {
     const label = labelForFacetKey(key);
@@ -389,7 +408,7 @@ export function selectionChips(sel: FacetSelection, index: FacetIndex): FilterCh
       const isBool = index.booleanKeys.has(key);
       const text = isBool ? (value === 'true' ? label : `Not ${label.toLowerCase()}`) : isBandKey(key) ? `${label}: ${valueLabel}` : valueLabel;
       const title =
-        key === EXPLICIT_EMPTY_KEY && value === 'true' && hasDefaultComplete(index)
+        key === EXPLICIT_EMPTY_KEY && value === 'true' && hasDefaultComplete(index) && implicitDefault
           ? 'Shown by default. Removing it keeps ?complete=all in the URL so the default stays off after a reload.'
           : undefined;
       chips.push({ key, value, text, full: isBool ? text : `${label}: ${valueLabel}`, title });

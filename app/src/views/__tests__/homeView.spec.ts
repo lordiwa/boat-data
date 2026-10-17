@@ -49,9 +49,9 @@ describe('HomeView', () => {
   // Harm: hard-coded or stale figures would misstate the size of the graph; a 0-count tile misleads about coverage.
   it('shows figures and tiles from the loaded graph and omits absent types', async () => {
     const w = await setup('ok');
-    expect(w.find('.figures').text().replace(/\s+/g, ' ')).toBe('9 nodes, 0 edges and 6 countries.');
+    expect(w.find('.figures').text().replace(/\s+/g, ' ')).toBe('10 nodes, 0 edges and 6 countries.');
     const tiles = w.findAll('.tile').map((t) => [t.attributes('data-type'), t.find('.tile__count').text()]);
-    expect(tiles).toEqual([['yacht', '3'], ['marina', '6']]);
+    expect(tiles).toEqual([['yacht', '3'], ['marina', '7']]);
     expect(w.find('.stat-card').exists()).toBe(false);
     expect(w.findAll('h1').length).toBe(1);
   });

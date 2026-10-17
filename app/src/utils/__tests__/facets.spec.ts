@@ -9,8 +9,10 @@ import {
   compareBands,
   computeCounts,
   computeFacetViews,
+  isImplicitDefault,
   parseSelection,
   resolveSelection,
+  selectionChips,
   selectionToQuery,
 } from '@/utils/facets';
 import { fixtureGraph } from '@/__tests__/support/facetFixture';
@@ -25,10 +27,10 @@ describe('facet engine', () => {
   // Harm: a wrong OR/AND mix silently shows the wrong rows (or hides the right ones) in the table.
   it('ORs within a facet, ANDs across facets, and counts each facet with itself removed', () => {
     const idx = index('marina');
-    expect(ids(applyFacetSelection({ facility_category: ['dry stack', 'boatyard'] }, idx))).toEqual(['m1', 'm2', 'm3', 'm4', 'm6']);
+    expect(ids(applyFacetSelection({ facility_category: ['dry stack', 'boatyard'] }, idx))).toEqual(['m1', 'm2', 'm3', 'm4', 'm6', 'm7']);
     expect(ids(applyFacetSelection({ facility_category: ['dry stack', 'boatyard'], berths_band: ['150-400'] }, idx))).toEqual(['m1', 'm2']);
     expect(ids(applyFacetSelection({ services: ['repair', 'fuel'] }, idx))).toEqual(['m1', 'm2']);
-    expect(applyFacetSelection({}, idx).size).toBe(6);
+    expect(applyFacetSelection({}, idx).size).toBe(7);
 
     const sel = { subdivision: ['Florida'], facility_category: ['dry stack'] };
     const counts = computeCounts(sel, idx);
@@ -74,6 +76,20 @@ describe('facet engine', () => {
     expect(parseSelection({ country: 'us' }, idx).selection).toEqual({ country: ['US'] });
   });
 
+  // Harm: a hostile shareable URL with thousands of comma pieces froze the browse view (re-join was O(n^3); AC7 budget 50 ms).
+  it('parses thousands of comma pieces in under 50 ms, and still re-joins the one comma city', () => {
+    const idx = index('marina');
+    const junk = Array.from({ length: 2500 }, (_, i) => `j${i}`).join(',');
+    for (const key of ['facility_category', 'city']) {
+      const t0 = performance.now();
+      parseSelection({ [key]: junk }, idx);
+      expect(performance.now() - t0).toBeLessThan(50);
+    }
+    expect(parseSelection({ city: `${junk},Anping, Tainan` }, idx).selection).toEqual({ city: ['Anping, Tainan'] });
+    expect(idx.maxCommas.get('facility_category')).toBe(0);
+    expect(idx.maxCommas.get('city')).toBe(1);
+  });
+
   // Harm: the default hides fragments again after the user removed the chip, or overrides an explicit selection.
   it('applies the yacht complete=true default only when the URL carries no facet key', () => {
     const y = index('yacht');
@@ -82,6 +98,11 @@ describe('facet engine', () => {
     expect(resolveSelection({ complete: 'all' }, y)).toEqual({ selection: {} });
     expect(selectionToQuery({}, y)).toEqual({ complete: 'all' });
     expect(resolveSelection({}, index('marina')).selection).toEqual({});
+    // the "Shown by default" tooltip belongs to the implicit default only, not to an explicit ?complete=true
+    const title = (q: Record<string, unknown>) =>
+      selectionChips(resolveSelection(q, y).selection, y, isImplicitDefault(q, y))[0].title;
+    expect(title({})).toContain('Shown by default');
+    expect(title({ complete: 'true' })).toBeUndefined();
   });
 });
 

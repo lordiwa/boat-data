@@ -23,6 +23,7 @@ import {
   computeFacetViews,
   geoCrumbs,
   resolveSelection,
+  isImplicitDefault,
   selectedCount,
   selectionChips,
   selectionToQuery,
@@ -62,7 +63,7 @@ const filteredRows = computed(() =>
 const views = computed(() =>
   index.value ? computeFacetViews(selection.value, index.value) : { facets: [], geo: [] },
 );
-const chips = computed(() => (index.value ? selectionChips(selection.value, index.value) : []));
+const chips = computed(() => (index.value ? selectionChips(selection.value, index.value, isImplicitDefault(route.query, index.value)) : []));
 const crumbs = computed(() => (index.value ? geoCrumbs(selection.value, index.value) : []));
 
 function setSelection(next: FacetSelection): void {

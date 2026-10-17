@@ -1,4 +1,4 @@
-// TASK-030: small fixture graph for the facet specs (6 marinas, 3 yachts).
+// TASK-030: small fixture graph for the facet specs (7 marinas, 3 yachts).
 import type { GraphExport, GraphNode } from '@/types/graph';
 
 function marina(id: string, facets: Record<string, unknown>, geo?: Record<string, unknown>): GraphNode {
@@ -16,6 +16,7 @@ export const fixtureNodes: GraphNode[] = [
   marina('m4', { facility_category: 'boatyard', berths_band: '<50' }, { country_code: 'NZ', country: 'New Zealand', subdivision: null, city: 'Auckland' }),
   marina('m5', { facility_category: 'fuel dock', berths_band: '50-150' }),
   marina('m6', { facility_category: 'boatyard', berths_band: '400+' }, { country_code: 'TW', country: 'Taiwan', subdivision: null, city: 'Anping, Tainan' }),
+  marina('m7', { facility_category: 'boatyard', berths_band: '400+' }, { country_code: 'TW', country: 'Taiwan', subdivision: null, city: 'Tainan' }),
   yacht('y1', '60-90', true),
   yacht('y2', '60-90', false),
   yacht('y3', '24-40', false),
