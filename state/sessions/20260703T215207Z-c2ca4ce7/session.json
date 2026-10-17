@@ -2,20 +2,14 @@
   "schema_version": 2,
   "session_id": "20260703T215207Z-c2ca4ce7",
   "lifecycle_state": "active",
-  "updated_at": "2026-09-25T17:02:49.914Z",
+  "updated_at": "2026-10-17T01:35:21.251Z",
   "active_task": null,
   "workflow_step": "idle",
-  "next_action": "IDLE — board clear, nothing in flight, no agents running. The >=8.5 goal is live again (un-suspended 2026-09-25) and the metric stands at 7.72. Round 9 is scoped but NOT started and needs no new sanction beyond the standing goal; the human may prefer to pause instead. Round 9 levers, biggest first: (1) marina attr enrichment (29.97%, weight 10) — now the largest remaining lever with builder done; (2) the 16 company/domain-twin merge pairs, each needing a cited source since merges are irreversible; (3) placeholder builders out of the score DENOMINATOR (536/620 = 86.45%) as its OWN labeled re-baseline commit, never inside a data round; (4) mixed string/number `founded` types graph-wide; (5) the 11 placeholder PERSON nodes; (6) persist tdd red-run evidence in the ticket (review MEDIUM-2); (7) normalizeWebsite path-stripping reduces hosted-page URLs to a generic host (review LOW-3). Redeploy after any future data round with: cd app && npm run build, then firebase deploy --only hosting --config ../firebase.json.",
-  "handoff_summary": "Round 8 (TASK-026) CLOSED on a green review and DEPLOYED. Live at https://boat-site-e66fb.web.app, serving a payload byte-identical to the committed ingest/data/graph.json and verified to carry the Round 8 data (builder attrs 83.44% live, enrichment spot-checked, hygiene confirmed live). Scores: all-nodes 7.03 -> 7.40, identifiable-only TARGET METRIC 7.36 -> 7.72. Builder attrs 42.66% -> 83.75% at the enrichment commit, 83.44% after the deliberate website-hygiene re-baseline removed coverage the graph never had. Graph 4,278 nodes / 3,107 edges; yacht split unchanged 238/343. Suites: 1031 ingest + 142 app + typecheck + both freshness guards green, all re-run independently by the orchestrator. ELEVEN tickets closed with eleven green reviews (016-026) plus TASK-015 deployed; the backlog is empty.",
+  "next_action": "Next ticket is TASK-029 (facets.js). Per protocol: derive use-case list, get HUMAN approval (hard stop), then spawn developer. TASK-028 can run in parallel later (needs a researcher lane with cited sources). After TASK-029: proposal steps 4-6 (FacetPanel.vue, query builder dropdowns, global search prefixes) as UI tickets with requires_uat=true. Nothing pushed to origin this session.",
+  "handoff_summary": "2026-10-16: TASK-027 (geographic hierarchy country>subdivision>city, country alias normalization, attrs.geo on ~1,745 nodes, meta.geo) CLOSED on two green reviews (0 HIGH) and a wargaming pass (8 rounds, 2 HIGH + 5 MEDIUM found and fixed, replay 0 regressions). Commits f4e035b, bf4b249, e91ac87, 9e8c755, 77c6aca. Graph 4,789 nodes / 4,199 edges, part_of 815, identifiable-only score 7.73. Human amended AC4 to measure marina/club coverage over located nodes (89.0%/82.0%). Follow-ups created: TASK-028 (geo debts: 202 unlocated marinas/clubs, sourced disambiguation, St. Petersburg split, bare-slug audit) and TASK-029 (step 2: per-type controlled-vocabulary facets + meta.facets). Dave Kess batch (knowledge 100-114) committed earlier this session. Enrichment loop goal (>=8.5) remains idle.",
   "open_questions": [],
   "blockers": [],
   "decisions": [
-    "2026-07-10: Human authorized full autonomous enrichment loop until completeness >=8.5/10, one round at a time not required",
-    "2026-07-10: Scope includes commercial dry docks per country and submarine/submersible facilities (superyacht-to-submarine global list)",
-    "2026-07-10: New node type 'shipyard' with OPERATED_BY/LOCATED_IN edges; shipyard guard placed last in routing precedence to protect ingestion-order-dependent yacht ids",
-    "2026-07-10: Research lands in research/round1/ first, curated into knowledge/ docs after review (never straight into knowledge/)",
-    "2026-07-10: Size-class schema: store raw length_m/gt as canonical, derive display-only size_tier (24/30/60/100m convention), keep regulatory thresholds (24m Load Line, 500GT ISM, 3000GT STCW) as separate facts — never encode one broker's class boundary as truth",
-    "2026-07-10: Reviewer must verify aggregator-sourced dock dimensions against yard primary sources before authoritative status (flag from commercial-drydocks lane)",
     "2026-07-10: Engine graph gets an oem_supplies edge type distinct from owned_by (brand-owner != actual manufacturer, e.g. Tohatsu builds small Mercurys) — TASK-017 scope",
     "2026-07-11: Round 7 = one integration ticket (TASK-025) from TASK-024 residuals + grounded backlog; oligarch-yacht minting (7 knowledge/95 names) explicitly sanctioned within TASK-025 only; famous-clubs minting deferred pending separate sanction; part/size_class edges derived only from existing canonical attrs (no invented data); gap plan: R8 builder attrs + company edges, R9 marina attrs",
     "2026-07-11: HUMAN GOAL CHANGE — 7.36 accepted as good for now; the >=8.5 standing loop goal is SUSPENDED. Finish TASK-025 (fix round -> round-2 review -> close), then PAUSE the session. Do not start Round 8 without a fresh go-ahead.",
@@ -27,7 +21,10 @@
     "2026-09-25: HUMAN APPROVED amending TASK-026 AC 1 from >=85% to >=83.5% builder attr coverage, with cell-level evidence recorded in the ticket. Rationale: 85% was an orchestrator estimate made before the research existed; the grounded ceiling is 83.75% (536/640) and the 104 remaining cells are unfillable without inventing data (20 on placeholder builders, 42 websites for long-defunct yards, 26 founded years given only as ranges, 10 that would misattribute yacht specialism to naval shipbuilders, 6 unresolved name collisions).",
     "2026-09-25: Excluding the 5 placeholder builders from the score DENOMINATOR (which alone would give 536/620 = 86.45% and clear the ORIGINAL 85%) is deliberately NOT done in Round 8. It is defensible on its merits but must land as its own labeled re-baseline commit per loop process rule 5, specifically so a metric change can never be used to rescue a data round's headline number. Round 9 candidate.",
     "2026-09-25: TASK-026 closed on round-1 APPROVE (zero HIGH) plus a fix round clearing both MEDIUMs and all three LOWs. AC 1 judged MET at 83.75% measured at the enrichment commit; the lower 83.44% headline is the post-hygiene honest baseline and was accepted as such rather than treated as a miss.",
-    "2026-09-25: Round 8 deployed to production. Live graph verified byte-identical to the committed artifact, with builder enrichment and the hygiene correction both confirmed present on the live payload."
+    "2026-09-25: Round 8 deployed to production. Live graph verified byte-identical to the committed artifact, with builder enrichment and the hygiene correction both confirmed present on the live payload.",
+    "2026-10-16: Human chose for the filter taxonomy: UI English only; LOA/year bands as in the proposal; start with geographic hierarchy for ALL entity types (TASK-027) before per-type facets.",
+    "2026-10-16: HUMAN APPROVED amending TASK-027 AC4: marina/club geo coverage measured over nodes that HAVE a location edge (floors 85%/80%; measured 89.0%/82.0%) because 169 marinas + 33 clubs carry no located_in edge and the rest are ambiguous bare names the never-guess rule forbids resolving. Remainder goes to a follow-up enrichment ticket.",
+    "2026-10-16: TASK-027 closed. Wargaming HIGHs (Korea, North -> KR; Perth, WA -> US Washington) fixed under never-guess: polity qualifiers veto, ambiguous 2-letter state codes (WA) need explicit table entries. Debts routed to TASK-028; filters must read attrs.geo, never attrs.country."
   ],
   "subagent_results": [
     {
@@ -53,6 +50,24 @@
       "task": "TASK-026 fix round",
       "at": "2026-09-25T17:02:49.914Z",
       "summary": "3 commits. parseFoundedYear now rejects ambiguous multi-year cells and uncertainty markers (captured red-run on 4 cases, then green; 15/15 verified independently by the orchestrator). Declined to widen the founded range lock to string values with sound reasoning — builder:feadship holds '1949 (component yards 1849 and 1906)', not reducible to one year, so checking it in a test would re-implement the very ambiguity the round closed; renamed the test instead and left graph-wide normalization as a Round 9 item. Score provably unmoved: 83.44 / 7.40 / 7.72. 1031 ingest + 142 app tests green."
+    },
+    {
+      "agent": "developer",
+      "task": "TASK-027 geo hierarchy",
+      "at": "2026-10-17T00:58:15.553Z",
+      "summary": "Commits f4e035b, bf4b249, e91ac87. New countryAliases.js, regionHierarchy.js, scripts/geoCoverage.mjs, tests/regionHierarchy.spec.js. Nodes 4656->4789 (+67 countries, +66 subdivisions), part_of 17->815, attrs.geo on ~1,745 nodes, 177 regions unresolved. Score 7.72->7.73. Hook runs twice (after canonicalization, after cleanup). 12 unresolved ge3 regions named. Ingest 1038 + app 142 green, orchestrator re-ran independently."
+    },
+    {
+      "agent": "reviewer",
+      "task": "TASK-027 fresh-context review",
+      "at": "2026-10-17T00:58:15.554Z",
+      "summary": "APPROVE, 0 HIGH. Ran suites, coverage, score, own tree-invariant script (0 cycles, 0 dup iso2), 56-region factual spot-check. MEDIUM: checklist outcomes missing in hand-off; attrs.country vs attrs.geo disagreement on corsair-marine means filters must read geo. LOW: tree spec weaker than AC3; kinki/kansai dup; st-petersburg wart; second hook call untested."
+    },
+    {
+      "agent": "wargame-challenger",
+      "task": "TASK-027 adversarial pass + step-9 replay",
+      "at": "2026-10-17T01:35:21.256Z",
+      "summary": "8 rounds on real code with throwaway sqlite dbs. R1 HIGH Korea, North->KR; R7 HIGH Perth, WA->US/WA; MEDIUM: or-compound, FL,USA, country_raw null, silent multi-country tie, UK/USA-named regions; R8 injection caught. After fix 9e8c755 replay of unchanged probes: 0 regressions, all 11 confirmations hold. Fixtures in scratchpad wargame-027 (ported to regionHierarchy.spec.js)."
     }
   ],
   "pending_human_confirmation": null,

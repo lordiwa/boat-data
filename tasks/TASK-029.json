@@ -1,0 +1,35 @@
+{
+  "key": "TASK-029",
+  "title": "Per-type controlled-vocabulary facets (attrs.facets) computed at ingest",
+  "description": "Step 2 of research/category-taxonomy-proposal.md (human decisions 2026-10-16: UI English only; LOA/year bands exactly as in the proposal section 4; builds on the attrs.geo hierarchy from TASK-027). New ingest hook ingest/src/mappers/facets.js running after regionHierarchy and graphCleanup, before export, that writes attrs.facets per node type from controlled vocabularies (closed lists, English keys), computed from existing attrs/edges; original free-text attrs are preserved untouched; never hand-written in markdown. Facet types: simple categorical, multi categorical, range band, boolean. Per type (values in proposal section 4): yacht: size_class (from classified_as edge), loa_band (15-24, 24-40, 40-60, 60-90, 90-120, 120+ m), decade (pre-1980 ... 2020s), propulsion_type (motor/sailing/explorer/catamaran/classic/sport-fish/unknown derived from features/notes/builder specialty), flag (normalized), builder_country (inherit builder geo), charter_available (weekly_rate), complete (identifiability), guests_band (<=8, 9-12, 13-20, 20+), has_known_owner. marina: facility_category (wet-slip marina, dry stack, boatyard, superyacht marina, yacht basin, municipal marina, club marina, mooring field, fuel dock, storage campus — from name patterns + notes per knowledge/106), max_loa_band (<20, 20-40, 40-60, 60-100, 100+), berths_band (<50, 50-150, 150-400, 400+), services (fuel, travelift, haul-out, dry storage, hurricane-rated, customs, liveaboard), storage_type (wet, dry-stack, hardstand, indoor), data_level (complete >=3 attrs / basic). shipyard: facility_type (6 canonical from 9), services (8 from 14), lift_type (6 from 21), max_loa_band, max_tonnage_band. builder: country (from geo), segment (8 from 213 specialty values), status, yacht_count_band (0, 1-4, 5-14, 15+), founded_era (pre-1900, 1900-1949, 1950-1979, 1980-1999, 2000+). company: kind (merged list incl. salvage & towing), geo, service_area. person: role (8), sector (10), nationality, status, yachts_owned_band (1, 2-3, 4+). engine/engine_model: engine_type (9), segment (7), power_band (<100, 100-500, 500-2000, 2000+ hp), country. club: geo, founded_decade, facilities (multi). part: category, applies_to. designer: country, discipline, status, yacht_count_band. Every mapping table is data-driven with one rationale comment per non-obvious entry; unmapped free-text values are recorded in ingest/reports/facets-unmapped.json (value, type, count) rather than guessed. Also exports meta.facets in graph.json: per type, per facet, list of { value, count } (step 3 of the proposal folded in because it is a small exporter change). No UI change in this ticket.",
+  "acceptance_criteria": [
+    "AC1: ingest/src/mappers/facets.js hook wired after regionHierarchy/graphCleanup and before export; idempotent; clean ingest succeeds; original attrs untouched (test: a yacht's loa/year/flag raw values identical before/after).",
+    "AC2: Every node of the 11 faceted types carries attrs.facets whose keys and values come ONLY from the exported vocabulary (test iterates all nodes; zero out-of-vocabulary values).",
+    "AC3: Range bands match the proposal exactly and are locked by pinned boundary tests (e.g. loa 24.0 -> '24-40', 23.99 -> '15-24'; year 1979 -> 'pre-1980', 1980 -> '1980s'); units respected (loa.meters, power_hp).",
+    "AC4: Vocabulary collapse coverage: >= 90% of non-empty builder.specialty, shipyard.lift_type, shipyard.facility_type, engine.engine_types, person.role, person.industry raw values map to a vocabulary value; the remainder is listed in ingest/reports/facets-unmapped.json with counts, never guessed; marina.facility_category assigned for >= 60% of marinas with the rest 'unclassified'.",
+    "AC5: Yacht propulsion_type never claims a specific type without textual evidence (test: a yacht with no features/notes/builder specialty gets 'unknown'); 'complete' facet equals identifiability; charter_available true iff weekly_rate present.",
+    "AC6: graph.json meta.facets = { <type>: { <facet>: [{ value, count }] } } sorted by count desc, counts equal to a recount over nodes (test), and app/public/data/graph.json byte-identical.",
+    "AC7: Full ingest suite (single-fork) and 142 app tests green; pins updated with dated comments; identifiable-only score unchanged or higher (facets are additive); new specs <= AC count unless justified."
+  ],
+  "status": "todo",
+  "priority": "high",
+  "labels": [
+    "taxonomy",
+    "filters",
+    "ingest",
+    "facets"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-027"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-10-17T01:33:30.576Z",
+  "updated_at": "2026-10-17T01:33:30.576Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": false,
+  "marker": "[EXPLICIT]"
+}

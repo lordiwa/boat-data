@@ -1,0 +1,35 @@
+{
+  "key": "TASK-028",
+  "title": "Geo follow-up: locate unlocated marinas/clubs, sourced disambiguation table, St. Petersburg split, bare-slug audit",
+  "description": "Debts carried from TASK-027 (geographic hierarchy) close-out, 2026-10-16. All items require CITED sources per the never-guess rule; nothing is resolved from memory. (a) 169 marinas and 33 clubs carry no located_in/based_in edge: research lane to find each facility's city from its own source file context or web, deliver as research/round10/geo_locations.md with a source column, then an enrichment mapper that adds located_in by EXACT graph name (no minting). (b) Sourced disambiguation for the 7 ambiguous bare regions with >=3 inbound (Vancouver 11 nodes, Wilmington 7, Newport 6, Melbourne 3, Plymouth 3, Richmond 3, North Haven 3): per linked node decide BC vs WA etc. and add corpus-scoped REGION_MERGE_MAP entries (regionCanonicalization.js) or splits, never permanent aliases. (c) CYC/MYC/SYC acronym regions: reattach their linked clubs to real cities or flag artifact. (d) St. Petersburg: Naples-style split into St. Petersburg, FL and Saint Petersburg, Russia (7-8 Russian clubs from knowledge/33) and remove the stale part_of->florida on the Russian node. (e) Kinki/Kansai duplicate subdivision merge; audit the 10 JP/TW/Sumatra subdivisions with zero children. (f) WG27-M6 audit: REGION_GEO GROUPS contains ~28 bare world-ambiguous slugs (venice, florence, freeport, everett, exmouth, launceston, clontarf, harlingen, hamburg, amsterdam, lisbon, vienna, athens, sydney, wellington, duncan, split, castello, genoa, brest, valencia, barcelona, monterey, hobart, brookings, blaine, shelton, cadiz) resolved permanently although regions.js forbids bare ambiguous names in permanent tables; decide per slug: keep (corpus unambiguous and globally dominant, e.g. venice IT) or move to corpus-scoped map. (g) Hardening leftovers: 'Korea, South' nulls under the polity veto (exempt qualifier combos that are themselves known countries); CA_PROVINCE_CODES dead data + overstated comment; split the bundled H2/M1/M2 spec into one it per finding; unresolved regions keep stale part_of edges (decide: strip or keep). Coverage goal after this ticket: marinas >= 90% and clubs >= 85% of ALL nodes with geo.country_code.",
+  "acceptance_criteria": [
+    "AC1: research/round10/geo_locations.md exists with one row per newly located marina/club, each with a cited source; enrichment resolves by EXACT graph name, mints no nodes, and located_in edges added == rows accepted (count in hand-off).",
+    "AC2: The 7 ambiguous bare regions with >=3 inbound are each either resolved via a corpus-scoped REGION_MERGE_MAP/split entry with a one-line cited rationale, or explicitly left unresolved with the reason; no permanent alias added for a bare ambiguous name.",
+    "AC3: St. Petersburg split: two region nodes (FL city under Florida; Russian city under RU subdivision or country), every linked club on the correct one, no part_of from the Russian node to florida; CYC/MYC/SYC regions resolved or flagged artifact:true.",
+    "AC4: Kinki/Kansai collapsed to one subdivision; zero-child subdivisions either gain a child or are removed; node delta explained in hand-off.",
+    "AC5: WG27-M6 audit table committed (slug, decision keep/move, rationale) and applied; coverage spec thresholds raised to marinas >= 90% and clubs >= 85% of ALL nodes and passing.",
+    "AC6: 'Korea, South' -> KR locked by test; bundled spec split; CA_PROVINCE_CODES removed or made live; decision on stale part_of edges of unresolved regions implemented and tested.",
+    "AC7: Full ingest suite (single-fork) + 142 app tests green; pins updated with dated comments; identifiable-only score >= 7.73; app graph copy byte-identical."
+  ],
+  "status": "todo",
+  "priority": "medium",
+  "labels": [
+    "taxonomy",
+    "geography",
+    "ingest",
+    "enrichment"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-027"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-10-17T01:33:30.489Z",
+  "updated_at": "2026-10-17T01:33:30.489Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": false,
+  "marker": "[EXPLICIT]"
+}

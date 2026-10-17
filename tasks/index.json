@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-11T19:59:29.763Z",
+  "generated_at": "2026-10-17T01:34:43.831Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -155,16 +155,25 @@
       "key": "TASK-026",
       "title": "Round 8: builder attribute enrichment + company edge connection",
       "status": "done",
-      "priority": "high",
-      "labels": [
-        "data",
-        "enrichment",
-        "round-8",
-        "builder",
-        "company"
-      ],
-      "created_at": "2026-09-25T15:47:00.840Z",
-      "updated_at": "2026-09-25T17:01:29.894Z"
+      "priority": "high"
+    },
+    {
+      "key": "TASK-027",
+      "title": "Geographic hierarchy (country > subdivision > city) + country alias normalization for all entity types",
+      "status": "done",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-028",
+      "title": "Geo follow-up: locate unlocated marinas/clubs, sourced disambiguation table, St. Petersburg split, bare-slug audit",
+      "status": "todo",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-029",
+      "title": "Per-type controlled-vocabulary facets (attrs.facets) computed at ingest",
+      "status": "todo",
+      "priority": "high"
     }
   ]
 }
