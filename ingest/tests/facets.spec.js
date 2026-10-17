@@ -275,4 +275,31 @@ describe('facets: wargaming hardening (WG29)', () => {
     expect(facets.size_class).toBeUndefined();
     expect(facets.yacht).toEqual({ complete: [{ value: true, count: 1 }] });
   });
+
+  it('WG29-H3: a builder naming both hulls ("sailing & motor") yields unknown, a one-hull builder is inherited', () => {
+    // Prevents: ~33 Feadship/Royal Huisman motor yachts being filed as sailing because the builder's
+    // "sailing & motor superyachts" specialty was read as sailing only.
+    const { db } = freshDb();
+    const builder = (id, specialty) => upsertNode(db, { id: `builder:${id}`, type: 'builder', name: id, attrs: { specialty } });
+    builder('both', ['full-custom sailing & motor superyachts']);
+    builder('sail', ['custom sailing yachts']);
+    yacht(db, 'venus', {});
+    yacht(db, 'solo', {});
+    upsertEdge(db, { src: 'yacht:venus', rel: 'built_by', dst: 'builder:both' });
+    upsertEdge(db, { src: 'yacht:solo', rel: 'built_by', dst: 'builder:sail' });
+    applyFacets(db);
+    expect(facetsOf(db, 'yacht:venus').propulsion_type).toBe('unknown');
+    expect(facetsOf(db, 'yacht:solo').propulsion_type).toBe('sailing');
+  });
+
+  it('WG29-M2b: only explicit yacht/sailing club names make a club marina ("Ocean Club Marina" does not)', () => {
+    // Prevents: resort or boat-rental "club" marinas being filed under club marina.
+    const { db } = freshDb();
+    const names = { 'Ocean Club Marina Port Canaveral': 'wet-slip marina', 'Harbor Yacht Club Marina': 'club marina', 'Freedom Boat Club Marina': 'wet-slip marina' };
+    for (const n of Object.keys(names)) upsertNode(db, { id: `marina:${n}`, type: 'marina', name: n, attrs: {} });
+    upsertNode(db, { id: 'company:store', type: 'company', name: 'Seaside Boat Storage LLC', attrs: {} });
+    applyFacets(db);
+    for (const [n, c] of Object.entries(names)) expect(facetsOf(db, `marina:${n}`).facility_category, n).toBe(c);
+    expect(facetsOf(db, 'company:store').kind).toEqual(['storage operator']);
+  });
 });

@@ -4,6 +4,13 @@
 // pattern tables for the facets hook (facets.js). Data only: extend a table,
 // not the logic. Values are English keys (UI labels are a later ticket).
 //
+// Deviations from the proposal (section 4), each deliberate:
+//   - person nationality / status and company kind are MULTI facets (proposal: simple): dual
+//     nationals ("Pakistani-Canadian"), "Living (US sanctioned)" and "brokerage/management" name
+//     several values and a single pick would silently drop one.
+//   - designer discipline adds 'sailing yacht design' (12 designers; the proposal lists three).
+//   - yacht loa_band has no band under 15 m and decade none before 1800 (proposal bands start there).
+//
 // Conventions
 //   - Bands are half-open [lo, hi): a value on a boundary falls in the UPPER
 //     band (loa 24.0 -> '24-40', year 1980 -> '1980s', power_hp 500 -> '500-2000').
@@ -187,7 +194,9 @@ export const MARINA_CATEGORY_RULES = [
   { value: 'superyacht marina', name: /super-?yacht|mega-?yacht/, notes: /superyacht (marina|berths|harbou?r)|mega-?yacht marina/ },
   {
     value: 'club marina',
-    name: /\b(yacht|boat|sailing|cruising|rowing|motor ?boat|marina|country|harbou?r|anglers?|racquet) club\b|\bclub (marina|nautico|de mar|de regatas)\b|\bsquadron\b|\bclub\b.*\bmarina\b|\bmarina\b.*\bclub\b/,
+    // Explicit club words only. A bare "club marina" / "marina club" is NOT enough ("Ocean Club Marina"
+    // is a resort marina) and "boat club" / "city club" are rental or social clubs, not yacht clubs.
+    name: /\byacht club\b|\bsailing club\b|\bclub (nautico|de mar|de regatas)\b|\bsquadron\b/,
     notes: /private club|club marina|club-integrated|members only/,
   },
   {
@@ -306,6 +315,7 @@ export const COMPANY_KIND_TABLE = [
 export const COMPANY_NAME_KIND_TABLE = [
   ['salvage & towing', /salvage|towing|\btow\b|sea ?tow/],
   ['insurance', /insurance|underwriter/],
+  ['storage operator', /\bstorage\b|dry ?stack/],
 ];
 
 export const COMPANY_SERVICE_AREA_TABLE = [

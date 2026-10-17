@@ -203,10 +203,16 @@ export function applyFacets(db) {
     // that names both hull types (sail AND motor) says nothing about THIS yacht.
     const spec = builderAttrs ? norm(rawList(builderAttrs.specialty).join(' ; ')) : '';
     if (spec) {
-      const hits = matchAll(spec, PROPULSION_TABLE);
-      const hull = hits.filter((v) => v === 'sailing' || v === 'catamaran');
-      const power = hits.filter((v) => v === 'motor' || v === 'explorer' || v === 'sport-fish');
-      if (hits.length && !(hull.length && power.length)) return hits[0];
+      // Hull evidence is read loosely ("sailing & motor superyachts" must count as BOTH) and a hull is
+      // inherited only when the specialty names exactly one: sail, multihull, or motor family.
+      const sail = /\bsail/.test(spec);
+      const multi = PROPULSION_TABLE[0][1].test(spec);
+      const power = /\bmotor\b|\bpower\b|motoryacht/.test(spec) || matchAll(spec, PROPULSION_TABLE).some((v) => v === 'motor' || v === 'explorer' || v === 'sport-fish');
+      if ([sail, multi, power].filter(Boolean).length === 1) {
+        if (multi) return 'catamaran';
+        if (sail) return 'sailing';
+        return matchAll(spec, PROPULSION_TABLE).find((v) => v === 'explorer' || v === 'sport-fish' || v === 'motor') || 'motor';
+      }
     }
     return 'unknown';
   };
