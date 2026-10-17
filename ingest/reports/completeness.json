@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T16:30:29.266Z",
+  "generated_at": "2026-10-17T00:11:17.164Z",
   "byType": [
     {
       "type": "yacht",
@@ -24,24 +24,24 @@
     },
     {
       "type": "marina",
-      "count": 930,
-      "attrPct": 29.97,
-      "edgePct": 81.08,
-      "score": 4.53
+      "count": 1206,
+      "attrPct": 29.44,
+      "edgePct": 85.99,
+      "score": 4.64
     },
     {
       "type": "company",
-      "count": 796,
-      "attrPct": 60.34,
-      "edgePct": 35.93,
-      "score": 5.3
+      "count": 819,
+      "attrPct": 59.75,
+      "edgePct": 36.26,
+      "score": 5.27
     },
     {
       "type": "region",
-      "count": 858,
+      "count": 1070,
       "attrPct": 100,
-      "edgePct": 100,
-      "score": 10
+      "edgePct": 99.25,
+      "score": 9.98
     },
     {
       "type": "person",
@@ -94,7 +94,7 @@
     }
   ],
   "overall_all_nodes": 7.4,
-  "overall_identifiable_only": 7.72,
+  "overall_identifiable_only": 7.73,
   "yacht_identifiable_only": {
     "type": "yacht",
     "count": 238,
