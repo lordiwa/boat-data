@@ -13,6 +13,7 @@
 // as "edges from this node, by relation".
 import { defineStore } from 'pinia';
 import { shallowRef, computed } from 'vue';
+import { buildFacetIndex, type FacetIndex } from '@/utils/facets';
 import type { GraphEdge, GraphExport, GraphMeta, GraphNode, EdgeRel, NodeType } from '@/types/graph';
 
 /** node id -> rel -> edges whose src (out) or dst (in) is that node id */
@@ -163,6 +164,21 @@ export const useGraphStore = defineStore('graph', () => {
     return result;
   }
 
+  // TASK-030: facet/geo inverted index per node type, built lazily on first
+  // use and memoised (plain Map: not reactive on purpose; reset on every load()).
+  let facetIndexCache = new Map<string, FacetIndex>();
+
+  /** Precomputed facet + geography index for one node type (see utils/facets.ts). */
+  function facetIndex(type: NodeType | string): FacetIndex {
+    let index = facetIndexCache.get(type);
+    if (!index) {
+      const metaFacets = (meta.value?.facets ?? {})[type];
+      index = buildFacetIndex(type, nodesByType(type), metaFacets);
+      facetIndexCache.set(type, index);
+    }
+    return index;
+  }
+
   /** Exact-name lookup via the export's name_to_id index (values are arrays — real name collisions exist). */
   function nodesByExactName(name: string): GraphNode[] {
     const ids = nameToId.value.get(name.trim().toLowerCase()) || [];
@@ -191,6 +207,7 @@ export const useGraphStore = defineStore('graph', () => {
 
       const { out, inn } = buildAdjacency(data.edges);
 
+      facetIndexCache = new Map();
       meta.value = data.meta;
       nodes.value = nodeMap;
       byType.value = byTypeMap;
@@ -224,5 +241,6 @@ export const useGraphStore = defineStore('graph', () => {
     neighbors,
     searchByName,
     nodesByExactName,
+    facetIndex,
   };
 });

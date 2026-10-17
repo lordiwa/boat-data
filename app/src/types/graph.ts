@@ -60,6 +60,8 @@ export interface GraphMeta {
   edge_count: number;
   types: Record<string, number>;
   edge_types: Record<string, number>;
+  /** TASK-029: type -> facet key -> values with counts. */
+  facets?: Record<string, Record<string, { value: string | number | boolean; count: number }[]>>;
 }
 
 export interface GraphIndexes {

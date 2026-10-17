@@ -70,3 +70,52 @@ export function singularLabelForType(type: string): string {
 export function iconForType(type: string): string {
   return TYPE_ICONS[type] || '\u{1F4C4}';
 }
+
+// TASK-030: human-readable English labels for facet keys (meta.facets[type]
+// keys, plus the geography levels). Unknown keys fall back to a humanised key.
+const FACET_KEY_LABELS: Record<string, string> = {
+  loa_band: 'Length (m)',
+  decade: 'Decade',
+  propulsion_type: 'Type',
+  size_class: 'Size class',
+  facility_category: 'Facility type',
+  berths_band: 'Berths',
+  max_loa_band: 'Max LOA (m)',
+  services: 'Services',
+  storage_type: 'Storage',
+  data_level: 'Data level',
+  complete: 'Complete profile',
+  charter_available: 'Charter',
+  has_known_owner: 'Known owner',
+  guests_band: 'Guests',
+  builder_country: 'Builder country',
+  flag: 'Flag',
+  segment: 'Segment',
+  founded_era: 'Founded',
+  founded_decade: 'Founded',
+  yacht_count_band: 'Yachts in graph',
+  yachts_owned_band: 'Yachts owned',
+  power_band: 'Power (hp)',
+  engine_type: 'Engine type',
+  max_tonnage_band: 'Max tonnage (t)',
+  facility_type: 'Facility type',
+  lift_type: 'Lift type',
+  service_area: 'Service area',
+  applies_to: 'Applies to',
+  country: 'Country',
+  subdivision: 'State / region',
+  city: 'City',
+};
+
+export function labelForFacetKey(key: string): string {
+  if (FACET_KEY_LABELS[key]) return FACET_KEY_LABELS[key];
+  const words = key.replace(/_/g, ' ');
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
+/** Display text for a facet value: first letter upper-cased ('dry stack' -> 'Dry stack'); booleans Yes/No. */
+export function labelForFacetValue(_key: string, value: string): string {
+  if (value === 'true') return 'Yes';
+  if (value === 'false') return 'No';
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
