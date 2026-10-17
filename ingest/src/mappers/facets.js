@@ -28,7 +28,7 @@ import {
   MARINA_SERVICE_RULES, MARINA_STORAGE_RULES, SHIPYARD_FACILITY_TABLE, SHIPYARD_SERVICE_TABLE,
   SHIPYARD_LIFT_TABLE, BUILDER_SEGMENT_TABLE, BUILDER_STATUS_TABLE, DESIGNER_DISCIPLINE_TABLE,
   DESIGNER_STATUS_TABLE, COMPANY_KIND_TABLE, COMPANY_NAME_KIND_TABLE, COMPANY_SERVICE_AREA_TABLE,
-  PERSON_ROLE_TABLE, PERSON_SECTOR_TABLE, PERSON_STATUS_TABLE, ENGINE_TYPE_TABLE,
+  PERSON_ROLE_TABLE, CLASSIC_NOUN_RE, CLASSIC_WORD_RE, CLASSIC_BEFORE_YEAR, PERSON_SECTOR_TABLE, PERSON_STATUS_TABLE, ENGINE_TYPE_TABLE,
   ENGINE_SEGMENT_TABLE, CLUB_FACILITY_TABLE, PART_CATEGORIES, PART_APPLIES_TO,
 } from './facetVocabulary.js';
 
@@ -104,16 +104,17 @@ export function applyFacets(db) {
 
   // edge-derived context
   const sizeClassOf = new Map();
-  const builderOf = new Map();
+  const buildersOf = new Map(); // yacht id -> [builder ids] in dst order
   const builderYachtCount = new Map();
   const designerYachtCount = new Map();
   const ownersOfYacht = new Map();
   const personYachtCount = new Map();
   const engineOfModel = new Map();
-  for (const e of db.prepare("SELECT src, rel, dst FROM edges WHERE rel IN ('classified_as','built_by','designed_by','owned_by','made_by')").all()) {
+  for (const e of db.prepare("SELECT src, rel, dst FROM edges WHERE rel IN ('classified_as','built_by','designed_by','owned_by','made_by') ORDER BY src, rel, dst").all()) {
     if (e.rel === 'classified_as') sizeClassOf.set(e.src, e.dst);
     else if (e.rel === 'built_by' && e.src.startsWith('yacht:')) {
-      if (!builderOf.has(e.src)) builderOf.set(e.src, e.dst);
+      if (!buildersOf.has(e.src)) buildersOf.set(e.src, []);
+      buildersOf.get(e.src).push(e.dst);
       builderYachtCount.set(e.dst, (builderYachtCount.get(e.dst) || 0) + 1);
     } else if (e.rel === 'designed_by' && e.src.startsWith('yacht:')) {
       designerYachtCount.set(e.dst, (designerYachtCount.get(e.dst) || 0) + 1);
@@ -128,6 +129,7 @@ export function applyFacets(db) {
   // cells/cellsMapped per source CELL (a node's whole attribute, mapped when at least one of its
   // values mapped). Builder specialty lists carry bare size ranges ("24-75m") that are not
   // segments, so the two units differ there; both are reported.
+  let builderCountryConflicts = 0;
   const coverage = new Map(); // `${type}.${facet}` -> { type, facet, total, mapped, cells, cellsMapped }
   const unmapped = new Map(); // `${type}\0${facet}\0${value}` -> count
   const cellSeen = new Map(); // `${nodeId}|${type}.${facet}` -> any value mapped?
@@ -191,14 +193,17 @@ export function applyFacets(db) {
 
   const propulsionOf = (attrs, builderAttrs) => {
     const own = norm([attrs.features, attrs.notes].filter(isText).join(' ; '));
+    if (CLASSIC_NOUN_RE.test(own)) return 'classic';
     const ownHit = own ? matchFirst(own, PROPULSION_TABLE) : null;
+    const year = attrs.year && toNum(attrs.year.value);
+    // year-backed 'classic' ranks above 'motor' only (a pre-1970 "classic" motor yacht is classic)
+    if (CLASSIC_WORD_RE.test(own) && year !== null && year < CLASSIC_BEFORE_YEAR && (!ownHit || ownHit === 'motor')) return 'classic';
     if (ownHit) return ownHit;
     // The builder's specialty is weaker evidence: used only when it points one way. A builder
     // that names both hull types (sail AND motor) says nothing about THIS yacht.
     const spec = builderAttrs ? norm(rawList(builderAttrs.specialty).join(' ; ')) : '';
     if (spec) {
-      // 'classic' is an era claim about a yard's history, not about this yacht: never inherited.
-      const hits = matchAll(spec, PROPULSION_TABLE).filter((v) => v !== 'classic');
+      const hits = matchAll(spec, PROPULSION_TABLE);
       const hull = hits.filter((v) => v === 'sailing' || v === 'catamaran');
       const power = hits.filter((v) => v === 'motor' || v === 'explorer' || v === 'sport-fish');
       if (hits.length && !(hull.length && power.length)) return hits[0];
@@ -235,12 +240,18 @@ export function applyFacets(db) {
       const f = {};
       put(f, 'size_class', SIZE_CLASS_BY_NODE[sizeClassOf.get(node.id)]);
       put(f, 'loa_band', bandOf(attrs.loa && attrs.loa.meters, BANDS.yacht_loa));
-      put(f, 'decade', bandOf(attrs.year && attrs.year.value, BANDS.yacht_decade));
-      f.propulsion_type = propulsionOf(attrs, attrsById.get(builderOf.get(node.id)));
+      const decade = bandOf(attrs.year && attrs.year.value, BANDS.yacht_decade);
+      put(f, 'decade', decade);
+      // a year that exists but falls outside every band (0, negative, 3-digit) is reported, never banded
+      if (decade === null && attrs.year && hasValue(attrs.year.value)) track('yacht', 'decade', String(attrs.year.value), false);
+      const builders = (buildersOf.get(node.id) || []).filter((b) => attrsById.has(b) && attrsById.get(b).placeholder !== true);
+      f.propulsion_type = propulsionOf(attrs, builders.length === 1 ? attrsById.get(builders[0]) : null);
       put(f, 'flag', normalizeFlag(attrs.flag));
-      const builderGeo = geoOf(attrsById.get(builderOf.get(node.id)) || {});
-      put(f, 'builder_country', builderGeo && builderGeo.country);
-      f.charter_available = Boolean(attrs.weekly_rate) && toNum(attrs.weekly_rate.amount) !== null;
+      // real builders only; two builders in different countries -> no builder_country (never pick one)
+      const countries = new Set(builders.map((b) => geoOf(attrsById.get(b)) && geoOf(attrsById.get(b)).country).filter(Boolean));
+      if (countries.size > 1) builderCountryConflicts += 1;
+      else put(f, 'builder_country', [...countries][0]);
+      f.charter_available = Boolean(attrs.weekly_rate) && toNum(attrs.weekly_rate.amount) > 0;
       f.complete = attrs.identifiability === 'identifiable';
       put(f, 'guests_band', bandOf(attrs.guests, BANDS.yacht_guests));
       f.has_known_owner = ownersOfYacht.has(node.id);
@@ -398,7 +409,7 @@ export function applyFacets(db) {
     })
     .sort((a, b) => b.count - a.count || a.type.localeCompare(b.type) || a.facet.localeCompare(b.facet) || a.value.localeCompare(b.value));
 
-  return { byType: summary, coverage: [...coverage.values()], unmapped: unmappedList };
+  return { byType: summary, builderCountryConflicts, coverage: [...coverage.values()], unmapped: unmappedList };
 }
 
 // --- unmapped report --------------------------------------------------------

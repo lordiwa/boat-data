@@ -727,6 +727,7 @@ export function runIngest() {
     for (const [type, s] of Object.entries(facetsResult.byType)) {
       console.log(`[ingest] facets ${type}: ${s.nodes} nodes, ${s.assigned} facet values assigned`);
     }
+    console.log(`[ingest] facets: ${facetsResult.builderCountryConflicts} yachts left without builder_country (builders in 2+ countries)`);
     const facetsUnmappedPath = writeFacetsUnmappedReport(facetsResult.unmapped);
     console.log(`[ingest] facets unmapped: ${facetsResult.unmapped.length} raw values (see ${facetsUnmappedPath})`);
 

@@ -44,7 +44,8 @@ const decadeBands = (firstLabel, firstHi) => {
 export const BANDS = {
   yacht_loa: [band('15-24', 15, 24), band('24-40', 24, 40), band('40-60', 40, 60), band('60-90', 60, 90), band('90-120', 90, 120), band('120+', 120, INF)],
   // Yachts under 15 m are outside the proposal's bands and get no loa_band.
-  yacht_decade: [band('pre-1980', -INF, 1980), band('1980s', 1980, 1990), band('1990s', 1990, 2000), band('2000s', 2000, 2010), band('2010s', 2010, 2020), band('2020s', 2020, 2030)],
+  // floor 1800: a year of 0, negative or 3 digits is a parse artifact, not a pre-1980 build
+  yacht_decade: [band('pre-1980', 1800, 1980), band('1980s', 1980, 1990), band('1990s', 1990, 2000), band('2000s', 2000, 2010), band('2010s', 2010, 2020), band('2020s', 2020, 2030)],
   yacht_guests: [band('<=8', -INF, 9), band('9-12', 9, 13), band('13-20', 13, 21), band('20+', 21, INF)],
   marina_max_loa: [band('<20', -INF, 20), band('20-40', 20, 40), band('40-60', 40, 60), band('60-100', 60, 100), band('100+', 100, INF)],
   marina_berths: [band('<50', -INF, 50), band('50-150', 50, 150), band('150-400', 150, 400), band('400+', 400, INF)],
@@ -143,11 +144,20 @@ export const SIZE_CLASS_BY_NODE = {
 export const PROPULSION_TABLE = [
   ['catamaran', /catamaran|trimaran|multihull/], // trimaran/multihull: the vocabulary has one multihull value
   ['sailing', /\bsail(ing|boat|s)?\b|sail-assisted|\bmasted\b|schooner|\bketch\b|\bsloop\b|phinisi/],
-  ['sport-fish', /sport-?fish|fishing/],
+  // explorer outranks sport-fish: "Expedition, tenders, fishing" is an expedition yacht that carries fishing gear
   ['explorer', /explorer|expedition|passage-?maker|ice-class/],
-  ['classic', /\bclassic\b|vintage|historic|heritage/],
-  ['motor', /motor ?yacht|motoryacht|\bm\/y\b|power ?boat|diesel-electric/],
+  ['sport-fish', /sport-?fish|fishing/],
+  // no "diesel-electric": it names a drive system that sailing yachts also use (Sailing Yacht A)
+  ['motor', /motor ?(super|mega)?-?yacht|motoryacht|\bm\/y\b|power ?boat/],
 ];
+
+// 'classic' is a TYPE (era), not a style adjective. It is assigned only on type evidence: the noun
+// use ("classic yacht", "classic motor yacht") or the word together with a build year before
+// CLASSIC_BEFORE_YEAR. "classic interior / luxury / lines / design" is style and never counts.
+// The noun use outranks the other types; the year form ranks above 'motor' only.
+export const CLASSIC_NOUN_RE = /\b(classic|vintage|historic) (motor |sailing |power |steam )?(yacht|motoryacht|sailboat|schooner|ketch|sloop|cruiser|launch)\b/;
+export const CLASSIC_WORD_RE = /\b(classic|vintage|historic|heritage)\b/;
+export const CLASSIC_BEFORE_YEAR = 1970;
 
 // --- marina -----------------------------------------------------------------
 
@@ -315,11 +325,13 @@ export const COMPANY_SERVICE_AREA_TABLE = [
 export const PERSON_ROLE_TABLE = [
   ['placeholder', /placeholder|unconfirmed|aggregate/],
   ['royalty', /crown prince|\bemir\b|sultan|sheikh|ruler of|\bking\b/],
-  ['politician', /president|prime minister|\bpm\b|minister|senator|politician|advis[eo]r|representative|governor|mayor/],
+  // government context only: a bare "President, <company>" is a corporate title and falls through to
+  // founder/executive ("Founder/President, Emerson Collective" is a founder)
+  ['politician', /president,? (of )?(the )?(united|republic|state|kingdom|emirates)|prime minister|\bpm\b|minister|senator|politician|advis[eo]r|representative|governor|mayor|\bmp\b|deputy/],
   ['heir', /\bheir/],
   ['founder', /founder/],
-  // "media mogul": an operating proprietor, i.e. an executive
-  ['executive', /\bceo\b|chairman|executive|\bcto\b|director|chief|mogul/],
+  // "media mogul": an operating proprietor, i.e. an executive; a plain "President" is a corporate title
+  ['executive', /\bceo\b|chairman|executive|president|\bcto\b|director|chief|mogul/],
   ['celebrity', /athlete|author|actor|musician|celebrity|golfer/],
   ['investor', /investor|owner|businessman|businesswoman|entrepreneur|tycoon|billionaire|property/],
 ];
@@ -406,7 +418,7 @@ export const FACETS = {
     size_class: simple(['yacht', 'superyacht', 'megayacht', 'gigayacht']),
     loa_band: simple(labels(BANDS.yacht_loa)),
     decade: simple(labels(BANDS.yacht_decade)),
-    propulsion_type: simple([...tableValues(PROPULSION_TABLE), 'unknown']),
+    propulsion_type: simple([...tableValues(PROPULSION_TABLE), 'classic', 'unknown']),
     flag: simple(FLAG_NAMES),
     builder_country: countryFacet(),
     charter_available: bool(),
@@ -444,7 +456,7 @@ export const FACETS = {
     ...geoFacets(),
   },
   person: {
-    role: simple(tableValues(PERSON_ROLE_TABLE)),
+    role: simple([...new Set(tableValues(PERSON_ROLE_TABLE))]),
     sector: simple(tableValues(PERSON_SECTOR_TABLE)),
     nationality: multi(tableValues(NATIONALITY_TABLE)),
     status: multi(tableValues(PERSON_STATUS_TABLE)),

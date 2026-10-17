@@ -29,6 +29,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { FACETS } from '../mappers/facetVocabulary.js';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -182,13 +183,19 @@ function buildFacetsMeta(nodeRecords) {
   const tally = new Map(); // type -> facet -> Map(value -> count)
   for (const n of nodeRecords) {
     const facets = n.attrs.facets;
-    if (!facets || typeof facets !== 'object') continue;
+    // only the 11 faceted types, and only keys/values the closed vocabulary defines
+    if (!FACETS[n.type] || !facets || typeof facets !== 'object') continue;
     const byFacet = tally.get(n.type) || new Map();
     tally.set(n.type, byFacet);
     for (const [facet, raw] of Object.entries(facets)) {
-      const counts = byFacet.get(facet) || new Map();
-      byFacet.set(facet, counts);
-      for (const value of new Set(Array.isArray(raw) ? raw : [raw])) counts.set(value, (counts.get(value) || 0) + 1);
+      const spec = FACETS[n.type][facet];
+      if (!spec) continue;
+      for (const value of new Set(Array.isArray(raw) ? raw : [raw])) {
+        if (spec.values !== null && !spec.values.includes(value)) continue;
+        const counts = byFacet.get(facet) || new Map();
+        byFacet.set(facet, counts);
+        counts.set(value, (counts.get(value) || 0) + 1);
+      }
     }
   }
   const out = {};

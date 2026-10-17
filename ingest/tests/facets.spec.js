@@ -15,6 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDb, initSchema, upsertNode, upsertEdge } from '../src/db.js';
 import { applyFacets, writeFacetsUnmappedReport } from '../src/mappers/facets.js';
+import { exportGraph } from '../src/exporters/graphExporter.js';
 import { FACETS, FACETED_TYPES } from '../src/mappers/facetVocabulary.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -184,5 +185,94 @@ describe('facets (TASK-029)', () => {
     const marinas = graph.nodes.filter((n) => n.type === 'marina');
     const classified = marinas.filter((n) => facetsOf(db, n.id).facility_category !== 'unclassified');
     expect(classified.length / marinas.length).toBeGreaterThanOrEqual(0.6);
+  });
+});
+
+// Wargaming regression locks (WG29, 2026-10-16). These go beyond the 7-spec cap on purpose: each
+// pins a real wrong value the adversarial pass found in the committed graph.json.
+describe('facets: wargaming hardening (WG29)', () => {
+  const yacht = (db, id, attrs) => upsertNode(db, { id: `yacht:${id}`, type: 'yacht', name: id, attrs });
+
+  it('WG29-H1: "classic" is a type only on noun/era evidence; explorer outranks sport-fish', () => {
+    // Prevents: "warmer classic interior" or "Classic luxury" minting the TYPE classic (13 real yachts
+    // were wrong) and an expedition yacht that carries fishing gear being filed as sport-fish.
+    const { db } = freshDb();
+    yacht(db, 'style', { year: { value: 2017 }, notes: 'Sailing-adjacent refit with a warmer classic interior' });
+    yacht(db, 'luxury', { year: { value: 2010 }, features: 'Classic luxury' });
+    yacht(db, 'beast', { features: 'Expedition, tenders, fishing' });
+    yacht(db, 'noun', { year: { value: 1931 }, notes: 'classic motor yacht built 1931' });
+    yacht(db, 'oldstyle', { year: { value: 1955 }, features: 'Classic elegance' });
+    applyFacets(db);
+    expect(facetsOf(db, 'yacht:style').propulsion_type).not.toBe('classic');
+    expect(facetsOf(db, 'yacht:luxury').propulsion_type).toBe('unknown');
+    expect(facetsOf(db, 'yacht:beast').propulsion_type).toBe('explorer');
+    expect(facetsOf(db, 'yacht:noun').propulsion_type).toBe('classic');
+    expect(facetsOf(db, 'yacht:oldstyle').propulsion_type).toBe('classic');
+  });
+
+  it('WG29-H2: founder/executive outrank a corporate "President"; government context still means politician', () => {
+    // Prevents: "Founder/President, Emerson Collective" being filed as a politician, and the reverse
+    // regression where a real head of state stops being one.
+    const { db } = freshDb();
+    const roles = {
+      'Founder/President, Emerson Collective': 'founder',
+      'President, Acme Holdings': 'executive',
+      'President, United Arab Emirates': 'politician',
+      'Prime Minister of Somewhere': 'politician',
+      'Businessman, former senator': 'politician',
+    };
+    Object.keys(roles).forEach((role, i) => upsertNode(db, { id: `person:p${i}`, type: 'person', name: `P${i}`, attrs: { role } }));
+    applyFacets(db);
+    Object.values(roles).forEach((expected, i) => expect(facetsOf(db, `person:p${i}`).role, Object.keys(roles)[i]).toBe(expected));
+  });
+
+  it('WG29-M1/M2: charter needs amount > 0; an impossible year is unmapped, not "pre-1980"', () => {
+    // Prevents: a 0/negative price advertising charter availability, and a year of 0 or 1799
+    // (parse artifacts) filing a yacht under pre-1980.
+    const { db } = freshDb();
+    yacht(db, 'zero', { weekly_rate: { amount: 0 }, year: { value: 0 } });
+    yacht(db, 'neg', { weekly_rate: { amount: -5 }, year: { value: 1799 } });
+    yacht(db, 'ok', { weekly_rate: { amount: 1 }, year: { value: 1800 } });
+    const r = applyFacets(db);
+    expect(facetsOf(db, 'yacht:zero').charter_available).toBe(false);
+    expect(facetsOf(db, 'yacht:neg').charter_available).toBe(false);
+    expect(facetsOf(db, 'yacht:ok').charter_available).toBe(true);
+    expect(facetsOf(db, 'yacht:zero').decade).toBeUndefined();
+    expect(facetsOf(db, 'yacht:neg').decade).toBeUndefined();
+    expect(facetsOf(db, 'yacht:ok').decade).toBe('pre-1980');
+    expect(r.unmapped).toContainEqual({ type: 'yacht', facet: 'decade', value: '0', count: 1 });
+  });
+
+  it('WG29-M3: placeholder builders are ignored and builders in 2+ countries yield no builder_country', () => {
+    // Prevents: builder_country picked from an arbitrary first edge (a placeholder like builder:custom,
+    // or one of two real builders) and so changing with row order.
+    const { db } = freshDb();
+    const geo = (country_code, country) => ({ country_code, country, subdivision: null, city: null });
+    upsertNode(db, { id: 'builder:a', type: 'builder', name: 'A', attrs: { geo: geo('IT', 'Italy') } });
+    upsertNode(db, { id: 'builder:b', type: 'builder', name: 'B', attrs: { geo: geo('NL', 'Netherlands') } });
+    upsertNode(db, { id: 'builder:custom', type: 'builder', name: 'Custom', attrs: { placeholder: true, geo: geo('US', 'United States') } });
+    yacht(db, 'two', {});
+    yacht(db, 'ph', {});
+    upsertEdge(db, { src: 'yacht:two', rel: 'built_by', dst: 'builder:b' });
+    upsertEdge(db, { src: 'yacht:two', rel: 'built_by', dst: 'builder:a' });
+    upsertEdge(db, { src: 'yacht:ph', rel: 'built_by', dst: 'builder:custom' });
+    upsertEdge(db, { src: 'yacht:ph', rel: 'built_by', dst: 'builder:a' });
+    const r = applyFacets(db);
+    expect(facetsOf(db, 'yacht:two').builder_country).toBeUndefined();
+    expect(facetsOf(db, 'yacht:ph').builder_country).toBe('Italy');
+    expect(r.builderCountryConflicts).toBe(1);
+  });
+
+  it('WG29-M4: meta.facets ignores non-faceted node types and out-of-vocabulary keys/values', () => {
+    // Prevents: a stray attrs.facets on a size_class node (or a bogus value on a yacht) leaking into
+    // the filter counts the UI will render.
+    const { db, dir } = freshDb();
+    upsertNode(db, { id: 'size_class:x', type: 'size_class', name: 'X', attrs: { facets: { size_class: 'yacht' } } });
+    upsertNode(db, { id: 'yacht:v', type: 'yacht', name: 'V', attrs: { facets: { propulsion_type: 'bogus', made_up: 'x', complete: true } } });
+    const out = path.join(dir, 'graph.json');
+    exportGraph(db, out, { generatedAt: '2026-01-01T00:00:00.000Z' });
+    const { facets } = JSON.parse(fs.readFileSync(out, 'utf8')).meta;
+    expect(facets.size_class).toBeUndefined();
+    expect(facets.yacht).toEqual({ complete: [{ value: true, count: 1 }] });
   });
 });
