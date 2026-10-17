@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-17T00:11:12.208Z",
+    "generated_at": "2026-10-17T01:10:13.501Z",
     "node_count": 4789,
     "edge_count": 4199,
     "types": {
@@ -31519,7 +31519,8 @@
           "country": "United States",
           "subdivision": "Washington",
           "city": "Tacoma"
-        }
+        },
+        "geo_conflict": true
       }
     },
     {
@@ -34578,7 +34579,8 @@
           "country": "United States",
           "subdivision": "Washington",
           "city": "Orcas Island"
-        }
+        },
+        "geo_conflict": true
       }
     },
     {
