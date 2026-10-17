@@ -71,6 +71,13 @@ describe('GlobalSearch', () => {
     await input.trigger('keydown', { key: 'Enter' });
     await flushPromises();
     expect(router.currentRoute.value.fullPath).toBe('/entity/m2');
+    // Escape closes the panel but must not let the browser blank the type=search field.
+    await type('marina: in:florida');
+    const esc = new KeyboardEvent('keydown', { key: 'Escape', cancelable: true, bubbles: true });
+    input.element.dispatchEvent(esc);
+    await flushPromises();
+    expect(esc.defaultPrevented).toBe(true);
+    expect((input.element as HTMLInputElement).value).toBe('marina: in:florida');
     w.unmount();
   });
 });

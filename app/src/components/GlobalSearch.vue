@@ -240,7 +240,7 @@ function highlightParts(name: string, terms: string[]): NamePart[] {
         @keydown.down.prevent="moveActive(1)"
         @keydown.up.prevent="moveActive(-1)"
         @keydown.enter.prevent="onEnter"
-        @keydown.esc="onEscape"
+        @keydown.esc.prevent="onEscape"
       />
     </div>
 
