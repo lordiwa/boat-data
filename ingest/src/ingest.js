@@ -646,7 +646,8 @@ export function runIngest() {
       `[ingest] region hierarchy: ${regionHierarchyResult.levels.country} countries, ` +
         `${regionHierarchyResult.levels.subdivision} subdivisions, ${regionHierarchyResult.levels.city} cities, ` +
         `${regionHierarchyResult.levels.unresolved} unresolved; ${regionHierarchyResult.geoStamped} nodes geo-stamped, ` +
-        `${regionHierarchyResult.disagreements.length} located_in/country disagreements`
+        `${regionHierarchyResult.disagreements.length} located_in/country disagreements, ` +
+        `${regionHierarchyResult.geoConflicts} multi-country geo conflicts`
     );
 
     // TASK-019: graph cleanup — deliberately LAST, after every mapper/hook

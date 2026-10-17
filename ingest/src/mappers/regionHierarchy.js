@@ -49,6 +49,15 @@ export const US_STATES = {
 
 export const CA_PROVINCES = { ON: 'Ontario', BC: 'British Columbia', QC: 'Quebec' };
 
+// WG27-H2: two-letter suffixes that are ALSO an Australian or Canadian code (WA = Washington
+// vs Western Australia) never auto-resolve to a US state; they resolve only via an explicit
+// GROUPS entry (e.g. henderson-wa), else stay unresolved.
+const AU_STATE_CODES = ['NSW', 'VIC', 'QLD', 'SA', 'WA', 'TAS', 'NT', 'ACT'];
+const CA_PROVINCE_CODES = ['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+const AMBIGUOUS_STATE_CODES = new Set(
+  Object.keys(US_STATES).filter((c) => AU_STATE_CODES.includes(c) || CA_PROVINCE_CODES.includes(c))
+);
+
 // Trailing place qualifiers ("Albufeira, Algarve", "Warkworth, Auckland").
 // key (lowercase, diacritics folded) -> [iso2, subdivision | null]. A null
 // subdivision still pins the country (e.g. "Lisbon area" is Portugal but is
@@ -125,7 +134,7 @@ const GROUPS = [
     'tiburon', 'santa-barbara', 'santa-ana', 'seal-beach', 'national-city', 'rio-vista', 'isleton', 'bethel-island',
     'moss-landing', 'san-francisco', 'catalina-island', 'point-richmond', ['terminal-island-los-angeles', 'Terminal Island'],
     ['cabrillo-marina-san-pedro', 'San Pedro']] },
-  { iso2: 'US', subdivision: 'Washington', cities: ['seattle', 'olympia', 'port-townsend', 'tacoma', 'anacortes',
+  { iso2: 'US', subdivision: 'Washington', cities: ['hoquiam-wa', 'vancouver-wa', 'seattle', 'olympia', 'port-townsend', 'tacoma', 'anacortes',
     'gig-harbor', 'bellingham', 'bainbridge-island', 'bremerton', 'edmonds', 'kirkland', 'everett', 'shelton',
     'steilacoom', 'sequim', 'port-angeles', 'port-ludlow', 'oak-harbor', 'la-conner', 'blaine', 'deer-harbor',
     'grapeview', 'orcas-island', 'blakely-island', 'ilwaco'] },
@@ -350,19 +359,32 @@ function classifyBySuffix(name) {
     .replace(/\s+-\s+.*$/, '')
     .replace(/\s+/g, ' ')
     .trim();
-  if (/[\/&+;]|\sand\s/i.test(cleaned)) return null;
+  if (/[\/&+;]|\s(and|or)\s/i.test(cleaned)) return null;
   const parts = cleaned.split(',').map((p) => p.trim()).filter(Boolean);
   if (parts.length < 2) return null;
+  return parseSuffixParts(parts);
+}
+
+function parseSuffixParts(parts) {
   const city = cleanCity(parts[0]);
   const last = parts[parts.length - 1];
 
   if (/^[A-Za-z]{2}$/.test(last)) {
     const code = last.toUpperCase();
+    if (AMBIGUOUS_STATE_CODES.has(code)) return null;
     if (US_STATES[code]) return { iso2: 'US', subdivision: US_STATES[code], city };
     if (CA_PROVINCES[code]) return { iso2: 'CA', subdivision: CA_PROVINCES[code], city };
   }
   const country = lookupCountry(last);
-  if (country) return { iso2: country.iso2, subdivision: null, city };
+  if (country) {
+    // WG27-M2: "Fort Lauderdale, FL, USA" - parse what precedes the country token and
+    // keep it only if it agrees with that country; a conflict is never guessed.
+    if (parts.length >= 3) {
+      const inner = parseSuffixParts(parts.slice(0, -1));
+      if (inner) return inner.iso2 === country.iso2 ? inner : null;
+    }
+    return { iso2: country.iso2, subdivision: null, city };
+  }
 
   let pinned = null;
   for (const part of parts.slice(1)) {
@@ -466,7 +488,40 @@ const SPECIFICITY = { city: 3, subdivision: 2, country: 1 };
  *   { levels, countriesMinted, subdivisionsMinted, geoStamped,
  *     countriesNormalized, disagreements: [{ id, region_country, attr_country }] }
  */
+/**
+ * WG27-M5: a region NODE whose name is itself a country spelling ("UK", "USA",
+ * "Holland", "Italia") but whose id is not the canonical country node is merged
+ * onto that canonical node (edges re-pointed, node deleted) so two nodes never
+ * share one iso2. Table-listed and artifact regions are left alone.
+ */
+function mergeCountryNamedRegions(db) {
+  let merged = 0;
+  const rows = db.prepare("SELECT id, name, attrs_json FROM nodes WHERE type = 'region' ORDER BY id").all();
+  for (const r of rows) {
+    const s = r.id.replace(/^region:/, '');
+    if (COUNTRY_IDS.has(r.id) || SUBDIVISION_IDS.has(r.id) || EXPLICIT.has(s)) continue;
+    if (Object.prototype.hasOwnProperty.call(UNRESOLVED_REGIONS, s)) continue;
+    if (parseAttrsJson(r.attrs_json).artifact === true) continue;
+    const hit = lookupCountry(r.name);
+    if (!hit) continue;
+    const target = countryNodeId(hit.iso2);
+    if (target === r.id) continue;
+    ensureRegion(db, target, hit.name);
+    for (const e of db.prepare('SELECT rel, dst, attrs_json FROM edges WHERE src = ?').all(r.id)) {
+      if (e.dst !== target) upsertEdge(db, { src: target, rel: e.rel, dst: e.dst, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
+    }
+    for (const e of db.prepare('SELECT src, rel, attrs_json FROM edges WHERE dst = ?').all(r.id)) {
+      if (e.src !== target) upsertEdge(db, { src: e.src, rel: e.rel, dst: target, attrs: e.attrs_json ? JSON.parse(e.attrs_json) : null });
+    }
+    db.prepare('DELETE FROM edges WHERE src = ? OR dst = ?').run(r.id, r.id);
+    db.prepare('DELETE FROM nodes WHERE id = ?').run(r.id);
+    merged += 1;
+  }
+  return merged;
+}
+
 export function applyRegionHierarchy(db) {
+  const countryNamedMerged = mergeCountryNamedRegions(db);
   const regionRows = db.prepare("SELECT id, name, attrs_json FROM nodes WHERE type = 'region' ORDER BY id").all();
 
   const cls = new Map();
@@ -492,7 +547,7 @@ export function applyRegionHierarchy(db) {
     countryIsos.add(hit.iso2);
     if (attrs.country !== hit.name) {
       const patch = { country: hit.name };
-      if (attrs.country_raw === undefined) patch.country_raw = attrs.country;
+      if (attrs.country_raw === undefined || attrs.country_raw === null) patch.country_raw = attrs.country;
       patchAttrs(db, row, patch);
       countriesNormalized.push(row.id);
     }
@@ -562,9 +617,12 @@ export function applyRegionHierarchy(db) {
     )
     .all();
   const best = new Map(); // node id -> { rank, geo }
+  const countriesSeen = new Map(); // node id -> Set of country codes across its location edges
   for (const e of edgeRows) {
     const rg = regionGeo.get(e.dst);
     if (!rg) continue;
+    if (!countriesSeen.has(e.src)) countriesSeen.set(e.src, new Set());
+    countriesSeen.get(e.src).add(rg.geo.country_code);
     const rank = SPECIFICITY[rg.level] * 10 + (e.rel === 'located_in' ? 1 : 0);
     const cur = best.get(e.src);
     if (!cur || rank > cur.rank) best.set(e.src, { rank, geo: rg.geo });
@@ -572,6 +630,7 @@ export function applyRegionHierarchy(db) {
 
   const disagreements = [];
   let geoStamped = 0;
+  let geoConflicts = 0;
   const nodeRows = db.prepare("SELECT id, type, name, attrs_json FROM nodes WHERE type != 'region' ORDER BY id").all();
   for (const row of nodeRows) {
     const fromRegion = best.get(row.id);
@@ -588,12 +647,15 @@ export function applyRegionHierarchy(db) {
       basis = 'country_attr';
     }
     const attrs = parseAttrsJson(row.attrs_json);
-    if (!geo && attrs.geo === undefined && attrs.geo_basis === undefined) continue;
-    patchAttrs(db, row, { geo: geo || undefined, geo_basis: basis });
+    if (!geo && attrs.geo === undefined && attrs.geo_basis === undefined && attrs.geo_conflict === undefined) continue;
+    // WG27-M4: location edges in DIFFERENT countries keep the deterministic pick but are flagged.
+    const conflict = !!fromRegion && countriesSeen.get(row.id).size > 1;
+    if (conflict) geoConflicts += 1;
+    patchAttrs(db, row, { geo: geo || undefined, geo_basis: basis, geo_conflict: conflict ? true : undefined });
     if (geo) geoStamped += 1;
   }
 
   // 5. Mint-time sanity: no country has an out-edge (enforced above) and
   //    every part_of has a region parent.
-  return { levels, countriesMinted, subdivisionsMinted, geoStamped, countriesNormalized: countriesNormalized.length, disagreements };
+  return { levels, countriesMinted, subdivisionsMinted, geoStamped, geoConflicts, countryNamedMerged, countriesNormalized: countriesNormalized.length, disagreements };
 }

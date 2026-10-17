@@ -218,3 +218,73 @@ describe('applyRegionHierarchy — real corpus export (AC2-AC4, AC7)', () => {
     }
   });
 });
+
+// TASK-027 wargaming fix round: regression locks for the never-guess rule.
+// These are adversarial fixtures (WG27-*), beyond the one-spec-per-AC cap by design.
+describe('wargaming regression locks (WG27)', () => {
+  let db;
+  afterEach(() => db && db.close());
+
+  it('WG27-H1: a qualifier naming a different polity vetoes the country instead of matching its neighbour', () => {
+    // Prevents: "Korea, North" being stamped South Korea (and similar wrong-country geo).
+    for (const raw of ['Korea, North', 'Samoa (American)', 'Ireland (Northern)']) expect(normalizeCountry(raw), raw).toBeNull();
+    expect(normalizeCountry('Hong Kong SAR, China')?.iso2).toBe('HK');
+  });
+
+  it('WG27-H2/M1/M2: AU/CA code collisions, "or" compounds and trailing country tokens', () => {
+    // Prevents: "Perth, WA" becoming Washington state, an "A or B" cell resolving to one place,
+    // and "City, FL, USA" losing its state.
+    db = freshDb();
+    for (const [id, name] of [
+      ['region:perth-wa', 'Perth, WA'],
+      ['region:henderson-wa', 'Henderson, WA'],
+      ['region:juneau-or-sitka', 'Juneau, AK or Sitka, AK'],
+      ['region:fort-lauderdale-fl-usa', 'Fort Lauderdale, FL, USA'],
+    ]) upsertNode(db, { id, type: 'region', name, attrs: {} });
+    applyRegionHierarchy(db);
+    expect(attrsOf(db, 'region:perth-wa').level).toBe('unresolved');
+    expect(attrsOf(db, 'region:juneau-or-sitka').level).toBe('unresolved');
+    expect(parentsOf(db, 'region:henderson-wa')).toEqual(['region:au-western-australia']);
+    expect(parentsOf(db, 'region:fort-lauderdale-fl-usa')).toEqual(['region:florida']);
+  });
+
+  it('WG27-M3: a null country_raw counts as absent so the real raw value is preserved', () => {
+    // Prevents: the original spelling being lost when country_raw is stored as null.
+    db = freshDb();
+    upsertNode(db, { id: 'builder:f', type: 'builder', name: 'F', attrs: { country: 'USA', country_raw: null } });
+    applyRegionHierarchy(db);
+    expect(attrsOf(db, 'builder:f')).toMatchObject({ country: 'United States', country_raw: 'USA' });
+  });
+
+  it('WG27-M4: location edges into different countries set geo_conflict and keep a deterministic pick', () => {
+    // Prevents: silently presenting an arbitrary first-alphabetical country as the only truth.
+    db = freshDb();
+    upsertRegion(db, 'Seattle');
+    upsertRegion(db, 'Amsterdam');
+    upsertNode(db, { id: 'marina:two', type: 'marina', name: 'Two', attrs: {} });
+    upsertNode(db, { id: 'marina:one', type: 'marina', name: 'One', attrs: {} });
+    for (const d of ['region:seattle', 'region:amsterdam']) upsertEdge(db, { src: 'marina:two', rel: 'located_in', dst: d });
+    upsertEdge(db, { src: 'marina:one', rel: 'located_in', dst: 'region:seattle' });
+    const stats = applyRegionHierarchy(db);
+    expect(attrsOf(db, 'marina:two').geo_conflict).toBe(true);
+    expect(attrsOf(db, 'marina:two').geo.country_code).toBe('NL');
+    expect(attrsOf(db, 'marina:one').geo_conflict).toBeUndefined();
+    expect(stats.geoConflicts).toBe(1);
+  });
+
+  it('WG27-M5: a region named like a country merges onto the canonical country node (one node per iso2)', () => {
+    // Prevents: region:uk and region:united-kingdom both existing as GB country nodes.
+    db = freshDb();
+    upsertNode(db, { id: 'region:uk', type: 'region', name: 'UK', attrs: {} });
+    upsertNode(db, { id: 'region:italia', type: 'region', name: 'Italia', attrs: {} });
+    upsertNode(db, { id: 'builder:y', type: 'builder', name: 'Y', attrs: {} });
+    upsertEdge(db, { src: 'builder:y', rel: 'based_in', dst: 'region:uk' });
+    applyRegionHierarchy(db);
+    expect(db.prepare("SELECT 1 FROM nodes WHERE id IN ('region:uk','region:italia')").get()).toBeUndefined();
+    expect(attrsOf(db, 'region:united-kingdom')).toMatchObject({ level: 'country', iso2: 'GB' });
+    expect(attrsOf(db, 'region:italy').iso2).toBe('IT');
+    expect(attrsOf(db, 'builder:y').geo.country_code).toBe('GB');
+    const countries = db.prepare("SELECT attrs_json FROM nodes WHERE type='region'").all().map((r) => JSON.parse(r.attrs_json)).filter((a) => a.level === 'country');
+    expect(new Set(countries.map((a) => a.iso2)).size).toBe(countries.length);
+  });
+});

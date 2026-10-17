@@ -154,6 +154,10 @@ export const COUNTRY_ALIASES = {
   'east timor': 'TL',
   'russian federation': 'RU',
   'kingdom of saudi arabia': 'SA',
+  italia: 'IT',
+  espana: 'ES',
+  deutschland: 'DE',
+  'hong kong sar': 'HK',
 };
 
 function countryKey(str) {
@@ -168,6 +172,8 @@ function countryKey(str) {
 const LOOKUP = new Map();
 for (const [iso2, { name }] of Object.entries(COUNTRIES)) LOOKUP.set(countryKey(name), iso2);
 for (const [alias, iso2] of Object.entries(COUNTRY_ALIASES)) LOOKUP.set(countryKey(alias), iso2);
+
+const DIFFERENT_POLITY_QUALIFIER_RE = /^(north|northern|south|southern|american)$/i;
 
 // "originally USA", "now Vietnam", "founded in Italy" -> the bare country.
 const LEADING_QUALIFIER_RE = /^(originally|formerly|founded in|based in|built in|now|ex|hq)\s+/;
@@ -203,6 +209,12 @@ export function normalizeCountry(raw) {
 
   const whole = fromKey(countryKey(text));
   if (whole) return whole;
+
+  // WG27-H1: a bare direction/polity qualifier ("Korea, North", "Ireland (Northern)",
+  // "Samoa (American)") names a DIFFERENT polity than the country word beside it -
+  // veto rather than return the wrong country.
+  const qualifiers = [...(text.match(/\(([^)]*)\)/g) || []).map((m) => m.slice(1, -1)), ...text.split(',').slice(1)];
+  if (qualifiers.some((q) => DIFFERENT_POLITY_QUALIFIER_RE.test(q.trim()))) return null;
 
   const withoutNotes = text.replace(/\([^)]*\)/g, ' ');
   for (const segment of withoutNotes.split(/[\/,;&+]|\band\b/i)) {
