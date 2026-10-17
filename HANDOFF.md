@@ -14,8 +14,9 @@
 - **IN FLIGHT when context was cut (subagents will NOT survive /clear — their chat results are lost unless already on the ticket):**
   1. **TASK-030** (facet panel + navigable geography, requires_uat) — status in_review. Developer commits df19586, 503b1de
      (150 app tests green, verified by orchestrator). A fresh-context **reviewer** and a **wargaming challenger** were running;
-     their verdicts were NOT yet recorded on the ticket. On resume: check tasks/TASK-030.json comments; if no reviewer
-     verdict comment exists, re-spawn the reviewer on `git diff 5d53697..503b1de` and the challenger (scratchpad
+     the REVIEWER verdict (code APPROVE, 0 HIGH, 4 LOW) IS recorded on the ticket; the WARGAMING challenger result was NOT.
+     On resume: re-spawn the challenger (8 rounds vs CU1-CU12: URL hostility, default rule edges, engine semantics, geo scoping,
+     state leaks across types, chips, CSV, a11y DOM) unless a [WARGAMING] comment already exists (scratchpad
      wargame-030 may hold partial probes). Then HUMAN UAT on http://localhost:5180 using CU1-CU12 (ticket comment), record
      as author uat with per-step `Verdict: PASS` lines + `Overall result: PASS`, then close_task with PLANTILLA-ENTREGA body
      (block 3 must name cases as CUn and paths camino principal/alternativo/fallo).
