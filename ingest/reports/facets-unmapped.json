@@ -1,0 +1,638 @@
+[
+  {
+    "type": "builder",
+    "facet": "status",
+    "value": "status uncertain",
+    "count": 2
+  },
+  {
+    "type": "engine",
+    "facet": "engine_type",
+    "value": "surface drive",
+    "count": 2
+  },
+  {
+    "type": "engine_model",
+    "facet": "segment",
+    "value": "electric outboard",
+    "count": 2
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1867/1872",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1884 (yard est. 1884 in Ronduite; royal charter 1984)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1918 (as Johnson and Gmack)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1922 (current form 1932)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1949 (component yards 1849 and 1906)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1959 (Fincantieri Yachts division est. 2005)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1963 (as Scheepswerf de Ruiter; renamed Moonen 1981)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1965 (as Marine Projects (Plymouth) Ltd)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1966 merger (Vosper 1871 + Thornycroft 1866)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1967 (incorporated 1970)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1969 (as Poole Power Boats; renamed 1985)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1973 (Pardo motoryacht line launched 2016)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1980 (rebranded \"Rossinavi\" 2007)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1985 (Ursa Shipyard roots 1983)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1988 (spun off from Halter Marine)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1989 (yacht arm of Babcock/Devonport Dockyard, dockyard est. 1690)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "1997 merger (roots to 1970s Proteksan/Turquoise brands)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "2005 (as Hanseatic Marine)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "brand of Overmarine Group (founded 1985)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "division formed after 1991 Amels acquisition",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "early 2000s",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "roots early 1900s (renamed Vard 2013, ex-STX OSV)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "founded_era",
+    "value": "sub-line of Azimut",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "~23-37m (75-144ft)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "~60-100+ ft",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "24–75m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "26–49m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "27–35m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "28–50m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "30-60m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "33–50m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "40-75m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "45-100m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "50-160m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "60–125ft",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "60–90m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "80m+",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "95–145ft",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "aircraft manufacturing",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "composite construction",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "furling systems pioneer",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "hybrid propulsion",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "long-range \"Mangusta Oceanco\" line",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "proprietary \"lama chine\" hull",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "shipyard conglomerate (parent of ISA, Columbus, Mondomarine, Extra Yachts)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "solar/hybrid systems",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "some 1950s–60s luxury yacht builds",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "some yachts",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "steel/marine construction",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "steel/metal/piping work",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "up to ~90m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "up to 200m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "up to 45m",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "segment",
+    "value": "yachts & yacht support",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "status",
+    "value": "active/uncertain (reports of ownership/investor changes ~2019)",
+    "count": 1
+  },
+  {
+    "type": "builder",
+    "facet": "status",
+    "value": "reduced/uncertain — US yard closed, relocated to Europe",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "2-2.3m draft",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Burgee: Blue pennant with red disc containing white upward triangle and inner downward triangle .",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Burgee: Blue triangular flag with white cross and blue letters HMYC .",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Burgee: White triangular flag with red disc in canton and stylized N in black, red, blue .",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Events, advocacy",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Facilities",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Founded as host for 1964 Tokyo Olympics sailing; promotes sailing and ocean culture; live camera and weather info available . Burgee: N/A. Address: 1-12-2 Enoshima, Fujisawa-shi, Kanagawa ZIP:251-0036.",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "haulout, cradle",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "haulout, hardstand; capacity: 14m length, 7.5m beam, 2m draft, 13 tonnage",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Island trips, underwater",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "members only",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Nautical",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Not detailed.",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Platinum club; facilities for superyachts . (Detailed site info unavailable.)",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Sailing club in Genkai area . (Detailed site info unavailable.)",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Sailing/rowing/motorboating; events; security",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Superyachts; irregular",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "University club sailing on two-person yachts; focuses on enjoying ocean and sailing; competes in events . Burgee: Dark red with thin white cross and white \"W\" in canton .",
+    "count": 1
+  },
+  {
+    "type": "club",
+    "facet": "facilities",
+    "value": "Water sports",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "kind",
+    "value": "anonymous corporate entity",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "kind",
+    "value": "marine stabilizer manufacturer",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "All boat types, including sailboats and yachts; good for international buyers.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Broad range: yachts, sailboats, fishing boats, PWCs; includes new/used from dealers and private sellers.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Catamarans, sailboats; specialized data for enthusiasts.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "High-end yachts, superyachts, sailboats, powerboats; strong in brokerage with professional listings.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Luxury yachts, motor yachts, sailboats; strong network for high-value deals.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Named as refit yard/management for 2025 WSA Refit winner Ravenger",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Sailboats primarily; good for budget buyers/sellers.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Sailboats, yachts; regional focus with detailed vessel histories.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Ship tracking; maritime intelligence for shipping, logistics, commodity trading, security, compliance; enthusiast tracking; AIS data aggregation",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Yachts and pleasure boats; appeals to cost-conscious sellers.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Yachts, sailboats, motorboats; comprehensive regional data.",
+    "count": 1
+  },
+  {
+    "type": "company",
+    "facet": "service_area",
+    "value": "Yachts, sailboats, motorboats; emphasizes high-quality, verified listings.",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "discipline",
+    "value": "architecture-led concept design",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "discipline",
+    "value": "concept design",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "discipline",
+    "value": "land-based architecture",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "discipline",
+    "value": "netspace/design engineering",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "discipline",
+    "value": "production yacht design",
+    "count": 1
+  },
+  {
+    "type": "designer",
+    "facet": "status",
+    "value": "concept only, not built",
+    "count": 1
+  },
+  {
+    "type": "engine",
+    "facet": "engine_type",
+    "value": "propellers/shaftlines",
+    "count": 1
+  },
+  {
+    "type": "engine",
+    "facet": "engine_type",
+    "value": "ship systems",
+    "count": 1
+  },
+  {
+    "type": "engine_model",
+    "facet": "engine_type",
+    "value": "racing/performance concept ; supercharged 7.6L V12 (proposed)",
+    "count": 1
+  },
+  {
+    "type": "engine_model",
+    "facet": "segment",
+    "value": "sterndrive",
+    "count": 1
+  },
+  {
+    "type": "engine_model",
+    "facet": "segment",
+    "value": "sterndrive/pod system",
+    "count": 1
+  },
+  {
+    "type": "person",
+    "facet": "sector",
+    "value": "Business (limited public profile)",
+    "count": 1
+  },
+  {
+    "type": "person",
+    "facet": "status",
+    "value": "**Status not independently verified this session**",
+    "count": 1
+  },
+  {
+    "type": "shipyard",
+    "facet": "services",
+    "value": "training",
+    "count": 1
+  }
+]
