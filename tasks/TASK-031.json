@@ -1,0 +1,35 @@
+{
+  "key": "TASK-031",
+  "title": "Query builder reads meta.facets: value dropdowns, geo fields, multi-value conditions (proposal step 5)",
+  "description": "Step 5 of research/category-taxonomy-proposal.md. In app/src/query/model.ts, engine.ts, describe.ts, urlCodec.ts and QueryView.vue: when the selected field is a facet key (from meta.facets[type]) or a geo field (geo.country, geo.subdivision, geo.city), the condition editor offers a <select> (or multi-select) of the facet's values with counts instead of a free-text input; the operator set for facets is 'is any of' (multi-value, OR) and 'is not' ; free-text fields keep eq/contains/gte/lte/between unchanged. Add an 'in' operator to the query model with array values; urlCodec encodes arrays stably and keeps decoding every pre-existing link (backward compatibility is an AC). describe.ts renders the new conditions in plain English (\"Facility type is any of Dry stack, Boatyard\"). Field list groups facets under a 'Categories' heading and geo under 'Location'; raw attrs stay available under 'Attributes'. The engine evaluates facet conditions against attrs.facets and geo conditions against attrs.geo (never attrs.country, reviewer finding on TASK-027). Relationship conditions untouched. A 'Open in browse' action converts a single-type query with only facet/geo conditions into the equivalent /browse/:type URL from TASK-030, and the browse view offers 'Refine in query builder' doing the reverse. No ingest changes.",
+  "acceptance_criteria": [
+    "AC1: Choosing a facet or geo field in the condition editor shows a value dropdown populated from meta.facets / attrs.geo with counts; choosing a raw attribute still shows the existing text/number inputs (component test).",
+    "AC2: New 'in' (is any of) and 'not' operators exist in the query model with array values; engine returns exactly the rows whose attrs.facets / attrs.geo match (unit tests with fixtures, including multi-valued facets like services).",
+    "AC3: urlCodec encodes/decodes array values; every existing urlCodec test passes unchanged and a pinned corpus of 5 pre-existing query links decodes to the same model as before.",
+    "AC4: describe.ts renders facet and geo conditions in plain English; snapshot test for at least 3 conditions.",
+    "AC5: 'Open in browse' and 'Refine in query builder' round-trip: a browse selection converted to a query and back yields the identical URL (test).",
+    "AC6: Geo conditions evaluate against attrs.geo only; a fixture node with attrs.country 'Italy' and attrs.geo.country 'Netherlands' matches geo.country = Netherlands and not Italy.",
+    "AC7: Existing app tests green plus new tests <= AC count unless justified; typecheck and build clean; keyboard operable selects; UAT on /query by the human."
+  ],
+  "status": "todo",
+  "priority": "medium",
+  "labels": [
+    "taxonomy",
+    "filters",
+    "ui",
+    "query"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-030"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-10-17T02:56:03.764Z",
+  "updated_at": "2026-10-17T02:56:03.764Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": true,
+  "marker": "[EXPLICIT]"
+}

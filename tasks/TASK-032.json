@@ -1,0 +1,34 @@
+{
+  "key": "TASK-032",
+  "title": "Global search: wider index (city, country, builder, category) + type/field prefixes (proposal step 6)",
+  "description": "Step 6 of research/category-taxonomy-proposal.md. In app/src/stores/graph.ts (searchIndex) and app/src/components/GlobalSearch.vue: index, besides name (and builder for yachts), each node's attrs.geo.city, attrs.geo.subdivision, attrs.geo.country and the human labels of its attrs.facets values (e.g. 'dry stack', 'superyacht', 'Florida'), so 'marinas miami' or 'dry stack fort lauderdale' return results. Support prefixes: 'type:marina' or shorthand 'marina:', 'country:italy', 'city:miami', 'in:florida' (matches any geo level), and facet prefixes '<facetKey>:<value>' (e.g. 'facility_category:dry stack', 'loa_band:60-90'); unknown prefixes fall back to plain text. Result list groups by type with type chips to narrow; each result shows a one-line subtitle 'city, country' when geo exists. Keep the search under 20 ms for 4,789 nodes (precomputed lowercase tokens; no regex per keystroke). A query consisting only of type + facet/geo prefixes offers an 'Open as filtered list' action linking to the TASK-030 browse URL. Keyboard navigation and screen-reader announcements of result counts preserved. No ingest changes.",
+  "acceptance_criteria": [
+    "AC1: Searching a city, country or facet label returns the matching nodes (fixture tests: 'miami' finds marinas with geo.city Miami; 'dry stack' finds marinas with facility_category dry stack; 'italy' finds builders with geo.country Italy).",
+    "AC2: Prefixes type:/marina:/country:/city:/in:/<facetKey>: narrow results as specified; an unknown prefix is treated as plain text (unit tests per prefix).",
+    "AC3: Results grouped by type with type chips; subtitle shows 'city, country' when attrs.geo exists and nothing otherwise (component test).",
+    "AC4: Benchmark-style test: a 3-token search over the real graph completes under 20 ms; index built once per graph load.",
+    "AC5: 'Open as filtered list' appears only for prefix-only queries and links to the exact /browse URL (test).",
+    "AC6: Existing app tests green plus new tests <= AC count unless justified; typecheck/build clean; keyboard navigation and live-region announcements still work (UAT by the human)."
+  ],
+  "status": "todo",
+  "priority": "medium",
+  "labels": [
+    "taxonomy",
+    "filters",
+    "ui",
+    "search"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-030"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-10-17T02:56:03.855Z",
+  "updated_at": "2026-10-17T02:56:03.855Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": true,
+  "marker": "[EXPLICIT]"
+}

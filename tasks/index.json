@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:34:43.831Z",
+  "generated_at": "2026-10-17T03:50:16.113Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -172,8 +172,32 @@
     {
       "key": "TASK-029",
       "title": "Per-type controlled-vocabulary facets (attrs.facets) computed at ingest",
-      "status": "todo",
+      "status": "done",
       "priority": "high"
+    },
+    {
+      "key": "TASK-030",
+      "title": "Facet panel + navigable geography in /browse/:type (proposal step 4)",
+      "status": "in_progress",
+      "priority": "high"
+    },
+    {
+      "key": "TASK-031",
+      "title": "Query builder reads meta.facets: value dropdowns, geo fields, multi-value conditions (proposal step 5)",
+      "status": "todo",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-032",
+      "title": "Global search: wider index (city, country, builder, category) + type/field prefixes (proposal step 6)",
+      "status": "todo",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-033",
+      "title": "Facet debts from TASK-029 close-out (explorer subtype, negation guard, geo validation, name false positives)",
+      "status": "todo",
+      "priority": "medium"
     }
   ]
 }

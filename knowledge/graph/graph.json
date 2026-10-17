@@ -6,6 +6,12 @@
       "type": "task",
       "ref": "tasks/TASK-027.json",
       "label": "Geographic hierarchy (country > subdivision > city) + country alias normalization for all entity types"
+    },
+    {
+      "id": "task-029",
+      "type": "task",
+      "ref": "tasks/TASK-029.json",
+      "label": "Per-type controlled-vocabulary facets (attrs.facets) computed at ingest"
     }
   ],
   "edges": []

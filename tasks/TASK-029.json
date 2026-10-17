@@ -11,7 +11,7 @@
     "AC6: graph.json meta.facets = { <type>: { <facet>: [{ value, count }] } } sorted by count desc, counts equal to a recount over nodes (test), and app/public/data/graph.json byte-identical.",
     "AC7: Full ingest suite (single-fork) and 142 app tests green; pins updated with dated comments; identifiable-only score unchanged or higher (facets are additive); new specs <= AC count unless justified."
   ],
-  "status": "todo",
+  "status": "done",
   "priority": "high",
   "labels": [
     "taxonomy",
@@ -23,13 +23,152 @@
   "depends_on": [
     "TASK-027"
   ],
-  "linked_commits": [],
+  "linked_commits": [
+    "221efb8",
+    "44b0d69",
+    "1eb3878",
+    "cde6dff",
+    "101ff26",
+    "a8b6d6e",
+    "1b3a7f2",
+    "d212a7c",
+    "7ce2645",
+    "4a11642"
+  ],
   "linked_prs": [],
-  "comments": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T01:36:24.278Z",
+      "body": "PEDIDO ESTRUCTURADO (PLANTILLA-PEDIDO), completado por el orquestador a partir del pedido en prosa del humano (\"necesito que los filtros mejoren... organizar la data para crear las categorías\") y sus decisiones del 2026-10-16 (UI inglés; bandas de la propuesta; geografía ya hecha en TASK-027).\n1. Objetivo: que cada entidad lleve attrs.facets con vocabulario controlado (listas cerradas, claves en inglés) calculado en la ingesta, para que los filtros puedan ofrecer desplegables y bandas en lugar de texto libre.\n2. Actor: el pipeline de ingesta (produce) y, en tickets posteriores, el panel de facetas y el query builder (consumen).\n3. Problema: builder.specialty 213 valores para 160 builders, person.industry 69 para 86, shipyard.lift_type 21 variantes para 6 conceptos, categoría de marina solo en prosa, clase de tamaño solo como arista. El usuario tiene que adivinar la palabra exacta.\n4. Caminos y acciones esperadas: principal: ingest limpio -> cada nodo de los 11 tipos tiene attrs.facets solo con valores del vocabulario, attrs originales intactos, meta.facets exportado con conteos. Alternativo A: valor numérico en el borde exacto de una banda (24.0 m, año 1980) -> cae en la banda superior por convención [inicio, fin). Alternativo B: valor libre que no mapea a ningún término -> no se asigna faceta y el valor va a facets-unmapped.json con conteo. Alternativo C: marina sin pista de categoría en nombre ni notas -> 'unclassified'. Fallo: yate sin features, notes ni specialty del builder -> propulsion_type='unknown', nunca un tipo concreto. Fallo: segunda ejecución -> sin cambios (idempotencia).\n5. Criterios de hecho: AC1-AC7 del ticket.\n6. Restricciones: nunca editar graph.json a mano; nunca escribir facetas en los markdown; attrs originales intactos; score no baja; tests ingest single-fork; 142 tests app verdes; specs nuevos <= 7 salvo justificación.\n7. Fuera de alcance: UI (FacetPanel, query builder, buscador), geografía adicional (TASK-028)."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T01:36:24.381Z",
+      "body": "LISTA DE CASOS DE USO (derivada del pedido; pendiente de aprobación del humano). CUn = UCn.\nCU1 (principal): `npm run ingest:clean` sin errores; cada nodo de los 11 tipos faceteados tiene attrs.facets; recorrer todos los nodos -> cero valores fuera del vocabulario exportado.\nCU2 (intactos): tomar un yate con loa, year y flag; esperar que loa.meters, year.value y flag sean byte-idénticos antes y después del hook; facets es un bloque adicional.\nCU3 (bandas en el borde): loa 23.99 -> '15-24', 24.0 -> '24-40', 120 -> '120+'; año 1979 -> 'pre-1980', 1980 -> '1980s', 2020 -> '2020s'; power_hp 500 -> '500-2000'; guests 8 -> '<=8', 9 -> '9-12'.\nCU4 (colapso de vocabulario): builder.specialty 'Custom superyachts in steel and aluminium' -> segment incluye 'custom superyacht' y 'aluminium specialist'; shipyard.lift_type 'Syncrolift 3,000 t' -> 'shiplift/syncrolift'; cobertura >=90% de los valores no vacíos de specialty, lift_type, facility_type, engine_types, role e industry.\nCU5 (no mapeado): un valor libre inventado en un fixture -> ninguna faceta asignada, aparece en ingest/reports/facets-unmapped.json con tipo, valor y conteo.\nCU6 (categoría de marina): 'Loggerhead Dry Stack' -> 'dry stack'; 'X Yacht Club Marina' -> 'club marina'; 'Pier 66 Mooring Field' -> 'mooring field'; marina sin pistas -> 'unclassified'; >=60% de marinas clasificadas.\nCU7 (never-guess en yates): yate sin features, notes ni specialty del builder -> propulsion_type 'unknown'; con feature 'sailing' -> 'sailing'; complete == identifiability; charter_available true solo con weekly_rate.\nCU8 (herencia): yacht.facets.builder_country = geo.country del builder vía built_by; builder.facets.country = su attrs.geo.country (de TASK-027), nunca attrs.country.\nCU9 (meta): graph.json meta.facets[type][facet] = lista {value,count} ordenada desc; un recuento sobre los nodos da exactamente esos conteos; copia app byte-idéntica.\nCU10 (idempotencia y no regresión): hook dos veces -> mismos attrs; score identifiable-only >= 7.73; suite ingest completa (single-fork) y 142 tests app verdes; pins actualizados con comentario fechado."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T01:45:03.741Z",
+      "body": "HUMAN APPROVAL recorded 2026-10-16: the human approved the 10-case use-case list (CU1-CU10, previous comment) verbatim (\"Aprobados, adelante\"). Developer dispatch authorized against this list. Any change to a case goes back to the human."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T02:14:35.509Z",
+      "body": "HAND-OFF (relayed by orchestrator from developer spawn). Commits: 221efb8 feat(TASK-029) per-type controlled-vocabulary facets (attrs.facets) + meta.facets; 44b0d69 fix(app) hide attrs.facets in the entity attribute grid; 1eb3878 chore(ingest) regenerate graph.json with attrs.facets + meta.facets; add facets-unmapped report. New: ingest/src/mappers/facetVocabulary.js, facets.js, ingest/tests/facets.spec.js (7 specs = AC count), ingest/reports/facets-unmapped.json (106 raw values, committed). Modified: ingest.js, graphExporter.js, graphExporter.spec.js (1 dated pin), app/src/utils/attrs.ts (adds 'facets' to hidden attribute keys so the entity page does not render a partial Facets row). Coverage, cell level [per element]: builder specialty 144/145 = 99.3% [192/223 = 86%]; shipyard lift_type 167/167 [212/212]; facility_type 236/236; engine engine_types 53/55 [69/73]; person role 85/85; person industry 72/73; marina facility_category 972/1206 = 80.6% classified. Delta: nodes 4789 / edges 4199 unchanged; only attrs.facets added (3,715 nodes); meta gained only facets. Score identifiable-only 7.73 unchanged. Tests: ingest single-fork 1050 (1043 + 7) green; app 142 green + build. Each spec red-green planted. Notes for reviewer: charter_available true only when weekly_rate.amount is numeric (21 yachts; some source rows are sale prices marked '(sale)', upstream issue); one 14.9 m yacht gets no LOA band (bands start at 15); builder specialty informs propulsion only when it points one way, 'classic' never inherited; unmapped report written beside skipped-prose.md; one spec reads committed graph.json, the coverage spec rebuilds a db from it. Open: AC4 90% measured per cell (passes all six) vs per list element (builder specialty 86%; ~15 unmapped elements are bare size ranges like '24-75m', not segments, correctly left unmapped)."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T02:14:35.634Z",
+      "body": "ORCHESTRATOR RULING on the AC4 measurement question (not a use-case change): AC4 and CU4 say \">= 90% of non-empty <source> raw values map\". A raw value is the cell as written in the corpus; a cell counts as mapped when at least one vocabulary term is derived from it. Cell-level is therefore the literal reading and is what the spec must assert. The per-element figure (builder specialty 192/223 = 86%) is recorded as informational; the unmapped elements are size ranges ('24-75m') that are not segments and belong in facets-unmapped.json, which is exactly the never-guess behaviour CU5 demands. Reviewer: judge CU4 against the cell-level reading and confirm the per-element figure is reported, not hidden."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T02:25:07.015Z",
+      "body": "[WARGAMING] Attacked CU3 (bands, camino principal y de fallo con celdas numéricas hostiles), CU4 y CU7 (vocabulario y propulsión, camino de fallo con negaciones y otros sentidos), CU6 (categoría de marina, camino alternativo nombre vs notas), CU8 (precedencia geo, camino alternativo multi-builder), CU10 y CU2 (idempotencia con facets obsoletas), CU9 (meta recount vía exportGraph real a scratch), CU5 (reporte unmapped). 8 rondas, código real, db desechable, reporte redirigido. Caught: todos los bordes de banda; toNum rechaza \"24,5\"/\"80 ft\"/\"2x1500\"/NaN; builder de dos sentidos -> unknown; 'classic' de builder nunca heredado; facets obsoletas reemplazadas por completo, dump run1==run2; recount == meta (0 mismatches en corpus); reporte determinista y redirigible.\n[FINDING-HIGH: WG29-H1] facets.js:192-207 PROPULSION_TABLE: la palabra 'classic' como adjetivo de estilo mint el TIPO 'classic' — 13 yates reales mal clasificados en graph.json (yacht:sailing-yacht-a 2017 \"warmer classic interior\", big-easy, queen-miri, laurel, remember-when \"Classic luxury/elegance\"...). Además orden de tabla sport-fish > explorer: yacht:the-beast (\"Expedition, tenders, fishing\") -> 'sport-fish' en vez de 'explorer'. Fix: 'classic' solo con evidencia de época/tipo (p.ej. built pre-1970 o \"classic yacht\"/\"classic motor yacht\" como sustantivo, nunca \"classic interior/luxury/elegance/lines\"), y explorer/expedition antes que sport-fish o matchEarliest.\n[FINDING-HIGH: WG29-H2] facets.js PERSON_ROLE_TABLE: 'politician' por /president/ gana a 'founder' — person:laurene-powell-jobs \"Founder/President, Emerson Collective\" -> 'politician'. Fix: founder/executive deben ganar a president salvo contexto de gobierno (President of <country>, Prime Minister, Senator, Minister...).\nMEDIUM (cheap, fix in this round): WG29-M1 weekly_rate.amount 0 o negativo -> charter_available TRUE (toNum(0) !== null); exigir > 0. WG29-M2 year <= 0 o < 1800 -> 'pre-1980'; dejar sin banda (unmapped). WG29-M3 builderOf toma la primera fila de un SELECT sin ORDER BY; 7 yates con 2-3 builders incl. placeholders builder:custom/various (kaos: custom, lurssen, oceanco -> Netherlands). Fix: excluir builders attrs.placeholder===true, ORDER BY determinista, y si quedan 2+ países distintos no asignar builder_country (o flag). WG29-M4 buildFacetsMeta tabula attrs.facets de CUALQUIER tipo sin validar; restringir a los 11 tipos faceteados y a claves del vocabulario. MEDIUM documentar como límite conocido (no fix ahora): negación (\"not a sailing yacht builder\" -> sailing; \"no dry stack\" -> dry stack), 'yacht\\b' no matchea plural, geo.country pasa a facets.country sin validar contra COUNTRIES, \"Yacht Club Drive Marina\" -> club marina (nombre de calle, marina:key-largo-yacht-club-drive-marina). LOW: unmapped cuenta variantes de mayúsculas aparte; elementos con '(' sin cerrar tragan el resto de la lista; part category case-sensitive 'Hull & Structure'; facets con 0 nodos sin clave en meta (UI debe tolerar)."
+    },
+    {
+      "author": "reviewer",
+      "at": "2026-10-17T02:30:41.981Z",
+      "body": "REVIEW VERDICT round 1: BLOCK, 1 HIGH (fresh-context reviewer, diff 8009f2c..1eb3878). RUN: ingest single-fork 1050 green on the committed range (5 failing specs in the working tree are the wargaming fixtures written ahead of their fix, outside range); app 142; score 7.73; own script: 0 OOV values, 0 nodes of the 11 types missing facets, meta.facets recount exact and sorted, 4789/4199 unchanged, attrs diff = only attrs.facets + meta.facets, app copy byte-identical.\n[FINDING-HIGH: WG29-H3] facets.js ~175 propulsionOf + facetVocabulary.js PROPULSION_TABLE 'motor' regex (/motor ?yacht|motoryacht|m\\/y|power ?boat|diesel-electric/): builder specialty \"full-custom sailing & motor superyachts\" (Feadship, Royal Huisman, FX Yachts) never hits 'motor', so the both-hulls guard does not fire and 33 motor yachts (Venus, Savannah, Symphony, Musashi, Highlander, Air, Joy...) get propulsion_type='sailing'. Repro: yachts with no own-text evidence whose builder specialty matches /sail/ and /motor|power/ = 35 (33 'sailing', 2 Sunreef 'catamaran' fine). Violates AC5/CU7. Fix: builder-specialty hull check with /\\bmotor\\b|power/ (or inherit hull only when the specialty names exactly one hull).\nMEDIUM M-1 facetVocabulary.js deviations from proposal s4 not escalated: company kind lacks 'storage operator'; company.kind, person.nationality, person.status are multi (proposal: simple); designer discipline adds 'sailing yacht design'. M-2 MARINA_CATEGORY_RULES club regex (club.*marina|marina.*club) false positives: \"Ocean Club Marina Port Canaveral\", \"The Marina at the Marina City Club\", \"Fort Pierce Freedom Boat Club Marina\", \"Kerikeri Cruising Marina and Club Ltd\" (~4/76). M-3 hand-off lacks per-item pre-hand-off checklist outcomes. LOW: charter_available false for weekly_rate {amount:null, raw:'N/A (sold)'} (sensible); guests 20 -> '13-20' inclusive while other bands half-open (spec pins 21 not 20); 28 yachts 90-99 m are megayacht per sizeClassLinker (>=100 gigayacht) vs proposal 90+ (pre-existing, facet copies edge); 14.9 m yacht no loa_band; AC2/AC6 specs read committed graph.json relying on freshness guard; idempotency proven on a 1-node fixture; unmapped sample of 15 fine; coverage spec asserts cell ratio per ruling; attrs.ts change minimal, hides only 'facets', no app test covers it. Per-AC: AC1 MET, AC2 MET, AC3 MET, AC4 MET (cell-level), AC5 NOT MET (H3), AC6 MET, AC7 MET."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T02:52:34.001Z",
+      "body": "FIX-ROUND HAND-OFF (relayed by orchestrator). Commits: cde6dff fix(TASK-029) facet never-guess hardening (classic/explorer evidence, founder over president, charter amount > 0, year floor, placeholder builders, meta tally scope); 101ff26 chore regenerate; a8b6d6e fix(TASK-029) reviewer MEDIUMs + WG29-H3 (builder hull inherited only when specialty names exactly one family; storage operator kind; club-marina rule requires yacht club / sailing club / club nautico / club de mar / squadron; vocabulary deviations documented in facetVocabulary.js header); 1b3a7f2 chore regenerate. Deltas vs 1eb3878: person role 1 (laurene-powell-jobs politician -> founder); builder_country 1 (kaos unset, builders span countries); propulsion_type 49 + 7 changed (classic 13 -> 1; sailing-yacht-a no longer classic; the-beast explorer; ~30 Feadship/Royal Huisman/FX motor yachts sailing -> unknown; venus/fx/oracle unknown; 4 Sunreef catamarans -> unknown because builder names multihull AND power; nero classic -> unknown; big-data unknown -> sailing). Final propulsion: 421 unknown, 78 motor, 41 explorer, 24 sailing, 12 catamaran, 4 sport-fish, 1 classic (pre-fix-round counts; +7 flips after). Marina category 25 changed (club-and-marina names -> wet-slip; 4 boat clubs -> unclassified); classification stays > 60%. 'diesel-electric' removed from motor evidence (sailing-yacht-a was motor on that phrase). Specs: 14 total in facets.spec.js (7 per AC + 7 wargaming/reviewer fixtures, justified), each red-green planted with harm comment. Tests: ingest single-fork 1057 green / 41 files; app 142 + build clean; score 7.73 unchanged. Pre-hand-off checklist: unspecced path exercised (full facet diff before/after reviewed per changed node); every lock red-green planted; dist n/a; parity app graph.json byte-identical; calibration n/a. Known limits left: negation blindness, geo passthrough, Key Largo \"Yacht Club Drive\". Array-typed features/notes not matched for propulsion evidence (count not yet reported)."
+    },
+    {
+      "author": "reviewer",
+      "at": "2026-10-17T03:25:58.030Z",
+      "body": "FIX-ROUND REVIEW VERDICT (1eb3878..1b3a7f2, d212a7c comment-only): BLOCK. RUN: ingest 41 files / 1057 green; app 142; score 7.73; HEAD graph == 1b3a7f2 == app copy; 0 OOV; 0 nodes missing facets; meta recount exact; attrs diff = facets only. Deltas: propulsion_type 55 (47 -> unknown all correct; 5 \"motor superyachts\" -> motor correct; the-beast explorer correct; laurel M-5; big-data R-2), facility_category 25, person.role 1 correct, builder_country 1 correct (kaos). Only christina-o (1943) stays classic, correctly; diesel-electric removal lost no motor label; 0 array features/notes cells (251 string / 316 null / 14 undefined).\n[FINDING-HIGH: WG29-H4] facets.js propulsionOf power regex /\\bmotor\\b|\\bpower\\b|motoryacht/ misses \"motorboats\": yacht:big-data unknown -> sailing from Beneteau \"production sailboats & motorboats\". Fix: add motor ?boats?|powerboats? to the power test; lock with a \"sailboats & motorboats\" builder -> unknown.\n[FINDING-HIGH: WG29-P1] Process: WG29 regression specs existed and failed in the working tree before the fix commit landed (test-before-implementation under the test-authorship gate). Orchestrator to record or degrade with justification.\nMEDIUM M-5 yacht:laurel classic -> explorer via Delta Marine \"custom expedition & displacement superyachts\" (two power families; code picks explorer). M-6 club-marina rule over-corrected: ~10 genuine member clubs lost (Clayton Bay / Darwin Trailer / Geilston Bay / Gove / Moreton Bay Boat Club, Noosa Yacht and Rowing Club, Key Largo Anglers Club, Caloosa Yacht & Racquet Club Marina, Motueka Power Boat Club Marina, Tomoka Boat Club Marina); \"boat club\" = rental is US-centric (Freedom Boat Club); classified share 79.9%. LOW: 'storage operator' hits 0 corpus companies; 7 new specs are real sensors with harm comments, overage justified."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:25:58.093Z",
+      "body": "[FINDING-DEGRADED: WG29-P1 — The failing specs the reviewer observed before cde6dff are the wargaming probe fixtures I explicitly instructed the developer to port as regression locks and red-green plant (each lock must be proved able to fail before it lands, per agents/developer.md \"Red-green planting\"). Writing the lock, observing red, then landing the fix and observing green is that discipline, not a tests-first process gate; the cases came from the orchestrator-run wargaming against the human-approved list, not from the developer reading its own code, so the empty-test risk Regla 1 guards against does not apply. Recorded here so the ordering is auditable; no action required.]\n[WARGAMING] Step-9 replay of the unchanged probe set (probe.mjs, corpus.mjs) against 1b3a7f2: 0 regressions; CU3 (year 0/-1 -> no decade; weekly_rate 0/-1 -> false), CU4/CU7 (sailing-yacht-a unknown, the-beast explorer, \"sailing & motor\" builder -> unknown, \"classic motor yacht built 1931\" -> classic, \"motorsailer\"/\"outboard motor\" -> no motor), CU6 (\"Ocean Club Marina\" wet-slip, \"X Yacht Club Marina\" club marina), CU8 (kaos unset, placeholder builder ignored, two-builder deterministic unknown), CU9 (injected size_class absent from meta, recount == meta), CU10 (identical dumps) all confirmed along their principal, alternative and failure paths. New MEDIUM from the fix: politician pattern now sends \"President of France\" -> executive (corpus: 2 president roles, both correct).\n[FINDING-RESOLVED: WG29-H1] [FINDING-RESOLVED: WG29-H2] [FINDING-RESOLVED: WG29-H3] confirmed by replay and by the reviewer's own flip audit (47 flips to unknown correct, laurene-powell-jobs founder, venus unknown).\nFix round 2 dispatched for WG29-H4 + M-5 + M-6 + politician country pattern."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T03:36:53.389Z",
+      "body": "FIX ROUND 2 HAND-OFF (relayed by orchestrator). Commits 7ce2645 fix(TASK-029) motorboats hull evidence, two-power-family builders, member-club marinas, politician needs a country; 4a11642 chore regenerate. Yacht flips (11, all -> unknown): big-data (sailing; Beneteau \"sailboats & motorboats\" ambiguous), laurel (explorer; Delta \"expedition & displacement\" two families), arya, avalon, fat-bob, impulsive, lady-beth, revelry, the-jackson, triton (explorer -> unknown: no own text, builder names two type words), summertime-ii (sport-fish -> unknown). the-beast stays explorer on own text \"Expedition\". Marina flips (13, all -> club marina): from unclassified clayton-bay-boat-club, darwin-trailer-boat-club, geilston-bay-boat-club, gove-boat-club, key-largo-anglers-club, moreton-bay-boat-club, moreton-bay-trailer-boat-club, noosa-yacht-and-rowing-club; from wet-slip caloosa-yacht-racquet-club-marina, montauk-anglers-club-marina, motueka-power-boat-club-marina, the-boat-club-marina (flagged ambiguous), tomoka-boat-club-marina. Freedom Boat Club excluded; Ocean Club Marina stays wet-slip. Persons: 0 flips; \"President of <country>\" -> politician, \"Founder/President, Emerson Collective\" -> founder locked. Specs: +3 (17 total, overage = wargaming fixtures), each red-green planted. Tests: ingest 1060 green; app 142 + build; score 7.73; app copy byte-identical. 5-point checklist: unspecced path (full facet diff reviewed), red-green done, dist n/a, parity done, calibration n/a."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:38:00.052Z",
+      "body": "[WARGAMING] Final step-9 replay against 4a11642 (probe.mjs, corpus.mjs, step9.mjs unchanged): 0 regressions; probe output byte-identical to the previous replay; CU7 camino alternativo (builder con dos familias de tipo) ahora -> unknown (summertime-ii), the-beast explorer por texto propio; CU6 camino alternativo \"Gove Boat Club\" -> club marina, \"Freedom Boat Club Marina\" -> wet-slip; \"President of France\" -> politician, \"President of Sales, Acme\" -> executive; christina-o único classic; meta recount 0 mismatches.\n[FINDING-RESOLVED: WG29-H4] big-data unknown (Beneteau \"sailboats & motorboats\" ambiguous), locked. Known MEDIUM limits carried to follow-up: negation blindness, geo.country passthrough unvalidated, name-pattern false positives (\"Harbour Town\", \"Yacht Club Drive\"), the-boat-club-marina ambiguous."
+    },
+    {
+      "author": "reviewer",
+      "at": "2026-10-17T03:47:42.033Z",
+      "body": "FIX ROUND 2 REVIEW VERDICT (1b3a7f2..4a11642): APPROVE, 0 HIGH, 1 MEDIUM, 2 LOW. RUN: ingest 41 files / 1060 green; app 142; score 7.73; HEAD graph == 4a11642 == app copy; 0 OOV; 0 missing facets; meta recount exact; attrs diff limited to facets (propulsion_type 11, facility_category 13). Audit: 11 yacht flips all to unknown, none wrong (big-data; laurel/avalon/revelry/triton Delta \"expedition & displacement\"; summertime-ii Hatteras \"sportfish & motoryachts\"; the-jackson Horizon \"production & explorer\"); 13 marina flips all to club marina, 12 genuine member clubs, the-boat-club-marina ambiguous but not provably wrong; no yacht with OWN text evidence is unknown (all 581 checked); the-beast explorer; \"President of Emerson Collective\"/\"President of Sales\" -> executive; 3 new specs are real sensors. MEDIUM M-7: 'motor' counted as a separate family so \"explorer motoryachts\"/\"expedition motor yachts\" builders (Azimut Magellano, Numarine, Newcastle Marine) inherit nothing — arya, fat-bob, impulsive, lady-beth lost a correct explorer label; explorer is a subtype of motor; suggest not pushing 'motor' when explorer/sport-fish matched. Never-guess preserved, not blocking. LOW: politician regex fires on \"<country> + company word\" (\"President of Oman Oil\"), 0 corpus hits; Georgia/Jordan absent from COUNTRY_NAMES."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:48:18.572Z",
+      "body": "[FINDING-DEGRADED: WG29-P1 — wargaming regression locks were red-green planted by orchestrator instruction, not developer-authored tests-first; full justification in the earlier degrade comment]"
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:50:15.410Z",
+      "body": "[CLOSE-EXCEPTION] Marker-syntax only: an earlier orchestrator comment opened a [FINDING-DEGRADED: WG29-P1 ...] marker whose justification exceeded the 500-char scan cap, so the parser cannot read it; a well-formed [FINDING-DEGRADED: WG29-P1 — ...] marker was appended afterwards. Every substantive precondition is met and recorded on this ticket: status in_review, reviewer-authored APPROVE comment for the final diff (1b3a7f2..4a11642, 0 HIGH), [WARGAMING] comments naming cases and paths with 0 regressions on the final replay, all four data HIGHs (WG29-H1..H4) carry [FINDING-RESOLVED] markers, and the only process finding (WG29-P1) is degraded with justification. Comment bodies are never raw-edited, hence this auditable exception instead of rewriting the malformed comment."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:50:15.410Z",
+      "body": "ENTREGA TASK-029 (PLANTILLA-ENTREGA)\n\n1. CASOS DE USO APROBADOS (aprobados por el humano el 2026-10-16; medición de CU4 por celda fijada por el orquestador y validada por el reviewer). CUn = UCn.\nCU1 ingest limpio; los 11 tipos llevan attrs.facets; cero valores fuera de vocabulario: CUMPLIDO.\nCU2 attrs originales intactos: CUMPLIDO (diff de attrs limitado a facets).\nCU3 bordes de banda: CUMPLIDO (23.99/24/120, 1979/1980/2020, hp 500, guests 8/9 fijados).\nCU4 colapso de vocabulario >=90% por celda: CUMPLIDO (specialty 99.3%, lift_type 100%, facility_type 100%, engine_types 96%, role 100%, industry 98.6%).\nCU5 valor no mapeado -> sin faceta y en facets-unmapped.json: CUMPLIDO (106 valores).\nCU6 categoría de marina: CUMPLIDO (79.9% clasificadas).\nCU7 never-guess en propulsión: CUMPLIDO tras tres rondas.\nCU8 país desde attrs.geo, nunca attrs.country: CUMPLIDO.\nCU9 meta.facets con recount exacto y copia app byte-idéntica: CUMPLIDO.\nCU10 idempotencia, score >= 7.73, suites verdes: CUMPLIDO (1060 ingest + 142 app, re-corridos por el orquestador).\n\n2. RESULTADO\nCommits 221efb8, 44b0d69, 1eb3878, cde6dff, 101ff26, a8b6d6e, 1b3a7f2, d212a7c, 7ce2645, 4a11642. Nuevos facetVocabulary.js, facets.js, tests/facets.spec.js (17 specs), reports/facets-unmapped.json; meta.facets en el exporter; attrs.ts oculta 'facets'. Facetas en 3,715 nodos; nodos y aristas sin cambio. Reviews: ronda 1 BLOCK (1 HIGH), fix BLOCK (1 HIGH + 1 de proceso degradado), ronda 2 APPROVE 0 HIGH.\n\n3. WARGAMING\nChallenger con código real, 8 rondas. Atacó CU3 por el camino de fallo con celdas numéricas hostiles, CU4 y CU7 por el camino de fallo con negaciones y adjetivos de estilo, CU6 por el camino alternativo nombre vs notas, CU8 por el camino alternativo multi-builder, CU9 por export real, CU10 con facets obsoletas. 2 HIGH del Challenger (CU7 'classic' por adjetivo en 13 yates; CU4 'politician' por 'President') + 2 HIGH del reviewer (CU7 'sailing & motor' en 33 yates; 'motorboats' en 1). Fixes cde6dff, a8b6d6e, 7ce2645 con fixtures replayables. Replays del paso 9 tras cada fix: 0 regresiones. Veredicto: SOBREVIVE. e2e: no aplica.\n\n4. UAT\nUAT no solicitado (requires_uat=false; las facetas se hacen visibles en TASK-030, con UAT).\n\n5. ESTADO Y DEUDAS (recogidas en TASK-033)\n(a) 'explorer motoryachts' debería heredar explorer; (b) ceguera a negaciones; (c) geo.country sin validar; (d) falsos positivos por nombre de calle; (e) the-boat-club-marina ambigua; (f) politician con '<país> + empresa'; (g) weekly_rate con precios '(sale)'; (h) 14.9 m sin banda, guests 20 inclusivo; (i) 90-99 m megayacht vs propuesta; (j) normalización del reporte unmapped."
+    }
+  ],
   "created_at": "2026-10-17T01:33:30.576Z",
-  "updated_at": "2026-10-17T01:33:30.576Z",
+  "updated_at": "2026-10-17T03:50:15.410Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": false,
-  "marker": "[EXPLICIT]"
+  "marker": "[EXPLICIT]",
+  "linked_commits_verification": {
+    "at": "2026-10-17T03:50:15.410Z",
+    "checked": true,
+    "reason": null,
+    "commits": [
+      {
+        "sha": "221efb8",
+        "state": "verified"
+      },
+      {
+        "sha": "44b0d69",
+        "state": "verified"
+      },
+      {
+        "sha": "1eb3878",
+        "state": "verified"
+      },
+      {
+        "sha": "cde6dff",
+        "state": "verified"
+      },
+      {
+        "sha": "101ff26",
+        "state": "verified"
+      },
+      {
+        "sha": "a8b6d6e",
+        "state": "verified"
+      },
+      {
+        "sha": "1b3a7f2",
+        "state": "verified"
+      },
+      {
+        "sha": "d212a7c",
+        "state": "verified"
+      },
+      {
+        "sha": "7ce2645",
+        "state": "verified"
+      },
+      {
+        "sha": "4a11642",
+        "state": "verified"
+      }
+    ]
+  }
 }

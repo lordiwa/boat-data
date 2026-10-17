@@ -1,0 +1,34 @@
+{
+  "key": "TASK-033",
+  "title": "Facet debts from TASK-029 close-out (explorer subtype, negation guard, geo validation, name false positives)",
+  "description": "Debts carried from TASK-029 (per-type facets) close-out, 2026-10-16, all under the never-guess rule. (a) Explorer is a subtype of motor: a builder specialty \"explorer motoryachts\"/\"expedition motor yachts\" (Azimut Magellano, Numarine, Newcastle Marine) should inherit 'explorer', not be treated as two families; restore arya, fat-bob, impulsive, lady-beth with locks. (b) Negation guard for every vocabulary table: a match preceded within N tokens by not/no/non-/never/former(ly)/ex-/without/un- must not mint the value (\"no dry stack\", \"not a sailing yacht builder\", \"Not deceased\", \"non-American\", \"formerly a sailing yacht\"); lock the probe set from scratchpad wargame-029 (ported into the spec). (c) Validate attrs.geo.country against COUNTRIES before copying to facets.country; unknown -> unmapped report. (d) Marina name false positives: street-name patterns (\"Yacht Club Drive\", \"Harbour Town\", \"Dry Creek\") must not mint a category; require the category phrase not be followed by Drive/Dr/Road/Rd/Blvd/Way; lock marina:key-largo-yacht-club-drive-marina -> not club marina. (e) Politician: \"<country> + company word\" (\"President of Oman Oil\") must not mint politician; add Georgia, Jordan and any missing country to COUNTRY_NAMES. (f) Decide the-boat-club-marina from its source file. (g) weekly_rate rows marked '(sale)' are sale prices: yachtSpecMapper should route them to a price attr, not weekly_rate; charter_available then follows. (h) yachts under 15 m: add a '<15' loa band or document; guests 20 boundary: make half-open like the others and update CU3 pins. (i) sizeClassLinker 90-99 m megayacht vs proposal gigayacht 90+: align one way and record the decision (knowledge/90 size_class defines 24/60/90). (j) unmapped report: normalize case/whitespace variants into one count and strip Unicode tag characters.",
+  "acceptance_criteria": [
+    "AC1: 'explorer motoryachts'/'expedition motor yachts' builder specialty inherits explorer; arya, fat-bob, impulsive, lady-beth are explorer again; 'sailing & motor' and 'expedition & displacement' still -> unknown (locks).",
+    "AC2: Negation guard implemented once and applied to all vocabulary tables; the wargaming negation probe set is a committed spec and passes; coverage figures do not drop below the TASK-029 floors.",
+    "AC3: facets.country only ever holds a COUNTRIES canonical name; a fixture geo.country 'Narnia' lands in the unmapped report.",
+    "AC4: Street-name guard: key-largo-yacht-club-drive-marina not club marina; 'Harbour Town Marina' not municipal; locks; marina classified share stays >= 60%.",
+    "AC5: Politician never minted for '<country> + company word'; Georgia and Jordan resolve; locks.",
+    "AC6: '(sale)' weekly_rate rows moved out of weekly_rate at the mapper with a pinned test; charter_available count recorded before/after.",
+    "AC7: Band decisions for <15 m and guests 20 implemented and pinned; size-class 90 m alignment decided, implemented and recorded in the ticket; full ingest suite + 142 app tests green; score >= 7.73; app copy byte-identical."
+  ],
+  "status": "todo",
+  "priority": "medium",
+  "labels": [
+    "taxonomy",
+    "facets",
+    "ingest"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-029"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [],
+  "created_at": "2026-10-17T03:47:42.132Z",
+  "updated_at": "2026-10-17T03:47:42.132Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": false,
+  "marker": "[EXPLICIT]"
+}

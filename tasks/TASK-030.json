@@ -1,0 +1,52 @@
+{
+  "key": "TASK-030",
+  "title": "Facet panel + navigable geography in /browse/:type (proposal step 4)",
+  "description": "Step 4 of research/category-taxonomy-proposal.md (human decisions 2026-10-16: UI English only; steps 4-6 ship before one Firebase deploy). Make the TASK-027 geo hierarchy and TASK-029 attrs.facets visible and usable. In app/src/views/EntityListView.vue (route /browse/:type) add a left-side FacetPanel (new app/src/components/FacetPanel.vue) fed by graph.json meta.facets[type] plus a geography block built from attrs.geo (country > subdivision > city, with counts). Each facet renders as a checkbox list with counts (\"Florida (412)\"), multi-select within a facet (OR) and AND across facets; range facets (loa_band, decade, berths_band, ...) render as band buttons, never min/max inputs; boolean facets as a toggle. Active filters appear as removable chips above DataTable; a \"Clear all\" control. Counts recompute against the CURRENT filtered set (faceted navigation semantics) and zero-count values are shown disabled, not hidden. Selection is encoded in the URL query (?country=US&subdivision=Florida&loa_band=24-40,40-60) so a filtered view is shareable and survives reload; the existing urlCodec in app/src/query/urlCodec.ts must keep decoding old links unchanged. Geography block drives /browse/marina?country=US&subdivision=Florida deep links and shows breadcrumb-style context (United States > Florida) above the table; each entity page (EntityView.vue) gets a small breadcrumb country > subdivision > city built from attrs.geo, each crumb linking to the filtered browse view. For yachts the 'complete' facet defaults to ON (identifiable only) with a visible chip the user can remove, so the 343 fragments are hidden unless asked for (proposal 5.5). Labels: human-readable English labels per facet key in app/src/utils/labels.ts (loa_band -> \"Length (m)\", facility_category -> \"Facility type\", ...). Must work at phone width (panel collapses to a \"Filters (n)\" button opening a drawer). Accessibility: keep Lighthouse a11y 100 and the existing /accessibility statement truthful (keyboard operable, aria-pressed on band buttons, fieldset/legend per facet). DataTable keeps its existing sort/paginate/CSV export over the filtered rows (CSV exports the filtered set). Performance: filtering 1,206 marinas with 5 active facets must stay under 50 ms in the store (precompute per-type facet indexes once in app/src/stores/graph.ts). No ingest changes in this ticket.",
+  "acceptance_criteria": [
+    "AC1: /browse/:type shows a FacetPanel listing every facet in meta.facets[type] plus a Geography block (country > subdivision > city from attrs.geo), each value with a count; counts recompute on the current filtered set and zero-count values render disabled (test with a fixture graph).",
+    "AC2: Multi-select is OR within a facet and AND across facets; range facets are band buttons; boolean facets are toggles; active filters show as removable chips with a Clear-all control; table rows and the row counter equal the engine result (unit test on the filter function with a fixture).",
+    "AC3: Selection round-trips through the URL query (country, subdivision, city, and every facet key; comma-separated multi-values); reload restores the same view; all existing urlCodec tests still pass and old /query links decode unchanged.",
+    "AC4: Deep link /browse/marina?country=US&subdivision=Florida shows only Florida marinas with breadcrumb 'United States > Florida'; EntityView shows a geo breadcrumb for any node with attrs.geo, each crumb linking to the corresponding filtered browse view; nodes without attrs.geo show no breadcrumb.",
+    "AC5: /browse/yacht defaults to the 'complete' facet ON with a visible chip; removing the chip reveals fragments; the default is applied only when the URL carries no explicit facet selection.",
+    "AC6: Phone width (375 px): panel collapses to a 'Filters (n)' button opening a drawer; no horizontal scroll; keyboard operable; Lighthouse accessibility stays 100 on /browse/marina and the a11y statement needs no correction (UAT step).",
+    "AC7: Precomputed facet indexes in the graph store; a benchmark-style unit test asserts filtering the real marina set with 5 active facets completes under 50 ms; CSV export exports exactly the filtered rows.",
+    "AC8: 142 existing app tests still green plus new tests <= AC count unless justified; typecheck and build clean; app/public/data/graph.json untouched."
+  ],
+  "status": "in_progress",
+  "priority": "high",
+  "labels": [
+    "taxonomy",
+    "filters",
+    "ui",
+    "vue"
+  ],
+  "assignee": null,
+  "depends_on": [
+    "TASK-029"
+  ],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T02:56:41.458Z",
+      "body": "PEDIDO ESTRUCTURADO (PLANTILLA-PEDIDO), completado por el orquestador a partir del pedido en prosa del humano (\"necesito que los filtros mejoren\") y su decisión del 2026-10-16 (pasos 4, 5 y 6 antes de un solo deploy; UI inglés).\n1. Objetivo: que un usuario pueda acotar cualquier lista de /browse/:type marcando casillas por categoría y por país/estado/ciudad, viendo cuántos resultados quedan, sin escribir texto.\n2. Actor: usuario final del sitio DataYacht (lector, no editor).\n3. Problema: hoy el único filtro es un formulario de query con operadores y texto libre; el usuario no sabe qué escribir; no existe \"todas las marinas de Florida\".\n4. Caminos y acciones esperadas: principal: abrir /browse/marina -> panel con facetas y geografía con conteos -> marcar Florida y Dry stack -> tabla y contador se actualizan, chips arriba, URL cambia -> recargar conserva la vista -> exportar CSV exporta solo lo filtrado. Alternativo A: llegar por deep link /browse/marina?country=US&subdivision=Florida -> misma vista filtrada con breadcrumb. Alternativo B: desde una ficha (EntityView) pulsar la miga \"Florida\" -> lista filtrada. Alternativo C: /browse/yacht abre con el chip 'complete' puesto; quitarlo muestra los fragmentos. Alternativo D: móvil 375 px -> botón \"Filters (n)\" abre un cajón. Fallo: valor con 0 resultados en la selección actual -> se ve deshabilitado, no desaparece. Fallo: URL con un valor de faceta inexistente -> se ignora ese valor, el resto de la selección se aplica, sin error.\n5. Criterios de hecho: AC1-AC8 del ticket.\n6. Restricciones: no tocar ingest ni graph.json; urlCodec compatible con enlaces antiguos; Lighthouse a11y 100; filtrar 1,206 marinas con 5 facetas < 50 ms; 142 tests existentes en verde.\n7. Fuera de alcance: query builder (TASK-031), buscador (TASK-032), deploy."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T02:56:41.538Z",
+      "body": "LISTA DE CASOS DE USO (derivada del pedido; pendiente de aprobación del humano). CUn = UCn. Esta misma lista es el guion de UAT.\nCU1 (principal): abrir /browse/marina; esperar panel izquierdo con todas las facetas de meta.facets.marina y un bloque Geography (country > subdivision > city) con conteos; marcar \"Florida\" y \"Dry stack\"; esperar tabla y contador reducidos a marinas que cumplen ambos, chips \"Florida\" y \"Dry stack\" arriba, URL con ?subdivision=Florida&facility_category=dry%20stack.\nCU2 (conteos vivos): con Florida marcada, esperar que el conteo de cada valor de facility_category refleje solo marinas de Florida y que los valores con 0 aparezcan deshabilitados pero visibles.\nCU3 (OR dentro, AND entre): marcar \"Dry stack\" y \"Boatyard\"; esperar la unión de ambas; añadir berths_band \"150-400\"; esperar la intersección con la unión anterior.\nCU4 (bandas y booleanos): loa_band se muestra como botones de banda, no cajas min/max; 'complete' en yates como toggle.\nCU5 (URL y recarga): copiar la URL filtrada, abrir en pestaña nueva; esperar la misma selección, chips y filas; un enlace antiguo de /query sigue abriendo igual.\nCU6 (deep link y breadcrumb): abrir /browse/marina?country=US&subdivision=Florida; esperar breadcrumb \"United States > Florida\" y solo marinas de Florida; en la ficha de una marina de Fort Lauderdale esperar migas \"United States > Florida > Fort Lauderdale\" enlazadas a la lista filtrada; una ficha sin attrs.geo no muestra migas.\nCU7 (por defecto en yates): abrir /browse/yacht sin query; esperar chip \"Complete\" puesto y 238 yates; quitar el chip; esperar 581; abrir /browse/yacht?loa_band=60-90 explícito; esperar que el chip por defecto NO se añada.\nCU8 (chips y limpiar): quitar un chip elimina solo ese valor; \"Clear all\" vuelve a la lista completa y a la URL limpia.\nCU9 (móvil): a 375 px el panel se colapsa en un botón \"Filters (n)\" que abre un cajón; sin scroll horizontal; todo operable con teclado; Lighthouse accesibilidad 100 en /browse/marina.\nCU10 (valor inválido): abrir /browse/marina?facility_category=zzz&subdivision=Florida; esperar Florida aplicada, zzz ignorado, sin error en consola.\nCU11 (CSV y rendimiento): exportar CSV con filtros; esperar exactamente las filas visibles; test de rendimiento: 5 facetas activas sobre las 1,206 marinas reales en < 50 ms.\nCU12 (no regresión): 142 tests existentes + nuevos (<= 8 salvo justificación) en verde; typecheck y build limpios; graph.json de la app intacto."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T03:24:54.030Z",
+      "body": "HUMAN APPROVAL recorded 2026-10-16: the human approved the 12-case use-case list (CU1-CU12, previous comment) verbatim (\"Aprobados, adelante\"), with developer dispatch authorized as soon as TASK-029 closes. Any change to a case goes back to the human. The same list is the UAT script (requires_uat=true)."
+    }
+  ],
+  "created_at": "2026-10-17T02:56:03.650Z",
+  "updated_at": "2026-10-17T03:50:16.113Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": true,
+  "marker": "[EXPLICIT]"
+}
