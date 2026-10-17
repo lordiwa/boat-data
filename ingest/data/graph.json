@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-17T02:30:33.579Z",
+    "generated_at": "2026-10-17T02:43:21.518Z",
     "node_count": 4789,
     "edge_count": 4199,
     "types": {
@@ -4330,11 +4330,11 @@
         "facility_category": [
           {
             "value": "wet-slip marina",
-            "count": 692
+            "count": 709
           },
           {
             "value": "unclassified",
-            "count": 234
+            "count": 242
           },
           {
             "value": "boatyard",
@@ -4342,7 +4342,7 @@
           },
           {
             "value": "club marina",
-            "count": 76
+            "count": 51
           },
           {
             "value": "yacht basin",
@@ -5510,7 +5510,7 @@
         "propulsion_type": [
           {
             "value": "unknown",
-            "count": 421
+            "count": 426
           },
           {
             "value": "motor",
@@ -5522,11 +5522,11 @@
           },
           {
             "value": "sailing",
-            "count": 24
+            "count": 23
           },
           {
             "value": "catamaran",
-            "count": 12
+            "count": 8
           },
           {
             "value": "sport-fish",
@@ -45135,7 +45135,7 @@
           "city": "Highland Beach"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -46189,7 +46189,7 @@
           "city": "Lee County"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -47785,7 +47785,7 @@
           "city": "Clayton Bay"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "South Australia",
@@ -49389,7 +49389,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic"
         }
       }
@@ -49588,7 +49588,7 @@
           "city": "Delray Beach"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -51581,7 +51581,7 @@
           "city": "Fort Pierce"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -52182,7 +52182,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic"
         }
       }
@@ -52535,7 +52535,7 @@
           "city": "Nhulunbuy"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "Northern Territory",
@@ -55679,7 +55679,7 @@
           "city": "Tequesta"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -56074,7 +56074,7 @@
           "city": "Kerikeri"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "New Zealand",
           "subdivision": "Northland",
@@ -56104,7 +56104,7 @@
           "city": "Key Largo"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -58549,7 +58549,7 @@
           "city": "Key Largo"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -58603,7 +58603,7 @@
           "46_Singapore_Post_WW2_to_Yacht_Culture.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic"
         }
       }
@@ -61611,7 +61611,7 @@
           "49_Long_Island_Yacht_Clubs_Data.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic"
         }
       }
@@ -61632,7 +61632,7 @@
           "49_Long_Island_Yacht_Clubs_Data.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic"
         }
       }
@@ -61707,7 +61707,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic"
         }
       }
@@ -61728,7 +61728,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic"
         }
       }
@@ -61896,7 +61896,7 @@
           "city": "Motueka"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "New Zealand",
           "subdivision": "Tasman",
@@ -63074,7 +63074,7 @@
           "city": "Noosaville"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "unclassified",
           "data_level": "basic",
           "country": "Australia",
           "subdivision": "Queensland",
@@ -63556,7 +63556,7 @@
           "city": "Port Canaveral"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -63616,7 +63616,7 @@
           "city": "Key Largo"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -71230,7 +71230,7 @@
           "45_Taiwan_Yacht_Parking_Infrastructure_Analysis.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic"
         }
       }
@@ -73406,7 +73406,7 @@
           "55_Pacific_Coast_Marinas_and_Boatyards_Guide.md"
         ],
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic"
         }
       }
@@ -73771,7 +73771,7 @@
           "city": "Marina del Rey"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "California",
@@ -74277,7 +74277,7 @@
           "city": "Ormond Beach"
         },
         "facets": {
-          "facility_category": "club marina",
+          "facility_category": "wet-slip marina",
           "data_level": "basic",
           "country": "United States",
           "subdivision": "Florida",
@@ -100657,7 +100657,7 @@
         },
         "identifiability": "fragment",
         "facets": {
-          "propulsion_type": "catamaran",
+          "propulsion_type": "unknown",
           "builder_country": "Poland",
           "charter_available": false,
           "complete": false,
@@ -103366,7 +103366,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "24-40",
-          "propulsion_type": "catamaran",
+          "propulsion_type": "unknown",
           "builder_country": "Poland",
           "charter_available": false,
           "complete": false,
@@ -104468,7 +104468,7 @@
         "facets": {
           "size_class": "yacht",
           "loa_band": "15-24",
-          "propulsion_type": "unknown",
+          "propulsion_type": "sailing",
           "builder_country": "France",
           "charter_available": false,
           "complete": false,
@@ -108996,7 +108996,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "24-40",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Turkey",
           "charter_available": false,
           "complete": false,
@@ -109805,7 +109805,7 @@
         "facets": {
           "size_class": "yacht",
           "loa_band": "15-24",
-          "propulsion_type": "catamaran",
+          "propulsion_type": "unknown",
           "builder_country": "Poland",
           "charter_available": false,
           "complete": false,
@@ -116678,7 +116678,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2000s",
-          "propulsion_type": "catamaran",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "United States",
           "charter_available": false,
@@ -117798,7 +117798,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "24-40",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Indonesia",
           "charter_available": false,
           "complete": false,
