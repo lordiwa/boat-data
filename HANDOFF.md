@@ -14,9 +14,12 @@
 - **IN FLIGHT when context was cut (subagents will NOT survive /clear — their chat results are lost unless already on the ticket):**
   1. **TASK-030** (facet panel + navigable geography, requires_uat) — status in_review. Developer commits df19586, 503b1de
      (150 app tests green, verified by orchestrator). A fresh-context **reviewer** and a **wargaming challenger** were running;
-     the REVIEWER verdict (code APPROVE, 0 HIGH, 4 LOW) IS recorded on the ticket; the WARGAMING challenger result was NOT.
-     On resume: re-spawn the challenger (8 rounds vs CU1-CU12: URL hostility, default rule edges, engine semantics, geo scoping,
-     state leaks across types, chips, CSV, a11y DOM) unless a [WARGAMING] comment already exists (scratchpad
+     the REVIEWER verdict (code APPROVE, 0 HIGH, 4 LOW) IS recorded on the ticket; the WARGAMING result IS recorded too: 1 HIGH (WG30-H1: EntityView crumb writes raw city "Anping, Tainan" into
+     the query while the facet codec splits on "," -> wrong rows) + 1 MEDIUM (boolean switch OR-appends). A FIX ROUND was
+     dispatched to the TASK-030 developer (commit expected: `fix(TASK-030): shared crumb codec for comma values, boolean
+     switch replaces group, lowercase ISO, review lows`). On resume: if that commit exists, spawn a fresh reviewer on it and
+     replay the challenger probes (scratchpad wargame-030/probes.spec.ts + vitest.config.ts) before UAT; if it does not exist,
+     re-spawn the developer with the fix-round text from the ticket [WARGAMING] comment; then [FINDING-RESOLVED: WG30-H1] (scratchpad
      wargame-030 may hold partial probes). Then HUMAN UAT on http://localhost:5180 using CU1-CU12 (ticket comment), record
      as author uat with per-step `Verdict: PASS` lines + `Overall result: PASS`, then close_task with PLANTILLA-ENTREGA body
      (block 3 must name cases as CUn and paths camino principal/alternativo/fallo).
