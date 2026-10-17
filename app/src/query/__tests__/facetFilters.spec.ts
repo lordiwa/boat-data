@@ -101,6 +101,10 @@ describe('describeQuery for facet/geo (AC4)', () => {
         ]),
       ),
     ).toBe('Showing marinas where Facility type is not Dry stack, Country is Netherlands, Services is none of Fuel, Repair.');
+    // Hostile key: inherited Object.prototype members must render as text, not "function Object() ...".
+    expect(describeQuery(q('marina', [fac('constructor', 'in', ['x']), fac('toString', 'in', ['y'])]))).toBe(
+      'Showing marinas where Constructor is X, ToString is Y.',
+    );
   });
 });
 

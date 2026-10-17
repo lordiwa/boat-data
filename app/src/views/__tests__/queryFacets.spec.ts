@@ -47,5 +47,25 @@ describe('QueryView facet fields', () => {
     expect(w.find('select[multiple]').exists()).toBe(false);
     expect(w.find('input[type="number"]').exists()).toBe(true);
     expect(w.find('a.btn').exists()).toBe(false);
+
+    // Harm: a shared link that silently loses its filter (or keeps values the vocabulary lacks) shows a sentence,
+    // URL and multi-select that disagree. Restore from route.query, prune unknown values, drop empty/unknown filters.
+    await field.setValue('cat_facility_category');
+    expect(w.text()).toContain('Hold Ctrl (or Cmd) to select several.');
+    const restore = async (query: string) => {
+      const r = createRouter({ history: createMemoryHistory(), routes });
+      r.push(`/query?type=marina&${query}`);
+      await r.isReady();
+      const m = mount(QueryView, { global: { plugins: [pinia, r] } });
+      await flushPromises();
+      return m;
+    };
+    const ok = await restore('f=cat_facility_category.in.dry+stack,zzz');
+    const selected = ok.find('select[multiple]').findAll('option').filter((o) => (o.element as HTMLOptionElement).selected);
+    expect(selected.map((o) => o.text())).toEqual(['Dry stack (2)']);
+    expect(ok.find('.query-view__describe').text()).toBe('Showing marinas where Facility type is Dry stack.');
+    const none = await restore('f=cat_facility_category.in.zzz&f=cat_constructor.in.x');
+    expect(none.find('select[multiple]').exists()).toBe(false);
+    expect(none.find('.query-view__describe').text()).toBe('Showing all marinas.');
   });
 });

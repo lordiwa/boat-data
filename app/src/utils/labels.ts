@@ -56,19 +56,19 @@ const TYPE_ICONS: Record<string, string> = {
 };
 
 export function labelForType(type: string): string {
-  if (TYPE_LABELS[type]) return TYPE_LABELS[type];
+  if (Object.hasOwn(TYPE_LABELS, type)) return TYPE_LABELS[type];
   const capitalized = type.charAt(0).toUpperCase() + type.slice(1);
   return `${capitalized}s`;
 }
 
 /** Singular form of labelForType, e.g. 'company' -> 'Company', 'person' -> 'Person'. */
 export function singularLabelForType(type: string): string {
-  if (TYPE_SINGULAR_LABELS[type]) return TYPE_SINGULAR_LABELS[type];
+  if (Object.hasOwn(TYPE_SINGULAR_LABELS, type)) return TYPE_SINGULAR_LABELS[type];
   return type.charAt(0).toUpperCase() + type.slice(1);
 }
 
 export function iconForType(type: string): string {
-  return TYPE_ICONS[type] || '\u{1F4C4}';
+  return (Object.hasOwn(TYPE_ICONS, type) && TYPE_ICONS[type]) || '\u{1F4C4}';
 }
 
 // TASK-030: human-readable English labels for facet keys (meta.facets[type]
@@ -108,7 +108,8 @@ const FACET_KEY_LABELS: Record<string, string> = {
 };
 
 export function labelForFacetKey(key: string): string {
-  if (FACET_KEY_LABELS[key]) return FACET_KEY_LABELS[key];
+  // Object.hasOwn: a key like 'constructor' / 'toString' must render as text, never an inherited function.
+  if (Object.hasOwn(FACET_KEY_LABELS, key)) return FACET_KEY_LABELS[key];
   const words = key.replace(/_/g, ' ');
   return words.charAt(0).toUpperCase() + words.slice(1);
 }

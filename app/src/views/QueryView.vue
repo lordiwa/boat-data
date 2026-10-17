@@ -301,6 +301,20 @@ function draftsFromQuery(query: Query): FilterDraft[] {
 // Malformed input decodes to null and we simply keep the default (Yachts, no
 // filters) — never crash, never leave a half-broken state.
 let restoring = true;
+
+// Drop restored facet/geo values the type's vocabulary does not have (and whole filters whose field is unknown or
+// that end up empty), so the sentence, the URL and the multi-select always agree. Needs the loaded facet index.
+function pruneFacetDrafts() {
+  drafts.value = drafts.value.filter((d) => {
+    if (!isFacetDraft(d)) return true;
+    const info = facetInfo(d);
+    if (!info) return false;
+    const known = new Set(info.options.map((o) => o.value));
+    d.values = d.values.filter((v) => known.has(v));
+    return d.values.length > 0;
+  });
+}
+
 onMounted(() => {
   const params = new URLSearchParams();
   for (const [key, raw] of Object.entries(route.query)) {
@@ -310,6 +324,17 @@ onMounted(() => {
   if (decoded) {
     selectedType.value = decoded.type;
     drafts.value = draftsFromQuery(decoded);
+    if (graph.loaded) pruneFacetDrafts();
+    else {
+      const stop = watch(
+        () => graph.loaded,
+        (ok) => {
+          if (!ok) return;
+          pruneFacetDrafts();
+          stop();
+        },
+      );
+    }
   }
   restoring = false;
 });
@@ -408,6 +433,7 @@ watch(
               {{ o.label }} ({{ o.count.toLocaleString() }})
             </option>
           </select>
+          <small v-if="isFacetDraft(draft)" class="filter-row__hint">Hold Ctrl (or Cmd) to select several.</small>
           <template v-else-if="fieldMeta(draft)?.kind === 'rel'">
             <input
               type="text"
