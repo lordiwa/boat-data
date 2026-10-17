@@ -5,8 +5,8 @@
 // confirm the query builder understood them correctly without reading any
 // field/op/value jargon. Pulls human labels straight from QUERYABLE_FIELDS
 // (src/query/model.ts); never renders a raw field slug or operator code.
-import { findField, findRelField, type AttrFilter, type Filter, type Query, type RelFilter } from './model';
-import { labelForType } from '@/utils/labels';
+import { findField, findRelField, type AttrFilter, type FacetFilter, type Filter, type Query, type RelFilter } from './model';
+import { labelForFacetKey, labelForFacetValue, labelForType } from '@/utils/labels';
 
 function lowerFirst(text: string): string {
   return text.length ? text.charAt(0).toLowerCase() + text.slice(1) : text;
@@ -44,7 +44,18 @@ function describeRelFilter(type: Query['type'], filter: RelFilter): string | nul
   return null;
 }
 
+/** "Facility type is any of Dry stack, Boatyard", "Country is Netherlands", "Facility type is not Dry stack". */
+function describeFacetFilter(filter: FacetFilter): string | null {
+  if (!filter.values.length) return null;
+  const label = labelForFacetKey(filter.key);
+  const values = filter.values.map((v) => (filter.group === 'geo' ? v : labelForFacetValue(filter.key, v)));
+  const list = values.join(', ');
+  if (filter.op === 'in') return values.length === 1 ? `${label} is ${list}` : `${label} is any of ${list}`;
+  return values.length === 1 ? `${label} is not ${list}` : `${label} is none of ${list}`;
+}
+
 function describeFilter(type: Query['type'], filter: Filter): string | null {
+  if (filter.kind === 'facet') return describeFacetFilter(filter);
   return filter.kind === 'attr' ? describeAttrFilter(type, filter) : describeRelFilter(type, filter);
 }
 

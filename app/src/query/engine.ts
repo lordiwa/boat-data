@@ -11,7 +11,7 @@
 // a non-number) — rows with incomplete data simply drop out rather than
 // producing false positives or throwing.
 import type { EnrichedRow } from '@/composables/useTypeRows';
-import { findField, type AttrFilter, type Filter, type Query, type RelFilter } from './model';
+import { findField, type AttrFilter, type FacetFilter, type Filter, type Query, type RelFilter } from './model';
 
 function isEmpty(value: string | number | null | undefined): boolean {
   return value === null || value === undefined || value === '';
@@ -78,7 +78,43 @@ function matchesRel(row: EnrichedRow, filter: RelFilter): boolean {
   return false;
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, unknown>) : null;
+}
+
+/** The values a node carries for a facet/geo condition, string-normalised like the browse index (booleans -> 'true'/'false'). */
+function facetValuesOf(row: EnrichedRow, filter: FacetFilter): string[] {
+  if (filter.group === 'geo') {
+    // Geo reads attrs.geo ONLY. attrs.country is raw ingest text and can disagree with the resolved geo block.
+    const geo = asRecord(row.node.attrs.geo);
+    if (!geo) return [];
+    const out: string[] = [];
+    for (const k of filter.key === 'country' ? ['country', 'country_code'] : [filter.key]) {
+      const v = geo[k];
+      if (typeof v === 'string' && v.trim() !== '') out.push(v);
+    }
+    return out;
+  }
+  const raw = asRecord(row.node.attrs.facets)?.[filter.key];
+  if (raw === undefined || raw === null) return [];
+  const out: string[] = [];
+  for (const item of Array.isArray(raw) ? raw : [raw]) {
+    if (typeof item === 'string' && item.trim() !== '') out.push(item);
+    else if (typeof item === 'boolean' || typeof item === 'number') out.push(String(item));
+  }
+  return out;
+}
+
+/** 'in': node has ANY listed value (multi-valued facets like services count each value). 'not': node has NONE of them; a node without the facet is kept. */
+function matchesFacet(row: EnrichedRow, filter: FacetFilter): boolean {
+  if (!filter.values.length) return false;
+  const have = facetValuesOf(row, filter);
+  const hit = have.some((v) => filter.values.includes(v));
+  return filter.op === 'in' ? hit : !hit;
+}
+
 function matchesFilter(row: EnrichedRow, filter: Filter, type: Query['type']): boolean {
+  if (filter.kind === 'facet') return matchesFacet(row, filter);
   return filter.kind === 'attr' ? matchesAttr(row, filter, type) : matchesRel(row, filter);
 }
 

@@ -42,7 +42,43 @@ export interface RelFilter {
   targetId?: string;
 }
 
-export type Filter = AttrFilter | RelFilter;
+/** TASK-031: operators for facet/geo conditions — 'in' is "is any of" (OR over `values`), 'not' is "is none of". */
+export type FacetOp = 'in' | 'not';
+
+export const FACET_OPS: FacetOp[] = ['in', 'not'];
+
+export const GEO_FIELD_KEYS = ['country', 'subdivision', 'city'] as const;
+
+/**
+ * TASK-031: a condition over the controlled vocabulary. group 'facet' reads node.attrs.facets[key] (scalar
+ * or array); group 'geo' reads node.attrs.geo ONLY (never attrs.country — see engine.ts). For geo 'country'
+ * the values are country NAMES (attrs.geo.country), so the model stays readable without a lookup table.
+ */
+export interface FacetFilter {
+  kind: 'facet';
+  group: 'facet' | 'geo';
+  key: string;
+  op: FacetOp;
+  values: string[];
+}
+
+export type Filter = AttrFilter | RelFilter | FacetFilter;
+
+const FACET_SLUG_RE = /^(cat|geo)_([a-z][a-z0-9_]*)$/;
+
+/** Field slug used in URLs and in the field dropdown: `cat_<facet key>` or `geo_<country|subdivision|city>`. */
+export function facetFieldSlug(group: FacetFilter['group'], key: string): string {
+  return `${group === 'geo' ? 'geo' : 'cat'}_${key}`;
+}
+
+/** Inverse of facetFieldSlug; null for raw-attr/relation slugs and for a geo slug outside country/subdivision/city. */
+export function parseFacetFieldSlug(slug: string): { group: FacetFilter['group']; key: string } | null {
+  const m = FACET_SLUG_RE.exec(slug);
+  if (!m) return null;
+  const group = m[1] === 'geo' ? 'geo' : 'facet';
+  if (group === 'geo' && !(GEO_FIELD_KEYS as readonly string[]).includes(m[2])) return null;
+  return { group, key: m[2] };
+}
 
 export interface Query {
   type: NodeType;

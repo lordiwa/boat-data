@@ -17,7 +17,17 @@
 // hand-crafted `f=<field>.id.<id>` token as an unrecognized op (dropped,
 // same as any other malformed token) rather than silently reinterpreting it
 // as a name search against the literal id string.
-import { findField, findRelField, type AttrOp, type Filter, type Query } from './model';
+import {
+  FACET_OPS,
+  facetFieldSlug,
+  findField,
+  findRelField,
+  parseFacetFieldSlug,
+  type AttrOp,
+  type FacetOp,
+  type Filter,
+  type Query,
+} from './model';
 import { isKnownNodeType } from '@/utils/nodeTypes';
 import type { NodeType } from '@/types/graph';
 
@@ -27,7 +37,29 @@ function isEmptyValue(value: string | number | null | undefined): boolean {
   return value === null || value === undefined || value === '';
 }
 
+// TASK-031: facet/geo conditions encode as `cat_<key>.in.<v1>,<v2>` / `geo_<key>.not.<v1>`. The array is
+// comma-joined in the order given (stable: the same model always yields the same URL) with '%' and ',' inside a
+// value escaped as %25 / %2C, so "Anping, Tainan" survives. Order is meaningful only for display.
+const escapeValue = (v: string): string => v.replace(/%/g, '%25').replace(/,/g, '%2C');
+const unescapeValue = (v: string): string => v.replace(/%2C|%25/gi, (m) => (m === '%25' ? '%' : ','));
+
+function decodeFacetFilter(slug: string, op: string, value: string): Filter | null {
+  const parsed = parseFacetFieldSlug(slug);
+  if (!parsed || !(FACET_OPS as string[]).includes(op)) return null;
+  const values: string[] = [];
+  for (const piece of value.split(',')) {
+    const v = unescapeValue(piece);
+    if (v.trim() !== '' && !values.includes(v)) values.push(v);
+  }
+  if (!values.length) return null;
+  return { kind: 'facet', group: parsed.group, key: parsed.key, op: op as FacetOp, values };
+}
+
 function encodeFilter(type: NodeType, filter: Filter): string | null {
+  if (filter.kind === 'facet') {
+    if (!filter.values.length) return null;
+    return `${facetFieldSlug(filter.group, filter.key)}.${filter.op}.${filter.values.map(escapeValue).join(',')}`;
+  }
   if (filter.kind === 'rel') {
     const meta = findRelField(type, filter.rel);
     if (!meta) return null;
@@ -74,6 +106,8 @@ function decodeFilter(type: NodeType, raw: string): Filter | null {
   const parts = splitToken(raw);
   if (!parts) return null;
   const [fieldSlug, op, value] = parts;
+  const facet = decodeFacetFilter(fieldSlug, op, value);
+  if (facet) return facet;
   const meta = findField(type, fieldSlug);
   if (!meta) return null;
 
