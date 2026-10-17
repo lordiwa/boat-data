@@ -9,7 +9,7 @@
     "AC4: Explore is unchanged and its cards still link to /browse/:type; 150 existing app tests green plus at most 4 new; typecheck and build clean.",
     "AC5: Lighthouse accessibility 100 on /; readable at 375 px with no horizontal scroll; headings in order (one h1); all links have descriptive text (UAT)."
   ],
-  "status": "in_progress",
+  "status": "in_review",
   "priority": "medium",
   "labels": [
     "ui",
@@ -30,10 +30,15 @@
       "author": "orchestrator",
       "at": "2026-10-17T04:11:57.765Z",
       "body": "HUMAN APPROVAL recorded 2026-10-17: the human approved the rescoped Home structure and the 8-case list (CU1-CU8, previous comment) verbatim (\"Aprobados, adelante\"). Developer dispatch authorized. The same list is the UAT script (requires_uat=true)."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T04:18:42.838Z",
+      "body": "HAND-OFF (relayed by orchestrator). Commits 5756a9f feat(TASK-034) Home becomes a landing page with live figures, tiles, how-to and coverage; 7ad0a30 fix(TASK-034) underline in-text links on Home for Lighthouse a11y 100. Files: app/src/views/HomeView.vue (rewritten), app/src/composables/searchFocus.ts (new; shared counter bumped by the Search CTA and the search step, GlobalSearch.vue watches it and focuses its input), app/src/components/GlobalSearch.vue (+4), app/src/types/graph.ts (optional geo on GraphMeta), app/src/views/__tests__/homeView.spec.ts (4 tests, red-green planted, harm comments). ExploreView/EntityListView/FacetPanel/facets.ts/graph.json untouched. Self-UAT on :5180 headless Chrome: CU1 one h1, definition, 3 CTAs, no StatCard; CU2 4,789 / 4,199 / 79 match meta, six tiles live (581 yachts, 1,206 marinas); CU3 links to /explore and /query, Search CTA focuses the search input; CU4 three linked steps; CU5 top five US, AU, NZ, IT, JP (Italy -> /browse/shipyard?country=IT, others marina); CU6 loading/error states show no figures/tiles/coverage (tested); CU7 375 px scrollWidth 375, Lighthouse a11y 100 (was 96 before underlining links); CU8 Explore no diff, 157 tests green, build clean. One non-reproducible test failure in a first run, likely from the sibling developer's uncommitted edits. Reviewer notes: coverage picks the dominant type per country from graph.facetIndex (lazy for every geo type on first render); the search step is a button styled as a link; App.vue footer tagline still says \"a personal Wikipedia\" (out of scope). Checklist: unspecced paths (error/loading, non-marina dominant country) done; red-green done; dist/parity/calibration n/a."
     }
   ],
   "created_at": "2026-10-17T04:09:04.102Z",
-  "updated_at": "2026-10-17T04:11:57.838Z",
+  "updated_at": "2026-10-17T04:18:42.958Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": true,

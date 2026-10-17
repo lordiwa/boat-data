@@ -23,12 +23,14 @@
      wargame-030 may hold partial probes). Then HUMAN UAT on http://localhost:5180 using CU1-CU12 (ticket comment), record
      as author uat with per-step `Verdict: PASS` lines + `Overall result: PASS`, then close_task with PLANTILLA-ENTREGA body
      (block 3 must name cases as CUn and paths camino principal/alternativo/fallo).
-  2. **TASK-034** (Home landing page; requires_uat) — status in_progress. Developer spawned against approved CU1-CU8;
-     check `git log` for commits touching app/src/views/HomeView.vue; if none, re-spawn with the briefing in the ticket
-     comments (pedido + CU list). Must not touch EntityListView.vue/FacetPanel.vue/facets.ts.
-- **TASK-034 uncommitted work in the tree at snapshot time** (developer was mid-task): modified app/src/components/GlobalSearch.vue, app/src/types/graph.ts, app/src/views/HomeView.vue; new app/src/composables/searchFocus.ts, app/src/views/__tests__/homeView.spec.ts. On resume, inspect with `git status`/`git diff`; re-spawn the TASK-034 developer telling it to CONTINUE from these files (run `npm test` first), not start over.
-- **Queued:** TASK-031 (query builder dropdowns from meta.facets), TASK-032 (search index + prefixes) — use cases NOT yet
-  derived/approved. Debts: TASK-028 (geo), TASK-033 (facets, incl. dry-stack notes-merge gap).
+  2. **TASK-034** (Home landing page; requires_uat) — status in_review. Developer DONE: commits 5756a9f + 7ad0a30 (hand-off on
+     the ticket; 157 app tests, Lighthouse a11y 100). On resume: spawn fresh reviewer on `git diff c21bf12..7ad0a30` (note
+     5756a9f predates c21bf12 in history: review `git diff 3787865..7ad0a30 -- app/` excluding 8a74258 files) + a challenger,
+     then HUMAN UAT with CU1-CU8 (ticket comment), then close.
+  2b. **TASK-030 fix round LANDED as 8a74258** (shared crumb codec for comma values, boolean switch replaces group, lowercase
+     ISO, review lows). Developer hand-off message not yet received at snapshot time — read `git show 8a74258 --stat`, run
+     `cd app && npm test`, then fresh reviewer on `git diff 503b1de..8a74258 -- app/` (skip TASK-034 files), replay
+     wargame-030 probes, mark [FINDING-RESOLVED: WG30-H1], HUMAN UAT CU1-CU12, close.
 - **Deploy when 030/031/032/034 are closed:** `cd app && npm run build && npx firebase deploy --only hosting --config ../firebase.json`, then `git push origin main`.
 
 ## Process notes earned this session

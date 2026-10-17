@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:15:06.529Z",
+  "generated_at": "2026-10-17T04:18:42.958Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -202,7 +202,7 @@
     {
       "key": "TASK-034",
       "title": "Home becomes an about/landing page explaining DataYacht; Explore stays the browsing hub",
-      "status": "in_progress",
+      "status": "in_review",
       "priority": "medium"
     }
   ]
