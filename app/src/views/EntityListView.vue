@@ -7,7 +7,7 @@
 // composables/useTypeRows.ts. An unknown `:type` (typo'd URL, stale link,
 // etc.) renders a friendly message instead of a blank or crashing table.
 import { computed } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { useGraphStore } from '@/stores/graph';
 import { useTypeRows } from '@/composables/useTypeRows';
 import { getColumnsForType } from '@/utils/columns';
@@ -16,6 +16,18 @@ import { labelForType } from '@/utils/labels';
 import { slugify } from '@/utils/slug';
 import { printMode } from '@/composables/printMode';
 import DataTable from '@/components/DataTable.vue';
+import FacetPanel from '@/components/FacetPanel.vue';
+import ActiveFilterChips from '@/components/ActiveFilterChips.vue';
+import {
+  applyFacetSelection,
+  computeFacetViews,
+  geoCrumbs,
+  resolveSelection,
+  selectedCount,
+  selectionChips,
+  selectionToQuery,
+  type FacetSelection,
+} from '@/utils/facets';
 import type { NodeType } from '@/types/graph';
 
 const props = defineProps<{ type: string }>();
@@ -29,6 +41,44 @@ const isKnown = computed(() => isKnownNodeType(props.type));
 const knownType = computed(() => props.type as NodeType);
 
 const rows = useTypeRows(knownType);
+
+// --- TASK-030: facet panel + navigable geography ---------------------------
+// The selection lives in the route query (shareable, survives reload); the
+// engine is utils/facets.ts over the per-type index memoised in the store.
+const route = useRoute();
+const router = useRouter();
+
+const index = computed(() => (graph.loaded && isKnown.value ? graph.facetIndex(props.type) : null));
+const hasPanel = computed(() => !!index.value && index.value.facets.size > 0);
+const resolved = computed(() =>
+  index.value ? resolveSelection(route.query, index.value) : { selection: {} as FacetSelection, isDefault: false },
+);
+const selection = computed(() => resolved.value.selection);
+const activeCount = computed(() => selectedCount(selection.value));
+const matched = computed(() => (index.value ? applyFacetSelection(selection.value, index.value) : null));
+const filteredRows = computed(() =>
+  matched.value && activeCount.value > 0 ? rows.value.filter((r) => matched.value!.has(r.node.id)) : rows.value,
+);
+const views = computed(() =>
+  index.value ? computeFacetViews(selection.value, index.value) : { facets: [], geo: [] },
+);
+const chips = computed(() => (index.value ? selectionChips(selection.value, index.value) : []));
+const crumbs = computed(() => (index.value ? geoCrumbs(selection.value, index.value) : []));
+
+function setSelection(next: FacetSelection): void {
+  if (!index.value) return;
+  void router.replace({ query: selectionToQuery(next, index.value) });
+}
+
+function onToggle(key: string, value: string): void {
+  const current = selection.value[key] ?? [];
+  const next = current.includes(value) ? current.filter((v) => v !== value) : [...current, value];
+  setSelection({ ...selection.value, [key]: next });
+}
+
+function onRemove(key: string, value: string): void {
+  onToggle(key, value);
+}
 const columns = computed(() => getColumnsForType(knownType.value));
 
 const label = computed(() => labelForType(props.type));
@@ -64,17 +114,36 @@ function rowKey(row: { node: { id: string } }): string {
       <p v-if="graph.error" class="entity-list__status entity-list__status--error">
         Could not load the graph: {{ graph.error }}
       </p>
-      <DataTable
-        v-else
-        :key="props.type"
-        :rows="rows"
-        :columns="columns"
-        :loading="isLoading"
-        :row-key="rowKey"
-        :empty-message="`No ${label.toLowerCase()} in the graph.`"
-        :export-name="exportName"
-        :export-title="label"
-      />
+      <div v-else class="entity-list__layout" :class="{ 'entity-list__layout--panel': hasPanel }">
+        <FacetPanel
+          v-if="hasPanel"
+          :facets="views.facets"
+          :geo="views.geo"
+          :active-count="activeCount"
+          @toggle="onToggle"
+        />
+        <div class="entity-list__main">
+          <nav v-if="crumbs.length" class="entity-list__crumbs" aria-label="Location">
+            <template v-for="(crumb, i) in crumbs" :key="i">
+              <span v-if="i > 0" aria-hidden="true"> &gt; </span>
+              <span :aria-current="i === crumbs.length - 1 ? 'location' : undefined">{{ crumb }}</span>
+            </template>
+          </nav>
+          <ActiveFilterChips :chips="chips" @remove="onRemove" @clear="setSelection({})" />
+          <DataTable
+            :key="props.type"
+            :rows="filteredRows"
+            :columns="columns"
+            :loading="isLoading"
+            :row-key="rowKey"
+            :empty-message="
+              activeCount > 0 ? `No ${label.toLowerCase()} match the selected filters.` : `No ${label.toLowerCase()} in the graph.`
+            "
+            :export-name="exportName"
+            :export-title="label"
+          />
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -99,6 +168,35 @@ function rowKey(row: { node: { id: string } }): string {
 .entity-list__count {
   color: var(--color-text-muted);
   margin: 0;
+}
+
+.entity-list__layout {
+  display: block;
+}
+
+.entity-list__main {
+  min-width: 0;
+}
+
+.entity-list__crumbs {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .entity-list__layout--panel {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .entity-list__layout--panel > :first-child {
+    margin-bottom: 0.75rem;
+  }
 }
 
 .entity-list__status {

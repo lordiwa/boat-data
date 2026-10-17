@@ -42,6 +42,33 @@ const dataQualityWarning = computed(() => {
   return typeof value === 'string' && value.trim() !== '' ? value : null;
 });
 
+// --- TASK-030: geo breadcrumb (country > subdivision > city) from attrs.geo,
+// each crumb linking to the SAME-type filtered browse view. Absent when the
+// node carries no attrs.geo.
+interface GeoCrumb {
+  text: string;
+  to: { path: string; query: Record<string, string> };
+}
+const geoCrumbs = computed<GeoCrumb[]>(() => {
+  const n = node.value;
+  const geo = n?.attrs.geo as
+    | { country_code?: string; country?: string; subdivision?: string | null; city?: string | null }
+    | undefined;
+  if (!n || !geo || !geo.country_code || !geo.country) return [];
+  const path = `/browse/${n.type}`;
+  const crumbs: GeoCrumb[] = [{ text: geo.country, to: { path, query: { country: geo.country_code } } }];
+  const query: Record<string, string> = { country: geo.country_code };
+  if (geo.subdivision) {
+    query.subdivision = geo.subdivision;
+    crumbs.push({ text: geo.subdivision, to: { path, query: { ...query } } });
+  }
+  if (geo.city) {
+    query.city = geo.city;
+    crumbs.push({ text: geo.city, to: { path, query: { ...query } } });
+  }
+  return crumbs;
+});
+
 // --- Provenance --------------------------------------------------------
 const provenance = computed(() => (node.value ? provenanceFiles(node.value.attrs) : []));
 
@@ -205,6 +232,13 @@ function rowKey(row: EnrichedRow): string {
         <RouterLink :to="`/browse/${node.type}`">{{ labelForType(node.type) }}</RouterLink>
         <span aria-hidden="true">&rsaquo;</span>
         <span class="entity__breadcrumb-current">{{ node.name }}</span>
+      </nav>
+
+      <nav v-if="geoCrumbs.length" class="entity__breadcrumb entity__geo" aria-label="Location">
+        <template v-for="(crumb, i) in geoCrumbs" :key="crumb.text">
+          <span v-if="i > 0" aria-hidden="true">&gt;</span>
+          <RouterLink :to="crumb.to">{{ crumb.text }}</RouterLink>
+        </template>
       </nav>
 
       <header class="entity__header">
