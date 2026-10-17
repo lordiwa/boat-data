@@ -207,14 +207,16 @@ export function applyFacets(db) {
     if (spec) {
       // Hull evidence is read loosely ("sailing & motor superyachts" must count as BOTH) and a hull is
       // inherited only when the specialty names exactly one: sail, multihull, or motor family.
-      const sail = /\bsail/.test(spec);
-      const multi = PROPULSION_TABLE[0][1].test(spec);
-      const power = /\bmotor\b|\bpower\b|motoryacht/.test(spec) || matchAll(spec, PROPULSION_TABLE).some((v) => v === 'motor' || v === 'explorer' || v === 'sport-fish');
-      if ([sail, multi, power].filter(Boolean).length === 1) {
-        if (multi) return 'catamaran';
-        if (sail) return 'sailing';
-        return matchAll(spec, PROPULSION_TABLE).find((v) => v === 'explorer' || v === 'sport-fish' || v === 'motor') || 'motor';
-      }
+      // Each TYPE word family counts once; two or more families ("sailboats & motorboats",
+      // "expedition & displacement") mean the builder spans types, so nothing is inherited.
+      const PT = Object.fromEntries(PROPULSION_TABLE);
+      const tags = [];
+      if (/\bsail/.test(spec)) tags.push('sailing');
+      if (PT.catamaran.test(spec)) tags.push('catamaran');
+      if (PT.explorer.test(spec)) tags.push('explorer');
+      if (PT['sport-fish'].test(spec)) tags.push('sport-fish');
+      if (/\bmotor\b|\bpower\b|motoryacht|motor ?boats?|power ?boats?|displacement|planing/.test(spec) || PT.motor.test(spec)) tags.push('motor');
+      if (tags.length === 1) return tags[0];
     }
     return 'unknown';
   };

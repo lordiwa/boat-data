@@ -302,4 +302,42 @@ describe('facets: wargaming hardening (WG29)', () => {
     for (const [n, c] of Object.entries(names)) expect(facetsOf(db, `marina:${n}`).facility_category, n).toBe(c);
     expect(facetsOf(db, 'company:store').kind).toEqual(['storage operator']);
   });
+
+  it('WG29-H4/M-5: a builder spanning two type families (sail+motorboats, expedition+displacement) is not inherited', () => {
+    // Prevents: Beneteau "production sailboats & motorboats" making every yacht sailing, and Delta
+    // Marine "custom expedition & displacement superyachts" typing yachts from one of two words.
+    const { db } = freshDb();
+    const builder = (id, specialty) => upsertNode(db, { id: `builder:${id}`, type: 'builder', name: id, attrs: { specialty } });
+    builder('bene', ['production sailboats & motorboats']);
+    builder('delta', ['custom expedition & displacement superyachts']);
+    builder('expl', ['long-range explorer yachts']);
+    yacht(db, 'bd', {});
+    yacht(db, 'lau', {});
+    yacht(db, 'ex', {});
+    yacht(db, 'beast2', { features: 'Expedition, tenders, fishing' });
+    for (const [y, b] of [['bd', 'bene'], ['lau', 'delta'], ['ex', 'expl'], ['beast2', 'delta']]) upsertEdge(db, { src: `yacht:${y}`, rel: 'built_by', dst: `builder:${b}` });
+    applyFacets(db);
+    expect(facetsOf(db, 'yacht:bd').propulsion_type).toBe('unknown');
+    expect(facetsOf(db, 'yacht:lau').propulsion_type).toBe('unknown');
+    expect(facetsOf(db, 'yacht:ex').propulsion_type).toBe('explorer');
+    expect(facetsOf(db, 'yacht:beast2').propulsion_type).toBe('explorer');
+  });
+
+  it('WG29-M-6: member boat/anglers clubs are club marinas; the Freedom Boat Club franchise and Ocean Club are not', () => {
+    // Prevents: genuine member clubs falling out of club marina, and a rental franchise or resort joining it.
+    const { db } = freshDb();
+    const names = { 'Gove Boat Club': 'club marina', 'Key Largo Anglers Club': 'club marina', 'Fort Pierce Freedom Boat Club Marina': 'wet-slip marina', 'Ocean Club Marina': 'wet-slip marina' };
+    for (const n of Object.keys(names)) upsertNode(db, { id: `marina:${n}`, type: 'marina', name: n, attrs: {} });
+    applyFacets(db);
+    for (const [n, c] of Object.entries(names)) expect(facetsOf(db, `marina:${n}`).facility_category, n).toBe(c);
+  });
+
+  it('WG29-role: "President of <country>" is a politician; a corporate President/Founder is not', () => {
+    // Prevents: heads of state filed as executives, and the reverse for company presidents.
+    const { db } = freshDb();
+    const roles = { 'President of France': 'politician', 'President of the Republic of Korea': 'politician', 'Founder/President, Emerson Collective': 'founder', 'President, Acme Holdings': 'executive' };
+    Object.keys(roles).forEach((role, i) => upsertNode(db, { id: `person:r${i}`, type: 'person', name: `R${i}`, attrs: { role } }));
+    applyFacets(db);
+    Object.values(roles).forEach((expected, i) => expect(facetsOf(db, `person:r${i}`).role, Object.keys(roles)[i]).toBe(expected));
+  });
 });

@@ -196,7 +196,9 @@ export const MARINA_CATEGORY_RULES = [
     value: 'club marina',
     // Explicit club words only. A bare "club marina" / "marina club" is NOT enough ("Ocean Club Marina"
     // is a resort marina) and "boat club" / "city club" are rental or social clubs, not yacht clubs.
-    name: /\byacht club\b|\bsailing club\b|\bclub (nautico|de mar|de regatas)\b|\bsquadron\b/,
+    // Member clubs (boat / anglers / rowing / powerboat / "yacht and X" clubs) count too, except the
+    // "Freedom Boat Club" rental franchise.
+    name: /\byacht club\b|\bsailing club\b|\bclub (nautico|de mar|de regatas)\b|\bsquadron\b|(?<!freedom )\bboat club\b|\banglers? club\b|\browing club\b|\bpower ?boat club\b|\byacht (and|&) \w+ club\b/,
     notes: /private club|club marina|club-integrated|members only/,
   },
   {
@@ -332,12 +334,15 @@ export const COMPANY_SERVICE_AREA_TABLE = [
 // --- person -----------------------------------------------------------------
 
 // First matching entry wins (priority order).
+// "President of France" / "President, United Arab Emirates": president is political only with a country or polity.
+const PRESIDENT_OF_RE_SRC = 'president,? (of )?(the )?(united|republic|state|kingdom|emirates|' + COUNTRY_NAMES.map((c) => norm(c).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')';
+
 export const PERSON_ROLE_TABLE = [
   ['placeholder', /placeholder|unconfirmed|aggregate/],
   ['royalty', /crown prince|\bemir\b|sultan|sheikh|ruler of|\bking\b/],
   // government context only: a bare "President, <company>" is a corporate title and falls through to
   // founder/executive ("Founder/President, Emerson Collective" is a founder)
-  ['politician', /president,? (of )?(the )?(united|republic|state|kingdom|emirates)|prime minister|\bpm\b|minister|senator|politician|advis[eo]r|representative|governor|mayor|\bmp\b|deputy/],
+  ['politician', new RegExp(PRESIDENT_OF_RE_SRC + '|' + /head of state|prime minister|\bpm\b|minister|senator|politician|advis[eo]r|representative|governor|mayor|\bmp\b|deputy/.source)],
   ['heir', /\bheir/],
   ['founder', /founder/],
   // "media mogul": an operating proprietor, i.e. an executive; a plain "President" is a corporate title
