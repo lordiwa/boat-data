@@ -14,6 +14,7 @@ import { useGraphStore } from '@/stores/graph';
 import type { SearchEntry } from '@/stores/graph';
 import { labelForType } from '@/utils/labels';
 import { isPlaceholderName } from '@/utils/placeholder';
+import { searchFocusRequest } from '@/composables/searchFocus';
 
 /** Order entity-type groups should appear in the results panel. Any type not
  * listed (e.g. one added upstream later) is appended after these. */
@@ -91,6 +92,9 @@ const groups = computed<ResultGroup[]>(() => {
     };
   });
 });
+
+// TASK-034: Home's "Search" CTA asks for focus via the shared request counter.
+watch(searchFocusRequest, () => inputRef.value?.focus());
 
 const flatResults = computed<ScoredEntry[]>(() => groups.value.flatMap((g) => g.items));
 const hasResults = computed(() => flatResults.value.length > 0);

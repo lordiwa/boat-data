@@ -62,6 +62,8 @@ export interface GraphMeta {
   edge_types: Record<string, number>;
   /** TASK-029: type -> facet key -> values with counts. */
   facets?: Record<string, Record<string, { value: string | number | boolean; count: number }[]>>;
+  /** TASK-029: countries by entity count, descending. */
+  geo?: { countries: { iso2: string; name: string; macro_region?: string; node_count: number }[] };
 }
 
 export interface GraphIndexes {
