@@ -27,6 +27,13 @@ export function computeCoverage(graph) {
   const hasGeo = (n) => !!(n.attrs.geo && n.attrs.geo.country_code);
   const ofType = (t) => graph.nodes.filter((n) => n.type === t);
   const share = (nodes) => ({ with_geo: nodes.filter(hasGeo).length, total: nodes.length, pct: pct(nodes.filter(hasGeo).length, nodes.length) });
+  const located = new Set(graph.edges.filter((e) => e.rel === 'located_in' || e.rel === 'based_in').map((e) => e.src));
+  // Amended AC4: marinas/clubs are measured over nodes that HAVE a located_in/based_in edge;
+  // the absolute figure (all nodes) is kept as informational `pct_of_all`.
+  const shareLocated = (nodes) => {
+    const l = nodes.filter((n) => located.has(n.id));
+    return { ...share(l), pct_of_all: share(nodes).pct, all_total: nodes.length };
+  };
   const builders = ofType('builder').filter((n) => n.attrs.country);
 
   return {
@@ -42,8 +49,8 @@ export function computeCoverage(graph) {
       total: cityOrUnresolved.length,
       pct: pct(cityOrUnresolved.filter(resolved).length, cityOrUnresolved.length),
     },
-    marinas: share(ofType('marina')),
-    clubs: share(ofType('club')),
+    marinas: shareLocated(ofType('marina')),
+    clubs: shareLocated(ofType('club')),
     shipyards: share(ofType('shipyard')),
     builders_with_country: share(builders),
   };

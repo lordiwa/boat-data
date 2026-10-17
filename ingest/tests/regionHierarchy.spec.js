@@ -199,10 +199,9 @@ describe('applyRegionHierarchy — real corpus export (AC2-AC4, AC7)', () => {
     expect(cov.regions_all.pct).toBeGreaterThanOrEqual(70);
     expect(cov.shipyards.pct).toBeGreaterThanOrEqual(95);
     expect(cov.builders_with_country.pct).toBeGreaterThanOrEqual(95);
-    // AC4 asks >=90% for marinas/clubs; only ~88% of marinas have ANY location edge, and the rest of
-    // the gap is club-acronym "regions" and ambiguous bare names (see hand-off), so the floors pin today's values.
-    expect(cov.marinas.pct).toBeGreaterThanOrEqual(75);
-    expect(cov.clubs.pct).toBeGreaterThanOrEqual(73);
+    // Amended AC4: marinas/clubs measured over nodes that have a located_in/based_in edge.
+    expect(cov.marinas.pct).toBeGreaterThanOrEqual(85);
+    expect(cov.clubs.pct).toBeGreaterThanOrEqual(80);
   });
 
   it('exports meta.geo sorted by node_count desc, and keeps the Florida roll-up', () => {
