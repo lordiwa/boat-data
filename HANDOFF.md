@@ -22,6 +22,7 @@
   2. **TASK-034** (Home landing page; requires_uat) — status in_progress. Developer spawned against approved CU1-CU8;
      check `git log` for commits touching app/src/views/HomeView.vue; if none, re-spawn with the briefing in the ticket
      comments (pedido + CU list). Must not touch EntityListView.vue/FacetPanel.vue/facets.ts.
+- **TASK-034 uncommitted work in the tree at snapshot time** (developer was mid-task): modified app/src/components/GlobalSearch.vue, app/src/types/graph.ts, app/src/views/HomeView.vue; new app/src/composables/searchFocus.ts, app/src/views/__tests__/homeView.spec.ts. On resume, inspect with `git status`/`git diff`; re-spawn the TASK-034 developer telling it to CONTINUE from these files (run `npm test` first), not start over.
 - **Queued:** TASK-031 (query builder dropdowns from meta.facets), TASK-032 (search index + prefixes) — use cases NOT yet
   derived/approved. Debts: TASK-028 (geo), TASK-033 (facets, incl. dry-stack notes-merge gap).
 - **Deploy when 030/031/032/034 are closed:** `cd app && npm run build && npx firebase deploy --only hosting --config ../firebase.json`, then `git push origin main`.
