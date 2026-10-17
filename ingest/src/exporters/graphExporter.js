@@ -172,6 +172,37 @@ function buildGeoMeta(nodeRecords) {
   return { countries: countries.sort(byCountThenName), subdivisions: subdivisions.sort(byCountThenName) };
 }
 
+/**
+ * TASK-029: meta.facets — { <type>: { <facet>: [{ value, count }] } } recounted from the nodes'
+ * attrs.facets. A node counts once per value (multi facets list each value once). Sorted by count
+ * desc, then value asc (string order), so the output is deterministic; type and facet keys are
+ * alphabetical.
+ */
+function buildFacetsMeta(nodeRecords) {
+  const tally = new Map(); // type -> facet -> Map(value -> count)
+  for (const n of nodeRecords) {
+    const facets = n.attrs.facets;
+    if (!facets || typeof facets !== 'object') continue;
+    const byFacet = tally.get(n.type) || new Map();
+    tally.set(n.type, byFacet);
+    for (const [facet, raw] of Object.entries(facets)) {
+      const counts = byFacet.get(facet) || new Map();
+      byFacet.set(facet, counts);
+      for (const value of new Set(Array.isArray(raw) ? raw : [raw])) counts.set(value, (counts.get(value) || 0) + 1);
+    }
+  }
+  const out = {};
+  for (const type of [...tally.keys()].sort()) {
+    out[type] = {};
+    for (const facet of [...tally.get(type).keys()].sort()) {
+      out[type][facet] = [...tally.get(type).get(facet).entries()]
+        .map(([value, count]) => ({ value, count }))
+        .sort((a, b) => b.count - a.count || (String(a.value) < String(b.value) ? -1 : String(a.value) > String(b.value) ? 1 : 0));
+    }
+  }
+  return out;
+}
+
 function buildMeta({ generatedAt, nodeRecords, edgeRecords }) {
   return {
     generated_at: generatedAt,
@@ -180,6 +211,7 @@ function buildMeta({ generatedAt, nodeRecords, edgeRecords }) {
     types: countBy(nodeRecords, 'type'),
     edge_types: countBy(edgeRecords, 'rel'),
     geo: buildGeoMeta(nodeRecords),
+    facets: buildFacetsMeta(nodeRecords),
   };
 }
 

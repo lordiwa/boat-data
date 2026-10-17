@@ -136,6 +136,7 @@ import { mintOligarchYachtNodes, linkOligarchYachtOwners } from './mappers/oliga
 import { ensureKnownPartBrandNodes, linkPartBrands } from './mappers/partBrandLinker.js';
 import { applyWebsiteHygiene } from './mappers/websiteHygiene.js';
 import { linkYachtSizeClasses } from './mappers/sizeClassLinker.js';
+import { applyFacets, writeFacetsUnmappedReport } from './mappers/facets.js';
 import { mapProseSheets } from './mappers/proseMapper.js';
 import { upsertRegion } from './mappers/regions.js';
 import { isEmptyValue, slug, normalizeName, pickFirstPresent } from './mappers/normalize.js';
@@ -717,6 +718,17 @@ export function runIngest() {
     const identifiabilityResult = classifyYachtIdentifiability(db);
     totals.yachtIdentifiable = identifiabilityResult.identifiable;
     totals.yachtFragment = identifiabilityResult.fragment;
+
+    // TASK-029: per-type controlled-vocabulary facets (attrs.facets) — deliberately LAST before
+    // export: it reads attrs.identifiability and the classified_as edges produced just above.
+    // Additive and idempotent (facets are recomputed from scratch); unmapped free-text values
+    // are listed in facets-unmapped.json rather than guessed. See facets.js.
+    const facetsResult = applyFacets(db);
+    for (const [type, s] of Object.entries(facetsResult.byType)) {
+      console.log(`[ingest] facets ${type}: ${s.nodes} nodes, ${s.assigned} facet values assigned`);
+    }
+    const facetsUnmappedPath = writeFacetsUnmappedReport(facetsResult.unmapped);
+    console.log(`[ingest] facets unmapped: ${facetsResult.unmapped.length} raw values (see ${facetsUnmappedPath})`);
 
     const skippedProseReportPath = writeSkippedProseReport(skippedProseEntries);
 

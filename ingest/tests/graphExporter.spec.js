@@ -60,6 +60,8 @@ describe('exportGraph — shape', () => {
       edge_types: { based_in: 1, built_by: 2 },
       // 2026-10-16 TASK-027: meta.geo is always present; empty here (no resolved country/subdivision region nodes).
       geo: { countries: [], subdivisions: [] },
+      // 2026-10-16 TASK-029: meta.facets is always present; empty here (the fixture nodes carry no attrs.facets).
+      facets: {},
     });
 
     expect(graph.nodes).toHaveLength(4);
