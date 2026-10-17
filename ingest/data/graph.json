@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-17T01:57:01.779Z",
+    "generated_at": "2026-10-17T02:30:33.579Z",
     "node_count": 4789,
     "edge_count": 4199,
     "types": {
@@ -4802,7 +4802,7 @@
           },
           {
             "value": "founder",
-            "count": 17
+            "count": 18
           },
           {
             "value": "investor",
@@ -4814,7 +4814,7 @@
           },
           {
             "value": "politician",
-            "count": 10
+            "count": 9
           },
           {
             "value": "royalty",
@@ -5218,7 +5218,7 @@
           },
           {
             "value": "Netherlands",
-            "count": 91
+            "count": 90
           },
           {
             "value": "Germany",
@@ -5510,31 +5510,31 @@
         "propulsion_type": [
           {
             "value": "unknown",
-            "count": 385
+            "count": 421
           },
           {
             "value": "motor",
-            "count": 73
-          },
-          {
-            "value": "sailing",
-            "count": 55
+            "count": 78
           },
           {
             "value": "explorer",
-            "count": 39
+            "count": 41
           },
           {
-            "value": "classic",
-            "count": 13
+            "value": "sailing",
+            "count": 24
           },
           {
             "value": "catamaran",
-            "count": 11
+            "count": 12
           },
           {
             "value": "sport-fish",
-            "count": 5
+            "count": 4
+          },
+          {
+            "value": "classic",
+            "count": 1
           }
         ],
         "size_class": [
@@ -80538,7 +80538,7 @@
           "95_Person_Enrichment_Directory.md"
         ],
         "facets": {
-          "role": "politician",
+          "role": "founder",
           "sector": "finance",
           "nationality": [
             "United States"
@@ -101307,7 +101307,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -102064,7 +102064,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -102780,7 +102780,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "90-120",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -103111,7 +103111,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -103420,7 +103420,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2000s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -104582,7 +104582,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2000s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -105000,7 +105000,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -105290,7 +105290,7 @@
           "size_class": "gigayacht",
           "loa_band": "90-120",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": true,
@@ -106119,7 +106119,7 @@
           "size_class": "superyacht",
           "loa_band": "24-40",
           "decade": "1980s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "builder_country": "Australia",
           "charter_available": false,
           "complete": true,
@@ -108130,7 +108130,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "2010s",
-          "propulsion_type": "unknown",
+          "propulsion_type": "motor",
           "builder_country": "Turkey",
           "charter_available": false,
           "complete": true,
@@ -109940,7 +109940,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "40-60",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -109978,7 +109978,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -110032,7 +110032,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -110272,7 +110272,7 @@
         "facets": {
           "size_class": "yacht",
           "loa_band": "15-24",
-          "propulsion_type": "unknown",
+          "propulsion_type": "motor",
           "builder_country": "Italy",
           "charter_available": false,
           "complete": false,
@@ -110416,7 +110416,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "1980s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Marshall Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -110616,7 +110616,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -111168,7 +111168,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -111322,7 +111322,6 @@
           "loa_band": "90-120",
           "decade": "2010s",
           "propulsion_type": "unknown",
-          "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
           "guests_band": "9-12",
@@ -111466,7 +111465,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "24-40",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -112891,7 +112890,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -113129,7 +113128,7 @@
           "size_class": "gigayacht",
           "loa_band": "90-120",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Marshall Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -113174,7 +113173,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "classic",
+          "propulsion_type": "explorer",
           "builder_country": "United States",
           "charter_available": false,
           "complete": false,
@@ -113573,7 +113572,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": true,
           "complete": false,
@@ -114964,7 +114963,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "90-120",
-          "propulsion_type": "unknown",
+          "propulsion_type": "motor",
           "builder_country": "Italy",
           "charter_available": false,
           "complete": false,
@@ -115158,7 +115157,7 @@
         },
         "identifiability": "fragment",
         "facets": {
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "charter_available": false,
           "complete": false,
           "guests_band": "9-12",
@@ -115995,7 +115994,7 @@
           "size_class": "gigayacht",
           "loa_band": "90-120",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -116319,7 +116318,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "United States",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -116518,7 +116517,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "unknown",
+          "propulsion_type": "motor",
           "builder_country": "Italy",
           "charter_available": false,
           "complete": false,
@@ -116679,7 +116678,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2000s",
-          "propulsion_type": "classic",
+          "propulsion_type": "catamaran",
           "flag": "Cayman Islands",
           "builder_country": "United States",
           "charter_available": false,
@@ -116863,7 +116862,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2000s",
-          "propulsion_type": "unknown",
+          "propulsion_type": "motor",
           "builder_country": "Australia",
           "charter_available": false,
           "complete": true,
@@ -119101,7 +119100,7 @@
         "facets": {
           "size_class": "superyacht",
           "loa_band": "40-60",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -119284,7 +119283,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2000s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "flag": "Marshall Islands",
           "builder_country": "Greece",
           "charter_available": false,
@@ -119683,7 +119682,7 @@
         },
         "identifiability": "fragment",
         "facets": {
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "charter_available": false,
           "complete": false,
           "has_known_owner": false
@@ -120255,7 +120254,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -120554,7 +120553,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -120620,7 +120619,7 @@
           "size_class": "gigayacht",
           "loa_band": "120+",
           "decade": "2010s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "flag": "Sierra Leone",
           "builder_country": "Germany",
           "charter_available": false,
@@ -121038,7 +121037,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -121516,7 +121515,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -122430,7 +122429,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "builder_country": "Germany",
           "charter_available": false,
           "complete": false,
@@ -122894,7 +122893,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -123424,7 +123423,7 @@
         "facets": {
           "size_class": "megayacht",
           "loa_band": "60-90",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": false,
@@ -124048,7 +124047,7 @@
           "size_class": "gigayacht",
           "loa_band": "90-120",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -124439,7 +124438,7 @@
           "size_class": "superyacht",
           "loa_band": "40-60",
           "decade": "1990s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -124565,7 +124564,7 @@
           "size_class": "superyacht",
           "loa_band": "24-40",
           "decade": "2010s",
-          "propulsion_type": "sport-fish",
+          "propulsion_type": "explorer",
           "builder_country": "New Zealand",
           "charter_available": false,
           "complete": false,
@@ -125412,7 +125411,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -125634,7 +125633,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2010s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -126094,7 +126093,7 @@
           "size_class": "megayacht",
           "loa_band": "90-120",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -126385,7 +126384,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2000s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "builder_country": "Netherlands",
           "charter_available": false,
           "complete": true,
@@ -127071,7 +127070,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "2020s",
-          "propulsion_type": "sailing",
+          "propulsion_type": "unknown",
           "flag": "Cayman Islands",
           "builder_country": "Netherlands",
           "charter_available": false,
@@ -127182,7 +127181,7 @@
           "size_class": "megayacht",
           "loa_band": "60-90",
           "decade": "1990s",
-          "propulsion_type": "classic",
+          "propulsion_type": "unknown",
           "flag": "Saint Vincent and the Grenadines",
           "builder_country": "Germany",
           "charter_available": false,
