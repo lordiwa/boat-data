@@ -23,11 +23,33 @@ const tiles = computed(() =>
   TILES.filter((t) => (graph.typeCounts[t.type] ?? 0) > 0).map((t) => ({ ...t, count: graph.typeCounts[t.type] })),
 );
 
-const countryCount = computed(() => graph.meta?.geo?.countries.length ?? 0);
+const geoCountries = computed(() => {
+  const list: unknown = graph.meta?.geo?.countries;
+  return Array.isArray(list) ? list : [];
+});
 
-/** Browse list of the type with most nodes in the country (marina when nothing is computable). */
-function dominantType(iso2: string): string {
-  let best = 'marina';
+/** Countries with a usable code and count, one per ISO code, biggest first (a malformed entry is skipped, never thrown on). */
+const validCountries = computed(() => {
+  const seen = new Set<string>();
+  const out: Array<{ iso2: string; name: string; count: number }> = [];
+  for (const c of geoCountries.value as Array<Record<string, unknown> | null>) {
+    const iso2 = typeof c?.iso2 === 'string' ? c.iso2.trim().toUpperCase() : '';
+    const count = c?.node_count;
+    if (!/^[A-Z]{2}$/.test(iso2) || seen.has(iso2) || typeof count !== 'number' || !Number.isFinite(count)) continue;
+    seen.add(iso2);
+    out.push({ iso2, name: typeof c?.name === 'string' && c.name ? c.name : iso2, count });
+  }
+  return out.sort((a, b) => b.count - a.count);
+});
+
+const countryCount = computed(() => validCountries.value.length);
+
+/** Loaded and non-empty: only then are the figures, tiles and coverage meaningful. */
+const hasData = computed(() => graph.loaded && graph.nodeCount > 0);
+
+/** Browse list of the type with most nodes in the country, or null when no geo type has any (nothing to link to). */
+function dominantType(iso2: string): string | null {
+  let best: string | null = null;
   let bestCount = 0;
   for (const type of Object.keys(graph.typeCounts)) {
     const index = graph.facetIndex(type);
@@ -41,14 +63,18 @@ function dominantType(iso2: string): string {
   return best;
 }
 
-const coverage = computed(() =>
-  (graph.meta?.geo?.countries ?? []).slice(0, 5).map((c) => ({
-    iso2: c.iso2,
-    name: c.name,
-    count: c.node_count,
-    to: { path: `/browse/${dominantType(c.iso2)}`, query: { country: c.iso2 } },
-  })),
-);
+/** Top five countries by node count that actually have a filtered list to open. */
+const coverage = computed(() => {
+  const out: Array<{ iso2: string; name: string; count: number; to: { path: string; query: { country: string } } }> = [];
+  if (!hasData.value) return out;
+  for (const c of validCountries.value) {
+    const type = dominantType(c.iso2);
+    if (!type) continue;
+    out.push({ ...c, to: { path: `/browse/${type}`, query: { country: c.iso2 } } });
+    if (out.length === 5) break;
+  }
+  return out;
+});
 </script>
 
 <template>
@@ -60,6 +86,7 @@ const coverage = computed(() =>
       </p>
       <p v-if="graph.error" class="hero__status" role="alert">Could not load the graph: {{ graph.error }}</p>
       <p v-else-if="!graph.loaded" class="hero__status">Loading the knowledge graph&hellip;</p>
+      <p v-else-if="!hasData" class="hero__status">The knowledge graph has no data yet.</p>
       <div class="hero__ctas">
         <RouterLink to="/explore" class="cta cta--primary">Explore the graph</RouterLink>
         <button type="button" class="cta cta--secondary" @click="requestSearchFocus">Search by name or place</button>
@@ -67,7 +94,7 @@ const coverage = computed(() =>
       </div>
     </section>
 
-    <section v-if="graph.loaded" class="block" aria-labelledby="home-inside">
+    <section v-if="hasData" class="block" aria-labelledby="home-inside">
       <h2 id="home-inside">What is inside</h2>
       <p class="figures">
         <strong>{{ graph.nodeCount.toLocaleString() }}</strong> nodes,
@@ -107,9 +134,9 @@ const coverage = computed(() =>
       </p>
     </section>
 
-    <section v-if="graph.loaded && coverage.length" class="block" aria-labelledby="home-coverage">
+    <section v-if="coverage.length" class="block" aria-labelledby="home-coverage">
       <h2 id="home-coverage">Coverage</h2>
-      <p>The five countries with the most entities.</p>
+      <p>Top countries by number of entities.</p>
       <ul class="coverage">
         <li v-for="c in coverage" :key="c.iso2">
           <RouterLink :to="c.to" class="coverage__link">
@@ -273,6 +300,11 @@ const coverage = computed(() =>
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   color: var(--color-text);
+}
+
+.coverage__link > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .coverage__link:hover {
