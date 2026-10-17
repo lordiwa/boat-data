@@ -11,7 +11,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useGraphStore } from '@/stores/graph';
-import { browseHref, parseQuery, searchEntries, type ScoredEntry, type SearchEntry } from '@/utils/search';
+import { browseHref, fold, parseQuery, searchEntries, type ScoredEntry, type SearchEntry } from '@/utils/search';
 import { labelForType } from '@/utils/labels';
 import { isPlaceholderName } from '@/utils/placeholder';
 import { searchFocusRequest } from '@/composables/searchFocus';
@@ -74,10 +74,11 @@ const allGroups = computed<ResultGroup[]>(() => {
   }
   const knownTypes = GROUP_ORDER.filter((t) => byType.has(t));
   const otherTypes = [...byType.keys()].filter((t) => !GROUP_ORDER.includes(t)).sort();
-  return [...knownTypes, ...otherTypes].map((type) => {
+  const built = [...knownTypes, ...otherTypes].map((type) => {
     const list = byType.get(type) ?? [];
     list.sort((a, b) => a.score - b.score || a.name.localeCompare(b.name));
     return {
+      best: list[0].score,
       type,
       label: labelForType(type),
       total: list.length,
@@ -85,6 +86,9 @@ const allGroups = computed<ResultGroup[]>(() => {
       overflow: Math.max(0, list.length - MAX_PER_GROUP),
     };
   });
+  // Groups are ordered by their best score (name/geo matches beat facet-label matches); the stable sort
+  // keeps GROUP_ORDER for ties, so "italy" lists Builders before the Yachts that only match a facet label.
+  return built.sort((a, b) => a.best - b.best).map(({ best: _best, ...g }) => g);
 });
 
 const groups = computed(() => (typeFilter.value ? allGroups.value.filter((g) => g.type === typeFilter.value) : allGroups.value));
@@ -201,7 +205,8 @@ interface NamePart {
 
 /** Splits `name` into [before, match, after] around the first query term that occurs in it. */
 function highlightParts(name: string, terms: string[]): NamePart[] {
-  const lower = name.toLowerCase();
+  const folded = fold(name); // terms are diacritic-folded; usable only when folding kept the length
+  const lower = folded.length === name.length ? folded : name.toLowerCase();
   const q = terms.find((t) => lower.includes(t)) ?? '';
   const idx = q ? lower.indexOf(q) : -1;
   if (idx === -1) return [{ text: name, match: false }];

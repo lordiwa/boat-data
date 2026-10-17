@@ -28,6 +28,12 @@ describe('global search benchmark (real graph)', () => {
     console.log(`search 3 tokens over ${index.length} nodes: ${ms.toFixed(2)} ms, ${hits.length} hits`);
     expect(hits.length).toBeGreaterThan(0);
     expect(ms).toBeLessThan(20);
+    const wall = parseQuery('a '.repeat(2500), store.searchVocab); // pasted wall of one-letter words: de-duplicated to one term
+    const w0 = performance.now();
+    searchEntries(index, wall);
+    const wallMs = performance.now() - w0;
+    console.log(`search 2500 one-letter words: ${wallMs.toFixed(2)} ms`);
+    expect(wallMs).toBeLessThan(20);
     await store.load(); // already loaded: must not rebuild
     expect(store.searchIndex).toBe(index);
   });

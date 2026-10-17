@@ -14,7 +14,9 @@ async function setup() {
   setActivePinia(pinia);
   const g = fixtureGraph();
   g.nodes.push({ id: 'b1', type: 'builder', name: 'Miami Yachtworks', attrs: {} });
-  g.indexes.by_type.builder = ['b1'];
+  g.nodes.push({ id: 'b2', type: 'builder', name: 'Cantieri Z', attrs: { geo: { country_code: 'IT', country: 'Italy', subdivision: null, city: null } } });
+  g.nodes.push({ id: 'y9', type: 'yacht', name: 'Sea Y', attrs: { facets: { builder_country: 'Italy' } } });
+  g.indexes.by_type.builder = ['b1', 'b2'];
   vi.stubGlobal('fetch', async () => ({ ok: true, json: async () => g }));
   await useGraphStore().load();
   const router = createRouter({ history: createMemoryHistory(), routes: [
@@ -49,6 +51,10 @@ describe('GlobalSearch', () => {
 
     await w.findAll('.global-search__chip').find((c) => c.text().startsWith('Marinas'))!.trigger('click');
     expect(w.findAll('[role="option"]').length).toBe(1);
+
+    // ranking: a geo match (Builders) outranks a facet-label match (Yachts), though Yachts come first in GROUP_ORDER
+    await type('italy');
+    expect(w.findAll('.global-search__group-header span:first-child').map((s) => s.text())).toEqual(['Builders', 'Yachts']);
 
     await type('zzzz');
     expect(w.get('[data-testid="search-live"]').text()).toBe('No matches for zzzz');

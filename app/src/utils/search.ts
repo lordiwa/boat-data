@@ -9,7 +9,10 @@
 //   country: / city: / subdivision: geography from attrs.geo only (never attrs.country)
 //   in:<place>                     matches any geo level
 //   <facetKey>:<value>             e.g. facility_category:dry stack, loa_band:60-90
+//   marinas miami | marinas: | marinas in miami   a plural type word first (or before a colon) is the type shorthand; "in" after it is in:
+//   a space after any recognised prefix colon is allowed ("type: marina", "city: miami").
 //   anything else (incl. unknown "foo:bar") is plain text matched against name, builder, geo and facet labels.
+//   Text is diacritic-folded ("malaga" finds Málaga); tokens split on any whitespace; plain terms are de-duplicated and capped.
 import type { GraphNode } from '@/types/graph';
 import { EXPLICIT_EMPTY_KEY, selectionToQuery, type FacetIndex, type FacetSelection } from '@/utils/facets';
 
@@ -52,11 +55,19 @@ export interface ParsedQuery {
 }
 
 export interface ScoredEntry extends SearchEntry {
-  /** 0 name starts with the text, 1 name contains it, 2 builder/geo match, 3 facet label only. */
+  /** 0 name starts with the text, 1 name contains it, 2 builder/geo match, 3 facet label only (lower ranks first). */
   score: number;
 }
 
-const lc = (v: unknown): string => (typeof v === 'string' ? v.trim().toLowerCase() : '');
+/** Diacritic-insensitive lowercase ("Málaga" -> "malaga"): NFD, strip combining marks, lowercase. Applied at index build and to the query. */
+export function fold(s: string): string {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+/** Plain terms kept per query (after de-duplication): a pasted wall of words must not cost O(words x nodes). */
+const MAX_TERMS = 16;
+
+const lc = (v: unknown): string => (typeof v === 'string' ? fold(v.trim()) : '');
 
 function addVocab(vocab: SearchVocab, key: string, value: string): void {
   if (!value) return;
@@ -74,8 +85,8 @@ export function buildSearchIndex(
   const entries: SearchEntry[] = [];
   for (const node of nodes) {
     vocab.types.add(node.type);
-    const nameLower = node.name.toLowerCase();
-    const extra = builderOf(node).toLowerCase();
+    const nameLower = fold(node.name);
+    const extra = fold(builderOf(node));
     const g = node.attrs.geo as { country_code?: unknown; country?: unknown; subdivision?: unknown; city?: unknown } | undefined;
     const hasGeo = !!g && typeof g === 'object' && typeof g.country === 'string' && typeof g.country_code === 'string';
     const geo = hasGeo
@@ -102,7 +113,7 @@ export function buildSearchIndex(
           if (item === true) out.push('true');
           else if (item === false) out.push('false');
           else if (typeof item === 'string' || typeof item === 'number') {
-            const s = String(item).trim().toLowerCase();
+            const s = fold(String(item).trim());
             if (s) out.push(s);
           }
         }
@@ -141,37 +152,75 @@ function singularType(v: string, vocab: SearchVocab): string {
   return !vocab.types.has(v) && v.endsWith('s') && vocab.types.has(v.slice(0, -1)) ? v.slice(0, -1) : v;
 }
 
+/** The prefix a "name:" token stands for (plural type words resolve to the type), or null. */
+function prefixName(name: string, vocab: SearchVocab): string | null {
+  if (isPrefixName(name, vocab)) return name;
+  const s = singularType(name, vocab);
+  return s !== name ? s : null;
+}
+
 /** Splits a query into prefix clauses and plain terms. Unknown prefixes stay plain text. */
 export function parseQuery(raw: string, vocab: SearchVocab): ParsedQuery {
-  const tokens = raw.toLowerCase().split(' ').filter(Boolean);
+  const tokens = fold(raw).split(/\s+/).filter(Boolean);
   const clauses: Clause[] = [];
+  const seenClauses = new Set<string>();
   const terms: string[] = [];
+  const seenTerms = new Set<string>();
+  const addTerm = (t: string): void => {
+    if (terms.length < MAX_TERMS && !seenTerms.has(t)) {
+      seenTerms.add(t);
+      terms.push(t);
+    }
+  };
+  const addClause = (c: Clause): void => {
+    const k = `${c.kind}:${'key' in c ? c.key : ''}:${c.value}`;
+    if (!seenClauses.has(k)) {
+      seenClauses.add(k);
+      clauses.push(c);
+    }
+  };
+  const isPrefixTok = (tok: string): boolean => {
+    const c = tok.indexOf(':');
+    return c > 0 && prefixName(tok.slice(0, c), vocab) !== null;
+  };
+  let afterType = false; // the previous token was a type word, so a bare "in" is the in: prefix
   for (let i = 0; i < tokens.length; i++) {
     const tok = tokens[i];
     const colon = tok.indexOf(':');
-    const name = colon > 0 ? tok.slice(0, colon) : '';
-    if (!name || !isPrefixName(name, vocab)) {
-      terms.push(tok);
-      continue;
+    let name = colon > 0 ? prefixName(tok.slice(0, colon), vocab) : null;
+    let first = name ? tok.slice(colon + 1) : '';
+    if (!name) {
+      if (colon < 0 && tok === 'in' && afterType && i + 1 < tokens.length) name = 'in';
+      else if (colon < 0 && i === 0 && singularType(tok, vocab) !== tok) {
+        addClause({ kind: 'type', value: singularType(tok, vocab) }); // "marinas miami"
+        afterType = true;
+        continue;
+      } else {
+        addTerm(tok);
+        afterType = false;
+        continue;
+      }
     }
-    const first = tok.slice(colon + 1);
     if (name === 'type') {
-      if (first) clauses.push({ kind: 'type', value: singularType(first, vocab) });
+      if (!first && i + 1 < tokens.length && !isPrefixTok(tokens[i + 1])) first = tokens[++i]; // "type: marina"
+      if (first) addClause({ kind: 'type', value: singularType(first, vocab) });
+      afterType = !!first;
       continue;
     }
     if (vocab.types.has(name) && !(GEO_PREFIXES as readonly string[]).includes(name) && !vocab.values.has(name)) {
-      clauses.push({ kind: 'type', value: name });
-      if (first) terms.push(first);
+      addClause({ kind: 'type', value: name });
+      if (first) addTerm(first);
+      afterType = true;
       continue;
     }
-    // geo / facet prefix: the value may span several words ("dry stack"), so absorb following
-    // plain words while they still lead to a known value of this key.
+    afterType = false;
+    // geo / facet prefix: the value may span several words ("dry stack") and may start after a space
+    // ("city: miami"), so absorb following plain words while they still lead to a known value of this key.
     const known = vocab.values.get(name);
     let value = first;
     while (known && i + 1 < tokens.length) {
       const next = tokens[i + 1];
-      const nc = next.indexOf(':');
-      if (nc > 0 && isPrefixName(next.slice(0, nc), vocab)) break;
+      if (isPrefixTok(next)) break;
       const cand = value ? `${value} ${next}` : next;
       let leads = false;
       for (const k of known) {
@@ -186,7 +235,7 @@ export function parseQuery(raw: string, vocab: SearchVocab): ParsedQuery {
     }
     if (!value) continue;
     const exact = !!known?.has(value);
-    clauses.push((GEO_PREFIXES as readonly string[]).includes(name) ? { kind: 'geo', key: name as 'in', value, exact } : { kind: 'facet', key: name, value, exact });
+    addClause((GEO_PREFIXES as readonly string[]).includes(name) ? { kind: 'geo', key: name as 'in', value, exact } : { kind: 'facet', key: name, value, exact });
   }
   return { clauses, terms };
 }
@@ -288,10 +337,10 @@ export function browseHref(parsed: ParsedQuery, facetIndexFor: (type: string) =>
     const byValue = index.facets.get(key);
     if (!byValue) return null;
     if (key === 'country') {
-      for (const [code, name] of index.countryNames) if (code.toLowerCase() === value || name.toLowerCase() === value) return code;
+      for (const [code, name] of index.countryNames) if (fold(code) === value || fold(name) === value) return code;
       return null;
     }
-    for (const v of byValue.keys()) if (v.toLowerCase() === value) return v;
+    for (const v of byValue.keys()) if (fold(v) === value) return v;
     return null;
   };
   for (const c of rest) {
@@ -302,7 +351,9 @@ export function browseHref(parsed: ParsedQuery, facetIndexFor: (type: string) =>
       if (hits.length !== 1) return null;
       [key, canonical] = hits[0] as [string, string];
     } else canonical = find(c.key, c.value);
-    if (canonical === null || key === EXPLICIT_EMPTY_KEY) return null;
+    if (canonical === null) return null;
+    // 'complete' doubles as the explicit-empty marker (complete=all): only a real boolean value may use it
+    if (key === EXPLICIT_EMPTY_KEY && !(index.booleanKeys.has(key) && (canonical === 'true' || canonical === 'false'))) return null;
     (selection[key] ??= []).includes(canonical) || selection[key].push(canonical);
     if (!order.includes(key)) order.push(key);
   }
