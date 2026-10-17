@@ -12,7 +12,7 @@
     "AC7: Precomputed facet indexes in the graph store; a benchmark-style unit test asserts filtering the real marina set with 5 active facets completes under 50 ms; CSV export exports exactly the filtered rows.",
     "AC8: 142 existing app tests still green plus new tests <= AC count unless justified; typecheck and build clean; app/public/data/graph.json untouched."
   ],
-  "status": "in_progress",
+  "status": "in_review",
   "priority": "high",
   "labels": [
     "taxonomy",
@@ -41,10 +41,15 @@
       "author": "orchestrator",
       "at": "2026-10-17T03:24:54.030Z",
       "body": "HUMAN APPROVAL recorded 2026-10-16: the human approved the 12-case use-case list (CU1-CU12, previous comment) verbatim (\"Aprobados, adelante\"), with developer dispatch authorized as soon as TASK-029 closes. Any change to a case goes back to the human. The same list is the UAT script (requires_uat=true)."
+    },
+    {
+      "author": "developer",
+      "at": "2026-10-17T04:05:24.367Z",
+      "body": "HAND-OFF (relayed by orchestrator). Commits df19586 feat(TASK-030) faceted-navigation engine, facet labels, per-type index in graph store; 503b1de feat(TASK-030) facet panel, active-filter chips and geo breadcrumbs in /browse/:type. Files: app/src/utils/facets.ts (engine), components/FacetPanel.vue, ActiveFilterChips.vue, EntityListView.vue, EntityView.vue, utils/labels.ts, stores/graph.ts, types/graph.ts; tests utils/__tests__/facets.spec.ts, components/__tests__/FacetPanel.spec.ts, views/__tests__/facetViews.spec.ts, __tests__/support/facetFixture.ts. Self-UAT via headless Chrome on the running :5180 server, all 12 CU pass: CU1/2 Florida+Dry stack = 1 marina, zero-count disabled visible; CU3 2 -> 148 -> 2; CU4 band buttons, Complete switch; CU5 URL restore, old /query link 164 results; CU6 deep link 281 Florida marinas with breadcrumb, Fort Lauderdale crumbs -> 22; CU7 238 -> 581, ?loa_band=60-90 no default chip; CU8 chip removal / Clear all -> 1,206 and clean URL; CU9 375 px \"Filters (1)\" drawer as dialog, focus trapped, Escape returns focus, no horizontal scroll; CU10 zzz ignored, no console error; CU11 CSV == filtered rows. Lighthouse accessibility 100 on /browse/marina, filtered URL and /browse/yacht (mobile emulation, drawer closed). Tests 150 = 142 + 8 (cap), each red-green planted with harm comment; benchmark < 50 ms (80 ms plant went red; elapsed not recorded). Behaviours: yacht empty selection writes ?complete=all so reload does not restore the default; vue-router encodes spaces as '+'; country accepts ISO code or exact name; commas in values escaped %2C; types without geo render country facet as a plain list. Reviewer: facet index is a plain Map cleared on each load; check drawer focus handling in FacetPanel.vue. Checklist: unspecced path (entities without geo, facet-less types) done; red-green all 8; dist n/a; parity n/a; calibration n/a (truncated, assumed)."
     }
   ],
   "created_at": "2026-10-17T02:56:03.650Z",
-  "updated_at": "2026-10-17T03:50:16.113Z",
+  "updated_at": "2026-10-17T04:05:24.474Z",
   "jira_key": null,
   "verification_tier": "tests-after",
   "requires_uat": true,

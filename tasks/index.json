@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T03:50:16.113Z",
+  "generated_at": "2026-10-17T04:11:57.838Z",
   "tasks": [
     {
       "key": "TASK-001",
@@ -178,7 +178,7 @@
     {
       "key": "TASK-030",
       "title": "Facet panel + navigable geography in /browse/:type (proposal step 4)",
-      "status": "in_progress",
+      "status": "in_review",
       "priority": "high"
     },
     {
@@ -197,6 +197,12 @@
       "key": "TASK-033",
       "title": "Facet debts from TASK-029 close-out (explorer subtype, negation guard, geo validation, name false positives)",
       "status": "todo",
+      "priority": "medium"
+    },
+    {
+      "key": "TASK-034",
+      "title": "Home becomes an about/landing page explaining DataYacht; Explore stays the browsing hub",
+      "status": "in_progress",
       "priority": "medium"
     }
   ]

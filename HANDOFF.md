@@ -1,3 +1,42 @@
+# HANDOFF — 2026-10-17 session snapshot (context-window pause before /clear)
+
+> **Authoritative for resume.** Supersedes the 2026-10-16 block below. On resume: read this block, then
+> `state/session.json` -> bundle `state/sessions/20260703T215207Z-c2ca4ce7/session.json` (active_task TASK-030,
+> next_action is current), then `tasks/TASK-030.json` and `tasks/TASK-034.json`.
+
+## Where things stand (all on branch main; origin/main is at d212a7c, later commits are LOCAL)
+- **TASK-027 CLOSED** (geo hierarchy country>subdivision>city, attrs.geo, meta.geo). **TASK-029 CLOSED** (per-type
+  attrs.facets + meta.facets; 3 fix rounds; closed via auditable exception only because one DEGRADED marker was too long).
+  Graph 4,789 nodes / 4,199 edges; ingest suite 41 files / 1060 tests (single-fork mode only); app 150 tests; score 7.73.
+- **Human decisions (2026-10-16/17):** UI English only; proposal bands; geography for all types first; route to prod =
+  TASK-030 + TASK-031 + TASK-032 then ONE Firebase deploy; push authorized (done at d212a7c); **Home must be a landing page
+  that explains the site; Explore is the clickable browsing hub** (TASK-034 rescoped, 8 use cases approved).
+- **IN FLIGHT when context was cut (subagents will NOT survive /clear — their chat results are lost unless already on the ticket):**
+  1. **TASK-030** (facet panel + navigable geography, requires_uat) — status in_review. Developer commits df19586, 503b1de
+     (150 app tests green, verified by orchestrator). A fresh-context **reviewer** and a **wargaming challenger** were running;
+     their verdicts were NOT yet recorded on the ticket. On resume: check tasks/TASK-030.json comments; if no reviewer
+     verdict comment exists, re-spawn the reviewer on `git diff 5d53697..503b1de` and the challenger (scratchpad
+     wargame-030 may hold partial probes). Then HUMAN UAT on http://localhost:5180 using CU1-CU12 (ticket comment), record
+     as author uat with per-step `Verdict: PASS` lines + `Overall result: PASS`, then close_task with PLANTILLA-ENTREGA body
+     (block 3 must name cases as CUn and paths camino principal/alternativo/fallo).
+  2. **TASK-034** (Home landing page; requires_uat) — status in_progress. Developer spawned against approved CU1-CU8;
+     check `git log` for commits touching app/src/views/HomeView.vue; if none, re-spawn with the briefing in the ticket
+     comments (pedido + CU list). Must not touch EntityListView.vue/FacetPanel.vue/facets.ts.
+- **Queued:** TASK-031 (query builder dropdowns from meta.facets), TASK-032 (search index + prefixes) — use cases NOT yet
+  derived/approved. Debts: TASK-028 (geo), TASK-033 (facets, incl. dry-stack notes-merge gap).
+- **Deploy when 030/031/032/034 are closed:** `cd app && npm run build && npx firebase deploy --only hosting --config ../firebase.json`, then `git push origin main`.
+
+## Process notes earned this session
+- close_task guards: closing body needs the 4 numbered PLANTILLA-ENTREGA blocks; block 3 must contain a case id like
+  `CU3` AND a path word (camino/alternativo/fallo); every `[FINDING-HIGH: id]` needs `[FINDING-RESOLVED: id]` or a
+  `[FINDING-DEGRADED: id — reason]` whose whole marker is under 500 chars with no `]` inside.
+- Wargaming challenger = general-purpose agent, 8 fixed rounds, real code on throwaway sqlite dbs / scratch vitest, no repo
+  writes; it found 2 HIGH on TASK-027 and 2 HIGH on TASK-029 that the reviewer missed. Keep doing it.
+- Never-guess facet rules now in facetVocabulary.js / facets.js header comments; filters must read attrs.geo, never attrs.country.
+- Ports 5173/5174 busy; dev server on 5180. .claude/settings.json is rewritten by the plugin hook each start — never commit it.
+
+---
+
 # HANDOFF — 2026-10-16 session snapshot (context-window pause before /clear)
 
 > **Authoritative for resume.** Everything below this block supersedes the older 2026-07-11

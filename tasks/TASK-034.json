@@ -1,0 +1,41 @@
+{
+  "key": "TASK-034",
+  "title": "Home becomes an about/landing page explaining DataYacht; Explore stays the browsing hub",
+  "description": "Human request 2026-10-17 (replaces the first reading of the request): \"home deberia ser otra cosa completamente: deberia explicar que es el sitio, y explore permitirte explorar\". Rebuild HomeView.vue as a landing page (English) that explains what DataYacht is and routes people to the tools; remove the StatCard grid from Home (it stays in Explore, where cards already link to /browse/:type). Sections: (1) Hero: name, one-sentence definition (an open, cross-linked knowledge graph of yachts, shipyards, marinas, clubs, people and engines), three CTAs: Explore (/explore), Search (focus the global search), Query builder (/query). (2) What is inside: one line of live figures from graph.json meta (node count, edge count, country count from meta.geo) and six text tiles (yachts, marinas, shipyards, builders, clubs, companies) each with its live count and one sentence on what data it carries. (3) How to use it: three steps linking to /explore (browse + facet filters by country/state/category), the search, and /query. (4) Where the data comes from: curated research corpus, automated ingestion, never-guess rule (empty beats invented), the complete-profile indicator, link to /accessibility. (5) Coverage: top five countries by entity count from meta.geo, each linking to /browse/marina?country=<iso2> (or the type with most nodes in that country). (6) Closing CTA Start exploring -> /explore. All figures computed from the loaded graph, never hard-coded; graceful loading and error states as today. Keep Lighthouse accessibility 100 and performance unaffected (no images heavier than inline SVG). Mobile first at 375 px.",
+  "acceptance_criteria": [
+    "AC1: / renders the six sections above with no StatCard grid; every figure (nodes, edges, countries, per-type counts, top-5 countries) is computed from the loaded graph and matches graph.json meta (unit test with a fixture graph).",
+    "AC2: Hero CTAs navigate to /explore and /query and focus the global search input; How-to steps and Coverage links navigate to the stated routes with the right query (component test).",
+    "AC3: Loading and error states render as before (no figures, no broken links); a node type absent from the graph is omitted from the tiles rather than shown as 0.",
+    "AC4: Explore is unchanged and its cards still link to /browse/:type; 150 existing app tests green plus at most 4 new; typecheck and build clean.",
+    "AC5: Lighthouse accessibility 100 on /; readable at 375 px with no horizontal scroll; headings in order (one h1); all links have descriptive text (UAT)."
+  ],
+  "status": "in_progress",
+  "priority": "medium",
+  "labels": [
+    "ui",
+    "vue",
+    "home"
+  ],
+  "assignee": null,
+  "depends_on": [],
+  "linked_commits": [],
+  "linked_prs": [],
+  "comments": [
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T04:10:50.162Z",
+      "body": "RESCOPED after human clarification 2026-10-17: \"home deberia ser otra cosa completamente: deberia explicar que es el sitio, y explore permitirte explorar\". The first use-case list (link the Home cards) is withdrawn. PEDIDO ESTRUCTURADO: 1. Objetivo: una portada que explique qué es DataYacht y lleve a las herramientas; Explore sigue siendo el hub de navegación. 2. Actor: visitante nuevo del sitio. 3. Problema: hoy Home repite la rejilla de Explore sin enlaces y no explica nada. 4. Caminos: principal: entrar en / -> leer qué es, ver cifras reales, pulsar Explore/Search/Query; alternativo: pulsar un país de Coverage -> lista filtrada; alternativo: móvil 375 px; fallo: grafo cargando o con error -> textos sin cifras ni enlaces rotos. 5. Hecho: AC1-AC5. 6. Restricciones: cifras siempre desde el grafo; inglés; a11y 100; sin imágenes pesadas. 7. Fuera de alcance: cambios en Explore, monetización, mapas.\nLISTA DE CASOS DE USO (pendiente de aprobación): CU1 entrar en / -> hero con definición y tres CTAs; ninguna tarjeta StatCard. CU2 sección What is inside muestra nodos/aristas/países y seis fichas con conteos iguales a meta de graph.json. CU3 pulsar Explore -> /explore; Query builder -> /query; Search -> el buscador global recibe el foco. CU4 How to use it: tres pasos enlazados. CU5 Coverage: top 5 países por entidades, cada uno abre /browse/<tipo>?country=<iso2> filtrado. CU6 estado cargando y estado de error: sin cifras ni enlaces rotos; un tipo ausente del grafo no aparece como 0. CU7 móvil 375 px sin scroll horizontal; un solo h1; Lighthouse a11y 100. CU8 Explore intacto; 150 tests + <= 4 nuevos verdes; build limpio."
+    },
+    {
+      "author": "orchestrator",
+      "at": "2026-10-17T04:11:57.765Z",
+      "body": "HUMAN APPROVAL recorded 2026-10-17: the human approved the rescoped Home structure and the 8-case list (CU1-CU8, previous comment) verbatim (\"Aprobados, adelante\"). Developer dispatch authorized. The same list is the UAT script (requires_uat=true)."
+    }
+  ],
+  "created_at": "2026-10-17T04:09:04.102Z",
+  "updated_at": "2026-10-17T04:11:57.838Z",
+  "jira_key": null,
+  "verification_tier": "tests-after",
+  "requires_uat": true,
+  "marker": "[EXPLICIT]"
+}
