@@ -58,6 +58,8 @@ describe('exportGraph — shape', () => {
       edge_count: 3,
       types: { builder: 1, region: 1, yacht: 2 },
       edge_types: { based_in: 1, built_by: 2 },
+      // 2026-10-16 TASK-027: meta.geo is always present; empty here (no resolved country/subdivision region nodes).
+      geo: { countries: [], subdivisions: [] },
     });
 
     expect(graph.nodes).toHaveLength(4);

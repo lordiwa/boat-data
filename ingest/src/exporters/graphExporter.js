@@ -144,6 +144,34 @@ function buildIndexes(nodeRecords) {
   return { by_type: orderedByType, name_to_id: orderedNameToId };
 }
 
+/**
+ * TASK-027: meta.geo — country and subdivision roll-ups for the UI. node_count
+ * is the number of NON-region nodes whose attrs.geo points at that country /
+ * subdivision. Sorted by node_count desc, then name, so output is deterministic.
+ */
+function buildGeoMeta(nodeRecords) {
+  const byCountry = new Map();
+  const bySub = new Map();
+  for (const n of nodeRecords) {
+    if (n.type === 'region' || !n.attrs.geo) continue;
+    const { country_code: cc, subdivision } = n.attrs.geo;
+    byCountry.set(cc, (byCountry.get(cc) || 0) + 1);
+    if (subdivision) bySub.set(`${cc}|${subdivision}`, (bySub.get(`${cc}|${subdivision}`) || 0) + 1);
+  }
+  const byCountThenName = (a, b) => b.node_count - a.node_count || a.name.localeCompare(b.name);
+  const countries = [];
+  const subdivisions = [];
+  for (const n of nodeRecords) {
+    if (n.type !== 'region') continue;
+    if (n.attrs.level === 'country') {
+      countries.push({ iso2: n.attrs.iso2, name: n.name, macro_region: n.attrs.macro_region, node_count: byCountry.get(n.attrs.iso2) || 0 });
+    } else if (n.attrs.level === 'subdivision') {
+      subdivisions.push({ name: n.name, country_code: n.attrs.iso2, node_count: bySub.get(`${n.attrs.iso2}|${n.name}`) || 0 });
+    }
+  }
+  return { countries: countries.sort(byCountThenName), subdivisions: subdivisions.sort(byCountThenName) };
+}
+
 function buildMeta({ generatedAt, nodeRecords, edgeRecords }) {
   return {
     generated_at: generatedAt,
@@ -151,6 +179,7 @@ function buildMeta({ generatedAt, nodeRecords, edgeRecords }) {
     edge_count: edgeRecords.length,
     types: countBy(nodeRecords, 'type'),
     edge_types: countBy(edgeRecords, 'rel'),
+    geo: buildGeoMeta(nodeRecords),
   };
 }
 

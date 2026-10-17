@@ -131,6 +131,7 @@ import { mapPersonEnrichmentTables, isPersonEnrichmentTable } from './mappers/pe
 import { applyGraphCleanup } from './mappers/graphCleanup.js';
 import { classifyYachtIdentifiability } from './mappers/identifiability.js';
 import { applyRegionCanonicalization } from './mappers/regionCanonicalization.js';
+import { applyRegionHierarchy } from './mappers/regionHierarchy.js';
 import { mintOligarchYachtNodes, linkOligarchYachtOwners } from './mappers/oligarchYachtMapper.js';
 import { ensureKnownPartBrandNodes, linkPartBrands } from './mappers/partBrandLinker.js';
 import { applyWebsiteHygiene } from './mappers/websiteHygiene.js';
@@ -635,11 +636,32 @@ export function runIngest() {
     // module header for the full ledger). Idempotent; safe on every run.
     applyRegionCanonicalization(db);
 
+    // TASK-027: geographic hierarchy (country > subdivision > city part_of
+    // tree + attrs.geo on every located_in/based_in node). Runs right after
+    // canonicalization so it sees the final region set, and before
+    // applyGraphCleanup() (which never renames or merges region nodes, so
+    // the tree stays consistent). Idempotent; see regionHierarchy.js.
+    const regionHierarchyResult = applyRegionHierarchy(db);
+    console.log(
+      `[ingest] region hierarchy: ${regionHierarchyResult.levels.country} countries, ` +
+        `${regionHierarchyResult.levels.subdivision} subdivisions, ${regionHierarchyResult.levels.city} cities, ` +
+        `${regionHierarchyResult.levels.unresolved} unresolved; ${regionHierarchyResult.geoStamped} nodes geo-stamped, ` +
+        `${regionHierarchyResult.disagreements.length} located_in/country disagreements`
+    );
+
     // TASK-019: graph cleanup — deliberately LAST, after every mapper/hook
     // above has had a chance to create or enrich a node (see
     // graphCleanup.js's own module header for the full merge/reclassify/
     // remove/flag ledger). Idempotent; safe to run on every ingest.
     applyGraphCleanup(db);
+
+    // TASK-027: second (idempotent) region-hierarchy pass. The first pass above
+    // is deliberately BEFORE cleanup so merges see a consistent region tree,
+    // but cleanup merges non-region nodes (e.g. builder:damen -> damen-yachting)
+    // and re-points their located_in edges, which would leave a merged node's
+    // attrs.geo stale. Re-stamping after cleanup keeps geo a pure function of
+    // the FINAL edges; it mints nothing (the tree already exists).
+    applyRegionHierarchy(db);
 
     // TASK-026 (Round 8), lane C hygiene: website normalization + absence-
     // sentinel clearing (see websiteHygiene.js's own module header) — runs

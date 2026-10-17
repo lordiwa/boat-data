@@ -403,7 +403,9 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
 
     const graph = JSON.parse(fs.readFileSync(tmpGraphJsonPath, 'utf8'));
     // 2026-10-16: 858 -> 937 — Florida city regions minted by knowledge/102-104.
-    expect(graph.meta.types.region).toBe(937);
+    // 2026-10-16 TASK-027: 937 -> 1070 — +133 = new country nodes (those not already region nodes) + new
+    // subdivision nodes minted by regionHierarchy.js; no city/prose region was added (AC6).
+    expect(graph.meta.types.region).toBe(1070);
   }, 30000);
 
   it('spot-check: exactly one West Palm Beach region node (the ", FL" variant never gets minted)', async () => {
@@ -553,8 +555,10 @@ describe('real corpus — region canonicalization (TASK-022)', () => {
     const regionCountSecond = dbSecond.prepare("SELECT COUNT(*) AS count FROM nodes WHERE type = 'region'").get().count;
     dbSecond.close();
 
-    expect(regionCountFirst).toBe(937); // 858 baseline + 79 Florida/Europe city regions from knowledge/102-104 (2026-10-16)
-    expect(regionCountSecond).toBe(937);
+    // 858 baseline + 79 Florida/Europe city regions from knowledge/102-104 (2026-10-16)
+    // + 133 country/subdivision nodes from regionHierarchy.js (2026-10-16 TASK-027) = 1070
+    expect(regionCountFirst).toBe(1070);
+    expect(regionCountSecond).toBe(1070);
   }, 40000);
 });
 
