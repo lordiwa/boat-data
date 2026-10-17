@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {
+      "id": "task-027",
+      "type": "task",
+      "ref": "tasks/TASK-027.json",
+      "label": "Geographic hierarchy (country > subdivision > city) + country alias normalization for all entity types"
+    }
+  ],
+  "edges": []
+}
