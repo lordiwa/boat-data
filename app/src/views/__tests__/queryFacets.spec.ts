@@ -61,9 +61,14 @@ describe('QueryView facet fields', () => {
       return m;
     };
     const ok = await restore('f=cat_facility_category.in.dry+stack,zzz');
+    expect(ok.vm.$route.query.f).toEqual(['cat_facility_category.in.dry stack']);
     const selected = ok.find('select[multiple]').findAll('option').filter((o) => (o.element as HTMLOptionElement).selected);
     expect(selected.map((o) => o.text())).toEqual(['Dry stack (2)']);
     expect(ok.find('.query-view__describe').text()).toBe('Showing marinas where Facility type is Dry stack.');
+    // ISO codes the engine matches (geo.country_code) must survive the prune, as typed.
+    const iso = await restore('f=geo_country.in.US');
+    expect(iso.findAll('tbody tr')).toHaveLength(3);
+    expect([iso.vm.$route.query.f].flat()).toEqual(['geo_country.in.US']);
     const none = await restore('f=cat_facility_category.in.zzz&f=cat_constructor.in.x');
     expect(none.find('select[multiple]').exists()).toBe(false);
     expect(none.find('.query-view__describe').text()).toBe('Showing all marinas.');

@@ -310,7 +310,11 @@ function pruneFacetDrafts() {
     const info = facetInfo(d);
     if (!info) return false;
     const known = new Set(info.options.map((o) => o.value));
-    d.values = d.values.filter((v) => known.has(v));
+    // The engine also matches geo.country_code, so a hand-typed ISO code (US) is as valid as the country name.
+    if (info.group === 'geo' && info.key === 'country') {
+      for (const code of graph.facetIndex(selectedType.value).countryNames.keys()) known.add(code);
+    }
+    d.values = d.values.filter((v) => known.has(v) || (info.group === 'geo' && info.key === 'country' && known.has(v.toUpperCase())));
     return d.values.length > 0;
   });
 }
